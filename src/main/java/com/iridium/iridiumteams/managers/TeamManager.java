@@ -2,23 +2,22 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
-public class TeamManager<T extends Team, U extends IridiumUser<T>> {
+public interface TeamManager<T extends Team, U extends IridiumUser<T>> {
 
-    public Optional<T> getTeamViaID(int id) {
-        return Optional.empty();
-    }
+    Optional<T> getTeamViaID(int id);
 
-    public Optional<T> getTeamViaName(String name) {
-        return Optional.empty();
-    }
+    Optional<T> getTeamViaName(String name);
 
-    public List<U> getFactionMembers(T team) {
-        return Collections.emptyList();
-    }
+    List<U> getTeamMembers(T team);
+
+    CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name);
+
 
 }

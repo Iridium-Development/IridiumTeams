@@ -1,0 +1,11 @@
+name: IridiumTest
+version: ${version}
+description: Iridium Test
+main: com.iridium.testplugin.TestPlugin
+api-version: '1.13'
+author: Peaches_MLG
+depend: [ Vault ]
+commands:
+  iridiumtest:
+    aliases: [ "test", "t" ]
+    description: Main plugin command

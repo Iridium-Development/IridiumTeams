@@ -1,22 +1,20 @@
 package com.iridium.iridiumteams;
 
+import com.iridium.iridiumcore.IridiumCore;
+import com.iridium.iridiumteams.configs.Configuration;
+import com.iridium.iridiumteams.configs.Messages;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 
-@Getter
-public class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends JavaPlugin {
-
-    private static IridiumTeams instance;
-    private TeamManager<T, U> teamManager;
+public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends IridiumCore {
 
     public IridiumTeams(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
@@ -32,10 +30,6 @@ public class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends Java
 
     @Override
     public void onEnable() {
-
-        this.teamManager = new TeamManager<>();
-
-
         registerListeners();
         getLogger().info("-------------------------------");
         getLogger().info("");
@@ -55,6 +49,14 @@ public class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends Java
         getLogger().info("-------------------------------");
     }
 
+    public abstract TeamManager<T, U> getTeamManager();
+
+    public abstract IridiumUserManager<T, U> getUserManager();
+
+    public abstract Configuration getConfiguration();
+
+    public abstract Messages getMessages();
+
     public void registerListeners() {
 
     }
@@ -69,10 +71,6 @@ public class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends Java
 
     public void saveConfigs() {
 
-    }
-
-    public static IridiumTeams getInstance() {
-        return instance;
     }
 
 }
