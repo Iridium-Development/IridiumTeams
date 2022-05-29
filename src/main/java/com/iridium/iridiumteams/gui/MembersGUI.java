@@ -46,6 +46,7 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     public ItemStack getItemStack(U user) {
         return ItemStackUtils.makeItem(iridiumTeams.getInventories().membersGUI.item, Arrays.asList(
                 new Placeholder("player_name", user.getName()),
+                new Placeholder("player_rank", iridiumTeams.getConfiguration().userRank.getOrDefault(user.getUserRank(), "N/A")),
                 new Placeholder("player_join", user.getJoinTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat)))
         ));
     }

@@ -24,6 +24,8 @@ public class IridiumUser<T extends Team> {
     @Setter(AccessLevel.PRIVATE)
     @DatabaseField(columnName = "team_id", canBeNull = false)
     private int teamID;
+    @DatabaseField(columnName = "user_rank", canBeNull = false)
+    private int userRank;
 
     @DatabaseField(columnName = "join_time")
     private LocalDateTime joinTime;
@@ -33,6 +35,7 @@ public class IridiumUser<T extends Team> {
     public void setTeam(T t) {
         setJoinTime(LocalDateTime.now());
         teamID = t.getId();
+        userRank = 0;
     }
 
     public Player getPlayer() {
