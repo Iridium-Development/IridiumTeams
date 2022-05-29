@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.commands.AboutCommand;
 import com.iridium.iridiumteams.commands.Command;
 import com.iridium.iridiumteams.commands.CreateCommand;
+import com.iridium.iridiumteams.commands.MembersCommand;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandExecutor;
@@ -34,6 +35,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         commands.forEach(this::registerCommand);
         registerCommand(new AboutCommand<>(color));
         registerCommand(new CreateCommand<>());
+        registerCommand(new MembersCommand<>());
     }
 
     public void registerCommand(Command<T, U> command) {

@@ -2,6 +2,7 @@ package com.iridium.iridiumteams;
 
 import com.iridium.iridiumcore.IridiumCore;
 import com.iridium.iridiumteams.configs.Configuration;
+import com.iridium.iridiumteams.configs.Inventories;
 import com.iridium.iridiumteams.configs.Messages;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -30,7 +31,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     @Override
     public void onEnable() {
-        registerListeners();
+        super.onEnable();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -56,6 +57,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Configuration getConfiguration();
 
     public abstract Messages getMessages();
+
+    public abstract Inventories getInventories();
 
     public void registerListeners() {
 

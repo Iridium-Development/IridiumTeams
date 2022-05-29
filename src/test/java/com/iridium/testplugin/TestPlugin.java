@@ -2,9 +2,8 @@ package com.iridium.testplugin;
 
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.configs.Configuration;
+import com.iridium.iridiumteams.configs.Inventories;
 import com.iridium.iridiumteams.configs.Messages;
-import com.iridium.iridiumteams.database.IridiumUser;
-import com.iridium.iridiumteams.database.Team;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
 import com.iridium.testplugin.managers.UserManager;
@@ -14,7 +13,7 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 import java.io.File;
 import java.util.Collections;
 
-public class TestPlugin extends IridiumTeams<Team, IridiumUser<Team>> {
+public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private static TestPlugin instance;
     private TeamManager teamManager;
     private UserManager userManager;
@@ -48,12 +47,17 @@ public class TestPlugin extends IridiumTeams<Team, IridiumUser<Team>> {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return new Configuration();
     }
 
     @Override
     public Messages getMessages() {
-        return null;
+        return new Messages();
+    }
+
+    @Override
+    public Inventories getInventories() {
+        return new Inventories();
     }
 
     public static TestPlugin getInstance() {

@@ -39,7 +39,7 @@ public abstract class Command<T extends Team, U extends IridiumUser<T>> {
             );
             return;
         }
-        execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) sender), arguments, iridiumTeams);
+        execute((U) iridiumTeams.getUserManager().getUser((OfflinePlayer) sender), arguments, iridiumTeams);
     }
 
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {

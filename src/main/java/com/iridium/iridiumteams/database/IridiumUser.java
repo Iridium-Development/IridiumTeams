@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -25,9 +26,12 @@ public class IridiumUser<T extends Team> {
     private int teamID;
 
     @DatabaseField(columnName = "join_time")
-    private long joinTime;
+    private LocalDateTime joinTime;
+
+    private boolean bypassing;
 
     public void setTeam(T t) {
+        setJoinTime(LocalDateTime.now());
         teamID = t.getId();
     }
 
