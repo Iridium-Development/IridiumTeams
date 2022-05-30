@@ -24,10 +24,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException;
 
+    public abstract void deleteTeam(Team team, U user);
+
     public int getUserRank(T team, U user) {
         if (user.getTeamID() == team.getId()) return user.getUserRank();
         // if they are not in the same team, they are a visitor
-        return -1;
+        return -2;
     }
 
     public abstract boolean getTeamPermission(Team team, int rank, String permission);
@@ -53,4 +55,5 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void createTeamInvite(T team, U user, U invitee);
 
     public abstract void deleteTeamInvite(TeamInvite teamInvite);
+
 }

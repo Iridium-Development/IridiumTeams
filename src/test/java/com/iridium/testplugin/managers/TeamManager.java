@@ -59,6 +59,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public void deleteTeam(Team team, User user) {
+        teams.remove(team);
+    }
+
+    @Override
     public boolean getTeamPermission(Team team, int rank, String permission) {
         return teamPermissions.stream()
                 .filter(teamPermission -> teamPermission.getTeamID() == team.getId() && teamPermission.getPermission().equals(permission))

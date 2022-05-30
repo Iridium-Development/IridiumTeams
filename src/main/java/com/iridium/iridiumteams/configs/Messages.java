@@ -22,6 +22,7 @@ public class Messages {
     public String cannotChangePermissions = "%prefix% &7You cannot change this permission.";
     public String cannotInvite = "%prefix% &7You cannot invite players to the Team.";
     public String cannotKick = "%prefix% &7You cannot kick players from the Team.";
+    public String cannotDeleteTeam = "%prefix% &7Only the Team owner can delete the team";
     public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
     public String invalidPermission = "%prefix% &7Permission doesn't exist.";
     public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";

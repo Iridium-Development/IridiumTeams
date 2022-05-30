@@ -5,6 +5,7 @@ import com.iridium.iridiumcore.Background;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.iridium.iridiumteams.configs.inventories.ConfirmationInventoryConfig;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.configs.inventories.SingleItemGUI;
 
@@ -41,6 +42,8 @@ public class Inventories {
     )));
     public NoItemGUI ranksGUI = new NoItemGUI(27, "&7Team Permissions", background1);
     public NoItemGUI permissionsGUI = new NoItemGUI(54, "&7Team Permissions", background1);
+
+    public ConfirmationInventoryConfig confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, "&c&lNo", Collections.emptyList()));
 
     public Item nextPage = new Item(XMaterial.LIME_STAINED_GLASS_PANE, 1, "&a&lNext Page", Collections.emptyList());
     public Item previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, "&c&lPrevious Page", Collections.emptyList());
