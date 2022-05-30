@@ -1,5 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
+import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -20,7 +21,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract List<U> getTeamMembers(T team);
 
-    public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name);
+    public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException;
 
     public int getUserRank(T team, U user) {
         if (user.getTeamID() == team.getId()) return user.getUserRank();

@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -34,9 +35,13 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction ->
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)))
-        );
+        try {
+            iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction ->
+                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)))
+            );
+        }catch (CreateCancelledException ignored){
+            //The create command has been cancelled, ignore
+        }
     }
 
     @Override
