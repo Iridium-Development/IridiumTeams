@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.commands.*;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.Getter;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -16,18 +17,21 @@ import java.util.stream.Collectors;
 
 public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
 
+    @Getter
     private final List<Command<T, U>> commands = new ArrayList<>();
+    @Getter
+    private final String command;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public CommandManager(IridiumTeams<T, U> iridiumTeams, String color, String command, List<Command<T, U>> commands) {
+    public CommandManager(IridiumTeams<T, U> iridiumTeams, String color, String command) {
         this.iridiumTeams = iridiumTeams;
+        this.command = command;
         iridiumTeams.getCommand(command).setExecutor(this);
         iridiumTeams.getCommand(command).setTabCompleter(this);
-        registerCommands(commands, color);
+        registerCommands(color);
     }
 
-    public void registerCommands(List<Command<T, U>> commands, String color) {
-        commands.forEach(this::registerCommand);
+    public void registerCommands(String color) {
         registerCommand(new AboutCommand<>(color));
         registerCommand(new CreateCommand<>());
         registerCommand(new MembersCommand<>());
@@ -35,6 +39,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(new SetPermissionCommand<>());
         registerCommand(new PromoteCommand<>());
         registerCommand(new DemoteCommand<>());
+        registerCommand(new HelpCommand<>());
     }
 
     public void registerCommand(Command<T, U> command) {

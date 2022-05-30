@@ -12,7 +12,6 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
-import java.util.Collections;
 
 public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private static TestPlugin instance;
@@ -33,7 +32,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.teamManager = new TeamManager();
         this.userManager = new UserManager();
 
-        this.commandManager = new CommandManager(this, "&c", "iridiumtest", Collections.emptyList());
+        this.commandManager = new CommandManager(this, "&c", "iridiumtest");
     }
 
     @Override
@@ -44,6 +43,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public UserManager getUserManager() {
         return userManager;
+    }
+
+    @Override
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     @Override

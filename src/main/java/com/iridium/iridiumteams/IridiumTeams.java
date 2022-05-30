@@ -7,6 +7,7 @@ import com.iridium.iridiumteams.configs.Messages;
 import com.iridium.iridiumteams.configs.Permissions;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
 import lombok.Getter;
@@ -62,6 +63,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract TeamManager<T, U> getTeamManager();
 
     public abstract IridiumUserManager<T, U> getUserManager();
+
+    public abstract CommandManager<T, U> getCommandManager();
 
     public abstract Configuration getConfiguration();
 
