@@ -41,6 +41,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(new DemoteCommand<>());
         registerCommand(new HelpCommand<>());
         registerCommand(new ReloadCommand<>());
+        registerCommand(new InviteCommand<>());
     }
 
     public void registerCommand(Command<T, U> command) {

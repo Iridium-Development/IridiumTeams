@@ -1,6 +1,7 @@
 package com.iridium.testplugin.managers;
 
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamPermission;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
@@ -19,10 +20,12 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     public static List<TestTeam> teams;
     public static List<TeamPermission> teamPermissions;
+    public static List<TeamInvite> teamInvites;
 
     public TeamManager() {
         teams = new ArrayList<>();
         teamPermissions = new ArrayList<>();
+        teamInvites = new ArrayList<>();
     }
 
     @Override
@@ -74,5 +77,25 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         } else {
             teamPermissions.add(new TeamPermission(team, permission, rank, allowed));
         }
+    }
+
+    @Override
+    public Optional<TeamInvite> getTeamInvite(TestTeam team, User user) {
+        return teamInvites.stream()
+                .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
+                .filter(teamInvite -> teamInvite.getUser() == user.getUuid())
+                .findFirst();
+    }
+
+    @Override
+    public List<TeamInvite> getTeamInvites(TestTeam team) {
+        return teamInvites.stream()
+                .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createTeamInvite(TestTeam team, User user, User invitee) {
+        teamInvites.add(new TeamInvite(team, user.getUuid(), invitee.getUuid()));
     }
 }

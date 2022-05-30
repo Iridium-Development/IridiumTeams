@@ -20,6 +20,7 @@ public class Messages {
     public String teamCreated = "%prefix% &7You have created a team!";
     public String dontHaveTeam = "%prefix% &7You dont have a team.";
     public String cannotChangePermissions = "%prefix% &7You cannot change this permission.";
+    public String cannotInvite = "%prefix% &7You cannot invite players to the Faction.";
     public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
     public String invalidPermission = "%prefix% &7Permission doesn't exist.";
     public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
@@ -30,4 +31,8 @@ public class Messages {
     public String userPromotedPlayer = "%prefix% &7%promoter% has promoted %player% to %rank%.";
     public String demotedPlayer = "%prefix% &7You have demoted %player% to %rank%.";
     public String userDemotedPlayer = "%prefix% &7%demoter% has demoted %player% to %rank%.";
+    public String userAlreadyInTeam = "%prefix% &7That user is already a member of your team";
+    public String inviteAlreadyPresent = "%prefix% &7There is already an active invite for that user.";
+    public String teamInviteSent = "%prefix% &7You have sent a team invite to %player%.";
+    public String teamInviteReceived = "%prefix% &7You have received a team invite from %player%.";
 }

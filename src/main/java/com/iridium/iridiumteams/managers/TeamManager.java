@@ -4,6 +4,7 @@ import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamInvite;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -44,4 +45,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public boolean getTeamPermission(Location location, U user, String permission) {
         return getTeamViaLocation(location).map(team -> getTeamPermission(team, user, permission)).orElse(true);
     }
+
+    public abstract Optional<TeamInvite> getTeamInvite(T team, U user);
+
+    public abstract List<TeamInvite> getTeamInvites(T team);
+
+    public abstract void createTeamInvite(T team, U user, U invitee);
 }
