@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
 
@@ -32,6 +33,8 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(new MembersCommand<>());
         registerCommand(new PermissionsCommand<>());
         registerCommand(new SetPermissionCommand<>());
+        registerCommand(new PromoteCommand<>());
+        registerCommand(new DemoteCommand<>());
     }
 
     public void registerCommand(Command<T, U> command) {
@@ -74,9 +77,27 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
 
     public abstract void noArgsDefault(@NotNull CommandSender commandSender);
 
+    private List<String> getTabComplete(CommandSender commandSender, String[] args) {
+        for (Command<T, U> command : commands) {
+            if (command.aliases.contains(args[0]) && (
+                    commandSender.hasPermission(command.permission) || command.permission.equalsIgnoreCase("")
+                            || command.permission.equalsIgnoreCase("IridiumFactions."))) {
+                return command.onTabComplete(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);
+            }
+        }
+
+        // We currently don't want to tab-completion here
+        // Return a new List so it isn't a list of online players
+        return Collections.emptyList();
+    }
+
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String alias, @NotNull String[] args) {
-        return null;
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, org.bukkit.command.@NotNull Command cmd, @NotNull String label, String[] args) {
+        List<String> tabComplete = getTabComplete(commandSender, args);
+        if (tabComplete == null) return null;
+        return tabComplete.stream()
+                .filter(s -> s.toLowerCase().startsWith(args[args.length - 1]))
+                .collect(Collectors.toList());
     }
 }

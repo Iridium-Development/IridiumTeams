@@ -23,4 +23,11 @@ public class Messages {
     public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
     public String invalidPermission = "%prefix% &7Permission doesn't exist.";
     public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
+    public String userNotInYourTeam = "%prefix% &7That user is not in your team.";
+    public String cannotPromoteUser = "%prefix% &7You cannot promote this User";
+    public String cannotDemoteUser = "%prefix% &7You cannot demote this User";
+    public String promotedPlayer = "%prefix% &7You have promoted %player% to %rank%.";
+    public String userPromotedPlayer = "%prefix% &7%promoter% has promoted %player% to %rank%.";
+    public String demotedPlayer = "%prefix% &7You have demoted %player% to %rank%.";
+    public String userDemotedPlayer = "%prefix% &7%demoter% has demoted %player% to %rank%.";
 }
