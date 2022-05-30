@@ -1,0 +1,68 @@
+package com.iridium.iridiumteams.commands;
+
+import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.database.IridiumUser;
+import com.iridium.iridiumteams.database.Team;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
+
+    public KickCommand() {
+        super(Collections.singletonList("kick"), "Kick a member from your team", "%prefix% &7/team kick <player>", "");
+    }
+
+    @Override
+    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+        Player player = user.getPlayer();
+        if (args.length != 1) {
+            player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            return;
+        }
+        if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.KICK)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKick
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        U kickedPlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
+        if (team.getId() != kickedPlayer.getTeamID()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        if (kickedPlayer.getUserRank() >= user.getUserRank() && !user.isBypassing()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickHigherRank
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        kickedPlayer.setTeam(null);
+        kickedPlayer.getPlayer().sendMessage(StringUtils.color(iridiumTeams.getMessages().youHaveBeenKicked
+                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                .replace("%player%", player.getName())
+        ));
+        iridiumTeams.getTeamManager().getTeamMembers(team).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(player1 ->
+                player1.sendMessage(StringUtils.color(iridiumTeams.getMessages().playerKicked
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                        .replace("%player%", kickedPlayer.getName())
+                        .replace("%kicker%", player.getName())
+                ))
+        );
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
+        return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+}

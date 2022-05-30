@@ -35,8 +35,8 @@ public class IridiumUser<T extends Team> {
     private boolean bypassing;
 
     public void setTeam(T t) {
+        this.teamID = t == null ? 0 : t.getId();
         setJoinTime(LocalDateTime.now());
-        teamID = t.getId();
         userRank = 1;
     }
 
