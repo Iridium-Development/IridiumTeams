@@ -35,6 +35,10 @@ public class Inventories {
             "&c&l[!] &7Left click to demote/kick"
     )));
 
+    public SingleItemGUI invitesGUI = new SingleItemGUI(0, "&7Team Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
+            "",
+            "&c&l[!] &7Left click to uninvite"
+    )));
     public NoItemGUI ranksGUI = new NoItemGUI(27, "&7Team Permissions", background1);
     public NoItemGUI permissionsGUI = new NoItemGUI(54, "&7Team Permissions", background1);
 
