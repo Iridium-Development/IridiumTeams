@@ -41,4 +41,6 @@ public class Messages {
     public String youHaveBeenKicked = "%prefix% &7You have been kicked from your Team by %player%";
     public String playerKicked = "%prefix% &7%player% has been kicked from your Team by %kicker%";
     public String cannotKickHigherRank = "%prefix% &7You cannot kick somone with a higher rank than you.";
+    public String leftTeam = "%prefix% &7You have left the team %name%.";
+    public String userLeftTeam = "%prefix% &7%player% has left your team.";
 }
