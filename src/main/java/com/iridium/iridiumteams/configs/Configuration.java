@@ -11,6 +11,8 @@ import java.util.Map;
 public class Configuration {
     public String prefix = "&c&lIridiumTeams &8»";
     public String dateTimeFormat = "EEEE, MMMM dd HH:mm:ss";
+    public int minTeamNameLength = 3;
+    public int maxTeamNameLength = 20;
 
     public Map<Integer, UserRank> userRanks = new ImmutableMap.Builder<Integer, UserRank>()
             .put(1, new UserRank("Member", new Item(XMaterial.STONE_AXE, 12, 1, "&b&lMember", Collections.emptyList())))

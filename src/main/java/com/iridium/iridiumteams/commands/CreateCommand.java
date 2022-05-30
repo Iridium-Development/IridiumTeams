@@ -31,6 +31,18 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
         }
 
         String factionName = String.join(" ", Arrays.copyOfRange(args, 0, args.length));
+        if (factionName.length() < iridiumTeams.getConfiguration().minTeamNameLength) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooShort
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        if (factionName.length() > iridiumTeams.getConfiguration().maxTeamNameLength) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooLong
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
         if (iridiumTeams.getTeamManager().getTeamViaName(factionName).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
@@ -39,7 +51,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction ->
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)))
             );
-        }catch (CreateCancelledException ignored){
+        } catch (CreateCancelledException ignored) {
             //The create command has been cancelled, ignore
         }
     }

@@ -47,6 +47,26 @@ class CreateCommandTest {
     }
 
     @Test
+    public void executeCreateCommandTeamNameTooShort() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        serverMock.dispatchCommand(playerMock, "test create a");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameTooShort
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeCreateCommandTeamNameTooLong() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        serverMock.dispatchCommand(playerMock, "test create areallyreallylongteamname");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameTooLong
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
     public void executeCreateCommandTeamNameTaken() {
         new TeamBuilder("test").build();
         PlayerMock playerMock = new UserBuilder(serverMock).build();
