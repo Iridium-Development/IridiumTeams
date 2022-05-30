@@ -23,7 +23,7 @@ public class MembersCommand<T extends Team, U extends IridiumUser<T>> extends Co
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String label, String[] args) {
+    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         // We currently don't want to tab-completion here
         // Return a new List, so it isn't a list of online players
         return Collections.emptyList();

@@ -2,10 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.commands.AboutCommand;
-import com.iridium.iridiumteams.commands.Command;
-import com.iridium.iridiumteams.commands.CreateCommand;
-import com.iridium.iridiumteams.commands.MembersCommand;
+import com.iridium.iridiumteams.commands.*;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandExecutor;
@@ -14,10 +11,7 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
 
@@ -36,6 +30,8 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(new AboutCommand<>(color));
         registerCommand(new CreateCommand<>());
         registerCommand(new MembersCommand<>());
+        registerCommand(new PermissionsCommand<>());
+        registerCommand(new SetPermissionCommand<>());
     }
 
     public void registerCommand(Command<T, U> command) {
@@ -67,7 +63,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
                 return false;
             }
 
-            command.execute(commandSender, args, iridiumTeams);
+            command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);
             return true;
         }
 

@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams.database;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@DatabaseTable(tableName = "users")
 public class IridiumUser<T extends Team> {
 
     @DatabaseField(columnName = "uuid", canBeNull = false, id = true)
@@ -35,7 +37,7 @@ public class IridiumUser<T extends Team> {
     public void setTeam(T t) {
         setJoinTime(LocalDateTime.now());
         teamID = t.getId();
-        userRank = 0;
+        userRank = 1;
     }
 
     public Player getPlayer() {

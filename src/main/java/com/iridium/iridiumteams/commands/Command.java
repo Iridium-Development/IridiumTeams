@@ -39,7 +39,7 @@ public abstract class Command<T extends Team, U extends IridiumUser<T>> {
             );
             return;
         }
-        execute((U) iridiumTeams.getUserManager().getUser((OfflinePlayer) sender), arguments, iridiumTeams);
+        execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) sender), arguments, iridiumTeams);
     }
 
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
@@ -56,15 +56,6 @@ public abstract class Command<T extends Team, U extends IridiumUser<T>> {
     public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
     }
 
-    /**
-     * Handles tab-completion for this command.
-     *
-     * @param commandSender The CommandSender which tries to tab-complete
-     * @param command       The command
-     * @param label         The label of the command
-     * @param args          The arguments already provided by the sender
-     * @return The list of tab completions for this command
-     */
-    public abstract List<String> onTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String label, String[] args);
+    public abstract List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams);
 
 }

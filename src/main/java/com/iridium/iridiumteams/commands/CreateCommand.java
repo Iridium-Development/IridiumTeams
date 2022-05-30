@@ -20,7 +20,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if (args.length < 2) {
+        if (args.length < 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
@@ -29,7 +29,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
 
-        String factionName = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        String factionName = String.join(" ", Arrays.copyOfRange(args, 0, args.length));
         if (iridiumTeams.getTeamManager().getTeamViaName(factionName).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
@@ -40,7 +40,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String label, String[] args) {
+    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         // We currently don't want to tab-completion here
         // Return a new List, so it isn't a list of online players
         return Collections.emptyList();

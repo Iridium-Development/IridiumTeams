@@ -1,8 +1,11 @@
 package com.iridium.testplugin.managers;
 
+import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamPermission;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,12 +15,14 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-public class TeamManager implements com.iridium.iridiumteams.managers.TeamManager<TestTeam, User> {
+public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<TestTeam, User> {
 
     public static List<TestTeam> teams;
+    public static List<TeamPermission> teamPermissions;
 
-    public TeamManager(){
+    public TeamManager() {
         teams = new ArrayList<>();
+        teamPermissions = new ArrayList<>();
     }
 
     @Override
@@ -28,6 +33,11 @@ public class TeamManager implements com.iridium.iridiumteams.managers.TeamManage
     @Override
     public Optional<TestTeam> getTeamViaName(String name) {
         return teams.stream().filter(testTeam -> testTeam.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public Optional<TestTeam> getTeamViaLocation(Location location) {
+        return Optional.empty();
     }
 
     @Override
@@ -43,5 +53,26 @@ public class TeamManager implements com.iridium.iridiumteams.managers.TeamManage
         user.setTeam(testTeam);
         teams.add(testTeam);
         return CompletableFuture.completedFuture(testTeam);
+    }
+
+    @Override
+    public boolean getTeamPermission(Team team, int rank, String permission) {
+        return teamPermissions.stream()
+                .filter(teamPermission -> teamPermission.getTeamID() == team.getId() && teamPermission.getPermission().equals(permission))
+                .findFirst()
+                .map(TeamPermission::isAllowed)
+                .orElse(TestPlugin.getInstance().getPermissionList().get(permission).getDefaultRank() <= rank);
+    }
+
+    @Override
+    public void setTeamPermission(Team team, int rank, String permission, boolean allowed) {
+        Optional<TeamPermission> teamPermission = teamPermissions.stream()
+                .filter(perm -> perm.getTeamID() == team.getId() && perm.getPermission().equals(permission))
+                .findFirst();
+        if (teamPermission.isPresent()) {
+            teamPermission.get().setAllowed(allowed);
+        } else {
+            teamPermissions.add(new TeamPermission(team, permission, rank, allowed));
+        }
     }
 }

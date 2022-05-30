@@ -5,6 +5,7 @@ import com.iridium.iridiumcore.Background;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.configs.inventories.SingleItemGUI;
 
 import java.util.Arrays;
@@ -33,6 +34,9 @@ public class Inventories {
             "&c&l[!] &7Right Click to promote",
             "&c&l[!] &7Left click to demote/kick"
     )));
+
+    public NoItemGUI ranksGUI = new NoItemGUI(27, "&7Team Permissions", background1);
+    public NoItemGUI permissionsGUI = new NoItemGUI(54, "&7Team Permissions", background1);
 
     public Item nextPage = new Item(XMaterial.LIME_STAINED_GLASS_PANE, 1, "&a&lNext Page", Collections.emptyList());
     public Item previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, "&c&lPrevious Page", Collections.emptyList());

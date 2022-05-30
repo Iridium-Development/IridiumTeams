@@ -5,6 +5,7 @@ import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.UserRank;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -46,7 +47,7 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     public ItemStack getItemStack(U user) {
         return ItemStackUtils.makeItem(iridiumTeams.getInventories().membersGUI.item, Arrays.asList(
                 new Placeholder("player_name", user.getName()),
-                new Placeholder("player_rank", iridiumTeams.getConfiguration().userRank.getOrDefault(user.getUserRank(), "N/A")),
+                new Placeholder("player_rank", iridiumTeams.getConfiguration().userRanks.getOrDefault(user.getUserRank(), new UserRank("N/A", null)).name),
                 new Placeholder("player_join", user.getJoinTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat)))
         ));
     }

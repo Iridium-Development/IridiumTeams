@@ -19,4 +19,8 @@ public class Messages {
     public String teamNameTooLong = "%prefix% &7This team name is too long. It must be at most %max_length% characters long.";
     public String teamCreated = "%prefix% &7You have created a team!";
     public String dontHaveTeam = "%prefix% &7You dont have a team.";
+    public String cannotChangePermissions = "%prefix% &7You cannot change this permission.";
+    public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
+    public String invalidPermission = "%prefix% &7Permission doesn't exist.";
+    public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
 }

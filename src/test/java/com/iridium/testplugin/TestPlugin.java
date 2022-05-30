@@ -4,6 +4,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.configs.Configuration;
 import com.iridium.iridiumteams.configs.Inventories;
 import com.iridium.iridiumteams.configs.Messages;
+import com.iridium.iridiumteams.configs.Permissions;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
 import com.iridium.testplugin.managers.UserManager;
@@ -53,6 +54,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public Messages getMessages() {
         return new Messages();
+    }
+
+    @Override
+    public Permissions getPermissions() {
+        return new Permissions();
     }
 
     @Override

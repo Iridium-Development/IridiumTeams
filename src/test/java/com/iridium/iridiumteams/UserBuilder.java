@@ -25,7 +25,12 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder setBypassing(){
+    public UserBuilder withRank(int rank) {
+        user.setUserRank(rank);
+        return this;
+    }
+
+    public UserBuilder setBypassing() {
         user.setBypassing(true);
         return this;
     }
