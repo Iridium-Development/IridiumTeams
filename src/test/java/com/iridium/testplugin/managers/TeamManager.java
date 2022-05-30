@@ -98,4 +98,9 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public void createTeamInvite(TestTeam team, User user, User invitee) {
         teamInvites.add(new TeamInvite(team, user.getUuid(), invitee.getUuid()));
     }
+
+    @Override
+    public void deleteTeamInvite(TeamInvite teamInvite) {
+        teamInvites.remove(teamInvite);
+    }
 }

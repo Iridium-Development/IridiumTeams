@@ -35,4 +35,6 @@ public class Messages {
     public String inviteAlreadyPresent = "%prefix% &7There is already an active invite for that user.";
     public String teamInviteSent = "%prefix% &7You have sent a team invite to %player%.";
     public String teamInviteReceived = "%prefix% &7You have received a team invite from %player%.";
+    public String noActiveInvite = "%prefix% &7There is no active invite for that user.";
+    public String teamInviteRevoked = "%prefix% &7You have revoked a team invite from %player%.";
 }
