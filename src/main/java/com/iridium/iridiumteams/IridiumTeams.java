@@ -11,6 +11,7 @@ import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@NoArgsConstructor
 public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends IridiumCore {
 
     private final Map<Integer, UserRank> userRanks = new HashMap<>();
