@@ -49,9 +49,10 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
         try {
-            iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction ->
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)))
-            );
+            iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction -> {
+                user.setUserRank(-1);
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            });
         } catch (CreateCancelledException ignored) {
             //The create command has been cancelled, ignore
         }

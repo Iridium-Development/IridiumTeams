@@ -6,7 +6,7 @@ public class Messages {
     public String mustBeAPlayer = "%prefix% &7You must be a player to execute this command.";
     public String notAPlayer = "%prefix% &7That player doesn't exist.";
     public String unknownCommand = "%prefix% &7Unknown Command, Try /f help.";
-    public String helpCommandHeader = "&8===== &c&lIridiumFactions Help &r&8=====";
+    public String helpCommandHeader = "&8===== &c&lIridiumTeams Help &r&8=====";
     public String helpCommandMessage = "&c/f %command%&r: &7%description%";
     public String helpCommandFooter = " &7Page %page% of %max_page% ";
     public String helpCommandPreviousPage = "&c<<";

@@ -12,7 +12,7 @@ import java.util.List;
 public class ReloadCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
     public ReloadCommand() {
-        super(Collections.singletonList("reload"), "Reload the plugin configurations", "", "iridiumfactions.reload");
+        super(Collections.singletonList("reload"), "Reload the plugin configurations", "", "iridiumteams.reload");
     }
 
     @Override
