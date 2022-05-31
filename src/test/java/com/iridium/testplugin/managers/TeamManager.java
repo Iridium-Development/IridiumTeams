@@ -6,7 +6,9 @@ import com.iridium.iridiumteams.database.TeamPermission;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +43,17 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public Optional<TestTeam> getTeamViaLocation(Location location) {
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<TestTeam> getTeamViaNameOrPlayer(String name) {
+        if (name == null || name.equals("")) return Optional.empty();
+        OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(name);
+        Optional<TestTeam> team = getTeamViaID(TestPlugin.getInstance().getUserManager().getUser(targetPlayer).getTeamID());
+        if (team.isEmpty()) {
+            return getTeamViaName(name);
+        }
+        return team;
     }
 
     @Override

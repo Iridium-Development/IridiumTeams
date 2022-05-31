@@ -20,6 +20,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract Optional<T> getTeamViaLocation(Location location);
 
+    public abstract Optional<T> getTeamViaNameOrPlayer(String name);
+
     public abstract List<U> getTeamMembers(T team);
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException;

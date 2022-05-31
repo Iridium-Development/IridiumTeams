@@ -2,7 +2,6 @@ package com.iridium.iridiumteams.gui;
 
 import com.iridium.iridiumcore.gui.PagedGUI;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
-import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
@@ -15,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Optional;
 
 public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedGUI<TeamInvite> {
 
@@ -44,9 +43,7 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
 
     @Override
     public ItemStack getItemStack(TeamInvite teamInvite) {
-        String username = iridiumTeams.getUserManager().getUserByUUID(teamInvite.getUser()).map(U::getName).orElse("N/A");
-        return ItemStackUtils.makeItem(iridiumTeams.getInventories().invitesGUI.item, Collections.singletonList(
-                new Placeholder("player_name", username)
-        ));
+        Optional<U> user = iridiumTeams.getUserManager().getUserByUUID(teamInvite.getUser());
+        return ItemStackUtils.makeItem(iridiumTeams.getInventories().invitesGUI.item, iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
     }
 }

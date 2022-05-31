@@ -60,6 +60,10 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         getLogger().info("-------------------------------");
     }
 
+    public abstract PlaceholderBuilder<T> getTeamsPlaceholderBuilder();
+
+    public abstract PlaceholderBuilder<U> getUserPlaceholderBuilder();
+
     public abstract TeamManager<T, U> getTeamManager();
 
     public abstract IridiumUserManager<T, U> getUserManager();

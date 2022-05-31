@@ -1,6 +1,7 @@
 package com.iridium.testplugin;
 
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.PlaceholderBuilder;
 import com.iridium.iridiumteams.configs.Configuration;
 import com.iridium.iridiumteams.configs.Inventories;
 import com.iridium.iridiumteams.configs.Messages;
@@ -33,6 +34,16 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.userManager = new UserManager();
 
         this.commandManager = new CommandManager(this, "&c", "iridiumtest");
+    }
+
+    @Override
+    public PlaceholderBuilder<User> getUserPlaceholderBuilder() {
+        return new UserPlaceholderBuilder();
+    }
+
+    @Override
+    public PlaceholderBuilder<TestTeam> getTeamsPlaceholderBuilder() {
+        return new TeamPlaceholderBuilder();
     }
 
     @Override

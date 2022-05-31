@@ -5,7 +5,9 @@ import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.UserRank;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class Configuration {
@@ -22,4 +24,13 @@ public class Configuration {
 
     public UserRank visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
     public UserRank owner = new UserRank("Owner", new Item(XMaterial.DIAMOND_AXE, 15, 1, "&c&lOwner", Collections.emptyList()));
+    public String teamInfoTitle = "&8[ %team% &8]";
+    public String teamInfoTitleFiller = "&8&m ";
+    public List<String> teamInfo = Arrays.asList(
+            "&cDescription: &7%team_description%",
+            "&cRank: &7#%team_rank%",
+            "&cValue: &7%team_value%",
+            "&cOnline Members(%team_members_online_count%/%team_members_count%): &7%team_members_online%",
+            "&cOffline Members(%team_members_offline_count%/%team_members_count%): &7%team_members_offline%"
+    );
 }

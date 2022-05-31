@@ -44,4 +44,5 @@ public class Messages {
     public String cannotKickHigherRank = "%prefix% &7You cannot kick somone with a higher rank than you.";
     public String leftTeam = "%prefix% &7You have left the team %name%.";
     public String userLeftTeam = "%prefix% &7%player% has left your team.";
+    public String teamDoesntExistByName = "%prefix% &7No team by that name exists.";
 }
