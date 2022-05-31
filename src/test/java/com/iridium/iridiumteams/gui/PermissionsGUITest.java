@@ -7,10 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.Permission;
-import com.iridium.iridiumteams.PermissionType;
-import com.iridium.iridiumteams.TeamBuilder;
-import com.iridium.iridiumteams.UserBuilder;
+import com.iridium.iridiumteams.*;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
@@ -138,6 +135,20 @@ class PermissionsGUITest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void permissionsGUISuccessOwner() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+
+        PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(team, 1, TestPlugin.getInstance());
+        playerMock.openInventory(permissionsGUI.getInventory());
+
+        permissionsGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot, ClickType.LEFT, InventoryAction.UNKNOWN));
+
+        playerMock.assertNoMoreSaid();
+        assertTrue(TestPlugin.getInstance().getTeamManager().getTeamPermission(team, 1, "blockBreak"));
     }
 
     @Test

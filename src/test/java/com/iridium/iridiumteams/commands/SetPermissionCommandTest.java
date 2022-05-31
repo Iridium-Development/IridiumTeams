@@ -5,6 +5,7 @@ import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -81,6 +82,23 @@ class SetPermissionCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeSetPermissionCommandSuccessOwner() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+
+        serverMock.dispatchCommand(playerMock, "test setpermission blockBreak member true");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().permissionSet
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%permission%", "blockBreak")
+                .replace("%rank%", "Member")
+                .replace("%allowed%", "true")
+        ));
+        playerMock.assertNoMoreSaid();
+        assertTrue(TestPlugin.getInstance().getTeamManager().getTeamPermission(team, 1, PermissionType.BLOCK_BREAK.getPermissionKey()));
     }
 
     @Test

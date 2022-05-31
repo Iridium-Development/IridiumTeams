@@ -8,6 +8,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Permission;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
@@ -82,7 +83,7 @@ public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> implements
             if (permission.getValue().getPage() != page) continue;
 
             U user = iridiumTeams.getUserManager().getUser((Player) event.getWhoClicked());
-            if (user.getUserRank() <= rank || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.CHANGE_PERMISSIONS)) {
+            if ((user.getUserRank() <= rank && user.getUserRank() != Rank.OWNER.getId()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.CHANGE_PERMISSIONS) || rank == Rank.OWNER.getId()) {
                 event.getWhoClicked().sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangePermissions.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             } else {
                 boolean allowed = iridiumTeams.getTeamManager().getTeamPermission(team, rank, permission.getKey());

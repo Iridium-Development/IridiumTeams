@@ -1,5 +1,6 @@
 package com.iridium.testplugin.managers;
 
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamPermission;
@@ -82,6 +83,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public boolean getTeamPermission(Team team, int rank, String permission) {
+        if (rank == Rank.OWNER.getId()) return true;
         return teamPermissions.stream()
                 .filter(teamPermission -> teamPermission.getTeamID() == team.getId() && teamPermission.getPermission().equals(permission))
                 .findFirst()
