@@ -25,6 +25,7 @@ public class Messages {
     public String cannotDeleteTeam = "%prefix% &7Only the Team owner can delete the team";
     public String cannotChangeDescription = "%prefix% &7You cannot change the Team's Description.";
     public String cannotChangeName = "%prefix% &7You cannot change the Team's Name.";
+    public String cannotSetHome = "%prefix% &7You cannot change the Team's Home.";
     public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
     public String invalidPermission = "%prefix% &7Permission doesn't exist.";
     public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
@@ -49,4 +50,6 @@ public class Messages {
     public String teamDoesntExistByName = "%prefix% &7No team by that name exists.";
     public String descriptionChanged = "%prefix% &7%player% has changed your team's description to %description%.";
     public String nameChanged = "%prefix% &7%player% has changed your team's name to %name%.";
+    public String notInTeamLand = "%prefix% &7You must be inside your team's land to do this.";
+    public String homeSet = "%prefix% &7%player% has set Team's home.";
 }

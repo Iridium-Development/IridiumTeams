@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -24,4 +25,7 @@ public class Team {
 
     @DatabaseField(columnName = "create_time")
     private LocalDateTime createTime;
+
+    @DatabaseField(columnName = "home", canBeNull = false)
+    private @NotNull Location home;
 }

@@ -12,9 +12,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -23,11 +21,13 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TestTeam> teams;
     public static List<TeamPermission> teamPermissions;
     public static List<TeamInvite> teamInvites;
+    public static Map<Location, TestTeam> teamClaims;
 
     public TeamManager() {
         teams = new ArrayList<>();
         teamPermissions = new ArrayList<>();
         teamInvites = new ArrayList<>();
+        teamClaims = new HashMap<>();
     }
 
     @Override
@@ -42,7 +42,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public Optional<TestTeam> getTeamViaLocation(Location location) {
-        return Optional.empty();
+        return Optional.ofNullable(teamClaims.get(location));
+    }
+
+    public void setTeamClaim(TestTeam testTeam, Location location) {
+        teamClaims.put(location, testTeam);
     }
 
     @Override
