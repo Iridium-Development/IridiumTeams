@@ -55,4 +55,6 @@ public class Messages {
     public String teleportingHome = "%prefix% &7Teleporting to your Team home.";
     public String homeNotSet = "%prefix% &7Your Team home is not set.";
     public String homeNotInTeam = "%prefix% &7Your Team home is not inside your Claim.";
+    public String nowBypassing = "%prefix% &7You are now bypassing Team restrictions.";
+    public String noLongerBypassing = "%prefix% &7You are no longer bypassing Team restrictions.";
 }
