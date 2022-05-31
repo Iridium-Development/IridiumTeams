@@ -2,7 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.commands.*;
+import com.iridium.iridiumteams.commands.Command;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
@@ -21,39 +21,42 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
     private final List<Command<T, U>> commands = new ArrayList<>();
     @Getter
     private final String command;
+    @Getter
+    private final String color;
     private final IridiumTeams<T, U> iridiumTeams;
 
     public CommandManager(IridiumTeams<T, U> iridiumTeams, String color, String command) {
         this.iridiumTeams = iridiumTeams;
         this.command = command;
+        this.color = color;
         iridiumTeams.getCommand(command).setExecutor(this);
         iridiumTeams.getCommand(command).setTabCompleter(this);
-        registerCommands(color);
+        registerCommands();
     }
 
-    public void registerCommands(String color) {
-        registerCommand(new AboutCommand<>(color));
-        registerCommand(new CreateCommand<>());
-        registerCommand(new MembersCommand<>());
-        registerCommand(new PermissionsCommand<>());
-        registerCommand(new SetPermissionCommand<>());
-        registerCommand(new PromoteCommand<>());
-        registerCommand(new DemoteCommand<>());
-        registerCommand(new HelpCommand<>());
-        registerCommand(new ReloadCommand<>());
-        registerCommand(new InviteCommand<>());
-        registerCommand(new UnInviteCommand<>());
-        registerCommand(new InvitesCommand<>());
-        registerCommand(new KickCommand<>());
-        registerCommand(new LeaveCommand<>());
-        registerCommand(new DeleteCommand<>());
-        registerCommand(new InfoCommand<>());
-        registerCommand(new DescriptionCommand<>());
-        registerCommand(new RenameCommand<>());
-        registerCommand(new SetHomeCommand<>());
-        registerCommand(new HomeCommand<>());
-        registerCommand(new BypassCommand<>());
-        registerCommand(new TransferCommand<>());
+    public void registerCommands() {
+        registerCommand(iridiumTeams.getCommands().aboutCommand);
+        registerCommand(iridiumTeams.getCommands().createCommand);
+        registerCommand(iridiumTeams.getCommands().membersCommand);
+        registerCommand(iridiumTeams.getCommands().permissionsCommand);
+        registerCommand(iridiumTeams.getCommands().setPermissionCommand);
+        registerCommand(iridiumTeams.getCommands().promoteCommand);
+        registerCommand(iridiumTeams.getCommands().demoteCommand);
+        registerCommand(iridiumTeams.getCommands().helpCommand);
+        registerCommand(iridiumTeams.getCommands().reloadCommand);
+        registerCommand(iridiumTeams.getCommands().inviteCommand);
+        registerCommand(iridiumTeams.getCommands().unInviteCommand);
+        registerCommand(iridiumTeams.getCommands().invitesCommand);
+        registerCommand(iridiumTeams.getCommands().kickCommand);
+        registerCommand(iridiumTeams.getCommands().leaveCommand);
+        registerCommand(iridiumTeams.getCommands().deleteCommand);
+        registerCommand(iridiumTeams.getCommands().infoCommand);
+        registerCommand(iridiumTeams.getCommands().descriptionCommand);
+        registerCommand(iridiumTeams.getCommands().renameCommand);
+        registerCommand(iridiumTeams.getCommands().setHomeCommand);
+        registerCommand(iridiumTeams.getCommands().homeCommand);
+        registerCommand(iridiumTeams.getCommands().bypassCommand);
+        registerCommand(iridiumTeams.getCommands().transferCommand);
     }
 
     public void registerCommand(Command<T, U> command) {

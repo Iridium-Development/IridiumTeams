@@ -1,10 +1,7 @@
 package com.iridium.iridiumteams;
 
 import com.iridium.iridiumcore.IridiumCore;
-import com.iridium.iridiumteams.configs.Configuration;
-import com.iridium.iridiumteams.configs.Inventories;
-import com.iridium.iridiumteams.configs.Messages;
-import com.iridium.iridiumteams.configs.Permissions;
+import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.listeners.BlockBreakListener;
@@ -80,6 +77,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Permissions getPermissions();
 
     public abstract Inventories getInventories();
+
+    public abstract Commands<T, U> getCommands();
 
     public void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);

@@ -11,20 +11,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class AboutCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    private final String color;
-
-    public AboutCommand(String color) {
+    public AboutCommand() {
         super(Arrays.asList("about", "version"), "Display plugin info", "", "");
-        this.color = color;
     }
 
     @Override
     public void execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-        sender.sendMessage(StringUtils.color("&7Plugin Name: " + color + iridiumTeams.getDescription().getName()));
-        sender.sendMessage(StringUtils.color("&7Plugin Version: " + color + iridiumTeams.getDescription().getVersion()));
-        sender.sendMessage(StringUtils.color("&7Plugin Author: " + color + "Peaches_MLG"));
-        sender.sendMessage(StringUtils.color("&7Plugin Donations: " + color + "www.patreon.com/Peaches_MLG"));
+        sender.sendMessage(StringUtils.color("&7Plugin Name: " + iridiumTeams.getCommandManager().getColor() + iridiumTeams.getDescription().getName()));
+        sender.sendMessage(StringUtils.color("&7Plugin Version: " + iridiumTeams.getCommandManager().getColor() + iridiumTeams.getDescription().getVersion()));
+        sender.sendMessage(StringUtils.color("&7Plugin Author: " + iridiumTeams.getCommandManager().getColor() + "Peaches_MLG"));
+        sender.sendMessage(StringUtils.color("&7Plugin Donations: " + iridiumTeams.getCommandManager().getColor() + "www.patreon.com/Peaches_MLG"));
     }
 
     @Override
