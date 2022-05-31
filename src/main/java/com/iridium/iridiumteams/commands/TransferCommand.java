@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
@@ -26,7 +27,7 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        if (user.getUserRank() != -1 && !user.isBypassing()) {
+        if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().mustBeOwnerToTransfer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -54,9 +55,9 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
         }
 
         player.openInventory(new ConfirmationGUI<>(() -> {
-            targetUser.setUserRank(-1);
+            targetUser.setUserRank(Rank.OWNER.getId());
             iridiumTeams.getTeamManager().getTeamMembers(team).forEach(user1 -> {
-                if (user1.getUserRank() == -1 && user1 != targetUser) {
+                if (user1.getUserRank() == Rank.OWNER.getId() && user1 != targetUser) {
                     user1.setUserRank(iridiumTeams.getUserRanks().keySet().stream().max(Integer::compareTo).orElse(1));
                 }
                 Player p = user1.getPlayer();

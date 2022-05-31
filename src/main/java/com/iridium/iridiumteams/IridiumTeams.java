@@ -96,8 +96,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void loadConfigs() {
         userRanks.putAll(getConfiguration().userRanks);
-        userRanks.put(-1, getConfiguration().visitor);
-        userRanks.put(-2, getConfiguration().owner);
+        userRanks.put(Rank.VISITOR.getId(), getConfiguration().visitor);
+        userRanks.put(Rank.OWNER.getId(), getConfiguration().owner);
     }
 
     public void saveConfigs() {

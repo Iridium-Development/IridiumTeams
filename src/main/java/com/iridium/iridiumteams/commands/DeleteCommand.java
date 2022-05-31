@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
@@ -20,7 +21,7 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if (user.getUserRank() != -1 && !user.isBypassing()) {
+        if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDeleteTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

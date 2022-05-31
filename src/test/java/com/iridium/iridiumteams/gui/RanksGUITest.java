@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.google.common.collect.ImmutableMap;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -65,6 +66,6 @@ class RanksGUITest {
         playerMock.openInventory(ranksGUI.getInventory());
         ranksGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 11, ClickType.LEFT, InventoryAction.UNKNOWN));
         assertTrue(playerMock.getOpenInventory().getTopInventory().getHolder() instanceof PermissionsGUI<?, ?>);
-        assertEquals(-1, ((PermissionsGUI<?, ?>) playerMock.getOpenInventory().getTopInventory().getHolder()).getRank());
+        assertEquals(Rank.VISITOR.getId(), ((PermissionsGUI<?, ?>) playerMock.getOpenInventory().getTopInventory().getHolder()).getRank());
     }
 }

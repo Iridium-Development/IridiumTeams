@@ -4,6 +4,7 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.apache.commons.lang.WordUtils;
@@ -46,7 +47,7 @@ public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> exte
             return;
         }
         boolean allowed = args.length == 2 ? iridiumTeams.getTeamManager().getTeamPermission(team, rank.get(), permission.get()) : args[2].equalsIgnoreCase("true");
-        if ((user.getUserRank() <= rank.get() && user.getUserRank() != -1) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.CHANGE_PERMISSIONS) || rank.get() == -1) {
+        if ((user.getUserRank() <= rank.get() && user.getUserRank() != Rank.OWNER.getId()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.CHANGE_PERMISSIONS) || rank.get() == Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangePermissions
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

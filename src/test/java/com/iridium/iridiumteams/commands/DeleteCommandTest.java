@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
@@ -56,7 +57,7 @@ class DeleteCommandTest {
     @Test
     public void executeDeleteCommandOwner() {
         TestTeam testTeam = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).withRank(-1).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).withRank(Rank.OWNER.getId()).build();
 
         serverMock.dispatchCommand(playerMock, "test delete");
         assertTrue(playerMock.getOpenInventory().getTopInventory().getHolder() instanceof ConfirmationGUI);

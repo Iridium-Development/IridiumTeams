@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
@@ -68,7 +69,7 @@ class TransferCommandTest {
     @Test
     public void executeSetHomeCommandNotValidPlayer() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(-1).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
 
         serverMock.dispatchCommand(playerMock, "test transfer FakePlayer");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notAPlayer.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -78,7 +79,7 @@ class TransferCommandTest {
     @Test
     public void executeSetHomeCommandPlayerNotInFaction() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(-1).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test transfer " + otherPlayer.getName());
@@ -89,7 +90,7 @@ class TransferCommandTest {
     @Test
     public void executeSetHomeCommandCannotTransferYourself() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(-1).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
 
         serverMock.dispatchCommand(playerMock, "test transfer " + playerMock.getName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotTransferToYourself.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -99,7 +100,7 @@ class TransferCommandTest {
     @Test
     public void executeSetHomeCommandSuccess() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(-1).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
 
         serverMock.dispatchCommand(playerMock, "test transfer " + otherPlayer.getName());
@@ -108,7 +109,7 @@ class TransferCommandTest {
         confirmationGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getInventories().confirmationGUI.yes.slot, ClickType.LEFT, InventoryAction.UNKNOWN));
 
         assertEquals(3, TestPlugin.getInstance().getUserManager().getUser(playerMock).getUserRank());
-        assertEquals(-1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(Rank.OWNER.getId(), TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().ownershipTransferred
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%old_owner%", playerMock.getName())

@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandSender;
@@ -50,7 +51,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
         }
         try {
             iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction -> {
-                user.setUserRank(-1);
+                user.setUserRank(Rank.OWNER.getId());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             });
         } catch (CreateCancelledException ignored) {
