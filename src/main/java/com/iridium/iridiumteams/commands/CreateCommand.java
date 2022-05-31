@@ -8,7 +8,6 @@ import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
 
-        String factionName = String.join(" ", Arrays.copyOfRange(args, 0, args.length));
+        String factionName = String.join(" ", args);
         if (factionName.length() < iridiumTeams.getConfiguration().minTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooShort
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

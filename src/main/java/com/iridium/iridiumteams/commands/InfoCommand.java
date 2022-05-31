@@ -34,7 +34,7 @@ public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             sendTeamInfo(player, userTeam.get(), iridiumTeams);
             return;
         }
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(String.join(" ", Arrays.copyOfRange(args, 0, args.length)));
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(String.join(" ", args));
         if (!team.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

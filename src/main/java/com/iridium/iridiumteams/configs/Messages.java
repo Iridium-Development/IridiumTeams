@@ -23,6 +23,7 @@ public class Messages {
     public String cannotInvite = "%prefix% &7You cannot invite players to the Team.";
     public String cannotKick = "%prefix% &7You cannot kick players from the Team.";
     public String cannotDeleteTeam = "%prefix% &7Only the Team owner can delete the team";
+    public String cannotChangeDescription = "%prefix% &7You cannot change the Team's Description.";
     public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
     public String invalidPermission = "%prefix% &7Permission doesn't exist.";
     public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
@@ -45,4 +46,5 @@ public class Messages {
     public String leftTeam = "%prefix% &7You have left the team %name%.";
     public String userLeftTeam = "%prefix% &7%player% has left your team.";
     public String teamDoesntExistByName = "%prefix% &7No team by that name exists.";
+    public String descriptionChanged = "%prefix% &7%player% has changed your team's description to %description%.";
 }
