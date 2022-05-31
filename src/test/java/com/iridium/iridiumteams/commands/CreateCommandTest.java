@@ -52,6 +52,7 @@ class CreateCommandTest {
         serverMock.dispatchCommand(playerMock, "test create a");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameTooShort
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%min_length%", String.valueOf(TestPlugin.getInstance().getConfiguration().minTeamNameLength))
         ));
         playerMock.assertNoMoreSaid();
     }
@@ -62,6 +63,7 @@ class CreateCommandTest {
         serverMock.dispatchCommand(playerMock, "test create areallyreallylongteamname");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameTooLong
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%max_length%", String.valueOf(TestPlugin.getInstance().getConfiguration().maxTeamNameLength))
         ));
         playerMock.assertNoMoreSaid();
     }

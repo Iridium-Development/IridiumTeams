@@ -24,6 +24,7 @@ public class Messages {
     public String cannotKick = "%prefix% &7You cannot kick players from the Team.";
     public String cannotDeleteTeam = "%prefix% &7Only the Team owner can delete the team";
     public String cannotChangeDescription = "%prefix% &7You cannot change the Team's Description.";
+    public String cannotChangeName = "%prefix% &7You cannot change the Team's Name.";
     public String invalidUserRank = "%prefix% &7User rank doesn't exist.";
     public String invalidPermission = "%prefix% &7Permission doesn't exist.";
     public String permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
@@ -47,4 +48,5 @@ public class Messages {
     public String userLeftTeam = "%prefix% &7%player% has left your team.";
     public String teamDoesntExistByName = "%prefix% &7No team by that name exists.";
     public String descriptionChanged = "%prefix% &7%player% has changed your team's description to %description%.";
+    public String nameChanged = "%prefix% &7%player% has changed your team's name to %name%.";
 }

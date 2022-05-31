@@ -33,12 +33,14 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
         if (factionName.length() < iridiumTeams.getConfiguration().minTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooShort
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                    .replace("%min_length%", String.valueOf(iridiumTeams.getConfiguration().minTeamNameLength))
             ));
             return;
         }
         if (factionName.length() > iridiumTeams.getConfiguration().maxTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooLong
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                    .replace("%max_length%", String.valueOf(iridiumTeams.getConfiguration().maxTeamNameLength))
             ));
             return;
         }
