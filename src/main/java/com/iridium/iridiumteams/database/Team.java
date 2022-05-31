@@ -27,5 +27,5 @@ public class Team {
     private LocalDateTime createTime;
 
     @DatabaseField(columnName = "home", canBeNull = false)
-    private @NotNull Location home;
+    private Location home;
 }

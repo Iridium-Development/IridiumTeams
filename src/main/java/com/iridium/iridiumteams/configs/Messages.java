@@ -52,4 +52,7 @@ public class Messages {
     public String nameChanged = "%prefix% &7%player% has changed your team's name to %name%.";
     public String notInTeamLand = "%prefix% &7You must be inside your team's land to do this.";
     public String homeSet = "%prefix% &7%player% has set Team's home.";
+    public String teleportingHome = "%prefix% &7Teleporting to your Team home.";
+    public String homeNotSet = "%prefix% &7Your Team home is not set.";
+    public String homeNotInTeam = "%prefix% &7Your Team home is not inside your Claim.";
 }
