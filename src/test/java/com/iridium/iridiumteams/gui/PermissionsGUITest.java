@@ -8,6 +8,7 @@ import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.Permission;
+import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -141,9 +142,9 @@ class PermissionsGUITest {
 
     @Test
     public void permissionsGUISuccess() {
-        TestTeam testTeam = new TeamBuilder().build();
+        TestTeam testTeam = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().withTeam(testTeam).withRank(2).build();
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(testTeam, 1, "blockBreak", false);
+
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, TestPlugin.getInstance());
         playerMock.openInventory(permissionsGUI.getInventory());
 

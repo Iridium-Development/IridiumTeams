@@ -62,11 +62,9 @@ class PromoteCommandTest {
 
     @Test
     public void executePromoteCommandCannotPromote_NoPermission() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.PROMOTE, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 8, PermissionType.PROMOTE.getPermissionKey(), false);
 
         serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotPromoteUser.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -75,11 +73,9 @@ class PromoteCommandTest {
 
     @Test
     public void executePromoteCommandCannotPromote_HigherRank() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.PROMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.PROMOTE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotPromoteUser.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -88,11 +84,9 @@ class PromoteCommandTest {
 
     @Test
     public void executePromoteCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.PROMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 8, PermissionType.PROMOTE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
 

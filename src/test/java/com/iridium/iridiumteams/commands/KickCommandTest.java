@@ -63,10 +63,9 @@ class KickCommandTest {
 
     @Test
     public void executeKickCommandPlayerNotInFaction() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.KICK.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 
@@ -76,10 +75,9 @@ class KickCommandTest {
 
     @Test
     public void executeKickCommandPlayerHigherRank() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.KICK.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 
@@ -89,10 +87,9 @@ class KickCommandTest {
 
     @Test
     public void executeKickCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.KICK.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 
@@ -112,10 +109,9 @@ class KickCommandTest {
 
     @Test
     public void executeKickCommandSuccessfulBypassing() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.KICK.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 

@@ -41,10 +41,8 @@ class SetHomeCommandTest {
 
     @Test
     public void executeDescriptionCommandNoPermission() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.SETHOME.getPermissionKey(), false);
 
         serverMock.dispatchCommand(playerMock, "test sethome");
 
@@ -54,10 +52,8 @@ class SetHomeCommandTest {
 
     @Test
     public void executeDescriptionCommandNotInLand() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.SETHOME.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test sethome");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notInTeamLand
@@ -68,11 +64,10 @@ class SetHomeCommandTest {
 
     @Test
     public void executeDescriptionCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
         TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.SETHOME.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test sethome");
 

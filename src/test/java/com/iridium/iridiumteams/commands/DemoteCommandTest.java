@@ -62,11 +62,9 @@ class DemoteCommandTest {
 
     @Test
     public void executeDemoteCommandCannotDemote_LowerRank() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 8, PermissionType.DEMOTE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotDemoteUser.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -75,11 +73,9 @@ class DemoteCommandTest {
 
     @Test
     public void executeDemoteCommandCannotDemote_BelowMember() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 8, PermissionType.DEMOTE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotDemoteUser.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -88,11 +84,9 @@ class DemoteCommandTest {
 
     @Test
     public void executeDemoteCommandCannotDemote_NoPermission() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 8, PermissionType.DEMOTE.getPermissionKey(), false);
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotDemoteUser.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -101,11 +95,9 @@ class DemoteCommandTest {
 
     @Test
     public void executeDemoteCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 8, PermissionType.DEMOTE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
 

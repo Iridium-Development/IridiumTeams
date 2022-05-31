@@ -65,10 +65,8 @@ class RenameCommandTest {
 
     @Test
     public void executeRenameCommandTeamNameTooShort() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.RENAME.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test rename a");
 
@@ -81,10 +79,8 @@ class RenameCommandTest {
 
     @Test
     public void executeRenameCommandTeamNameTooLong() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.RENAME.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test rename areallyreallylongteamname");
 
@@ -98,10 +94,8 @@ class RenameCommandTest {
     @Test
     public void executeRenameCommandTeamNameTaken() {
         new TeamBuilder("test").build();
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.RENAME.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test rename test");
 
@@ -113,10 +107,8 @@ class RenameCommandTest {
 
     @Test
     public void executeDescriptionCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.RENAME.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test rename my new awesome name");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().nameChanged

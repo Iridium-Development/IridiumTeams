@@ -60,9 +60,8 @@ class InviteCommandTest {
 
     @Test
     public void executeInviteCommandPlayerDoesntExist() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.INVITE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test invite OtherPlayer");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notAPlayer.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -71,11 +70,9 @@ class InviteCommandTest {
 
     @Test
     public void executeInviteCommandPlayerAlreadyInYourFaction() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.INVITE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test invite " + otherPlayer.getName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().userAlreadyInTeam.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
@@ -84,11 +81,10 @@ class InviteCommandTest {
 
     @Test
     public void executeInviteCommandPlayerAlreadyInvited() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.INVITE.getPermissionKey(), true);
         TestPlugin.getInstance().getTeamManager().createTeamInvite(team, TestPlugin.getInstance().getUserManager().getUser(otherPlayer), TestPlugin.getInstance().getUserManager().getUser(playerMock));
 
         serverMock.dispatchCommand(playerMock, "test invite " + otherPlayer.getName());
@@ -98,11 +94,9 @@ class InviteCommandTest {
 
     @Test
     public void executeInviteCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.INVITE.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test invite " + otherPlayer.getName());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamInviteSent

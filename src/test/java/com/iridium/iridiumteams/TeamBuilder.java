@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams;
 
 import be.seeseemelk.mockbukkit.ServerMock;
+import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.managers.TeamManager;
 
@@ -30,6 +31,11 @@ public class TeamBuilder {
         for (int i = 0; i < amount; i++) {
             new UserBuilder(serverMock).withTeam(testTeam).build();
         }
+        return this;
+    }
+
+    public TeamBuilder withPermission(int rank, PermissionType permissionType, boolean allowed) {
+        TestPlugin.getInstance().getTeamManager().setTeamPermission(testTeam, rank, permissionType.getPermissionKey(), allowed);
         return this;
     }
 

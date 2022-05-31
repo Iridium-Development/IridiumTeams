@@ -52,10 +52,8 @@ class DescriptionCommandTest {
 
     @Test
     public void executeDescriptionCommandNoPermission() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.DESCRIPTION, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.DESCRIPTION.getPermissionKey(), false);
 
         serverMock.dispatchCommand(playerMock, "test description my new awesome description");
 
@@ -65,10 +63,8 @@ class DescriptionCommandTest {
 
     @Test
     public void executeDescriptionCommandSuccessful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.DESCRIPTION, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamPermission(team, 1, PermissionType.DESCRIPTION.getPermissionKey(), true);
 
         serverMock.dispatchCommand(playerMock, "test description my new awesome description");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().descriptionChanged
