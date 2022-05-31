@@ -57,4 +57,7 @@ public class Messages {
     public String homeNotInTeam = "%prefix% &7Your Team home is not inside your Claim.";
     public String nowBypassing = "%prefix% &7You are now bypassing Team restrictions.";
     public String noLongerBypassing = "%prefix% &7You are no longer bypassing Team restrictions.";
+    public String mustBeOwnerToTransfer = "%prefix% &7You must be the Team owner to transfer ownership";
+    public String cannotTransferToYourself = "%prefix% &7You cannot transfer Team ownership to yourself.";
+    public String ownershipTransferred = "%prefix% &7%old_owner% has transferred Team ownership to %new_owner%.";
 }
