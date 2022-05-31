@@ -32,6 +32,8 @@ public class Messages {
     public String userNotInYourTeam = "%prefix% &7That user is not in your team.";
     public String cannotPromoteUser = "%prefix% &7You cannot promote this User";
     public String cannotDemoteUser = "%prefix% &7You cannot demote this User";
+    public String cannotBreakBlocks = "%prefix% &7You cannot break blocks in this Team.";
+    public String cannotPlaceBlocks = "%prefix% &7You cannot place blocks in this Team.";
     public String promotedPlayer = "%prefix% &7You have promoted %player% to %rank%.";
     public String userPromotedPlayer = "%prefix% &7%promoter% has promoted %player% to %rank%.";
     public String demotedPlayer = "%prefix% &7You have demoted %player% to %rank%.";

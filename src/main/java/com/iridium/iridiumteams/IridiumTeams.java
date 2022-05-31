@@ -7,6 +7,9 @@ import com.iridium.iridiumteams.configs.Messages;
 import com.iridium.iridiumteams.configs.Permissions;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.listeners.BlockBreakListener;
+import com.iridium.iridiumteams.listeners.BlockPlaceListener;
+import com.iridium.iridiumteams.listeners.PlayerJoinListener;
 import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
@@ -79,7 +82,9 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Inventories getInventories();
 
     public void registerListeners() {
-
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener<>(this), this);
     }
 
     public void saveData() {
