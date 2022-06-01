@@ -36,14 +36,14 @@ public class Configuration {
                 .build();
         this.visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
         this.owner = new UserRank("Owner", new Item(XMaterial.DIAMOND_AXE, 15, 1, "&c&lOwner", Collections.emptyList()));
-        this.teamInfoTitle = "&8[ %" + team + "% &8]";
+        this.teamInfoTitle = "&8[ %" + team + "_name% &8]";
         this.teamInfoTitleFiller = "&8&m ";
         this.teamInfo = Arrays.asList(
-                "&cDescription: &7%team_description%",
-                "&cRank: &7#%team_rank%",
-                "&cValue: &7%team_value%",
-                "&cOnline Members(%team_members_online_count%/%team_members_count%): &7%team_members_online%",
-                "&cOffline Members(%team_members_offline_count%/%team_members_count%): &7%team_members_offline%"
+                "&cDescription: &7%" + team + "_description%",
+                "&cRank: &7#%" + team + "_rank%",
+                "&cValue: &7%" + team + "_value%",
+                "&cOnline Members(%" + team + "_members_online_count%/%" + team + "_members_count%): &7%" + team + "_members_online%",
+                "&cOffline Members(%" + team + "_members_offline_count%/%" + team + "_members_count%): &7%" + team + "_members_offline%"
         );
 
     }
