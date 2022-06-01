@@ -32,7 +32,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void executeDeleteCommandNoFaction() {
+    public void executeDeleteCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test delete");

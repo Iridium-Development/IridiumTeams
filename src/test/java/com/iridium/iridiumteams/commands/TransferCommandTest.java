@@ -46,7 +46,7 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandNoFaction() {
+    public void executeSetHomeCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
@@ -77,7 +77,7 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandPlayerNotInFaction() {
+    public void executeSetHomeCommandPlayerNotInTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();

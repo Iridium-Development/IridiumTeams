@@ -30,7 +30,7 @@ class SetHomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandNoFaction() {
+    public void executeDescriptionCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test sethome");

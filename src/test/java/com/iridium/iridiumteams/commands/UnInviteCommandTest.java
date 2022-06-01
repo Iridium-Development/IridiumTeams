@@ -39,7 +39,7 @@ class UnInviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandNoFaction() {
+    public void executeInviteCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test uninvite Player");

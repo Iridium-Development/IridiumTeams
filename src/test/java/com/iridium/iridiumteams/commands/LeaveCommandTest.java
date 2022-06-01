@@ -31,7 +31,7 @@ class LeaveCommandTest {
     }
 
     @Test
-    public void executeLeaveCommandNoFaction() {
+    public void executeLeaveCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test leave");

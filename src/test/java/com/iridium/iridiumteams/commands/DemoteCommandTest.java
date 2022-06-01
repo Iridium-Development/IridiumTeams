@@ -40,7 +40,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandNoFaction() {
+    public void executeDemoteCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
@@ -50,7 +50,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandUserNotInFaction() {
+    public void executeDemoteCommandUserNotInTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();

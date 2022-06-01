@@ -40,7 +40,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandNoFaction() {
+    public void executeInviteCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test invite Player");
@@ -69,7 +69,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandPlayerAlreadyInYourFaction() {
+    public void executeInviteCommandPlayerAlreadyInYourTeam() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();

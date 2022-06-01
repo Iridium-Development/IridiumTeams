@@ -40,7 +40,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandNoFaction() {
+    public void executePromoteCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
@@ -50,7 +50,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandUserNotInFaction() {
+    public void executePromoteCommandUserNotInTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();

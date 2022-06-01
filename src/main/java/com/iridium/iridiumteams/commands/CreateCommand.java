@@ -30,27 +30,27 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
 
-        String factionName = String.join(" ", args);
-        if (factionName.length() < iridiumTeams.getConfiguration().minTeamNameLength) {
+        String teamName = String.join(" ", args);
+        if (teamName.length() < iridiumTeams.getConfiguration().minTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooShort
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%min_length%", String.valueOf(iridiumTeams.getConfiguration().minTeamNameLength))
             ));
             return;
         }
-        if (factionName.length() > iridiumTeams.getConfiguration().maxTeamNameLength) {
+        if (teamName.length() > iridiumTeams.getConfiguration().maxTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooLong
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%max_length%", String.valueOf(iridiumTeams.getConfiguration().maxTeamNameLength))
             ));
             return;
         }
-        if (iridiumTeams.getTeamManager().getTeamViaName(factionName).isPresent()) {
+        if (iridiumTeams.getTeamManager().getTeamViaName(teamName).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
         try {
-            iridiumTeams.getTeamManager().createTeam(player, factionName).thenAccept(faction -> {
+            iridiumTeams.getTeamManager().createTeam(player, teamName).thenAccept(team -> {
                 user.setUserRank(Rank.OWNER.getId());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             });

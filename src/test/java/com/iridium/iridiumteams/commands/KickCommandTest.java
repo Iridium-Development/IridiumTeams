@@ -41,7 +41,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandNoFaction() {
+    public void executeKickCommandNoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test kick OtherPlayer");
@@ -62,7 +62,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandPlayerNotInFaction() {
+    public void executeKickCommandPlayerNotInTeam() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();

@@ -28,23 +28,37 @@ public class Inventories {
             .put(17, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList()))
             .build());
 
-    public SingleItemGUI membersGUI = new SingleItemGUI(0, "&7Team Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
-            "&7Joined: %player_join%",
-            "&7Rank: %player_rank%",
-            "",
-            "&c&l[!] &7Right Click to promote",
-            "&c&l[!] &7Left click to demote/kick"
-    )));
+    public SingleItemGUI membersGUI;
+    public SingleItemGUI invitesGUI;
+    public NoItemGUI ranksGUI;
+    public NoItemGUI permissionsGUI;
+    public ConfirmationInventoryConfig confirmationGUI;
+    public Item nextPage;
+    public Item previousPage;
 
-    public SingleItemGUI invitesGUI = new SingleItemGUI(0, "&7Team Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
-            "",
-            "&c&l[!] &7Left click to uninvite"
-    )));
-    public NoItemGUI ranksGUI = new NoItemGUI(27, "&7Team Permissions", background1);
-    public NoItemGUI permissionsGUI = new NoItemGUI(54, "&7Team Permissions", background1);
+    public Inventories() {
+        this("Team");
+    }
 
-    public ConfirmationInventoryConfig confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, "&c&lNo", Collections.emptyList()));
+    public Inventories(String team) {
+        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
+                "&7Joined: %player_join%",
+                "&7Rank: %player_rank%",
+                "",
+                "&c&l[!] &7Right Click to promote",
+                "&c&l[!] &7Left click to demote/kick"
+        )));
 
-    public Item nextPage = new Item(XMaterial.LIME_STAINED_GLASS_PANE, 1, "&a&lNext Page", Collections.emptyList());
-    public Item previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, "&c&lPrevious Page", Collections.emptyList());
+        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
+                "",
+                "&c&l[!] &7Left click to uninvite"
+        )));
+        ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
+        permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
+
+        confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, "&c&lNo", Collections.emptyList()));
+
+        nextPage = new Item(XMaterial.LIME_STAINED_GLASS_PANE, 1, "&a&lNext Page", Collections.emptyList());
+        previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, "&c&lPrevious Page", Collections.emptyList());
+    }
 }

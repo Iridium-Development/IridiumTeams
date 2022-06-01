@@ -27,10 +27,10 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
                 .replace("%name%", team.getName())
         ));
 
-        iridiumTeams.getTeamManager().getTeamMembers(team).forEach(factionUser -> {
-            Player factionPlayer = Bukkit.getPlayer(factionUser.getUuid());
-            if (factionPlayer != null && factionPlayer != player) {
-                factionPlayer.sendMessage(StringUtils.color(iridiumTeams.getMessages().userLeftTeam
+        iridiumTeams.getTeamManager().getTeamMembers(team).forEach(teamUser -> {
+            Player teamPlayer = Bukkit.getPlayer(teamUser.getUuid());
+            if (teamPlayer != null && teamPlayer != player) {
+                teamPlayer.sendMessage(StringUtils.color(iridiumTeams.getMessages().userLeftTeam
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                         .replace("%name%", team.getName())
                         .replace("%player%", player.getName())
