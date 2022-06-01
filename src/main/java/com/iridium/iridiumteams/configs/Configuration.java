@@ -22,11 +22,11 @@ public class Configuration {
     public List<String> teamInfo;
 
     public Configuration() {
-        this("&c", "Team");
+        this("&c", "Team", "IridiumTeams");
     }
 
-    public Configuration(String color, String team) {
-        this.prefix = color + "&l" + team + " &8»";
+    public Configuration(String color, String team, String pluginName) {
+        this.prefix = color + "&l" + pluginName + " &8»";
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()
@@ -36,14 +36,14 @@ public class Configuration {
                 .build();
         this.visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
         this.owner = new UserRank("Owner", new Item(XMaterial.DIAMOND_AXE, 15, 1, "&c&lOwner", Collections.emptyList()));
-        this.teamInfoTitle = "&8[ %" + team + "_name% &8]";
+        this.teamInfoTitle = "&8[ %" + team.toLowerCase() + "_name% &8]";
         this.teamInfoTitleFiller = "&8&m ";
         this.teamInfo = Arrays.asList(
-                "&cDescription: &7%" + team + "_description%",
-                "&cRank: &7#%" + team + "_rank%",
-                "&cValue: &7%" + team + "_value%",
-                "&cOnline Members(%" + team + "_members_online_count%/%" + team + "_members_count%): &7%" + team + "_members_online%",
-                "&cOffline Members(%" + team + "_members_offline_count%/%" + team + "_members_count%): &7%" + team + "_members_offline%"
+                "&cDescription: &7%" + team.toLowerCase() + "_description%",
+                "&cRank: &7#%" + team.toLowerCase() + "_rank%",
+                "&cValue: &7%" + team.toLowerCase() + "_value%",
+                "&cOnline Members(%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
+                "&cOffline Members(%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
         );
 
     }
