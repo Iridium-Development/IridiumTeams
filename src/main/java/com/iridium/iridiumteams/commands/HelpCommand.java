@@ -63,7 +63,7 @@ public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         }
 
         // Send all messages
-        sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().helpCommandHeader));
+        sender.sendMessage(StringUtils.color(StringUtils.getCenteredMessage(iridiumTeams.getMessages().helpCommandHeader, iridiumTeams.getMessages().helpCommandFiller)));
         availableCommands.stream()
                 .skip((page - 1) * 8L)
                 .limit(8)
