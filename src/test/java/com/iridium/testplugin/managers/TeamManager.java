@@ -85,7 +85,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public boolean getTeamPermission(Team team, int rank, String permission) {
         if (rank == Rank.OWNER.getId()) return true;
         return teamPermissions.stream()
-                .filter(teamPermission -> teamPermission.getTeamID() == team.getId() && teamPermission.getPermission().equals(permission))
+                .filter(teamPermission -> teamPermission.getTeam().getId() == team.getId() && teamPermission.getPermission().equals(permission))
                 .findFirst()
                 .map(TeamPermission::isAllowed)
                 .orElse(TestPlugin.getInstance().getPermissionList().get(permission).getDefaultRank() <= rank);
@@ -94,7 +94,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public void setTeamPermission(Team team, int rank, String permission, boolean allowed) {
         Optional<TeamPermission> teamPermission = teamPermissions.stream()
-                .filter(perm -> perm.getTeamID() == team.getId() && perm.getPermission().equals(permission))
+                .filter(perm -> perm.getTeam().getId() == team.getId() && perm.getPermission().equals(permission))
                 .findFirst();
         if (teamPermission.isPresent()) {
             teamPermission.get().setAllowed(allowed);
@@ -106,7 +106,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public Optional<TeamInvite> getTeamInvite(TestTeam team, User user) {
         return teamInvites.stream()
-                .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
+                .filter(teamInvite -> teamInvite.getTeam().getId() == team.getId())
                 .filter(teamInvite -> teamInvite.getUser() == user.getUuid())
                 .findFirst();
     }
@@ -114,7 +114,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public List<TeamInvite> getTeamInvites(TestTeam team) {
         return teamInvites.stream()
-                .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
+                .filter(teamInvite -> teamInvite.getTeam().getId() == team.getId())
                 .collect(Collectors.toList());
     }
 
