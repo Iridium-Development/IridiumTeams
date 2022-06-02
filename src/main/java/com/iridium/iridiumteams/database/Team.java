@@ -26,6 +26,6 @@ public class Team {
     @DatabaseField(columnName = "create_time")
     private LocalDateTime createTime;
 
-    @DatabaseField(columnName = "home", canBeNull = false)
+    @DatabaseField(columnName = "home")
     private Location home;
 }
