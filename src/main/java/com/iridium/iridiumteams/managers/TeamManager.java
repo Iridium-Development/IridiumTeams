@@ -26,7 +26,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException;
 
-    public abstract void deleteTeam(Team team, U user);
+    public abstract void deleteTeam(T team, U user);
 
     public int getUserRank(T team, U user) {
         if (user.getTeamID() == team.getId()) return user.getUserRank();

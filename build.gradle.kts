@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "1.0.8"
+version = "1.0.9"
 description = "IridiumTeams"
 
 repositories {
@@ -18,9 +18,7 @@ repositories {
 dependencies {
     // Dependencies that we want to shade in
     implementation("org.jetbrains:annotations:23.0.0")
-    implementation("com.j256.ormlite:ormlite-core:6.1")
-    implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.github.cryptomorin:XSeries:8.7.0")
+    implementation("com.github.cryptomorin:XSeries:8.7.1")
     implementation("com.iridium:IridiumCore:1.6.6")
 
     // Other dependencies that are not required or already available at runtime

@@ -77,7 +77,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public void deleteTeam(Team team, User user) {
+    public void deleteTeam(TestTeam team, User user) {
         teams.remove(team);
     }
 
