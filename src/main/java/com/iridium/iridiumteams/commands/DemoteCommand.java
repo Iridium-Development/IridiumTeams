@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
@@ -38,7 +39,7 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
 
         int nextRank = targetUser.getUserRank() - 1;
 
-        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || targetUser.getUserRank() >= user.getUserRank() || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
+        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getUserRank() >= user.getUserRank() && user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDemoteUser.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }

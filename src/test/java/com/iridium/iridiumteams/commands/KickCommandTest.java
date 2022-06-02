@@ -5,6 +5,7 @@ import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -89,6 +90,28 @@ class KickCommandTest {
     public void executeKickCommandSuccessful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
+        PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
+
+        serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
+
+        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getTeamID());
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", otherPlayer.getName())
+                .replace("%kicker%", playerMock.getName())
+        ));
+        playerMock.assertNoMoreSaid();
+        otherPlayer.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().youHaveBeenKicked
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", playerMock.getName())
+        ));
+        otherPlayer.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeKickCommandSuccessfulOwner() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());

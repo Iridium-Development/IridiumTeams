@@ -102,6 +102,23 @@ class SetPermissionCommandTest {
     }
 
     @Test
+    public void executeSetPermissionCommandToggleSuccess() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().withTeam(team).withRank(2).build();
+
+        serverMock.dispatchCommand(playerMock, "test setpermission blockBreak member");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().permissionSet
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%permission%", "blockBreak")
+                .replace("%rank%", "Member")
+                .replace("%allowed%", "true")
+        ));
+        playerMock.assertNoMoreSaid();
+        assertTrue(TestPlugin.getInstance().getTeamManager().getTeamPermission(team, 1, PermissionType.BLOCK_BREAK.getPermissionKey()));
+    }
+
+    @Test
     public void executeSetPermissionCommandSuccess() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().withTeam(team).withRank(2).build();

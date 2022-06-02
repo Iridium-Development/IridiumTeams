@@ -147,6 +147,13 @@ class PermissionsGUITest {
 
         permissionsGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot, ClickType.LEFT, InventoryAction.UNKNOWN));
 
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().permissionSet
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%permission%", "blockBreak")
+                .replace("%rank%", "Member")
+                .replace("%allowed%", "true")
+        ));
         playerMock.assertNoMoreSaid();
         assertTrue(TestPlugin.getInstance().getTeamManager().getTeamPermission(team, 1, "blockBreak"));
     }
@@ -160,6 +167,13 @@ class PermissionsGUITest {
         playerMock.openInventory(permissionsGUI.getInventory());
 
         permissionsGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot, ClickType.LEFT, InventoryAction.UNKNOWN));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().permissionSet
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%permission%", "blockBreak")
+                .replace("%rank%", "Member")
+                .replace("%allowed%", "true")
+        ));
         playerMock.assertNoMoreSaid();
         assertTrue(TestPlugin.getInstance().getTeamManager().getTeamPermission(testTeam, 1, "blockBreak"));
     }

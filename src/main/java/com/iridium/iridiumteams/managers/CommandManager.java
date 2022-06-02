@@ -116,7 +116,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         for (Command<T, U> command : commands) {
             if (!command.aliases.contains(args[0].toLowerCase())) continue;
             if (commandSender.hasPermission(command.permission) || command.permission.equalsIgnoreCase("")) {
-                return command.onTabComplete(commandSender, Arrays.copyOfRange(args, 0, args.length), iridiumTeams);
+                return command.onTabComplete(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);
             }
         }
 

@@ -5,6 +5,7 @@ import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -90,7 +91,6 @@ class PromoteCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
 
-        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().promotedPlayer
                 .replace("%player%", otherPlayer.getName())
                 .replace("%rank%", "Moderator")
@@ -104,5 +104,54 @@ class PromoteCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         otherPlayer.assertNoMoreSaid();
+        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+    }
+
+    @Test
+    public void executePromoteCommandSuccessfulOwner() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+        PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
+
+        serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().promotedPlayer
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Moderator")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        otherPlayer.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().userPromotedPlayer
+                .replace("%promoter%", playerMock.getName())
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Moderator")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        otherPlayer.assertNoMoreSaid();
+        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+    }
+
+    @Test
+    public void executePromoteCommandSuccessfulBypassing() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
+        PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
+
+        serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().promotedPlayer
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Moderator")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        otherPlayer.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().userPromotedPlayer
+                .replace("%promoter%", playerMock.getName())
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Moderator")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        otherPlayer.assertNoMoreSaid();
+        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
     }
 }

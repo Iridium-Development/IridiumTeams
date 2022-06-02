@@ -8,6 +8,8 @@ import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -42,5 +44,25 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     @Override
     public ItemStack getItemStack(U user) {
         return ItemStackUtils.makeItem(iridiumTeams.getInventories().membersGUI.item, iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
+    }
+
+    @Override
+    public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+        U user = getItem(event.getSlot());
+        if (user == null) return;
+
+        switch (event.getClick()) {
+            case LEFT:
+                if (user.getUserRank() != 1) {
+                    iridiumTeams.getCommands().demoteCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{user.getName()}, iridiumTeams);
+                } else {
+                    iridiumTeams.getCommands().kickCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{user.getName()}, iridiumTeams);
+                }
+                break;
+            case RIGHT:
+                iridiumTeams.getCommands().promoteCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{user.getName()}, iridiumTeams);
+                break;
+        }
     }
 }

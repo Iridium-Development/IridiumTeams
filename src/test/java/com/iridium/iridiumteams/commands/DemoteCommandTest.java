@@ -5,6 +5,7 @@ import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -97,6 +98,54 @@ class DemoteCommandTest {
     public void executeDemoteCommandSuccessful() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
+        PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
+
+        serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
+
+        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Member")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        otherPlayer.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().userDemotedPlayer
+                .replace("%demoter%", playerMock.getName())
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Member")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        otherPlayer.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeDemoteCommandSuccessfulOwner() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+        PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
+
+        serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
+
+        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Member")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        otherPlayer.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().userDemotedPlayer
+                .replace("%demoter%", playerMock.getName())
+                .replace("%player%", otherPlayer.getName())
+                .replace("%rank%", "Member")
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        otherPlayer.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeDemoteCommandSuccessfulBypassing() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
