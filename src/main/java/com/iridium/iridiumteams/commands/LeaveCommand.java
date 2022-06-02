@@ -5,12 +5,9 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
@@ -39,11 +36,6 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
         });
 
         user.setTeam(null);
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
-        return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
     }
 
 }

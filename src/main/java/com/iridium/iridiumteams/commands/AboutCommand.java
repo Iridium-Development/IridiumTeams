@@ -7,8 +7,6 @@ import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class AboutCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public AboutCommand() {
@@ -21,13 +19,6 @@ public class AboutCommand<T extends Team, U extends IridiumUser<T>> extends Comm
         sender.sendMessage(StringUtils.color("&7Plugin Version: " + iridiumTeams.getCommandManager().getColor() + iridiumTeams.getDescription().getVersion()));
         sender.sendMessage(StringUtils.color("&7Plugin Author: " + iridiumTeams.getCommandManager().getColor() + "Peaches_MLG"));
         sender.sendMessage(StringUtils.color("&7Plugin Donations: " + iridiumTeams.getCommandManager().getColor() + "www.patreon.com/Peaches_MLG"));
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
-        // We currently don't want to tab-completion here
-        // Return a new List, so it isn't a list of online players
-        return Collections.emptyList();
     }
 
 }

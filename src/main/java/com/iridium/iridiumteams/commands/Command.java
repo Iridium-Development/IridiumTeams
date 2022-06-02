@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,8 @@ public abstract class Command<T extends Team, U extends IridiumUser<T>> {
     public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
     }
 
-    public abstract List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams);
+    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams){
+        return Collections.emptyList();
+    }
 
 }

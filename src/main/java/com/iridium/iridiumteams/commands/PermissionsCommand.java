@@ -39,8 +39,6 @@ public class PermissionsCommand<T extends Team, U extends IridiumUser<T>> extend
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
-        // We currently don't want to tab-completion here
-        // Return a new List so it isn't a list of online players
         return iridiumTeams.getUserRanks().values().stream().map(userRank -> userRank.name).collect(Collectors.toList());
     }
 

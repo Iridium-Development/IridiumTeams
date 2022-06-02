@@ -5,15 +5,11 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
@@ -64,11 +60,6 @@ public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Com
                         .replace("%name%", name)
                 ))
         );
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
-        return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
     }
 
 }

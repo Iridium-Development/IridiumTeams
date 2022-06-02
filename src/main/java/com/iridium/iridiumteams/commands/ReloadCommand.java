@@ -7,7 +7,6 @@ import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
-import java.util.List;
 
 public class ReloadCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
@@ -19,13 +18,6 @@ public class ReloadCommand<T extends Team, U extends IridiumUser<T>> extends Com
     public void execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         iridiumTeams.loadConfigs();
         sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().reloaded.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
-        // We currently don't want to tab-completion here
-        // Return a new List, so it isn't a list of online players
-        return Collections.emptyList();
     }
 
 }
