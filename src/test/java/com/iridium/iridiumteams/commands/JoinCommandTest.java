@@ -13,6 +13,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -31,7 +33,7 @@ class JoinCommandTest {
     }
 
     @Test
-    public void executeKickCommand__BadSyntax() {
+    public void executeJoinCommand__BadSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test join");
@@ -41,7 +43,7 @@ class JoinCommandTest {
     }
 
     @Test
-    public void executeKickCommand__AlreadyInTeam() {
+    public void executeJoinCommand__AlreadyInTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test join InvalidTeamName");
@@ -53,7 +55,7 @@ class JoinCommandTest {
     }
 
     @Test
-    public void executeKickCommand__TeamDoesntExist() {
+    public void executeJoinCommand__TeamDoesntExist() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test join InvalidTeamName");
@@ -65,7 +67,7 @@ class JoinCommandTest {
     }
 
     @Test
-    public void executeKickCommand__NoInvite() {
+    public void executeJoinCommand__NoInvite() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
@@ -78,7 +80,7 @@ class JoinCommandTest {
     }
 
     @Test
-    public void executeKickCommand__WithInvite() {
+    public void executeJoinCommand__WithInvite() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock teamMember = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeamInvite(team).build();
@@ -101,7 +103,7 @@ class JoinCommandTest {
     }
 
     @Test
-    public void executeKickCommand__Bypassing() {
+    public void executeJoinCommand__Bypassing() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock teamMember = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().build();
@@ -121,5 +123,13 @@ class JoinCommandTest {
         teamMember.assertNoMoreSaid();
         assertEquals(team.getId(), user.getTeamID());
         assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(team, user).isPresent());
+    }
+
+    @Test
+    public void tabCompleteJoinCommand(){
+        PlayerMock playerMock1 = new UserBuilder(serverMock).build();
+        PlayerMock playerMock2 = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList(playerMock1.getName(), playerMock2.getName()), serverMock.getCommandTabComplete(playerMock1, "test join "));
     }
 }

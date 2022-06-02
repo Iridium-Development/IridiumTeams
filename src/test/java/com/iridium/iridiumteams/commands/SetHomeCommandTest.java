@@ -30,28 +30,19 @@ class SetHomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandNoTeam() {
+    public void executeDescriptionCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test sethome");
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeDescriptionCommandNoPermission() {
-        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, false).build();
-        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        serverMock.dispatchCommand(playerMock, "test sethome");
-
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notInTeamLand.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
-        playerMock.assertNoMoreSaid();
-    }
-
-    @Test
-    public void executeDescriptionCommandNotInLand() {
+    public void executeSetHomeCommand__NotInLand() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -63,7 +54,21 @@ class SetHomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandSuccessful() {
+    public void executeSetHomeCommand__NoPermission() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, false).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+        TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
+
+        serverMock.dispatchCommand(playerMock, "test sethome");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotSetHome
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeSetHomeCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 

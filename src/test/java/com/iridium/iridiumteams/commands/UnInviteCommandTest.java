@@ -12,6 +12,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class UnInviteCommandTest {
@@ -73,6 +76,14 @@ class UnInviteCommandTest {
         ));
         playerMock.assertNoMoreSaid();
         assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(team, TestPlugin.getInstance().getUserManager().getUser(otherPlayer)).isPresent());
+    }
+
+    @Test
+    public void tabCompleteUnInviteCommand(){
+        PlayerMock playerMock1 = new UserBuilder(serverMock).build();
+        PlayerMock playerMock2 = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList(playerMock1.getName(), playerMock2.getName()), serverMock.getCommandTabComplete(playerMock1, "test uninvite "));
     }
 
 }

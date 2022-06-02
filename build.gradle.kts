@@ -12,6 +12,7 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://ci.ender.zone/plugin/repository/everything/")
     maven("https://nexus.iridiumdevelopment.net/repository/maven-releases/")
+    maven("https://repo.papermc.io/repository/maven-public/")
     mavenCentral()
 }
 
@@ -22,6 +23,7 @@ dependencies {
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
     implementation("com.github.cryptomorin:XSeries:8.7.1")
     implementation("com.iridium:IridiumCore:1.6.6")
+    implementation("com.j256.ormlite:ormlite-core:6.1")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.24")
@@ -33,7 +35,7 @@ dependencies {
     // Test dependencies
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.12.2")
 }
 
 tasks {

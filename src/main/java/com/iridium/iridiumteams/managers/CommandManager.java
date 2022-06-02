@@ -132,7 +132,8 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         List<String> tabComplete = getTabComplete(commandSender, args);
         if (tabComplete == null) return null;
         return tabComplete.stream()
-                .filter(s -> s.toLowerCase().startsWith(args[args.length - 1]))
+                .filter(s -> s.toLowerCase().startsWith(args[args.length - 1].toLowerCase()))
+                .sorted()
                 .collect(Collectors.toList());
     }
 }

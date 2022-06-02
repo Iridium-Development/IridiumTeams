@@ -14,6 +14,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DemoteCommandTest {
@@ -164,5 +166,13 @@ class DemoteCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         otherPlayer.assertNoMoreSaid();
+    }
+
+    @Test
+    public void tabCompleteDemoteCommand(){
+        PlayerMock playerMock1 = new UserBuilder(serverMock).build();
+        PlayerMock playerMock2 = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList(playerMock1.getName(), playerMock2.getName()), serverMock.getCommandTabComplete(playerMock1, "test demote "));
     }
 }

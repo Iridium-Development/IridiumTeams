@@ -14,6 +14,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SetPermissionCommandTest {
@@ -133,5 +138,33 @@ class SetPermissionCommandTest {
         ));
         playerMock.assertNoMoreSaid();
         assertTrue(TestPlugin.getInstance().getTeamManager().getTeamPermission(team, 1, PermissionType.BLOCK_BREAK.getPermissionKey()));
+    }
+
+    @Test
+    public void tabCompleteSetPermissionsCommand__FirstArgument() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(TestPlugin.getInstance().getPermissionList().keySet().stream().sorted().collect(Collectors.toList()), serverMock.getCommandTabComplete(playerMock, "test setpermission "));
+    }
+
+    @Test
+    public void tabCompleteSetPermissionsCommand__SecondArgument() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList("CoOwner", "Member", "Moderator", "Owner", "Visitor"), serverMock.getCommandTabComplete(playerMock, "test setpermission permission "));
+    }
+
+    @Test
+    public void tabCompleteSetPermissionsCommand__ThirdArgument() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList("false", "true"), serverMock.getCommandTabComplete(playerMock, "test setpermission permission Member "));
+    }
+
+    @Test
+    public void tabCompleteSetPermissionsCommand__FourthArgument() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Collections.emptyList(), serverMock.getCommandTabComplete(playerMock, "test setpermission permission Member true "));
     }
 }

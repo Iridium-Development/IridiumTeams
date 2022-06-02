@@ -14,6 +14,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PermissionsCommandTest {
@@ -65,5 +68,12 @@ class PermissionsCommandTest {
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().invalidUserRank
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
+    }
+
+    @Test
+    public void tabCompletePermissionsCommand(){
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList("CoOwner", "Member", "Moderator", "Owner", "Visitor"), serverMock.getCommandTabComplete(playerMock, "test permissions "));
     }
 }

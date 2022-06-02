@@ -14,6 +14,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PromoteCommandTest {
@@ -153,5 +155,13 @@ class PromoteCommandTest {
         ));
         otherPlayer.assertNoMoreSaid();
         assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+    }
+
+    @Test
+    public void tabCompletePromoteCommand(){
+        PlayerMock playerMock1 = new UserBuilder(serverMock).build();
+        PlayerMock playerMock2 = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList(playerMock1.getName(), playerMock2.getName()), serverMock.getCommandTabComplete(playerMock1, "test promote "));
     }
 }
