@@ -20,6 +20,11 @@ public class UserBuilder {
         this.user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
     }
 
+    public UserBuilder withTeamInvite(TestTeam testTeam) {
+        TestPlugin.getInstance().getTeamManager().createTeamInvite(testTeam, user, user);
+        return this;
+    }
+
     public UserBuilder withTeam(TestTeam testTeam) {
         user.setTeam(testTeam);
         return this;

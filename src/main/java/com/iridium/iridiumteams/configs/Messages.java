@@ -43,6 +43,7 @@ public class Messages {
     public String inviteAlreadyPresent;
     public String teamInviteSent;
     public String teamInviteReceived;
+    public String dontHaveInvite;
     public String noActiveInvite;
     public String teamInviteRevoked;
     public String youHaveBeenKicked;
@@ -63,6 +64,8 @@ public class Messages {
     public String mustBeOwnerToTransfer;
     public String cannotTransferToYourself;
     public String ownershipTransferred;
+    public String joinedTeam;
+    public String userJoinedTeam;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -111,6 +114,7 @@ public class Messages {
         inviteAlreadyPresent = "%prefix% &7There is already an active invite for that user.";
         teamInviteSent = "%prefix% &7You have sent a " + team + " invite to %player%.";
         teamInviteReceived = "%prefix% &7You have received a " + team + " invite from %player%.";
+        dontHaveInvite = "%prefix% &7You dont have an active invite for that " + team + ".";
         noActiveInvite = "%prefix% &7There is no active invite for that user.";
         teamInviteRevoked = "%prefix% &7You have revoked a " + team + " invite from %player%.";
         youHaveBeenKicked = "%prefix% &7You have been kicked from your " + team + " by %player%";
@@ -131,5 +135,7 @@ public class Messages {
         mustBeOwnerToTransfer = "%prefix% &7You must be the " + team + " owner to transfer ownership";
         cannotTransferToYourself = "%prefix% &7You cannot transfer " + team + " ownership to yourself.";
         ownershipTransferred = "%prefix% &7%old_owner% has transferred " + team + " ownership to %new_owner%.";
+        joinedTeam = "%prefix% &7You have joined the " + team + " %name%.";
+        userJoinedTeam = "%prefix% &7%player% has joined your " + team + ".";
     }
 }

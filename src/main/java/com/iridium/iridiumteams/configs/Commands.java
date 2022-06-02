@@ -27,4 +27,5 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public HomeCommand<T, U> homeCommand = new HomeCommand<>();
     public BypassCommand<T, U> bypassCommand = new BypassCommand<>();
     public TransferCommand<T, U> transferCommand = new TransferCommand<>();
+    public JoinCommand<T, U> joinCommand = new JoinCommand<>();
 }
