@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.commands.Command;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
+import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
+public class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
 
     @Getter
     private final List<Command<T, U>> commands = new ArrayList<>();
@@ -69,7 +70,6 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command cmd, @NotNull String label, @NotNull String[] args) {
-
         if (args.length == 0) {
             noArgsDefault(commandSender);
             return true;
@@ -98,7 +98,9 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         return false;
     }
 
-    public abstract void noArgsDefault(@NotNull CommandSender commandSender);
+    public void noArgsDefault(@NotNull CommandSender commandSender) {
+        throw new NotImplementedException();
+    }
 
     private List<String> getTabComplete(CommandSender commandSender, String[] args) {
         if (args.length == 1) {
@@ -111,7 +113,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
                     }
                 }
             }
-            return result;
+            return result.stream().sorted().collect(Collectors.toList());
         }
 
         for (Command<T, U> command : commands) {

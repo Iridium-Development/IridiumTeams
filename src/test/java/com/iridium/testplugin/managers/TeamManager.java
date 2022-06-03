@@ -1,5 +1,6 @@
 package com.iridium.testplugin.managers;
 
+import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
@@ -13,7 +14,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -22,13 +25,15 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TestTeam> teams;
     public static List<TeamPermission> teamPermissions;
     public static List<TeamInvite> teamInvites;
-    public static Map<Location, TestTeam> teamClaims;
+    public static Optional<TestTeam> teamViaLocation;
+    public static boolean cancelsCreate;
 
     public TeamManager() {
         teams = new ArrayList<>();
         teamPermissions = new ArrayList<>();
         teamInvites = new ArrayList<>();
-        teamClaims = new HashMap<>();
+        teamViaLocation = Optional.empty();
+        cancelsCreate = false;
     }
 
     @Override
@@ -43,11 +48,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public Optional<TestTeam> getTeamViaLocation(Location location) {
-        return Optional.ofNullable(teamClaims.get(location));
-    }
-
-    public void setTeamClaim(TestTeam testTeam, Location location) {
-        teamClaims.put(location, testTeam);
+        return teamViaLocation;
     }
 
     @Override
@@ -67,7 +68,8 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public CompletableFuture<TestTeam> createTeam(@NotNull Player owner, @NotNull String name) {
+    public CompletableFuture<TestTeam> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException {
+        if (cancelsCreate) throw new CreateCancelledException();
         TestTeam testTeam = new TestTeam(name);
         User user = TestPlugin.getInstance().getUserManager().getUser(owner);
 

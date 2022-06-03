@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
@@ -31,7 +32,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public int getUserRank(T team, U user) {
         if (user.getTeamID() == team.getId()) return user.getUserRank();
         // if they are not in the same team, they are a visitor
-        return -2;
+        return Rank.VISITOR.getId();
     }
 
     public abstract boolean getTeamPermission(Team team, int rank, String permission);

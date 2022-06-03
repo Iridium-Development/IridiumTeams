@@ -9,9 +9,12 @@ import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.managers.TeamManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,8 +45,7 @@ class BlockBreakListenerTest {
     public void onBlockBreakNotCancelled__HasPermissions() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
+        TeamManager.teamViaLocation = Optional.of(team);
 
         assertFalse(playerMock.simulateBlockBreak(playerMock.getLocation().getBlock()).isCancelled());
     }
@@ -52,8 +54,7 @@ class BlockBreakListenerTest {
     public void onBlockBreakCancelled__NoPermissions() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
+        TeamManager.teamViaLocation = Optional.of(team);
 
         assertTrue(playerMock.simulateBlockBreak(playerMock.getLocation().getBlock()).isCancelled());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotBreakBlocks

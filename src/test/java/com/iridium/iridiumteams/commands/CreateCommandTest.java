@@ -4,13 +4,18 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.User;
+import com.iridium.testplugin.managers.TeamManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CreateCommandTest {
 
@@ -28,7 +33,7 @@ class CreateCommandTest {
     }
 
     @Test
-    public void executeCreateCommandInvalidSyntax() {
+    public void executeCreateCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test create");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team create <name>"));
@@ -36,7 +41,7 @@ class CreateCommandTest {
     }
 
     @Test
-    public void executeCreateCommandAlreadyHaveTeam() {
+    public void executeCreateCommand__AlreadyHaveTeam() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test create test");
@@ -47,7 +52,7 @@ class CreateCommandTest {
     }
 
     @Test
-    public void executeCreateCommandTeamNameTooShort() {
+    public void executeCreateCommand__TeamNameTooShort() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test create a");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameTooShort
@@ -58,7 +63,7 @@ class CreateCommandTest {
     }
 
     @Test
-    public void executeCreateCommandTeamNameTooLong() {
+    public void executeCreateCommand__TeamNameTooLong() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test create areallyreallylongteamname");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameTooLong
@@ -69,7 +74,7 @@ class CreateCommandTest {
     }
 
     @Test
-    public void executeCreateCommandTeamNameTaken() {
+    public void executeCreateCommand__TeamNameTaken() {
         new TeamBuilder("test").build();
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test create test");
@@ -80,12 +85,28 @@ class CreateCommandTest {
     }
 
     @Test
-    public void executeCreateCommandSuccess() {
+    public void executeCreateCommand__Canceled() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+        TeamManager.cancelsCreate = true;
+
         serverMock.dispatchCommand(playerMock, "test create test");
+
+        assertEquals(0, user.getUserRank());
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeCreateCommand__Success() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test create test");
+
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamCreated
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
+        assertEquals(Rank.OWNER.getId(), user.getUserRank());
     }
 }

@@ -8,9 +8,12 @@ import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.managers.TeamManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 class HomeCommandTest {
     private ServerMock serverMock;
@@ -66,8 +69,8 @@ class HomeCommandTest {
     public void executeDescriptionCommandSuccessful() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+        TeamManager.teamViaLocation = Optional.of(team);
 
-        TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
         team.setHome(playerMock.getLocation());
 
         serverMock.dispatchCommand(playerMock, "test home");

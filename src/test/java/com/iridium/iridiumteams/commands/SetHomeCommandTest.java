@@ -9,9 +9,12 @@ import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.managers.TeamManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,7 +60,7 @@ class SetHomeCommandTest {
     public void executeSetHomeCommand__NoPermission() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-        TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
+        TeamManager.teamViaLocation = Optional.of(team);
 
         serverMock.dispatchCommand(playerMock, "test sethome");
 
@@ -71,8 +74,7 @@ class SetHomeCommandTest {
     public void executeSetHomeCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.SETHOME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-
-        TestPlugin.getInstance().getTeamManager().setTeamClaim(team, playerMock.getLocation());
+        TeamManager.teamViaLocation = Optional.of(team);
 
         serverMock.dispatchCommand(playerMock, "test sethome");
 
