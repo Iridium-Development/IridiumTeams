@@ -23,7 +23,7 @@ public class IridiumUser<T extends Team> {
     @DatabaseField(columnName = "name", canBeNull = false)
     private @NotNull String name;
 
-    @DatabaseField(columnName = "team_id", canBeNull = false)
+    @DatabaseField(columnName = "team_id")
     private T team;
     @DatabaseField(columnName = "user_rank", canBeNull = false)
     private int userRank;
