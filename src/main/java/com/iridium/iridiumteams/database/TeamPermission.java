@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @NoArgsConstructor
 @DatabaseTable(tableName = "team_permissions")
-public final class TeamPermission extends TeamData {
+public final class TeamPermission<T extends Team> extends TeamData<T> {
 
     @DatabaseField(columnName = "id", generatedId = true, canBeNull = false, uniqueCombo = true)
     private int id;
@@ -25,7 +25,7 @@ public final class TeamPermission extends TeamData {
     @Setter
     private boolean allowed;
 
-    public TeamPermission(@NotNull Team team, @NotNull String permission, int rank, boolean allowed) {
+    public TeamPermission(@NotNull T team, @NotNull String permission, int rank, boolean allowed) {
         super(team);
         this.permission = permission;
         this.rank = rank;

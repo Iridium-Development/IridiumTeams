@@ -40,7 +40,7 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             ));
             return;
         }
-        Optional<TeamInvite> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team.get(), user);
+        Optional<TeamInvite<T>> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team.get(), user);
         if (!teamInvite.isPresent() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noActiveInvite
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

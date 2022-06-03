@@ -2,7 +2,6 @@ package com.iridium.testplugin.managers;
 
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.Rank;
-import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamPermission;
 import com.iridium.testplugin.TestPlugin;
@@ -23,8 +22,8 @@ import java.util.stream.Collectors;
 public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<TestTeam, User> {
 
     public static List<TestTeam> teams;
-    public static List<TeamPermission> teamPermissions;
-    public static List<TeamInvite> teamInvites;
+    public static List<TeamPermission<TestTeam>> teamPermissions;
+    public static List<TeamInvite<TestTeam>> teamInvites;
     public static Optional<TestTeam> teamViaLocation;
     public static boolean cancelsCreate;
 
@@ -84,7 +83,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public boolean getTeamPermission(Team team, int rank, String permission) {
+    public boolean getTeamPermission(TestTeam team, int rank, String permission) {
         if (rank == Rank.OWNER.getId()) return true;
         return teamPermissions.stream()
                 .filter(teamPermission -> teamPermission.getTeam().getId() == team.getId() && teamPermission.getPermission().equals(permission))
@@ -94,19 +93,19 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public void setTeamPermission(Team team, int rank, String permission, boolean allowed) {
-        Optional<TeamPermission> teamPermission = teamPermissions.stream()
+    public void setTeamPermission(TestTeam team, int rank, String permission, boolean allowed) {
+        Optional<TeamPermission<TestTeam>> teamPermission = teamPermissions.stream()
                 .filter(perm -> perm.getTeam().getId() == team.getId() && perm.getPermission().equals(permission))
                 .findFirst();
         if (teamPermission.isPresent()) {
             teamPermission.get().setAllowed(allowed);
         } else {
-            teamPermissions.add(new TeamPermission(team, permission, rank, allowed));
+            teamPermissions.add(new TeamPermission<>(team, permission, rank, allowed));
         }
     }
 
     @Override
-    public Optional<TeamInvite> getTeamInvite(TestTeam team, User user) {
+    public Optional<TeamInvite<TestTeam>> getTeamInvite(TestTeam team, User user) {
         return teamInvites.stream()
                 .filter(teamInvite -> teamInvite.getTeam().getId() == team.getId())
                 .filter(teamInvite -> teamInvite.getUser() == user.getUuid())
@@ -114,7 +113,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public List<TeamInvite> getTeamInvites(TestTeam team) {
+    public List<TeamInvite<TestTeam>> getTeamInvites(TestTeam team) {
         return teamInvites.stream()
                 .filter(teamInvite -> teamInvite.getTeam().getId() == team.getId())
                 .collect(Collectors.toList());
@@ -122,11 +121,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public void createTeamInvite(TestTeam team, User user, User invitee) {
-        teamInvites.add(new TeamInvite(team, user.getUuid(), invitee.getUuid()));
+        teamInvites.add(new TeamInvite<>(team, user.getUuid(), invitee.getUuid()));
     }
 
     @Override
-    public void deleteTeamInvite(TeamInvite teamInvite) {
+    public void deleteTeamInvite(TeamInvite<TestTeam> teamInvite) {
         teamInvites.remove(teamInvite);
     }
 }

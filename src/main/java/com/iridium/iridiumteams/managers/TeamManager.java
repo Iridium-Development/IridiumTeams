@@ -35,9 +35,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return Rank.VISITOR.getId();
     }
 
-    public abstract boolean getTeamPermission(Team team, int rank, String permission);
+    public abstract boolean getTeamPermission(T team, int rank, String permission);
 
-    public abstract void setTeamPermission(Team team, int rank, String permission, boolean allowed);
+    public abstract void setTeamPermission(T team, int rank, String permission, boolean allowed);
 
     public boolean getTeamPermission(T team, U user, String permission) {
         return user.isBypassing() || getTeamPermission(team, getUserRank(team, user), permission);
@@ -51,12 +51,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return getTeamViaLocation(location).map(team -> getTeamPermission(team, user, permission)).orElse(true);
     }
 
-    public abstract Optional<TeamInvite> getTeamInvite(T team, U user);
+    public abstract Optional<TeamInvite<T>> getTeamInvite(T team, U user);
 
-    public abstract List<TeamInvite> getTeamInvites(T team);
+    public abstract List<TeamInvite<T>> getTeamInvites(T team);
 
     public abstract void createTeamInvite(T team, U user, U invitee);
 
-    public abstract void deleteTeamInvite(TeamInvite teamInvite);
+    public abstract void deleteTeamInvite(TeamInvite<T> teamInvite);
 
 }
