@@ -30,8 +30,8 @@ public class Configuration {
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()
-                .put(1, new UserRank("Member", new Item(XMaterial.STONE_AXE, 12, 1, "&b&lMember", Collections.emptyList())))
-                .put(2, new UserRank("Moderator", new Item(XMaterial.IRON_AXE, 13, 1, "&c9&lModerator", Collections.emptyList())))
+                .put(1, new UserRank("Member", new Item(XMaterial.STONE_AXE, 12, 1, "&9&lMember", Collections.emptyList())))
+                .put(2, new UserRank("Moderator", new Item(XMaterial.IRON_AXE, 13, 1, "&5&lModerator", Collections.emptyList())))
                 .put(3, new UserRank("CoOwner", new Item(XMaterial.GOLDEN_AXE, 14, 1, "&2&lCoOwner", Collections.emptyList())))
                 .build();
         this.visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
@@ -39,11 +39,11 @@ public class Configuration {
         this.teamInfoTitle = "&8[ %" + team.toLowerCase() + "_name% &8]";
         this.teamInfoTitleFiller = "&8&m ";
         this.teamInfo = Arrays.asList(
-                "&cDescription: &7%" + team.toLowerCase() + "_description%",
-                "&cRank: &7#%" + team.toLowerCase() + "_rank%",
-                "&cValue: &7%" + team.toLowerCase() + "_value%",
-                "&cOnline Members(%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
-                "&cOffline Members(%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
+                color + "Description: &7%" + team.toLowerCase() + "_description%",
+                color + "Rank: &7#%" + team.toLowerCase() + "_rank%",
+                color + "Value: &7%" + team.toLowerCase() + "_value%",
+                color + "Online Members(%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
+                color + "Offline Members(%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
         );
 
     }

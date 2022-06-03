@@ -6,12 +6,12 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 
 public class BypassCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public BypassCommand() {
-        super(Collections.singletonList("bypass"), "Bypass Team restrictions", "/team bypass", "iridiumteams.bypass");
+    public BypassCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

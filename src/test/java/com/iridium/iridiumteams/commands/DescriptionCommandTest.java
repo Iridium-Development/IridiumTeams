@@ -30,28 +30,32 @@ class DescriptionCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandNoTeam() {
+    public void executeDescriptionCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test description my new awesome description");
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeDemoteCommandBadSyntax() {
+    public void executeDescriptionCommand__InvalidSyntax() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
         serverMock.dispatchCommand(playerMock, "test description");
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team description <description>"));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().descriptionCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeDescriptionCommandNoPermission() {
+    public void executeDescriptionCommand__NoPermission() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.DESCRIPTION, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -62,7 +66,7 @@ class DescriptionCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandSuccessful() {
+    public void executeDescriptionCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.DESCRIPTION, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 

@@ -11,14 +11,13 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public PromoteCommand() {
-        super(Collections.singletonList("promote"), "Promote a member of your team", "%prefix% &7/team promote <player>", "");
+    public PromoteCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

@@ -36,7 +36,10 @@ class CreateCommandTest {
     public void executeCreateCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test create");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team create <name>"));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().createCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 

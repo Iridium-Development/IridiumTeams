@@ -9,14 +9,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class InviteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public InviteCommand() {
-        super(Collections.singletonList("invite"), "Invite a member to your team", "%prefix% &7/team invite <player>", "");
+    public InviteCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

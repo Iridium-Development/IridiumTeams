@@ -10,15 +10,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public KickCommand() {
-        super(Collections.singletonList("kick"), "Kick a member from your team", "%prefix% &7/team kick <player>", "");
+    public KickCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

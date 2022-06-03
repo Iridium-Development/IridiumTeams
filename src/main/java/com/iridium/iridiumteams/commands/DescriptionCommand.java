@@ -7,13 +7,13 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class DescriptionCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public DescriptionCommand() {
-        super(Collections.singletonList("description"), "Change your team description", "%prefix% &7/team description <description>", "");
+    public DescriptionCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

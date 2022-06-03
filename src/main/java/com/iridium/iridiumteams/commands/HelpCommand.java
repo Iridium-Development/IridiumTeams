@@ -11,7 +11,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -19,8 +18,8 @@ import java.util.stream.IntStream;
 public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
 
-    public HelpCommand() {
-        super(Collections.singletonList("help"), "Show a list of all commands", "", "");
+    public HelpCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

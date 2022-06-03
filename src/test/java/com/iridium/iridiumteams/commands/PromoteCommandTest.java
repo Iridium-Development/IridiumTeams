@@ -34,16 +34,19 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandInvalidSyntax() {
+    public void executePromoteCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test promote");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team promote <player>"));
+        
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().promoteCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executePromoteCommandNoTeam() {
+    public void executePromoteCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
@@ -53,7 +56,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandUserNotInTeam() {
+    public void executePromoteCommand__UserNotInTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -64,7 +67,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandCannotPromote_NoPermission() {
+    public void executePromoteCommand__CannotPromote_NoPermission() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.PROMOTE, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
@@ -75,7 +78,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandCannotPromote_HigherRank() {
+    public void executePromoteCommand__CannotPromote_HigherRank() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.PROMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
@@ -86,7 +89,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandSuccessful() {
+    public void executePromoteCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.PROMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
@@ -110,7 +113,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandSuccessfulOwner() {
+    public void executePromoteCommand__SuccessfulOwner() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
@@ -134,7 +137,7 @@ class PromoteCommandTest {
     }
 
     @Test
-    public void executePromoteCommandSuccessfulBypassing() {
+    public void executePromoteCommand__SuccessfulBypassing() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();

@@ -6,11 +6,12 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandSender;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class AboutCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public AboutCommand() {
-        super(Arrays.asList("about", "version"), "Display plugin info", "", "");
+
+    public AboutCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

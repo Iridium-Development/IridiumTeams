@@ -37,28 +37,28 @@ public class Inventories {
     public Item previousPage;
 
     public Inventories() {
-        this("Team");
+        this("Team", "&c");
     }
 
-    public Inventories(String team) {
-        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
+    public Inventories(String team, String color) {
+        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
                 "&7Joined: %player_join%",
                 "&7Rank: %player_rank%",
                 "",
-                "&c&l[!] &7Right Click to promote",
-                "&c&l[!] &7Left click to demote/kick"
+                color + "&l[!] &7Right Click to promote",
+                color + "&l[!] &7Left click to demote/kick"
         )));
 
-        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, "&c&l%player_name%", "%player_name%", Arrays.asList(
+        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
                 "",
-                "&c&l[!] &7Left click to uninvite"
+                color + "&l[!] &7Left click to uninvite"
         )));
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
 
-        confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, "&c&lNo", Collections.emptyList()));
+        confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));
 
         nextPage = new Item(XMaterial.LIME_STAINED_GLASS_PANE, 1, "&a&lNext Page", Collections.emptyList());
-        previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, "&c&lPrevious Page", Collections.emptyList());
+        previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, color + "&lPrevious Page", Collections.emptyList());
     }
 }

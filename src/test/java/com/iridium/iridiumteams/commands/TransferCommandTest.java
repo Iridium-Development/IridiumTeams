@@ -39,26 +39,32 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandBadSyntax() {
+    public void executeTransferCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test transfer");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix+" &7/team transfer <player>"));
+        
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().transferCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeSetHomeCommandNoTeam() {
+    public void executeTransferCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test transfer " + otherPlayer.getName());
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeSetHomeCommandNotOwner() {
+    public void executeTransferCommand__NotOwner() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -69,7 +75,7 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandNotValidPlayer() {
+    public void executeTransferCommand__NotValidPlayer() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
 
@@ -79,7 +85,7 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandPlayerNotInTeam() {
+    public void executeTransferCommand__PlayerNotInTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -90,7 +96,7 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandCannotTransferYourself() {
+    public void executeTransferCommand__CannotTransferYourself() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
 
@@ -100,7 +106,7 @@ class TransferCommandTest {
     }
 
     @Test
-    public void executeSetHomeCommandSuccess() {
+    public void executeTransferCommand__Success() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();

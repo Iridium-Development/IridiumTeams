@@ -8,12 +8,12 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 
 public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public CreateCommand() {
-        super(Collections.singletonList("create"), "Create a new team", "%prefix% &7/team create <name>", "");
+    public CreateCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

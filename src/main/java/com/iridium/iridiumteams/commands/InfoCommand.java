@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,8 +16,8 @@ import java.util.stream.Collectors;
 public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
 
-    public InfoCommand() {
-        super(Arrays.asList("info", "who"), "View information about a team", "", "");
+    public InfoCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

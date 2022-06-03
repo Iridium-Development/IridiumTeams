@@ -38,7 +38,7 @@ class SetPermissionCommandTest {
 
 
     @Test
-    public void executeSetPermissionCommandNoTeam() {
+    public void executeSetPermissionCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test setpermission");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
@@ -48,16 +48,20 @@ class SetPermissionCommandTest {
     }
 
     @Test
-    public void executeSetPermissionCommandInvalidSyntax() {
+    public void executeSetPermissionCommand__InvalidSyntax() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+
         serverMock.dispatchCommand(playerMock, "test setpermission permission role invalid");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team setpermission <permission> <role> (true/false)"));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().setPermissionCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeSetPermissionCommandInvalidPermission() {
+    public void executeSetPermissionCommand__InvalidPermission() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test setpermission invalid member true");
@@ -68,7 +72,7 @@ class SetPermissionCommandTest {
     }
 
     @Test
-    public void executeSetPermissionCommandInvalidRank() {
+    public void executeSetPermissionCommand__InvalidRank() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test setpermission blockBreak invalid true");
@@ -79,7 +83,7 @@ class SetPermissionCommandTest {
     }
 
     @Test
-    public void executeSetPermissionCommandCannotChangePermissions() {
+    public void executeSetPermissionCommand__CannotChangePermissions() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test setpermission blockBreak member true");
@@ -90,7 +94,7 @@ class SetPermissionCommandTest {
     }
 
     @Test
-    public void executeSetPermissionCommandSuccessOwner() {
+    public void executeSetPermissionCommand__SuccessOwner() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
 
@@ -107,7 +111,7 @@ class SetPermissionCommandTest {
     }
 
     @Test
-    public void executeSetPermissionCommandToggleSuccess() {
+    public void executeSetPermissionCommand__ToggleSuccess() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().withTeam(team).withRank(2).build();
 
@@ -124,7 +128,7 @@ class SetPermissionCommandTest {
     }
 
     @Test
-    public void executeSetPermissionCommandSuccess() {
+    public void executeSetPermissionCommand__Success() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().withTeam(team).withRank(2).build();
 

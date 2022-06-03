@@ -7,12 +7,12 @@ import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 
 public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public LeaveCommand() {
-        super(Collections.singletonList("leave"), "leave your team", "%prefix% &7/team leave", "");
+    public LeaveCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

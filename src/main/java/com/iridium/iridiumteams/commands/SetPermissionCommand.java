@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public SetPermissionCommand() {
-        super(Collections.singletonList("setpermission"), "Set your teams permissions", "%prefix% &7/team setpermission <permission> <role> (true/false)", "");
+    public SetPermissionCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

@@ -34,16 +34,19 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandBadSyntax() {
+    public void executeInviteCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test invite");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team invite <player>"));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().inviteCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeInviteCommandNoTeam() {
+    public void executeInviteCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test invite Player");
@@ -52,7 +55,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandNoPermission() {
+    public void executeInviteCommand__NoPermission() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -62,7 +65,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandPlayerDoesntExist() {
+    public void executeInviteCommand__PlayerDoesntExist() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -72,7 +75,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandPlayerAlreadyInYourTeam() {
+    public void executeInviteCommand__PlayerAlreadyInYourTeam() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
@@ -83,7 +86,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandPlayerAlreadyInvited() {
+    public void executeInviteCommand__PlayerAlreadyInvited() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -96,7 +99,7 @@ class InviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandSuccessful() {
+    public void executeInviteCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.INVITE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();

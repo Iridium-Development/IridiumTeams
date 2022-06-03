@@ -6,12 +6,12 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.command.CommandSender;
 
-import java.util.Collections;
+import java.util.List;
 
 public class ReloadCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public ReloadCommand() {
-        super(Collections.singletonList("reload"), "Reload the plugin configurations", "", "iridiumteams.reload");
+    public ReloadCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

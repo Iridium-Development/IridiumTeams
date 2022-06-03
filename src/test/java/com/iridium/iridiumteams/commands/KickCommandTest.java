@@ -34,17 +34,19 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandBadSyntax() {
+    public void executeKickCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test kick");
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team kick <player>"));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().kickCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeKickCommandNoTeam() {
+    public void executeKickCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test kick OtherPlayer");
@@ -54,7 +56,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandNoPermission() {
+    public void executeKickCommand__NoPermission() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -65,7 +67,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandPlayerNotInTeam() {
+    public void executeKickCommand__PlayerNotInTeam() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -77,7 +79,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandPlayerHigherRank() {
+    public void executeKickCommand__PlayerHigherRank() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
@@ -89,7 +91,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandSuccessful() {
+    public void executeKickCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
@@ -111,7 +113,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandSuccessfulOwner() {
+    public void executeKickCommand__SuccessfulOwner() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();
@@ -133,7 +135,7 @@ class KickCommandTest {
     }
 
     @Test
-    public void executeKickCommandSuccessfulBypassing() {
+    public void executeKickCommand__SuccessfulBypassing() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();

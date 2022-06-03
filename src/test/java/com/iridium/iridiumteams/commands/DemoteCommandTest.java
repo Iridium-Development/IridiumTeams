@@ -34,16 +34,19 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandInvalidSyntax() {
+    public void executeDemoteCommand__InvalidSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test demote");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team demote <player>"));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().demoteCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeDemoteCommandNoTeam() {
+    public void executeDemoteCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
 
@@ -53,7 +56,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandUserNotInTeam() {
+    public void executeDemoteCommand__UserNotInTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -64,7 +67,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandCannotDemote_LowerRank() {
+    public void executeDemoteCommand__CannotDemote_LowerRank() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
@@ -75,7 +78,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandCannotDemote_BelowMember() {
+    public void executeDemoteCommand__CannotDemote_BelowMember() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
@@ -86,7 +89,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandCannotDemote_NoPermission() {
+    public void executeDemoteCommand__CannotDemote_NoPermission() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(1).build();
@@ -97,7 +100,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandSuccessful() {
+    public void executeDemoteCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.DEMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
@@ -121,7 +124,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandSuccessfulOwner() {
+    public void executeDemoteCommand__SuccessfulOwner() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();
@@ -145,7 +148,7 @@ class DemoteCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandSuccessfulBypassing() {
+    public void executeDemoteCommand__SuccessfulBypassing() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(2).build();

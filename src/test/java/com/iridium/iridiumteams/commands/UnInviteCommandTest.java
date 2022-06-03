@@ -33,16 +33,19 @@ class UnInviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandBadSyntax() {
+    public void executeUnInviteCommand__BadSyntax() {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(new TeamBuilder().build()).build();
 
         serverMock.dispatchCommand(playerMock, "test uninvite");
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team uninvite <player>"));
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().unInviteCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeInviteCommandNoTeam() {
+    public void executeUnInviteCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test uninvite Player");
@@ -51,7 +54,7 @@ class UnInviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandPlayerNoInvite() {
+    public void executeUnInviteCommand__PlayerNoInvite() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();
@@ -62,7 +65,7 @@ class UnInviteCommandTest {
     }
 
     @Test
-    public void executeInviteCommandSuccessful() {
+    public void executeUnInviteCommand__Successful() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).build();

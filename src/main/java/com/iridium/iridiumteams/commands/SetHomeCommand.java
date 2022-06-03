@@ -7,13 +7,13 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class SetHomeCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public SetHomeCommand() {
-        super(Collections.singletonList("sethome"), "Set your team home", "%prefix% &7/team sethome", "");
+    public SetHomeCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

@@ -7,14 +7,14 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public RenameCommand() {
-        super(Arrays.asList("rename", "name", "tag"), "Change your team name", "%prefix% &7/team rename <name>", "");
+    public RenameCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

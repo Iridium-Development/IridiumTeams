@@ -9,15 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UnInviteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public UnInviteCommand() {
-        super(Collections.singletonList("uninvite"), "UnInvite a member to your team", "%prefix% &7/team uninvite <player>", "");
+    public UnInviteCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

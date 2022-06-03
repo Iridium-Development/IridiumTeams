@@ -6,12 +6,12 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.InvitesGUI;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 
 public class InvitesCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public InvitesCommand() {
-        super(Collections.singletonList("invites"), "View your team invites", "%prefix% &7/team invites", "");
+    public InvitesCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

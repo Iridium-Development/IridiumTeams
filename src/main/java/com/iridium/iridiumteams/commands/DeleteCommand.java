@@ -8,12 +8,12 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 
 public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public DeleteCommand() {
-        super(Collections.singletonList("delete"), "Delete your team", "%prefix% &7/team delete", "");
+    public DeleteCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

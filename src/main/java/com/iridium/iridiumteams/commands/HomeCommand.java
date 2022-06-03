@@ -7,12 +7,12 @@ import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.List;
 
 public class HomeCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public HomeCommand() {
-        super(Collections.singletonList("home"), "Teleport to your teams home", "%prefix% &7/team home", "");
+    public HomeCommand(List<String> args, String description, String syntax, String permission){
+        super(args, description, syntax, permission);
     }
 
     @Override

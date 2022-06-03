@@ -40,18 +40,20 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeDemoteCommandBadSyntax() {
+    public void executeRenameCommand__InvalidSyntax() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
         serverMock.dispatchCommand(playerMock, "test rename");
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getConfiguration().prefix + " &7/team rename <name>"));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().renameCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
-    public void executeDescriptionCommandNoPermission() {
+    public void executeRenameCommand__NoPermission() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -106,7 +108,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandSuccessful() {
+    public void executeRenameCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
