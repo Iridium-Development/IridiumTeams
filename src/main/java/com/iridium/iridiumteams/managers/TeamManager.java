@@ -30,7 +30,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void deleteTeam(T team, U user);
 
     public int getUserRank(T team, U user) {
-        if (user.getTeamID() == team.getId()) return user.getUserRank();
+        if (user.getTeam().map(T::getId).orElse(0) == team.getId()) return user.getUserRank();
         // if they are not in the same team, they are a visitor
         return Rank.VISITOR.getId();
     }

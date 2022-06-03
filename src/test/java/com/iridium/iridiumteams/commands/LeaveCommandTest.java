@@ -62,6 +62,6 @@ class LeaveCommandTest {
         ));
         otherPlayer.assertNoMoreSaid();
 
-        assertEquals(user.getTeamID(), 0);
+        assertEquals(user.getTeam().map(TestTeam::getId).orElse(0), 0);
     }
 }

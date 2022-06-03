@@ -35,7 +35,7 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             return;
         }
         U kickedPlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
-        if (team.getId() != kickedPlayer.getTeamID()) {
+        if (team.getId() != kickedPlayer.getTeam().map(T::getId).orElse(0)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

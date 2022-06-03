@@ -23,7 +23,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
+        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeam().map(T::getId).orElse(0)).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }

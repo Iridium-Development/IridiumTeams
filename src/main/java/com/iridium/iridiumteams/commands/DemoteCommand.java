@@ -32,7 +32,7 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
         OfflinePlayer targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
 
-        if (targetUser.getTeamID() != team.getId()) {
+        if (targetUser.getTeam().map(T::getId).orElse(0) != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }

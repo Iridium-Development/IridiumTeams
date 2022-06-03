@@ -25,7 +25,7 @@ public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
-            Optional<T> userTeam = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+            Optional<T> userTeam = iridiumTeams.getTeamManager().getTeamViaID(user.getTeam().map(T::getId).orElse(0));
             if (!userTeam.isPresent()) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

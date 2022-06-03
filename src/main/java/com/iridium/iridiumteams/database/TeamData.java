@@ -8,11 +8,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TeamData {
+public class TeamData<T extends Team> {
     @DatabaseField(columnName = "team_id", canBeNull = false)
-    private Team team;
+    private T team;
 
-    public TeamData(Team team) {
+    public TeamData(T team) {
         this.team = team;
     }
 }
