@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Getter
@@ -24,7 +23,7 @@ public class IridiumUser<T extends Team> {
     private @NotNull String name;
 
     @DatabaseField(columnName = "team_id")
-    private T team;
+    private int teamID;
     @DatabaseField(columnName = "user_rank", canBeNull = false)
     private int userRank;
 
@@ -34,13 +33,9 @@ public class IridiumUser<T extends Team> {
     private boolean bypassing;
 
     public void setTeam(T t) {
-        this.team = t;
+        this.teamID = t == null ? 0 : t.getId();
         setJoinTime(LocalDateTime.now());
         userRank = 1;
-    }
-
-    public Optional<T> getTeam() {
-        return Optional.ofNullable(team);
     }
 
     public Player getPlayer() {

@@ -43,7 +43,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
     }
 
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-        Optional<T> team = user.getTeam();
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
         if (!team.isPresent()) {
             user.getPlayer().sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))

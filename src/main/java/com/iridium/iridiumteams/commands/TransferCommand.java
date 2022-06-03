@@ -41,7 +41,7 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
             return;
         }
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
-        if (targetUser.getTeam().map(T::getId).orElse(0) != team.getId()) {
+        if (targetUser.getTeamID() != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

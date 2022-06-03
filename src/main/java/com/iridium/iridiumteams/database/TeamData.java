@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 public class TeamData<T extends Team> {
     @DatabaseField(columnName = "team_id", canBeNull = false)
-    private T team;
+    private int teamID;
 
     public TeamData(T team) {
-        this.team = team;
+        this.teamID = team.getId();
     }
 }

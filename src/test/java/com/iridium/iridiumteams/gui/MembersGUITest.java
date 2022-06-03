@@ -99,7 +99,7 @@ class MembersGUITest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(0, user.getTeam().map(TestTeam::getId).orElse(0));
+        assertEquals(0, user.getTeamID());
     }
 
     @Test
