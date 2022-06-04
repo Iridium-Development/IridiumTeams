@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -15,10 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@NoArgsConstructor
 public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-
-    public HelpCommand(List<String> args, String description, String syntax, String permission){
+    public HelpCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

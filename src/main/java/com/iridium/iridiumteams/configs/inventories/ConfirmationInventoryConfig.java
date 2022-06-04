@@ -5,7 +5,7 @@ import com.iridium.iridiumcore.Item;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class ConfirmationInventoryConfig extends NoItemGUI{
+public class ConfirmationInventoryConfig extends NoItemGUI {
     /**
      * The yes item
      */

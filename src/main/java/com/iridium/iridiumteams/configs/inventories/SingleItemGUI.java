@@ -5,7 +5,7 @@ import com.iridium.iridiumcore.Item;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class SingleItemGUI extends NoItemGUI{
+public class SingleItemGUI extends NoItemGUI {
     /**
      * The item for the GUI
      */

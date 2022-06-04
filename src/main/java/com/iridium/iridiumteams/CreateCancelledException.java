@@ -1,4 +1,4 @@
 package com.iridium.iridiumteams;
 
-public class CreateCancelledException extends Exception{
+public class CreateCancelledException extends Exception {
 }

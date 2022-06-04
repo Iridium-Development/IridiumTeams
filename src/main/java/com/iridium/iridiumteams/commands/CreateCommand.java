@@ -6,13 +6,14 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
+@NoArgsConstructor
 public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public CreateCommand(List<String> args, String description, String syntax, String permission){
+    public CreateCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 
@@ -24,7 +25,9 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
         if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
             return;
         }
 
@@ -44,13 +47,17 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
         if (iridiumTeams.getTeamManager().getTeamViaName(teamName).isPresent()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
             return;
         }
         try {
             iridiumTeams.getTeamManager().createTeam(player, teamName).thenAccept(team -> {
                 user.setUserRank(Rank.OWNER.getId());
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
             });
         } catch (CreateCancelledException ignored) {
             //The create command has been cancelled, ignore

@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,9 +14,9 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public TransferCommand(List<String> args, String description, String syntax, String permission){
+    public TransferCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

@@ -4,14 +4,15 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
+@NoArgsConstructor
 public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public LeaveCommand(List<String> args, String description, String syntax, String permission){
+    public LeaveCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

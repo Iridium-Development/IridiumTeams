@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,9 +14,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public JoinCommand(List<String> args, String description, String syntax, String permission){
+    public JoinCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 
@@ -26,7 +27,7 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        if(iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()){
+        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

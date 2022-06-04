@@ -1,4 +1,3 @@
-
 package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
@@ -7,16 +6,17 @@ import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.stream.Collectors;
+@NoArgsConstructor
 
 public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public SetPermissionCommand(List<String> args, String description, String syntax, String permission){
+    public SetPermissionCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

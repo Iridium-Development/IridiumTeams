@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -14,9 +15,9 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public PromoteCommand(List<String> args, String description, String syntax, String permission){
+    public PromoteCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

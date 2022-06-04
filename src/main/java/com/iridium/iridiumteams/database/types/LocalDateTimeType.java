@@ -14,12 +14,12 @@ public class LocalDateTimeType extends LongType {
 
     private static final LocalDateTimeType instance = new LocalDateTimeType();
 
-    public static LocalDateTimeType getSingleton() {
-        return instance;
-    }
-
     protected LocalDateTimeType() {
         super(SqlType.LONG, new Class<?>[]{LocalDateTime.class});
+    }
+
+    public static LocalDateTimeType getSingleton() {
+        return instance;
     }
 
     @Override

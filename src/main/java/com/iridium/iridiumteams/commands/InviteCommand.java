@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class InviteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public InviteCommand(List<String> args, String description, String syntax, String permission){
+    public InviteCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

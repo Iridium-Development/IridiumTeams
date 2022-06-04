@@ -5,14 +5,15 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Objects;
+@NoArgsConstructor
 
 public class SetHomeCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public SetHomeCommand(List<String> args, String description, String syntax, String permission){
+    public SetHomeCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

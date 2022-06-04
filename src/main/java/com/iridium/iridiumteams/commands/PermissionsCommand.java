@@ -7,6 +7,7 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.PermissionsGUI;
 import com.iridium.iridiumteams.gui.RanksGUI;
+import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -14,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class PermissionsCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public PermissionsCommand(List<String> args, String description, String syntax, String permission){
+    public PermissionsCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 

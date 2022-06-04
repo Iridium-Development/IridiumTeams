@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -14,9 +15,9 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-
-    public DemoteCommand(List<String> args, String description, String syntax, String permission){
+    public DemoteCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
     }
 
@@ -32,14 +33,18 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
 
         if (targetUser.getTeamID() != team.getId()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
             return;
         }
 
         int nextRank = targetUser.getUserRank() - 1;
 
         if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getUserRank() >= user.getUserRank() && user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDemoteUser.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDemoteUser
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
             return;
         }
 
