@@ -34,14 +34,6 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     @Override
-    public void onLoad() {
-        getDataFolder().mkdir();
-
-        loadConfigs();
-        saveConfigs();
-    }
-
-    @Override
     public void onEnable() {
         super.onEnable();
         initializePermissions();
