@@ -2,6 +2,7 @@ package com.iridium.testplugin.managers;
 
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.database.TeamBank;
 import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamPermission;
 import com.iridium.testplugin.TestPlugin;
@@ -127,5 +128,10 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public void deleteTeamInvite(TeamInvite teamInvite) {
         teamInvites.remove(teamInvite);
+    }
+
+    @Override
+    public TeamBank getTeamBank(TestTeam team, String bankItem) {
+        return null;
     }
 }

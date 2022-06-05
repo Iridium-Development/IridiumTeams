@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.configs;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.iridium.iridiumcore.utils.NumberFormatter;
 import com.iridium.iridiumteams.UserRank;
 
 import java.util.Arrays;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 public class Configuration {
     public String prefix;
+
+    public NumberFormatter numberFormatter;
     public int minTeamNameLength;
     public int maxTeamNameLength;
     public Map<Integer, UserRank> userRanks;
@@ -27,6 +30,7 @@ public class Configuration {
 
     public Configuration(String color, String team, String pluginName) {
         this.prefix = color + "&l" + pluginName + " &8»";
+        this.numberFormatter = new NumberFormatter();
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()

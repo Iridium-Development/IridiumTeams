@@ -66,6 +66,12 @@ public class Messages {
     public String ownershipTransferred;
     public String joinedTeam;
     public String userJoinedTeam;
+    public String bankWithdrew;
+    public String bankDeposited;
+    public String insufficientFundsToWithdrew;
+    public String insufficientFundsToDeposit;
+    public String noSuchBankItem;
+    public String notANumber;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -137,5 +143,11 @@ public class Messages {
         ownershipTransferred = "%prefix% &7%old_owner% has transferred " + team + " ownership to %new_owner%.";
         joinedTeam = "%prefix% &7You have joined the " + team + " %name%.";
         userJoinedTeam = "%prefix% &7%player% has joined your " + team + ".";
+        bankWithdrew = "%prefix% &7You successfully withdrew %amount% %type% from your Faction bank.";
+        bankDeposited = "%prefix% &7You successfully deposited %amount% %type% from your Factiopn bank.";
+        insufficientFundsToWithdrew = "%prefix% &7You do not have enough %type% to withdraw from your Faction bank.";
+        insufficientFundsToDeposit = "%prefix% &7You do not have enough %type% to deposit into your Faction bank.";
+        noSuchBankItem = "%prefix% &7That bank item doesn't exist.";
+        notANumber = "%prefix% &7That is not a valid number.";
     }
 }

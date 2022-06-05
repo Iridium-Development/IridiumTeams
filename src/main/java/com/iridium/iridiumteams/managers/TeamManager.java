@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamBank;
 import com.iridium.iridiumteams.database.TeamInvite;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -58,5 +59,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void createTeamInvite(T team, U user, U invitee);
 
     public abstract void deleteTeamInvite(TeamInvite teamInvite);
+
+    public abstract TeamBank getTeamBank(T team, String bankItem);
 
 }

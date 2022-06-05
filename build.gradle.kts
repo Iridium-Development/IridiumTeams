@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "1.1.9"
+version = "1.2.0"
 description = "IridiumTeams"
 
 repositories {
@@ -13,6 +13,7 @@ repositories {
     maven("https://ci.ender.zone/plugin/repository/everything/")
     maven("https://nexus.iridiumdevelopment.net/repository/maven-releases/")
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://jitpack.io")
     mavenCentral()
 }
 
@@ -28,6 +29,7 @@ dependencies {
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.24")
     compileOnly("org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.24")
@@ -36,6 +38,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.12.2")
+    testImplementation("com.github.MilkBowl:VaultAPI:1.7")
 }
 
 tasks {

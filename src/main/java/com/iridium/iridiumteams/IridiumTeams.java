@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams;
 
 import com.iridium.iridiumcore.IridiumCore;
+import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -13,13 +14,16 @@ import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -28,6 +32,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     private final Map<Integer, UserRank> userRanks = new HashMap<>();
     private final Map<String, Permission> permissionList = new HashMap<>();
+    private final List<BankItem> bankItemList = new ArrayList<>();
 
     public IridiumTeams(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
@@ -37,6 +42,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public void onEnable() {
         super.onEnable();
         initializePermissions();
+        initializeBankItem();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -54,6 +60,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         getLogger().info("");
         getLogger().info("-------------------------------");
     }
+
+    public abstract Economy getEconomy();
 
     public abstract PlaceholderBuilder<T> getTeamsPlaceholderBuilder();
 
@@ -74,6 +82,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Inventories getInventories();
 
     public abstract Commands<T, U> getCommands();
+
+    public abstract BankItems getBankItems();
 
     public void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
@@ -118,7 +128,16 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addPermission(PermissionType.MANAGE_WARPS.getPermissionKey(), getPermissions().manageWarps);
     }
 
+    public void initializeBankItem() {
+        addBankItem(getBankItems().experienceBankItem);
+        addBankItem(getBankItems().moneyBankItem);
+    }
+
     public void addPermission(String key, Permission permission) {
         permissionList.put(key, permission);
+    }
+
+    public void addBankItem(BankItem bankItem) {
+        if (bankItem.isEnabled()) bankItemList.add(bankItem);
     }
 }

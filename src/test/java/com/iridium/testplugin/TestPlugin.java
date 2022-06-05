@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.configs.*;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
 import com.iridium.testplugin.managers.UserManager;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
@@ -31,6 +32,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.userManager = new UserManager();
 
         this.commandManager = new CommandManager(this, "&c", "iridiumtest");
+    }
+
+    @Override
+    public Economy getEconomy() {
+        return null;
     }
 
     @Override
@@ -81,6 +87,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public Inventories getInventories() {
         return new Inventories();
+    }
+
+    @Override
+    public BankItems getBankItems() {
+        return new BankItems();
     }
 
     public static TestPlugin getInstance() {
