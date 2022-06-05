@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedGUI<TeamInvite<T>> {
+public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedGUI<TeamInvite> {
 
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
@@ -39,7 +39,7 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     }
 
     @Override
-    public Collection<TeamInvite<T>> getPageObjects() {
+    public Collection<TeamInvite> getPageObjects() {
         return iridiumTeams.getTeamManager().getTeamInvites(team);
     }
 
@@ -52,7 +52,7 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
-        TeamInvite<T> teamInvite = getItem(event.getSlot());
+        TeamInvite teamInvite = getItem(event.getSlot());
         if (teamInvite == null) return;
 
         String username = iridiumTeams.getUserManager().getUserByUUID(teamInvite.getUser()).map(U::getName).orElse("N/A");

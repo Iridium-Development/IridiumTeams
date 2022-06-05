@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @DatabaseTable(tableName = "team_invites")
-public class TeamInvite<T extends Team> extends TeamData<T> {
+public class TeamInvite extends TeamData {
 
     @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
     private int id;
@@ -25,7 +25,7 @@ public class TeamInvite<T extends Team> extends TeamData<T> {
     @DatabaseField(columnName = "time", canBeNull = false)
     private LocalDateTime time;
 
-    public TeamInvite(@NotNull T team, @NotNull UUID user, @NotNull UUID invitee) {
+    public TeamInvite(@NotNull Team team, @NotNull UUID user, @NotNull UUID invitee) {
         super(team);
         this.user = user;
         this.invitee = invitee;

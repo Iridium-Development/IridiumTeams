@@ -28,7 +28,7 @@ public class UnInviteCommand<T extends Team, U extends IridiumUser<T>> extends C
             return;
         }
         U offlinePlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
-        Optional<TeamInvite<T>> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team, offlinePlayer);
+        Optional<TeamInvite> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team, offlinePlayer);
         if (!teamInvite.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noActiveInvite.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;

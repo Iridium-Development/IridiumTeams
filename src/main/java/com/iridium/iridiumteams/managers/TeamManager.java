@@ -51,12 +51,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return getTeamViaLocation(location).map(team -> getTeamPermission(team, user, permission)).orElse(true);
     }
 
-    public abstract Optional<TeamInvite<T>> getTeamInvite(T team, U user);
+    public abstract Optional<TeamInvite> getTeamInvite(T team, U user);
 
-    public abstract List<TeamInvite<T>> getTeamInvites(T team);
+    public abstract List<TeamInvite> getTeamInvites(T team);
 
     public abstract void createTeamInvite(T team, U user, U invitee);
 
-    public abstract void deleteTeamInvite(TeamInvite<T> teamInvite);
+    public abstract void deleteTeamInvite(TeamInvite teamInvite);
 
 }
