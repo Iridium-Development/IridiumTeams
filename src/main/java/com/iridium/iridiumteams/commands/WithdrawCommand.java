@@ -37,7 +37,7 @@ public class WithdrawCommand<T extends Team, U extends IridiumUser<T>> extends C
             BankResponse bankResponse = bankItem.get().withdraw(player, Double.parseDouble(args[1]), teamBank, iridiumTeams);
 
             if (bankResponse.isSuccess()) teamBank.setNumber(teamBank.getNumber() - bankResponse.getAmount());
-            player.sendMessage(StringUtils.color(bankResponse.isSuccess() ? iridiumTeams.getMessages().bankWithdrew : iridiumTeams.getMessages().insufficientFundsToWithdrew
+            player.sendMessage(StringUtils.color((bankResponse.isSuccess() ? iridiumTeams.getMessages().bankWithdrew : iridiumTeams.getMessages().insufficientFundsToWithdrew)
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%amount%", String.valueOf(bankResponse.getAmount()))
                     .replace("%type%", bankItem.get().getName())
