@@ -14,9 +14,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -26,6 +24,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TeamPermission> teamPermissions;
     public static List<TeamInvite> teamInvites;
     public static Optional<TestTeam> teamViaLocation;
+    public static Map<String, TeamBank> teamBank;
     public static boolean cancelsCreate;
 
     public TeamManager() {
@@ -33,6 +32,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamPermissions = new ArrayList<>();
         teamInvites = new ArrayList<>();
         teamViaLocation = Optional.empty();
+        teamBank = new HashMap<>();
         cancelsCreate = false;
     }
 
@@ -132,6 +132,9 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public TeamBank getTeamBank(TestTeam team, String bankItem) {
-        return null;
+        if (!teamBank.containsKey(bankItem)) {
+            teamBank.put(bankItem, new TeamBank(team, bankItem, 0));
+        }
+        return teamBank.get(bankItem);
     }
 }

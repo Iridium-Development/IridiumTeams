@@ -68,7 +68,7 @@ public class Messages {
     public String userJoinedTeam;
     public String bankWithdrew;
     public String bankDeposited;
-    public String insufficientFundsToWithdrew;
+    public String insufficientFundsToWithdraw;
     public String insufficientFundsToDeposit;
     public String noSuchBankItem;
     public String notANumber;
@@ -145,7 +145,7 @@ public class Messages {
         userJoinedTeam = "%prefix% &7%player% has joined your " + team + ".";
         bankWithdrew = "%prefix% &7You successfully withdrew %amount% %type% from your Faction bank.";
         bankDeposited = "%prefix% &7You successfully deposited %amount% %type% from your Factiopn bank.";
-        insufficientFundsToWithdrew = "%prefix% &7You do not have enough %type% to withdraw from your Faction bank.";
+        insufficientFundsToWithdraw = "%prefix% &7You do not have enough %type% to withdraw from your Faction bank.";
         insufficientFundsToDeposit = "%prefix% &7You do not have enough %type% to deposit into your Faction bank.";
         noSuchBankItem = "%prefix% &7That bank item doesn't exist.";
         notANumber = "%prefix% &7That is not a valid number.";

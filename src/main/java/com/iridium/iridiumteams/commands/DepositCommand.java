@@ -7,13 +7,16 @@ import com.iridium.iridiumteams.bank.BankResponse;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamBank;
+import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public DepositCommand(List<String> args, String description, String syntax, String permission) {
         super(args, description, syntax, permission);
@@ -54,7 +57,7 @@ public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Co
                     .map(BankItem::getName)
                     .collect(Collectors.toList());
         }
-        return super.onTabComplete(commandSender, args, iridiumTeams);
+        return Arrays.asList("100", "1000", "10000", "100000");
     }
 
 }
