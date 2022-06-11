@@ -19,6 +19,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private UserManager userManager;
 
     private CommandManager commandManager;
+    private TestEconomyProvider economyProvider = new TestEconomyProvider();
 
     public TestPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
@@ -37,7 +38,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
     @Override
     public Economy getEconomy() {
-        return null;
+        return economyProvider;
     }
 
     @Override
