@@ -23,6 +23,8 @@ public class Configuration {
     public String teamInfoTitle;
     public String teamInfoTitleFiller;
     public List<String> teamInfo;
+    public List<String> noneChatAlias;
+    public List<String> teamChatAlias;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -49,6 +51,9 @@ public class Configuration {
                 color + "Online Members(%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
                 color + "Offline Members(%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
         );
+
+        this.noneChatAlias = Arrays.asList("n", "none");
+        this.teamChatAlias = Arrays.asList(team.toLowerCase().substring(0, 1), team.toLowerCase());
 
     }
 }

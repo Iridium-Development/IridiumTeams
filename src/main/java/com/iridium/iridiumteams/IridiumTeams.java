@@ -5,10 +5,7 @@ import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.listeners.BlockBreakListener;
-import com.iridium.iridiumteams.listeners.BlockPlaceListener;
-import com.iridium.iridiumteams.listeners.InventoryClickListener;
-import com.iridium.iridiumteams.listeners.PlayerJoinListener;
+import com.iridium.iridiumteams.listeners.*;
 import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
@@ -25,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -33,6 +31,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     private final Map<Integer, UserRank> userRanks = new HashMap<>();
     private final Map<String, Permission> permissionList = new HashMap<>();
     private final List<BankItem> bankItemList = new ArrayList<>();
+    private final List<ChatType> chatTypes = new ArrayList<>();
 
     public IridiumTeams(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
@@ -43,6 +42,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         super.onEnable();
         initializePermissions();
         initializeBankItem();
+        initializeChatTypes();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -67,6 +67,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public abstract PlaceholderBuilder<U> getUserPlaceholderBuilder();
 
+    public abstract TeamChatPlaceholderBuilder getTeamChatPlaceholderBuilder();
+
     public abstract TeamManager<T, U> getTeamManager();
 
     public abstract IridiumUserManager<T, U> getUserManager();
@@ -89,6 +91,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerChatListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
     }
 
@@ -133,11 +136,24 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addBankItem(getBankItems().moneyBankItem);
     }
 
+    public void initializeChatTypes() {
+        addChatType(new ChatType(getConfiguration().noneChatAlias, player -> null));
+        addChatType(new ChatType(getConfiguration().teamChatAlias, player ->
+                getTeamManager().getTeamViaID(getUserManager().getUser(player).getTeamID()).map(t ->
+                        getTeamManager().getTeamMembers(t).stream().map(U::getPlayer).collect(Collectors.toList())
+                ).orElse(null))
+        );
+    }
+
     public void addPermission(String key, Permission permission) {
         permissionList.put(key, permission);
     }
 
     public void addBankItem(BankItem bankItem) {
         if (bankItem.isEnabled()) bankItemList.add(bankItem);
+    }
+
+    public void addChatType(ChatType chatType) {
+        chatTypes.add(chatType);
     }
 }

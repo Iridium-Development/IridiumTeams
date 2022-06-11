@@ -62,6 +62,7 @@ public class CommandManager<T extends Team, U extends IridiumUser<T>> implements
         registerCommand(iridiumTeams.getCommands().bankCommand);
         registerCommand(iridiumTeams.getCommands().depositCommand);
         registerCommand(iridiumTeams.getCommands().withdrawCommand);
+        registerCommand(iridiumTeams.getCommands().chatCommand);
     }
 
     public void registerCommand(Command<T, U> command) {

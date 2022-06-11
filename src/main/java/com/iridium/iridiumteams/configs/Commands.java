@@ -33,6 +33,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public BankCommand<T, U> bankCommand;
     public DepositCommand<T, U> depositCommand;
     public WithdrawCommand<T, U> withdrawCommand;
+    public ChatCommand<T, U> chatCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -65,5 +66,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         bankCommand = new BankCommand<>(Collections.singletonList("bank"), "View your " + team + " bank", "%prefix% &7/" + commandBase + " bank", "");
         depositCommand = new DepositCommand<>(Collections.singletonList("deposit"), "Deposit into your " + team + " bank", "%prefix% &7/" + commandBase + " deposit <name> <amount>", "");
         withdrawCommand = new WithdrawCommand<>(Collections.singletonList("withdraw"), "Withdraw from you " + team + " bank", "%prefix% &7/" + commandBase + " withdraw <name> <amount>", "");
+        chatCommand = new ChatCommand<>(Collections.singletonList("chat"), "Change your " + team + " chat type", "%prefix% &7/" + commandBase + " chat <chattype>", "");
     }
 }

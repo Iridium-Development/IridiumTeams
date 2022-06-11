@@ -25,6 +25,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder withChatType(String chatType) {
+        user.setChatType(chatType);
+        return this;
+    }
+
     public UserBuilder withTeam(TestTeam testTeam) {
         user.setTeam(testTeam);
         return this;

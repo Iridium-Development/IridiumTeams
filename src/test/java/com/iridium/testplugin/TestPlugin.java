@@ -2,6 +2,7 @@ package com.iridium.testplugin;
 
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PlaceholderBuilder;
+import com.iridium.iridiumteams.TeamChatPlaceholderBuilder;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
@@ -47,6 +48,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public PlaceholderBuilder<TestTeam> getTeamsPlaceholderBuilder() {
         return new TeamPlaceholderBuilder();
+    }
+
+    @Override
+    public TeamChatPlaceholderBuilder getTeamChatPlaceholderBuilder() {
+        return new com.iridium.testplugin.TeamChatPlaceholderBuilder();
     }
 
     @Override

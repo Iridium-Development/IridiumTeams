@@ -72,6 +72,9 @@ public class Messages {
     public String insufficientFundsToDeposit;
     public String noSuchBankItem;
     public String notANumber;
+    public String chatFormat;
+    public String unknownChatType;
+    public String setChatType;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -149,5 +152,8 @@ public class Messages {
         insufficientFundsToDeposit = "%prefix% &7You do not have enough %type% to deposit into your Faction bank.";
         noSuchBankItem = "%prefix% &7That bank item doesn't exist.";
         notANumber = "%prefix% &7That is not a valid number.";
+        chatFormat = "%player% &7: &7%message%";
+        unknownChatType = "%prefix% &7Unknown " + team + " Chat Type %type%";
+        setChatType = "%prefix% &7You have set your " + team + " Chat Type to %type%";
     }
 }

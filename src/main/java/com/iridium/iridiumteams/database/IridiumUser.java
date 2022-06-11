@@ -32,6 +32,8 @@ public class IridiumUser<T extends Team> {
 
     private boolean bypassing;
 
+    private String chatType = "";
+
     public void setTeam(T t) {
         this.teamID = t == null ? 0 : t.getId();
         setJoinTime(LocalDateTime.now());
