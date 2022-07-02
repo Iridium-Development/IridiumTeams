@@ -36,8 +36,7 @@ class ReloadCommandTest {
 
     @Test
     public void executeReloadCommandSuccessful() {
-        PlayerMock playerMock = new UserBuilder(serverMock).build();
-        playerMock.setOp(true);
+        PlayerMock playerMock = new UserBuilder(serverMock).withPermission("iridiumteams.reload").build();
 
         serverMock.dispatchCommand(playerMock, "test reload");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().reloaded.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));

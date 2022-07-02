@@ -3,6 +3,7 @@ package com.iridium.testplugin.managers;
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.TeamBank;
+import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamPermission;
 import com.iridium.testplugin.TestPlugin;
@@ -24,6 +25,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TeamPermission> teamPermissions;
     public static List<TeamInvite> teamInvites;
     public static Optional<TestTeam> teamViaLocation;
+    public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
     public static boolean cancelsCreate;
 
@@ -33,6 +35,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamInvites = new ArrayList<>();
         teamViaLocation = Optional.empty();
         teamBank = new HashMap<>();
+        teamEnhancements = new HashMap<>();
         cancelsCreate = false;
     }
 
@@ -136,5 +139,13 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
             teamBank.put(bankItem, new TeamBank(team, bankItem, 0));
         }
         return teamBank.get(bankItem);
+    }
+
+    @Override
+    public TeamEnhancement getTeamEnhancement(TestTeam team, String enhancement) {
+        if (!teamEnhancements.containsKey(enhancement)) {
+            teamEnhancements.put(enhancement, new TeamEnhancement(team, enhancement, 0));
+        }
+        return teamEnhancements.get(enhancement);
     }
 }

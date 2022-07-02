@@ -97,6 +97,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     }
 
     @Override
+    public Enhancements getEnhancements() {
+        return new Enhancements();
+    }
+
+    @Override
     public BankItems getBankItems() {
         return new BankItems();
     }

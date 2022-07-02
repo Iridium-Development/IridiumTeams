@@ -13,6 +13,6 @@ public class CommandManager extends com.iridium.iridiumteams.managers.CommandMan
 
     @Override
     public void noArgsDefault(@NotNull CommandSender commandSender) {
-
+        commandSender.sendMessage("No Argument Method hit");
     }
 }

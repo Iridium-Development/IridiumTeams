@@ -6,7 +6,6 @@ import com.iridium.iridiumteams.commands.Command;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
-import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
+public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> implements CommandExecutor, TabCompleter {
 
     @Getter
     private final List<Command<T, U>> commands = new ArrayList<>();
@@ -63,6 +62,9 @@ public class CommandManager<T extends Team, U extends IridiumUser<T>> implements
         registerCommand(iridiumTeams.getCommands().depositCommand);
         registerCommand(iridiumTeams.getCommands().withdrawCommand);
         registerCommand(iridiumTeams.getCommands().chatCommand);
+        registerCommand(iridiumTeams.getCommands().boostersCommand);
+        registerCommand(iridiumTeams.getCommands().upgradesCommand);
+        registerCommand(iridiumTeams.getCommands().flyCommand);
     }
 
     public void registerCommand(Command<T, U> command) {
@@ -81,15 +83,12 @@ public class CommandManager<T extends Team, U extends IridiumUser<T>> implements
 
         for (Command<T, U> command : commands) {
             // We don't want to execute other commands or ones that are disabled
-            if (!(command.aliases.contains(args[0]))) {
-                continue;
-            }
+            if (!command.aliases.contains(args[0])) continue;
 
-            // Check permissions
-            if (!(commandSender.hasPermission(command.permission) || command.permission.equalsIgnoreCase(""))) {
-                // No permissions
+            if (!command.hasPermission(commandSender, iridiumTeams)) {
                 commandSender.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
                 return false;
             }
 
@@ -98,13 +97,13 @@ public class CommandManager<T extends Team, U extends IridiumUser<T>> implements
         }
 
         // Unknown command message
-        commandSender.sendMessage(StringUtils.color(iridiumTeams.getMessages().unknownCommand.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+        commandSender.sendMessage(StringUtils.color(iridiumTeams.getMessages().unknownCommand
+                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+        ));
         return false;
     }
 
-    public void noArgsDefault(@NotNull CommandSender commandSender) {
-        throw new NotImplementedException();
-    }
+    public abstract void noArgsDefault(@NotNull CommandSender commandSender);
 
     private List<String> getTabComplete(CommandSender commandSender, String[] args) {
         if (args.length == 1) {

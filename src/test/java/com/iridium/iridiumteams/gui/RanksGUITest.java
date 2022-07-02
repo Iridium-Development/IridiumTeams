@@ -63,8 +63,12 @@ class RanksGUITest {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         RanksGUI<TestTeam, User> ranksGUI = new RanksGUI<>(testTeam, TestPlugin.getInstance());
+
         playerMock.openInventory(ranksGUI.getInventory());
-        ranksGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 11, ClickType.LEFT, InventoryAction.UNKNOWN));
+        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 11, ClickType.LEFT, InventoryAction.UNKNOWN);
+        serverMock.getPluginManager().callEvent(inventoryClickEvent);
+        assertTrue(inventoryClickEvent.isCancelled());
+
         assertTrue(playerMock.getOpenInventory().getTopInventory().getHolder() instanceof PermissionsGUI<?, ?>);
         assertEquals(Rank.VISITOR.getId(), ((PermissionsGUI<?, ?>) playerMock.getOpenInventory().getTopInventory().getHolder()).getRank());
     }

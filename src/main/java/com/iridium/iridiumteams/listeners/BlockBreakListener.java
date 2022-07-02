@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,12 +13,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import java.util.Optional;
 
+@AllArgsConstructor
 public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implements Listener {
     private final IridiumTeams<T, U> iridiumTeams;
-
-    public BlockBreakListener(IridiumTeams<T, U> iridiumTeams) {
-        this.iridiumTeams = iridiumTeams;
-    }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {

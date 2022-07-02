@@ -1,0 +1,164 @@
+package com.iridium.iridiumteams.commands;
+
+import be.seeseemelk.mockbukkit.MockBukkit;
+import be.seeseemelk.mockbukkit.ServerMock;
+import be.seeseemelk.mockbukkit.entity.PlayerMock;
+import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.TeamBuilder;
+import com.iridium.iridiumteams.UserBuilder;
+import com.iridium.testplugin.TestPlugin;
+import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.User;
+import com.iridium.testplugin.managers.TeamManager;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class FlyCommandTest {
+
+    private ServerMock serverMock;
+
+    @BeforeEach
+    public void setup() {
+        this.serverMock = MockBukkit.mock();
+        MockBukkit.load(TestPlugin.class);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        MockBukkit.unmock();
+    }
+
+    @Test
+    public void executeFlyCommand__NoTeam() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        serverMock.dispatchCommand(playerMock, "test fly");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeFlyCommand__NoPermission() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        serverMock.dispatchCommand(playerMock, "test fly");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightNotActive
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeFlyCommand__InvalidSyntax() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        serverMock.dispatchCommand(playerMock, "test fly gia");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().flyCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeFlyCommand__Toggle__Success() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test fly");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightEnabled
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertTrue(user.isFlying());
+        assertTrue(playerMock.isFlying());
+        assertTrue(playerMock.getAllowFlight());
+
+        serverMock.dispatchCommand(playerMock, "test fly");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightDisabled
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertFalse(user.isFlying());
+        assertFalse(playerMock.isFlying());
+        assertFalse(playerMock.getAllowFlight());
+    }
+
+    @Test
+    public void executeFlyCommand__On__Success() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test fly on");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightEnabled
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertTrue(user.isFlying());
+        assertTrue(playerMock.isFlying());
+        assertTrue(playerMock.getAllowFlight());
+    }
+
+    @Test
+    public void executeFlyCommand__Off__Success() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).setBypassing().build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test fly off");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightDisabled
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertFalse(user.isFlying());
+        assertFalse(playerMock.isFlying());
+        assertFalse(playerMock.getAllowFlight());
+    }
+
+    @Test
+    public void canFly__Booster_Not_Active() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+        assertFalse(TestPlugin.getInstance().getCommands().flyCommand.canFly(playerMock, TestPlugin.getInstance()));
+    }
+
+    @Test
+    public void canFly__Your_Booster_Active() {
+        TestTeam team = new TeamBuilder().withEnhancement("flight", 1).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+        assertTrue(TestPlugin.getInstance().getCommands().flyCommand.canFly(playerMock, TestPlugin.getInstance()));
+    }
+
+    @Test
+    public void canFly__Visitors_Booster_Active() {
+        TestTeam team = new TeamBuilder().withEnhancement("flight", 2).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        TeamManager.teamViaLocation = Optional.of(team);
+        assertTrue(TestPlugin.getInstance().getCommands().flyCommand.canFly(playerMock, TestPlugin.getInstance()));
+    }
+
+    @Test
+    public void tabCompleteFlyCommand() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Arrays.asList("disable", "enable", "off", "on"), serverMock.getCommandTabComplete(playerMock, "test fly "));
+    }
+}

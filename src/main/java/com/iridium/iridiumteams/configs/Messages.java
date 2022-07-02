@@ -75,6 +75,11 @@ public class Messages {
     public String chatFormat;
     public String unknownChatType;
     public String setChatType;
+    public String flightEnabled;
+    public String flightDisabled;
+    public String flightNotActive;
+    public String noSuchBooster;
+    public String noSuchUpgrade;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -155,5 +160,10 @@ public class Messages {
         chatFormat = "%player% &7: &7%message%";
         unknownChatType = "%prefix% &7Unknown " + team + " Chat Type %type%";
         setChatType = "%prefix% &7You have set your " + team + " Chat Type to %type%";
+        flightEnabled = "%prefix% &7Faction flight enabled.";
+        flightDisabled = "%prefix% &7Faction flight disabled.";
+        flightNotActive = "%prefix% &7The flight booster is not currently active.";
+        noSuchBooster = "%prefix% &7No booster by that name exists.";
+        noSuchUpgrade = "%prefix% &7No Upgrade by that name exists.";
     }
 }

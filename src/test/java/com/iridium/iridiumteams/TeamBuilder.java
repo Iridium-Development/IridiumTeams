@@ -1,10 +1,12 @@
 package com.iridium.iridiumteams;
 
 import be.seeseemelk.mockbukkit.ServerMock;
+import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.managers.TeamManager;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TeamBuilder {
@@ -25,6 +27,13 @@ public class TeamBuilder {
     public TeamBuilder(int id) {
         this.testTeam = new TestTeam("Team_" + id, id);
         TeamManager.teams.add(testTeam);
+    }
+
+    public TeamBuilder withEnhancement(String enhancement, int level) {
+        TeamEnhancement teamEnhancement = new TeamEnhancement(testTeam, enhancement,level);
+        teamEnhancement.setStartTime(LocalDateTime.now().plusHours(1));
+        TeamManager.teamEnhancements.put(enhancement, teamEnhancement);
+        return this;
     }
 
     public TeamBuilder withMembers(int amount, ServerMock serverMock) {

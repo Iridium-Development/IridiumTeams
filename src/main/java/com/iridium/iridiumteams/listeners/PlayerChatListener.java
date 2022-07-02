@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.ChatType;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,12 +14,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class PlayerChatListener<T extends Team, U extends IridiumUser<T>> implements Listener {
     private final IridiumTeams<T, U> iridiumTeams;
-
-    public PlayerChatListener(IridiumTeams<T, U> iridiumTeams) {
-        this.iridiumTeams = iridiumTeams;
-    }
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {

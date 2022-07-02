@@ -57,6 +57,10 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
         throw new NotImplementedException();
     }
 
+    public boolean hasPermission(CommandSender commandSender, IridiumTeams<T, U> iridiumTeams) {
+        return commandSender.hasPermission(permission) || permission.equalsIgnoreCase("");
+    }
+
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         return Collections.emptyList();
     }

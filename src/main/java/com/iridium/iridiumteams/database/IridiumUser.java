@@ -1,15 +1,21 @@
 package com.iridium.iridiumteams.database;
 
+import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.enhancements.*;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -31,8 +37,14 @@ public class IridiumUser<T extends Team> {
     private LocalDateTime joinTime;
 
     private boolean bypassing;
+    private boolean flying;
 
     private String chatType = "";
+
+    @Setter(AccessLevel.NONE)
+    private BukkitTask bukkitTask;
+
+    private int bukkitTaskTicks = 0;
 
     public void setTeam(T t) {
         this.teamID = t == null ? 0 : t.getId();
@@ -42,5 +54,75 @@ public class IridiumUser<T extends Team> {
 
     public Player getPlayer() {
         return Bukkit.getServer().getPlayer(uuid);
+    }
+
+    public void initBukkitTask(IridiumTeams<T, ?> iridiumTeams) {
+        if (bukkitTask != null) return;
+        bukkitTask = Bukkit.getScheduler().runTaskTimer(iridiumTeams, () -> bukkitTask(iridiumTeams), 0, 20);
+    }
+
+    public void bukkitTask(IridiumTeams<T, ?> iridiumTeams) {
+        bukkitTaskTicks++;
+        applyPotionEffects(iridiumTeams);
+    }
+
+    public void applyPotionEffects(IridiumTeams<T, ?> iridiumTeams) {
+        Player player = getPlayer();
+        if (player == null) return;
+        iridiumTeams.getTeamManager().getTeamViaLocation(player.getLocation()).ifPresent(t -> applyPotionEffects(iridiumTeams, t));
+        iridiumTeams.getTeamManager().getTeamViaID(teamID).ifPresent(t -> applyPotionEffects(iridiumTeams, t));
+    }
+
+    public void applyPotionEffects(IridiumTeams<T, ?> iridiumTeams, T team) {
+        int duration = 10;
+        Player player = getPlayer();
+        if (player == null) return;
+        HashMap<PotionEffectType, Integer> potionEffects = new HashMap<>();
+
+        for (Map.Entry<String, Enhancement<?>> enhancement : iridiumTeams.getEnhancementList().entrySet()) {
+            TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, enhancement.getKey());
+            if (!teamEnhancement.isActive() && enhancement.getValue().type == EnhancementType.BOOSTER) continue;
+            EnhancementData enhancementData = enhancement.getValue().levels.get(teamEnhancement.getLevel());
+            if (enhancementData instanceof PotionEnhancementData) {
+                PotionEnhancementData potionEnhancementData = (PotionEnhancementData) enhancementData;
+                if (!canApply(iridiumTeams, team, potionEnhancementData.enhancementAffectsType)) continue;
+                PotionEffectType potionEffectType = potionEnhancementData.potion.getPotionEffectType();
+                if (!potionEffects.containsKey(potionEffectType)) {
+                    potionEffects.put(potionEffectType, potionEnhancementData.strength - 1);
+                } else if (potionEffects.get(potionEffectType) < potionEnhancementData.strength - 1) {
+                    potionEffects.put(potionEffectType, potionEnhancementData.strength - 1);
+                }
+            }
+        }
+
+        for (Map.Entry<PotionEffectType, Integer> potionEffectType : potionEffects.entrySet()) {
+            Optional<PotionEffect> potionEffect = player.getActivePotionEffects().stream()
+                    .filter(effect -> effect.getType().equals(potionEffectType.getKey()))
+                    .findFirst();
+            if (potionEffect.isPresent()) {
+                if (potionEffect.get().getAmplifier() <= potionEffectType.getValue() && potionEffect.get().getDuration() <= duration * 20) {
+                    player.removePotionEffect(potionEffectType.getKey());
+                }
+            }
+            player.addPotionEffect(potionEffectType.getKey().createEffect(duration * 20, potionEffectType.getValue()));
+        }
+    }
+
+    public boolean canApply(IridiumTeams<T, ?> iridiumTeams, T team, List<EnhancementAffectsType> enhancementAffectsTypes) {
+        Player player = getPlayer();
+        if (player == null) return false;
+        int teamLocationID = iridiumTeams.getTeamManager().getTeamViaLocation(player.getLocation()).map(T::getId).orElse(0);
+        for (EnhancementAffectsType enhancementAffectsType : enhancementAffectsTypes) {
+            if (enhancementAffectsType == EnhancementAffectsType.VISITORS && team.getId() == teamLocationID) {
+                return true;
+            }
+            if (enhancementAffectsType == EnhancementAffectsType.MEMBERS_ANYWHERE && team.getId() == teamID) {
+                return true;
+            }
+            if (enhancementAffectsType == EnhancementAffectsType.MEMBERS_IN_TERRITORY && team.getId() == teamID && team.getId() == teamLocationID) {
+                return true;
+            }
+        }
+        return false;
     }
 }

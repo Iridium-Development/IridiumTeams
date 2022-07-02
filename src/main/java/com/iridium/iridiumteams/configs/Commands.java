@@ -34,6 +34,9 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public DepositCommand<T, U> depositCommand;
     public WithdrawCommand<T, U> withdrawCommand;
     public ChatCommand<T, U> chatCommand;
+    public BoostersCommand<T, U> boostersCommand;
+    public UpgradesCommand<T, U> upgradesCommand;
+    public FlyCommand<T, U> flyCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -67,5 +70,8 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         depositCommand = new DepositCommand<>(Collections.singletonList("deposit"), "Deposit into your " + team + " bank", "%prefix% &7/" + commandBase + " deposit <name> <amount>", "");
         withdrawCommand = new WithdrawCommand<>(Collections.singletonList("withdraw"), "Withdraw from you " + team + " bank", "%prefix% &7/" + commandBase + " withdraw <name> <amount>", "");
         chatCommand = new ChatCommand<>(Collections.singletonList("chat"), "Change your " + team + " chat type", "%prefix% &7/" + commandBase + " chat <chattype>", "");
+        boostersCommand = new BoostersCommand<>(Collections.singletonList("boosters"), "View your " + team + " Boosters", "%prefix% &7/" + commandBase + " boosters buy <booster>", "");
+        upgradesCommand = new UpgradesCommand<>(Collections.singletonList("upgrades"), "View your " + team + " Upgrades", "%prefix% &7/" + commandBase + " upgrades buy <upgrade>", "");
+        flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", "");
     }
 }

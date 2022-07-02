@@ -5,6 +5,8 @@ import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.enhancements.Enhancement;
+import com.iridium.iridiumteams.enhancements.PotionEnhancementData;
 import com.iridium.iridiumteams.listeners.*;
 import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
@@ -30,6 +32,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     private final Map<Integer, UserRank> userRanks = new HashMap<>();
     private final Map<String, Permission> permissionList = new HashMap<>();
+    private final Map<String, Enhancement<?>> enhancementList = new HashMap<>();
     private final List<BankItem> bankItemList = new ArrayList<>();
     private final List<ChatType> chatTypes = new ArrayList<>();
 
@@ -43,6 +46,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         initializePermissions();
         initializeBankItem();
         initializeChatTypes();
+        initializeEnhancements();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -83,6 +87,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public abstract Inventories getInventories();
 
+    public abstract Enhancements getEnhancements();
+
     public abstract Commands<T, U> getCommands();
 
     public abstract BankItems getBankItems();
@@ -92,6 +98,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerExpChangeListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
     }
 
@@ -145,6 +153,17 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         );
     }
 
+    public void initializeEnhancements() {
+        for (Map.Entry<String, Enhancement<PotionEnhancementData>> enhancement : getEnhancements().potionEnhancements.entrySet()) {
+            if (!enhancement.getValue().enabled) continue;
+            addEnhancement(enhancement.getKey(), enhancement.getValue());
+        }
+        addEnhancement("farming", getEnhancements().farmingEnhancement);
+        addEnhancement("spawner", getEnhancements().spawnerEnhancement);
+        addEnhancement("experience", getEnhancements().experienceEnhancement);
+        addEnhancement("flight", getEnhancements().flightEnhancement);
+    }
+
     public void addPermission(String key, Permission permission) {
         permissionList.put(key, permission);
     }
@@ -155,5 +174,9 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void addChatType(ChatType chatType) {
         chatTypes.add(chatType);
+    }
+
+    public void addEnhancement(String key, Enhancement<?> enhancement) {
+        enhancementList.put(key, enhancement);
     }
 }

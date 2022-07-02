@@ -23,6 +23,8 @@ public class Inventories {
     public NoItemGUI ranksGUI;
     public NoItemGUI permissionsGUI;
     public NoItemGUI bankGUI;
+    public NoItemGUI boostersGUI;
+    public NoItemGUI upgradesGUI;
     public ConfirmationInventoryConfig confirmationGUI;
     public Item nextPage;
     public Item previousPage;
@@ -38,6 +40,8 @@ public class Inventories {
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
+        boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
+        upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
 
         confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));
 

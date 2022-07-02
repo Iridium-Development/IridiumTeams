@@ -19,8 +19,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InvitesGUITest {
 
@@ -63,6 +62,7 @@ class InvitesGUITest {
             assertEquals(Material.BLACK_STAINED_GLASS_PANE, inventory.getContents()[i].getType());
         }
     }
+
     @Test
     public void invitesGUIInventoryClick() {
         TestTeam testTeam = new TeamBuilder().build();
@@ -73,7 +73,9 @@ class InvitesGUITest {
         InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, TestPlugin.getInstance());
 
         playerMock.openInventory(invitesGUI.getInventory());
-        invitesGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 0, ClickType.LEFT, InventoryAction.UNKNOWN));
+        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 0, ClickType.LEFT, InventoryAction.UNKNOWN);
+        serverMock.getPluginManager().callEvent(inventoryClickEvent);
+        assertTrue(inventoryClickEvent.isCancelled());
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamInviteRevoked
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)

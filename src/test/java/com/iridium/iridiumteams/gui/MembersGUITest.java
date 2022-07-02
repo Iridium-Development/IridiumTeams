@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MembersGUITest {
 
@@ -70,7 +71,9 @@ class MembersGUITest {
         MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
 
         playerMock.openInventory(membersGUI.getInventory());
-        membersGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.LEFT, InventoryAction.UNKNOWN));
+        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.LEFT, InventoryAction.UNKNOWN);
+        serverMock.getPluginManager().callEvent(inventoryClickEvent);
+        assertTrue(inventoryClickEvent.isCancelled());
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
                 .replace("%player%", user.getName())
@@ -91,7 +94,9 @@ class MembersGUITest {
         MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
 
         playerMock.openInventory(membersGUI.getInventory());
-        membersGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.LEFT, InventoryAction.UNKNOWN));
+        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.LEFT, InventoryAction.UNKNOWN);
+        serverMock.getPluginManager().callEvent(inventoryClickEvent);
+        assertTrue(inventoryClickEvent.isCancelled());
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked
                 .replace("%player%", user.getName())
@@ -112,7 +117,9 @@ class MembersGUITest {
         MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
 
         playerMock.openInventory(membersGUI.getInventory());
-        membersGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.RIGHT, InventoryAction.UNKNOWN));
+        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.RIGHT, InventoryAction.UNKNOWN);
+        serverMock.getPluginManager().callEvent(inventoryClickEvent);
+        assertTrue(inventoryClickEvent.isCancelled());
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().promotedPlayer
                 .replace("%player%", user.getName())

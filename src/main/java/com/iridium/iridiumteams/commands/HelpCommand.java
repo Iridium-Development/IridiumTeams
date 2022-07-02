@@ -49,7 +49,8 @@ public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         // Prepare the footer
         TextComponent footerText = new TextComponent(StringUtils.color(iridiumTeams.getMessages().helpCommandFooter
                 .replace("%page%", String.valueOf(page))
-                .replace("%max_page%", String.valueOf(maxPage))));
+                .replace("%max_page%", String.valueOf(maxPage))
+        ));
         TextComponent previousButton = new TextComponent(StringUtils.color(iridiumTeams.getMessages().helpCommandPreviousPage));
         TextComponent nextButton = new TextComponent(StringUtils.color(iridiumTeams.getMessages().helpCommandNextPage));
         if (page != 1) {
