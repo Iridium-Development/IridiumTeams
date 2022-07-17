@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UpgradesCommandTest {
@@ -46,6 +47,71 @@ class UpgradesCommandTest {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test upgrades");
         assertTrue(playerMock.getOpenInventory().getTopInventory().getHolder() instanceof UpgradesGUI<?, ?>);
+    }
+
+    @Test
+    public void executeUpgradesCommand__Buy__InvalidSyntax() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test upgrades bad syntax");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().upgradesCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeUpgradesCommand__Buy__NotUpgrade() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test upgrades buy farming");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().noSuchUpgrade
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeUpgradesCommand__Buy__LowLevel() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test upgrades buy haste");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notHighEnoughLevel
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%level%", "5")
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeUpgradesCommand__Buy__NotEnoughMoney() {
+        TestTeam testTeam = new TeamBuilder().withLevel(5).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test upgrades buy haste");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notEnoughMoney
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%level%", "5")
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeUpgradesCommand__Buy__Success() {
+        TestTeam testTeam = new TeamBuilder().withLevel(5).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 100000);
+
+        serverMock.dispatchCommand(playerMock, "test upgrades buy haste");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().purchasedUpgrade
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%upgrade%", "haste")
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(90000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "haste").getLevel());
+        assertTrue(TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "haste").isActive());
     }
 
 }

@@ -30,6 +30,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static boolean cancelsCreate;
 
     public TeamManager() {
+        super(TestPlugin.getInstance());
         teams = new ArrayList<>();
         teamPermissions = new ArrayList<>();
         teamInvites = new ArrayList<>();

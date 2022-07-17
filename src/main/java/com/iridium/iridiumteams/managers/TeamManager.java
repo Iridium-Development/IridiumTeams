@@ -1,18 +1,30 @@
 package com.iridium.iridiumteams.managers;
 
+import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.CreateCancelledException;
+import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.*;
+import com.iridium.iridiumteams.enhancements.Enhancement;
+import com.iridium.iridiumteams.enhancements.EnhancementData;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
+    private IridiumTeams<T, U> iridiumTeams;
+
+    public TeamManager(IridiumTeams<T, U> iridiumTeams) {
+        this.iridiumTeams = iridiumTeams;
+    }
+
     public abstract Optional<T> getTeamViaID(int id);
 
     public abstract Optional<T> getTeamViaName(String name);
@@ -60,5 +72,50 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract TeamBank getTeamBank(T team, String bankItem);
 
     public abstract TeamEnhancement getTeamEnhancement(T team, String enhancement);
+
+    public boolean UpdateEnhancement(T team, String booster, Player player) {
+        Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
+        TeamEnhancement teamEnhancement = getTeamEnhancement(team, booster);
+        EnhancementData enhancementData = enhancement.levels.get(teamEnhancement.getLevel() + 1);
+        if (enhancementData == null) enhancementData = enhancement.levels.get(teamEnhancement.getLevel());
+
+        if (enhancementData.minLevel > team.getLevel()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notHighEnoughLevel
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                    .replace("%level%", String.valueOf(enhancementData.minLevel))
+            ));
+            return false;
+        }
+
+        if (iridiumTeams.getEconomy().getBalance(player) < enhancementData.money) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notEnoughMoney
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
+        }
+
+        for (Map.Entry<String, Double> bankCost : enhancementData.bankCosts.entrySet()) {
+            if (getTeamBank(team, bankCost.getKey()).getNumber() < bankCost.getValue()) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notEnoughBankItem
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                        .replace("%bank%", bankCost.getKey())
+                ));
+                return false;
+            }
+        }
+
+        iridiumTeams.getEconomy().withdrawPlayer(player, enhancementData.money);
+
+        for (Map.Entry<String, Double> bankCost : enhancementData.bankCosts.entrySet()) {
+            TeamBank teamBank = getTeamBank(team, bankCost.getKey());
+            teamBank.setNumber(teamBank.getNumber() - bankCost.getValue());
+        }
+
+        if (enhancement.levels.containsKey(teamEnhancement.getLevel() + 1)) {
+            teamEnhancement.setLevel(teamEnhancement.getLevel() + 1);
+        }
+        teamEnhancement.setStartTime(LocalDateTime.now().plusHours(1));
+        return true;
+    }
 
 }

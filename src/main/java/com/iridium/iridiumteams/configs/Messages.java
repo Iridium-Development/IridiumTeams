@@ -80,6 +80,11 @@ public class Messages {
     public String flightNotActive;
     public String noSuchBooster;
     public String noSuchUpgrade;
+    public String notHighEnoughLevel;
+    public String notEnoughMoney;
+    public String notEnoughBankItem;
+    public String purchasedUpgrade;
+    public String purchasedBooster;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -165,5 +170,10 @@ public class Messages {
         flightNotActive = "%prefix% &7The flight booster is not currently active.";
         noSuchBooster = "%prefix% &7No booster by that name exists.";
         noSuchUpgrade = "%prefix% &7No Upgrade by that name exists.";
+        notHighEnoughLevel = "%prefix% &7You need to be atleast level %level% in your "+team+".";
+        notEnoughMoney = "%prefix% &7You dont have enough money to purchase this.";
+        notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your "+team+" Bank.";
+        purchasedBooster = "%prefix% &7You have purchased a %booster% booster";
+        purchasedUpgrade = "%prefix% &7You have purchased a %upgrade% upgrade";
     }
 }

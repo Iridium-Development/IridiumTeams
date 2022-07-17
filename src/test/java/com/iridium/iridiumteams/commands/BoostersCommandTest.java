@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BoostersCommandTest {
@@ -46,6 +47,71 @@ class BoostersCommandTest {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test boosters");
         assertTrue(playerMock.getOpenInventory().getTopInventory().getHolder() instanceof BoostersGUI<?,?>);
+    }
+
+    @Test
+    public void executeBoostersCommand__Buy__InvalidSyntax() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test boosters bad syntax");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().boostersCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeBoostersCommand__Buy__NotBooster() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test boosters buy haste");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().noSuchBooster
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeBoostersCommand__Buy__LowLevel() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test boosters buy farming");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notHighEnoughLevel
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%level%", "5")
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeBoostersCommand__Buy__NotEnoughMoney() {
+        TestTeam testTeam = new TeamBuilder().withLevel(5).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test boosters buy farming");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notEnoughMoney
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%level%", "5")
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeBoostersCommand__Buy__Success() {
+        TestTeam testTeam = new TeamBuilder().withLevel(5).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 100000);
+
+        serverMock.dispatchCommand(playerMock, "test boosters buy farming");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().purchasedBooster
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%booster%", "farming")
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(90000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "farming").getLevel());
+        assertTrue(TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "farming").isActive());
     }
 
 }

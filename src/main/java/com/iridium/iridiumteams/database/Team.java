@@ -28,4 +28,11 @@ public class Team {
 
     @DatabaseField(columnName = "home")
     private Location home;
+
+    @DatabaseField(columnName = "experience")
+    private int experience;
+
+    public int getLevel() {
+        return (int) Math.floor(Math.cbrt(experience));
+    }
 }

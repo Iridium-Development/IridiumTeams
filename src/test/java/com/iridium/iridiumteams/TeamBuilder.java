@@ -29,8 +29,13 @@ public class TeamBuilder {
         TeamManager.teams.add(testTeam);
     }
 
+    public TeamBuilder withLevel(int level) {
+        testTeam.setExperience(level * level * level);
+        return this;
+    }
+
     public TeamBuilder withEnhancement(String enhancement, int level) {
-        TeamEnhancement teamEnhancement = new TeamEnhancement(testTeam, enhancement,level);
+        TeamEnhancement teamEnhancement = new TeamEnhancement(testTeam, enhancement, level);
         teamEnhancement.setStartTime(LocalDateTime.now().plusHours(1));
         TeamManager.teamEnhancements.put(enhancement, teamEnhancement);
         return this;

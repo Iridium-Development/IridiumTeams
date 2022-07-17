@@ -46,6 +46,8 @@ class CommandManagerTest {
 
     @Test
     public void commandManagerCommands__HasNoArgsConstructor() throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        TestPlugin.getInstance().getCommandManager().getCommands().clear();
+        TestPlugin.getInstance().getCommandManager().registerCommands();
         for (Command<?, ?> command : TestPlugin.getInstance().getCommandManager().getCommands()) {
             Optional<Constructor<?>> constructorOptional = Arrays.stream(command.getClass().getConstructors()).filter(constructor -> constructor.getParameterCount() == 0).findFirst();
             assertTrue(constructorOptional.isPresent(), command.getClass().getSimpleName() + " Does not have default constructor");
