@@ -42,7 +42,7 @@ public class Configuration {
                 .build();
         this.visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
         this.owner = new UserRank("Owner", new Item(XMaterial.DIAMOND_AXE, 15, 1, "&c&lOwner", Collections.emptyList()));
-        this.teamInfoTitle = "&8[ " + color + "%" + team.toLowerCase() + "_name% &8]";
+        this.teamInfoTitle = "&8[ " + color + "&l%" + team.toLowerCase() + "_name% &8]";
         this.teamInfoTitleFiller = "&8&m ";
         this.teamInfo = Arrays.asList(
                 color + "Description: &7%" + team.toLowerCase() + "_description%",

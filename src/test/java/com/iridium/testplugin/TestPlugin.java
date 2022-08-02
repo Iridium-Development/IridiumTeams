@@ -19,7 +19,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private UserManager userManager;
 
     private CommandManager commandManager;
-    private TestEconomyProvider economyProvider = new TestEconomyProvider();
+    private final TestEconomyProvider economyProvider = new TestEconomyProvider();
 
     public TestPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
