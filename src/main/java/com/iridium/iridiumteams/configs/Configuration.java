@@ -42,14 +42,14 @@ public class Configuration {
                 .build();
         this.visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
         this.owner = new UserRank("Owner", new Item(XMaterial.DIAMOND_AXE, 15, 1, "&c&lOwner", Collections.emptyList()));
-        this.teamInfoTitle = "&8[ %" + team.toLowerCase() + "_name% &8]";
+        this.teamInfoTitle = "&8[ " + color + "%" + team.toLowerCase() + "_name% &8]";
         this.teamInfoTitleFiller = "&8&m ";
         this.teamInfo = Arrays.asList(
                 color + "Description: &7%" + team.toLowerCase() + "_description%",
                 color + "Rank: &7#%" + team.toLowerCase() + "_rank%",
                 color + "Value: &7%" + team.toLowerCase() + "_value%",
-                color + "Online Members(%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
-                color + "Offline Members(%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
+                color + "Online Members (%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
+                color + "Offline Members (%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
         );
 
         this.noneChatAlias = Arrays.asList("n", "none");

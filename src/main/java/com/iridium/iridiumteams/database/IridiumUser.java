@@ -1,7 +1,10 @@
 package com.iridium.iridiumteams.database;
 
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.enhancements.*;
+import com.iridium.iridiumteams.enhancements.Enhancement;
+import com.iridium.iridiumteams.enhancements.EnhancementAffectsType;
+import com.iridium.iridiumteams.enhancements.EnhancementData;
+import com.iridium.iridiumteams.enhancements.PotionEnhancementData;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.AccessLevel;
@@ -81,7 +84,7 @@ public class IridiumUser<T extends Team> {
 
         for (Map.Entry<String, Enhancement<?>> enhancement : iridiumTeams.getEnhancementList().entrySet()) {
             TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, enhancement.getKey());
-            if (!teamEnhancement.isActive() && enhancement.getValue().type == EnhancementType.BOOSTER) continue;
+            if (!teamEnhancement.isActive(enhancement.getValue().type)) continue;
             EnhancementData enhancementData = enhancement.getValue().levels.get(teamEnhancement.getLevel());
             if (enhancementData instanceof PotionEnhancementData) {
                 PotionEnhancementData potionEnhancementData = (PotionEnhancementData) enhancementData;

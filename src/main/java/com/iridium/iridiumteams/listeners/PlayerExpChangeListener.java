@@ -5,7 +5,6 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
-import com.iridium.iridiumteams.enhancements.EnhancementType;
 import com.iridium.iridiumteams.enhancements.ExperienceEnhancementData;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
@@ -24,7 +23,7 @@ public class PlayerExpChangeListener<T extends Team, U extends IridiumUser<T>> i
             TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "experience");
             ExperienceEnhancementData data = spawnerEnhancement.levels.get(teamEnhancement.getLevel());
 
-            if (!teamEnhancement.isActive() && spawnerEnhancement.type == EnhancementType.BOOSTER) return;
+            if (!teamEnhancement.isActive(spawnerEnhancement.type)) return;
             if (data == null) return;
 
             event.setAmount((int) (event.getAmount() * data.experienceModifier));

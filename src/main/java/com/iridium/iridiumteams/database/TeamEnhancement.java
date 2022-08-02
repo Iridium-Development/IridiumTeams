@@ -1,5 +1,6 @@
 package com.iridium.iridiumteams.database;
 
+import com.iridium.iridiumteams.enhancements.EnhancementType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
@@ -27,22 +28,26 @@ public final class TeamEnhancement extends TeamData {
 
     @DatabaseField(columnName = "start_time", canBeNull = false)
     @Setter
-    private LocalDateTime startTime;
+    private LocalDateTime expirationTime;
 
     public TeamEnhancement(@NotNull Team team, String enhancementName, int level) {
         super(team);
         this.enhancementName = enhancementName;
         this.level = level;
-        this.startTime = LocalDateTime.MIN;
+        this.expirationTime = LocalDateTime.MIN;
     }
 
     public boolean isActive() {
-        return LocalDateTime.now().until(startTime, ChronoUnit.SECONDS) > 0;
+        return LocalDateTime.now().until(expirationTime, ChronoUnit.SECONDS) > 0;
+    }
+
+    public boolean isActive(EnhancementType enhancementType) {
+        return enhancementType == EnhancementType.UPGRADE || isActive();
     }
 
 
     public long getRemainingTime() {
-        return LocalDateTime.now().until(startTime, ChronoUnit.SECONDS);
+        return LocalDateTime.now().until(expirationTime, ChronoUnit.SECONDS);
     }
 
 }

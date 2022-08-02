@@ -53,7 +53,7 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> implements GU
             int seconds = Math.max((int) (teamEnhancement.getRemainingTime() % 60), 0);
             int minutes = Math.max((int) ((teamEnhancement.getRemainingTime() % 3600) / 60), 0);
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
-            int currentLevel = enhancementEntry.getValue().type == EnhancementType.BOOSTER && !teamEnhancement.isActive() ? 0 : teamEnhancement.getLevel();
+            int currentLevel = teamEnhancement.isActive(enhancementEntry.getValue().type) ? teamEnhancement.getLevel() : 0;
             String nextLevel = nextData == null ? "N/A" : String.valueOf(currentLevel + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, Arrays.asList(

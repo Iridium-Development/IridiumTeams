@@ -8,7 +8,6 @@ import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
-import com.iridium.iridiumteams.enhancements.EnhancementType;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +77,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
         TeamEnhancement teamEnhancement = getTeamEnhancement(team, booster);
 
-        if (enhancement.type == EnhancementType.BOOSTER && !teamEnhancement.isActive()) teamEnhancement.setLevel(0);
+        if (!teamEnhancement.isActive(enhancement.type)) teamEnhancement.setLevel(0);
 
         EnhancementData enhancementData = enhancement.levels.get(teamEnhancement.getLevel() + 1);
         if (enhancementData == null) enhancementData = enhancement.levels.get(teamEnhancement.getLevel());
@@ -118,7 +117,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         if (enhancement.levels.containsKey(teamEnhancement.getLevel() + 1)) {
             teamEnhancement.setLevel(teamEnhancement.getLevel() + 1);
         }
-        teamEnhancement.setStartTime(LocalDateTime.now().plusHours(1));
+        teamEnhancement.setExpirationTime(LocalDateTime.now().plusHours(1));
         return true;
     }
 

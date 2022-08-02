@@ -41,7 +41,7 @@ public class TeamBuilder {
 
     public TeamBuilder withEnhancement(String enhancement, int level, LocalDateTime localDateTime) {
         TeamEnhancement teamEnhancement = new TeamEnhancement(testTeam, enhancement, level);
-        teamEnhancement.setStartTime(localDateTime);
+        teamEnhancement.setExpirationTime(localDateTime);
         TeamManager.teamEnhancements.put(enhancement, teamEnhancement);
         return this;
     }

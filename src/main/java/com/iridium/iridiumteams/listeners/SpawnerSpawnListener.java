@@ -5,7 +5,6 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
-import com.iridium.iridiumteams.enhancements.EnhancementType;
 import com.iridium.iridiumteams.enhancements.SpawnerEnhancementData;
 import lombok.AllArgsConstructor;
 import org.bukkit.block.CreatureSpawner;
@@ -25,7 +24,7 @@ public class SpawnerSpawnListener<T extends Team, U extends IridiumUser<T>> impl
             SpawnerEnhancementData data = spawnerEnhancement.levels.get(teamEnhancement.getLevel());
             CreatureSpawner spawner = event.getSpawner();
 
-            if (!teamEnhancement.isActive() && spawnerEnhancement.type == EnhancementType.BOOSTER) return;
+            if (!teamEnhancement.isActive(spawnerEnhancement.type)) return;
             if (data == null) return;
 
             spawner.setSpawnCount(data.spawnCount);
