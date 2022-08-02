@@ -55,7 +55,7 @@ public class Enhancements {
             .put(2, new ExperienceEnhancementData(10, 10000, new HashMap<>(), 2))
             .put(3, new ExperienceEnhancementData(15, 10000, new HashMap<>(), 2.5))
             .build());
-    public Enhancement<FlightEnhancementData> flightEnhancement = new Enhancement<>(true, EnhancementType.BOOSTER, new Item(XMaterial.FEATHER, 10, 1, "&c&lFlight Booster", Arrays.asList(
+    public Enhancement<FlightEnhancementData> flightEnhancement = new Enhancement<>(true, EnhancementType.BOOSTER, new Item(XMaterial.FEATHER, 16, 1, "&c&lFlight Booster", Arrays.asList(
             "&7Gain access to fly.",
             "",
             "&c&lInformation:",
@@ -102,7 +102,7 @@ public class Enhancements {
                     .build()
             ))
             .put("jump", new Enhancement<>(
-                    true, EnhancementType.UPGRADE, new Item(XMaterial.DIAMOND_PICKAXE, 14, 1, "&c&lJump Booster", Arrays.asList(
+                    true, EnhancementType.UPGRADE, new Item(XMaterial.FEATHER, 14, 1, "&c&lJump Booster", Arrays.asList(
                     "&7Gain a Jump Boost Potion Effect.",
                     "",
                     "&c&lInformation:",
@@ -115,6 +115,22 @@ public class Enhancements {
                     .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.JUMP))
                     .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.JUMP))
                     .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.JUMP))
+                    .build()
+            ))
+            .put("regeneration", new Enhancement<>(
+                    true, EnhancementType.UPGRADE, new Item(XMaterial.GOLDEN_APPLE, 16, 1, "&c&lRegen Booster", Arrays.asList(
+                    "&7Gain a Regeneration Potion Effect.",
+                    "",
+                    "&c&lInformation:",
+                    "&c&l * &7Time Remaining: &c%timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
+                    "&c&l * &7Current Level: %current_level%",
+                    "&c&l * &7Booster Cost: $%cost%",
+                    "",
+                    "&c&l[!] &cLeft Click to Purchase Level %next_level%."
+            )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
+                    .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.REGENERATION))
+                    .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.REGENERATION))
+                    .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.REGENERATION))
                     .build()
             ))
             .build();
