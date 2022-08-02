@@ -18,8 +18,8 @@ public abstract class BankItem {
     private double defaultAmount;
     private boolean enabled;
 
-    public abstract BankResponse withdraw(Player player, Number amount, TeamBank factionBank, IridiumTeams<?, ?> teams);
+    public abstract BankResponse withdraw(Player player, Number amount, TeamBank teamBank, IridiumTeams<?, ?> teams);
 
-    public abstract BankResponse deposit(Player player, Number amount, TeamBank factionBank, IridiumTeams<?, ?> teams);
+    public abstract BankResponse deposit(Player player, Number amount, TeamBank teamBank, IridiumTeams<?, ?> teams);
 
 }

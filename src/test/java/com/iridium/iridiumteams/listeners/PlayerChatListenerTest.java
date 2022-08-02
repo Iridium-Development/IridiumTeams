@@ -34,7 +34,7 @@ class PlayerChatListenerTest {
     }
 
     @Test
-    public void onPlayerChatNoFaction() {
+    public void onPlayerChatNoTeam() {
         PlayerMock messageSender = new UserBuilder(serverMock).build();
 
         AsyncPlayerChatEvent asyncPlayerChatEvent = new AsyncPlayerChatEvent(false, messageSender, "test", new HashSet<>(serverMock.getOnlinePlayers()));

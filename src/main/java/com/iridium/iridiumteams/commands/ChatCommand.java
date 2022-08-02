@@ -50,7 +50,7 @@ public class ChatCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     @Override
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         return iridiumTeams.getChatTypes().stream()
-                .flatMap(factionChatType -> factionChatType.getAliases().stream())
+                .flatMap(chatTypes -> chatTypes.getAliases().stream())
                 .collect(Collectors.toList());
     }
 }
