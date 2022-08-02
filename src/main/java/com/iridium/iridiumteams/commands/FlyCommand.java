@@ -76,11 +76,10 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
         }
         if (visitor.isPresent()) {
             TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(visitor.get(), "flight");
+            FlightEnhancementData data = flightEnhancement.levels.get(teamEnhancement.getLevel());
             if (flightEnhancement.type != EnhancementType.BOOSTER || teamEnhancement.isActive()) {
-                FlightEnhancementData enhancementData = flightEnhancement.levels.get(teamEnhancement.getLevel());
-                if (user.canApply(iridiumTeams, visitor.get(), enhancementData != null ? enhancementData.enhancementAffectsType : Collections.emptyList())) {
-                    return true;
-                }
+                if (data == null) return false;
+                return user.canApply(iridiumTeams, visitor.get(), data.enhancementAffectsType);
             }
         }
         return false;

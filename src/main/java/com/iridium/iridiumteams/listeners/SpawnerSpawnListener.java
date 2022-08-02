@@ -22,10 +22,13 @@ public class SpawnerSpawnListener<T extends Team, U extends IridiumUser<T>> impl
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getLocation()).ifPresent(team -> {
             Enhancement<SpawnerEnhancementData> spawnerEnhancement = iridiumTeams.getEnhancements().spawnerEnhancement;
             TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "spawner");
-            if (!teamEnhancement.isActive() && spawnerEnhancement.type == EnhancementType.BOOSTER) return;
+            SpawnerEnhancementData data = spawnerEnhancement.levels.get(teamEnhancement.getLevel());
             CreatureSpawner spawner = event.getSpawner();
-            int spawnCount = spawnerEnhancement.levels.get(teamEnhancement.getLevel()).spawnCount;
-            spawner.setSpawnCount(spawnCount);
+
+            if (!teamEnhancement.isActive() && spawnerEnhancement.type == EnhancementType.BOOSTER) return;
+            if (data == null) return;
+
+            spawner.setSpawnCount(data.spawnCount);
             spawner.update(true);
         });
     }

@@ -19,13 +19,15 @@ public class PlayerExpChangeListener<T extends Team, U extends IridiumUser<T>> i
     //Could cause dupe's of xp if they have a plugin to deposit xp
     @EventHandler(ignoreCancelled = true)
     public void onPlayerExperienceChange(PlayerExpChangeEvent event) {
-        U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
-        iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            Enhancement<ExperienceEnhancementData> experienceEnhancement = iridiumTeams.getEnhancements().experienceEnhancement;
+        iridiumTeams.getTeamManager().getTeamViaID(iridiumTeams.getUserManager().getUser(event.getPlayer()).getTeamID()).ifPresent(team -> {
+            Enhancement<ExperienceEnhancementData> spawnerEnhancement = iridiumTeams.getEnhancements().experienceEnhancement;
             TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "experience");
-            if (!teamEnhancement.isActive() && experienceEnhancement.type == EnhancementType.BOOSTER) return;
-            double experienceModifier = experienceEnhancement.levels.get(teamEnhancement.getLevel()).experienceModifier;
-            event.setAmount((int) (event.getAmount() * experienceModifier));
+            ExperienceEnhancementData data = spawnerEnhancement.levels.get(teamEnhancement.getLevel());
+
+            if (!teamEnhancement.isActive() && spawnerEnhancement.type == EnhancementType.BOOSTER) return;
+            if (data == null) return;
+
+            event.setAmount((int) (event.getAmount() * data.experienceModifier));
         });
     }
 }
