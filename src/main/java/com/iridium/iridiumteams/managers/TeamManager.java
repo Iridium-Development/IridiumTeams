@@ -8,6 +8,7 @@ import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
+import com.iridium.iridiumteams.enhancements.EnhancementType;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -76,6 +77,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public boolean UpdateEnhancement(T team, String booster, Player player) {
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
         TeamEnhancement teamEnhancement = getTeamEnhancement(team, booster);
+
+        if (enhancement.type == EnhancementType.BOOSTER && !teamEnhancement.isActive()) teamEnhancement.setLevel(0);
+
         EnhancementData enhancementData = enhancement.levels.get(teamEnhancement.getLevel() + 1);
         if (enhancementData == null) enhancementData = enhancement.levels.get(teamEnhancement.getLevel());
 

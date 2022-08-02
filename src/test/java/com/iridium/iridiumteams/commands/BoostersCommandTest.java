@@ -13,6 +13,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -98,6 +100,25 @@ class BoostersCommandTest {
     @Test
     public void executeBoostersCommand__Buy__Success() {
         TestTeam testTeam = new TeamBuilder().withLevel(5).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 100000);
+
+        serverMock.dispatchCommand(playerMock, "test boosters buy farming");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().purchasedBooster
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%booster%", "farming")
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(90000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "farming").getLevel());
+        assertTrue(TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "farming").isActive());
+    }
+
+    @Test
+    public void executeBoostersCommand__Buy__ResetLevel() {
+        TestTeam testTeam = new TeamBuilder().withEnhancement("farming", 3, LocalDateTime.now().minusDays(1)).withLevel(5).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 100000);
 

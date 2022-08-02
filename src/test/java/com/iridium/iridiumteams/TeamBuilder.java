@@ -35,8 +35,13 @@ public class TeamBuilder {
     }
 
     public TeamBuilder withEnhancement(String enhancement, int level) {
+        withEnhancement(enhancement, level, LocalDateTime.now().plusHours(1));
+        return this;
+    }
+
+    public TeamBuilder withEnhancement(String enhancement, int level, LocalDateTime localDateTime) {
         TeamEnhancement teamEnhancement = new TeamEnhancement(testTeam, enhancement, level);
-        teamEnhancement.setStartTime(LocalDateTime.now().plusHours(1));
+        teamEnhancement.setStartTime(localDateTime);
         TeamManager.teamEnhancements.put(enhancement, teamEnhancement);
         return this;
     }
