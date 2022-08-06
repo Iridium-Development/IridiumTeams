@@ -57,6 +57,7 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
+
         U user = getItem(event.getSlot());
         if (user == null) return;
 

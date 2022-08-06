@@ -67,6 +67,8 @@ public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> extends Ba
 
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+
         if (event.getSlot() == iridiumTeams.getInventories().permissionsGUI.size - 7 && page > 1) {
             page--;
             event.getWhoClicked().openInventory(getInventory());

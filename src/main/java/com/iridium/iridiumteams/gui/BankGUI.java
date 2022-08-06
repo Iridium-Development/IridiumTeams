@@ -53,6 +53,8 @@ public class BankGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+
         Optional<BankItem> bankItem = iridiumTeams.getBankItemList().stream().filter(item -> item.getItem().slot == event.getSlot()).findFirst();
         if (!bankItem.isPresent()) return;
         U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked());

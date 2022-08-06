@@ -72,6 +72,8 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
 
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+
         if (!boosters.containsKey(event.getSlot())) return;
         String booster = boosters.get(event.getSlot());
         U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked());

@@ -44,6 +44,8 @@ public class RanksGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI 
 
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+
         for (Map.Entry<Integer, UserRank> userRank : iridiumTeams.getUserRanks().entrySet()) {
             if (event.getSlot() != userRank.getValue().item.slot) continue;
             event.getWhoClicked().openInventory(new PermissionsGUI<>(team, userRank.getKey(), event.getWhoClicked().getOpenInventory().getTopInventory(), iridiumTeams).getInventory());

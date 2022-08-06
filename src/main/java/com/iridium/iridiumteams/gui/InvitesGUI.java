@@ -60,6 +60,7 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
+
         TeamInvite teamInvite = getItem(event.getSlot());
         if (teamInvite == null) return;
 

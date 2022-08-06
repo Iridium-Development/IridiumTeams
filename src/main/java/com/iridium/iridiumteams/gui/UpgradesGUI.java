@@ -46,7 +46,7 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
     @Override
     public void addContent(Inventory inventory) {
         super.addContent(inventory);
-        
+
         upgrades.clear();
         for (Map.Entry<String, Enhancement<?>> enhancementEntry : iridiumTeams.getEnhancementList().entrySet()) {
             if (enhancementEntry.getValue().type != EnhancementType.UPGRADE) continue;
@@ -72,6 +72,8 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
 
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+        
         if (!upgrades.containsKey(event.getSlot())) return;
         String upgrade = upgrades.get(event.getSlot());
         U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked());
