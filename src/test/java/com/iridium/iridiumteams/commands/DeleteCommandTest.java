@@ -74,4 +74,19 @@ class DeleteCommandTest {
         playerMock.assertNoMoreSaid();
     }
 
+    @Test
+    public void executeDeleteCommandExecutes() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).setBypassing().build();
+
+        serverMock.dispatchCommand(playerMock, "test delete");
+        assertTrue(playerMock.getOpenInventory().getTopInventory().getHolder() instanceof ConfirmationGUI);
+        playerMock.simulateInventoryClick(TestPlugin.getInstance().getInventories().confirmationGUI.yes.slot);
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamDeleted
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", playerMock.getName())
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
 }

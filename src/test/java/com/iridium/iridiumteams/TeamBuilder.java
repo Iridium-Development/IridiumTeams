@@ -1,10 +1,12 @@
 package com.iridium.iridiumteams;
 
 import be.seeseemelk.mockbukkit.ServerMock;
+import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.managers.TeamManager;
+import org.bukkit.entity.EntityType;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,6 +29,16 @@ public class TeamBuilder {
     public TeamBuilder(int id) {
         this.testTeam = new TestTeam("Team_" + id, id);
         TeamManager.teams.add(testTeam);
+    }
+
+    public TeamBuilder withBlocks(XMaterial xMaterial, int amount) {
+        TestPlugin.getInstance().getTeamManager().getTeamBlock(testTeam, xMaterial).setAmount(amount);
+        return this;
+    }
+
+    public TeamBuilder withSpawners(EntityType entityType, int amount) {
+        TestPlugin.getInstance().getTeamManager().getTeamSpawners(testTeam, entityType).setAmount(amount);
+        return this;
     }
 
     public TeamBuilder withLevel(int level) {

@@ -23,6 +23,8 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TestTeam> teams;
     public static List<TeamPermission> teamPermissions;
     public static List<TeamInvite> teamInvites;
+    public static List<TeamSpawners> teamSpawners;
+    public static List<TeamBlock> teamBlocks;
     public static Optional<TestTeam> teamViaLocation;
     public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
@@ -37,6 +39,8 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamBank = new HashMap<>();
         teamEnhancements = new HashMap<>();
         cancelsCreate = false;
+        teamBlocks = new ArrayList<>();
+        teamSpawners = new ArrayList<>();
     }
 
     @Override
@@ -148,12 +152,24 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public TeamSpawners getTeamSpawners(TestTeam team, EntityType entityType) {
-        return new TeamSpawners(team, entityType, 0);
+        Optional<TeamSpawners> spawners = teamSpawners.stream().filter(s -> s.getTeamID()==team.getId() && s.getEntityType() == entityType).findFirst();
+        if(spawners.isPresent()){
+            return spawners.get();
+        }
+        TeamSpawners s =  new TeamSpawners(team, entityType, 0);
+        teamSpawners.add(s);
+        return s;
     }
 
     @Override
     public TeamBlock getTeamBlock(TestTeam team, XMaterial xMaterial) {
-        return new TeamBlock(team, xMaterial, 0);
+        Optional<TeamBlock> blocks = teamBlocks.stream().filter(s -> s.getTeamID()==team.getId() && s.getXMaterial() == xMaterial).findFirst();
+        if(blocks.isPresent()){
+            return blocks.get();
+        }
+        TeamBlock b =  new TeamBlock(team, xMaterial, 0);
+        teamBlocks.add(b);
+        return b;
     }
 
     @Override
