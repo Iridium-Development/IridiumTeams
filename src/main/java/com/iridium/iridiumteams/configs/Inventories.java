@@ -51,15 +51,15 @@ public class Inventories {
                 color + "&l * &7" + team + " Name: " + color + "%" + team.toLowerCase() + "_name%",
                 color + "&l * &7" + team + " Value: " + color + "%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
                 color + "&l * &7" + team + " Experience: " + color + "%" + team.toLowerCase() + "_experience% (#%" + team.toLowerCase() + "_experience_rank%)",
-                color + "&l * &7Netherite Blocks: &b%NETHERITE_BLOCK_AMOUNT%",
-                color + "&l * &7Emerald Blocks: &b%EMERALD_BLOCK_AMOUNT%",
-                color + "&l * &7Diamond Blocks: &b%DIAMOND_BLOCK_AMOUNT%",
-                color + "&l * &7Gold Blocks: &b%GOLD_BLOCK_AMOUNT%",
-                color + "&l * &7Iron Blocks: &b%IRON_BLOCK_AMOUNT%",
-                color + "&l * &7Hopper Blocks: &b%HOPPER_AMOUNT%",
-                color + "&l * &7Beacon Blocks: &b%BEACON_AMOUNT%",
+                color + "&l * &7Netherite Blocks: " + color + "%NETHERITE_BLOCK_AMOUNT%",
+                color + "&l * &7Emerald Blocks: " + color + "%EMERALD_BLOCK_AMOUNT%",
+                color + "&l * &7Diamond Blocks: " + color + "%DIAMOND_BLOCK_AMOUNT%",
+                color + "&l * &7Gold Blocks: " + color + "%GOLD_BLOCK_AMOUNT%",
+                color + "&l * &7Iron Blocks: " + color + "%IRON_BLOCK_AMOUNT%",
+                color + "&l * &7Hopper Blocks: " + color + "%HOPPER_AMOUNT%",
+                color + "&l * &7Beacon Blocks: " + color + "%BEACON_AMOUNT%",
                 "",
-                color + "&l[!] &bLeft Click to Teleport to this Island."
+                color + "&l[!] " + color + "Left Click to Teleport to this Island."
         )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
 
         confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));
