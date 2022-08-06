@@ -34,7 +34,7 @@ public final class TeamEnhancement extends TeamData {
         super(team);
         this.enhancementName = enhancementName;
         this.level = level;
-        this.expirationTime = LocalDateTime.MIN;
+        this.expirationTime = LocalDateTime.now();
     }
 
     public boolean isActive() {
