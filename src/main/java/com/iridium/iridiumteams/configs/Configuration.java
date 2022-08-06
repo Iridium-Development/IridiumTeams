@@ -56,16 +56,15 @@ public class Configuration {
         this.noneChatAlias = Arrays.asList("n", "none");
         this.teamChatAlias = Arrays.asList(team.toLowerCase().substring(0, 1), team.toLowerCase());
         this.teamTopSlots = new ImmutableMap.Builder<Integer, Integer>()
-                .put(1, 4)
-                .put(2, 12)
-                .put(3, 14)
-                .put(4, 19)
-                .put(5, 20)
-                .put(6, 21)
-                .put(7, 22)
-                .put(8, 23)
-                .put(9, 24)
-                .put(10, 25)
+                .put(1, 14)
+                .put(2, 22)
+                .put(3, 23)
+                .put(4, 24)
+                .put(5, 30)
+                .put(6, 31)
+                .put(7, 32)
+                .put(8, 33)
+                .put(9, 34)
                 .build();
 
     }

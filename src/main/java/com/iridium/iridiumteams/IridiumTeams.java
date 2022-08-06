@@ -11,6 +11,7 @@ import com.iridium.iridiumteams.listeners.*;
 import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.TeamManager;
+import com.iridium.iridiumteams.sorting.TeamSorting;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.milkbowl.vault.economy.Economy;
@@ -35,6 +36,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     private final Map<String, Enhancement<?>> enhancementList = new HashMap<>();
     private final List<BankItem> bankItemList = new ArrayList<>();
     private final List<ChatType> chatTypes = new ArrayList<>();
+    private final List<TeamSorting<T>> sortingTypes = new ArrayList<>();
 
     public IridiumTeams(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
@@ -47,6 +49,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         initializeBankItem();
         initializeChatTypes();
         initializeEnhancements();
+        initializeSortingTypes();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -166,6 +169,11 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addEnhancement("flight", getEnhancements().flightEnhancement);
     }
 
+    public void initializeSortingTypes(){
+        addSortingType(getTop().experienceTeamSort);
+        addSortingType(getTop().valueTeamSort);
+    }
+
     public void addPermission(String key, Permission permission) {
         permissionList.put(key, permission);
     }
@@ -180,5 +188,9 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void addEnhancement(String key, Enhancement<?> enhancement) {
         enhancementList.put(key, enhancement);
+    }
+
+    public void addSortingType(TeamSorting<T> sortingType) {
+        sortingTypes.add(sortingType);
     }
 }

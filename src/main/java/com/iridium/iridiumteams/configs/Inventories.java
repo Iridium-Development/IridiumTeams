@@ -46,7 +46,7 @@ public class Inventories {
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
-        topGUI = new TopGUIConfig(27, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", "%" + team.toLowerCase() + "_owner%", Arrays.asList(
+        topGUI = new TopGUIConfig(54, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", "%" + team.toLowerCase() + "_owner%", Arrays.asList(
                 "",
                 color + "&l * &7" + team + " Name: " + color + "%" + team.toLowerCase() + "_name%",
                 color + "&l * &7" + team + " Value: " + color + "%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
