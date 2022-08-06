@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @DatabaseTable(tableName = "teams")
-public class Team {
+public abstract class Team {
 
     @DatabaseField(columnName = "id", canBeNull = false, generatedId = true)
     private int id;
@@ -35,4 +35,6 @@ public class Team {
     public int getLevel() {
         return (int) Math.floor(Math.cbrt(experience));
     }
+
+    public abstract double getValue();
 }

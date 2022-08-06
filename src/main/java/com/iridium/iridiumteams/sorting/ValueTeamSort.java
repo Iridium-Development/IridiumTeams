@@ -18,7 +18,7 @@ public class ValueTeamSort<T extends Team> extends TeamSorting<T> {
     @Override
     public List<T> getSortedTeams(IridiumTeams<T, ?> iridiumTeams) {
         return iridiumTeams.getTeamManager().getTeams().stream()
-                .sorted(Comparator.comparing(team -> iridiumTeams.getTeamManager().getTeamValue(team)))
+                .sorted(Comparator.comparing(T::getValue).reversed())
                 .collect(Collectors.toList());
     }
 }

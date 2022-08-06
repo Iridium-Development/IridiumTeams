@@ -16,4 +16,9 @@ public class TestTeam extends Team {
         setCreateTime(LocalDateTime.now());
         setId(id);
     }
+
+    @Override
+    public double getValue() {
+        return TestPlugin.getInstance().getTeamManager().getTeamValue(this);
+    }
 }

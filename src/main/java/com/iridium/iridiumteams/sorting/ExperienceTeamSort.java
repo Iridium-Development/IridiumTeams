@@ -18,7 +18,7 @@ public class ExperienceTeamSort<T extends Team> extends TeamSorting<T> {
     @Override
     public List<T> getSortedTeams(IridiumTeams<T, ?> iridiumTeams) {
         return iridiumTeams.getTeamManager().getTeams().stream()
-                .sorted(Comparator.comparing(T::getExperience))
+                .sorted(Comparator.comparing(T::getExperience).reversed())
                 .collect(Collectors.toList());
     }
 }
