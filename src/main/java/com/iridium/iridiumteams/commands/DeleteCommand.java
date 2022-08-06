@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
@@ -27,7 +28,16 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
 
-        player.openInventory(new ConfirmationGUI<>(() -> iridiumTeams.getTeamManager().deleteTeam(team, user), iridiumTeams).getInventory());
+        player.openInventory(new ConfirmationGUI<>(() -> {
+            iridiumTeams.getTeamManager().deleteTeam(team, user);
+            iridiumTeams.getTeamManager().getTeamMembers(team).stream()
+                    .map(U::getPlayer)
+                    .filter(Objects::nonNull)
+                    .forEach(member -> member.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDeleted
+                            .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                            .replace("%player%", player.getName())
+                    )));
+        }, iridiumTeams).getInventory());
     }
 
 }

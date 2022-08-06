@@ -19,6 +19,7 @@ public class Messages {
     public String teamNameTooShort;
     public String teamNameTooLong;
     public String teamCreated;
+    public String teamDeleted;
     public String dontHaveTeam;
     public String cannotChangePermissions;
     public String cannotInvite;
@@ -110,6 +111,7 @@ public class Messages {
         teamNameTooShort = "%prefix% &7This " + team + " name is too short. It must be at least %min_length% characters long.";
         teamNameTooLong = "%prefix% &7This " + team + " name is too long. It must be at most %max_length% characters long.";
         teamCreated = "%prefix% &7You have created a " + team + "!";
+        teamDeleted = "%prefix% &7%player% has deleted your " + team + "!";
         dontHaveTeam = "%prefix% &7You dont have a " + team + ".";
         cannotChangePermissions = "%prefix% &7You cannot change this permission.";
         cannotInvite = "%prefix% &7You cannot invite players to the " + team + ".";
@@ -171,11 +173,11 @@ public class Messages {
         flightNotActive = "%prefix% &7The flight booster is not currently active.";
         noSuchBooster = "%prefix% &7No booster by that name exists.";
         noSuchUpgrade = "%prefix% &7No Upgrade by that name exists.";
-        notHighEnoughLevel = "%prefix% &7You need to be atleast level %level% in your "+team+".";
+        notHighEnoughLevel = "%prefix% &7You need to be atleast level %level% in your " + team + ".";
         notEnoughMoney = "%prefix% &7You dont have enough money to purchase this.";
-        notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your "+team+" Bank.";
+        notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your " + team + " Bank.";
         purchasedBooster = "%prefix% &7You have purchased a %booster% booster";
         purchasedUpgrade = "%prefix% &7You have purchased a %upgrade% upgrade";
-        teamValue = "%prefix% &7Your "+team+" Value is %value%";
+        teamValue = "%prefix% &7Your " + team + " Value is %value%";
     }
 }
