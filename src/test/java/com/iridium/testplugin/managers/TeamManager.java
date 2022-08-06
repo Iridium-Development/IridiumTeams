@@ -66,6 +66,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public List<TestTeam> getTeams() {
+        return teams;
+    }
+
+    @Override
     public List<User> getTeamMembers(TestTeam team) {
         return UserManager.users.stream().filter(user -> user.getTeamID() == team.getId()).collect(Collectors.toList());
     }

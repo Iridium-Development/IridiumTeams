@@ -8,6 +8,7 @@ import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.configs.inventories.ConfirmationInventoryConfig;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.configs.inventories.SingleItemGUI;
+import com.iridium.iridiumteams.configs.inventories.TopGUIConfig;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,6 +24,7 @@ public class Inventories {
     public NoItemGUI ranksGUI;
     public NoItemGUI permissionsGUI;
     public NoItemGUI bankGUI;
+    public TopGUIConfig topGUI;
     public NoItemGUI boostersGUI;
     public NoItemGUI upgradesGUI;
     public ConfirmationInventoryConfig confirmationGUI;
@@ -44,6 +46,21 @@ public class Inventories {
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
+        topGUI = new TopGUIConfig(27, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", "%" + team.toLowerCase() + "_owner%", Arrays.asList(
+                "",
+                color + "&l * &7" + team + " Name: " + color + "%" + team.toLowerCase() + "_name%",
+                color + "&l * &7" + team + " Value: " + color + "%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
+                color + "&l * &7" + team + " Experience: " + color + "%" + team.toLowerCase() + "_experience% (#%" + team.toLowerCase() + "_experience_rank%)",
+                color + "&l * &7Netherite Blocks: &b%NETHERITE_BLOCK_AMOUNT%",
+                color + "&l * &7Emerald Blocks: &b%EMERALD_BLOCK_AMOUNT%",
+                color + "&l * &7Diamond Blocks: &b%DIAMOND_BLOCK_AMOUNT%",
+                color + "&l * &7Gold Blocks: &b%GOLD_BLOCK_AMOUNT%",
+                color + "&l * &7Iron Blocks: &b%IRON_BLOCK_AMOUNT%",
+                color + "&l * &7Hopper Blocks: &b%HOPPER_AMOUNT%",
+                color + "&l * &7Beacon Blocks: &b%BEACON_AMOUNT%",
+                "",
+                color + "&l[!] &bLeft Click to Teleport to this Island."
+        )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
 
         confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));
 

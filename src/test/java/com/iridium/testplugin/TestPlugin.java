@@ -92,6 +92,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     }
 
     @Override
+    public Top<TestTeam> getTop() {
+        return new Top<>();
+    }
+
+    @Override
     public Permissions getPermissions() {
         return new Permissions();
     }
