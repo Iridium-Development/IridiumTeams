@@ -1,7 +1,6 @@
 package com.iridium.iridiumteams.gui;
 
-import com.iridium.iridiumcore.gui.GUI;
-import com.iridium.iridiumcore.utils.InventoryUtils;
+import com.iridium.iridiumcore.gui.BackGUI;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
@@ -20,21 +19,24 @@ import java.util.Collections;
 import java.util.Map;
 
 @Getter
-public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> implements GUI {
+public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
     private final int rank;
     private int page;
 
-    public PermissionsGUI(T team, int rank, IridiumTeams<T, U> iridiumTeams) {
+    public PermissionsGUI(T team, int rank, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().permissionsGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
         this.team = team;
         this.rank = rank;
         this.page = 1;
     }
 
-    public PermissionsGUI(T team, int rank, int page, IridiumTeams<T, U> iridiumTeams) {
+    public PermissionsGUI(T team, int rank, int page, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().permissionsGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+
         this.iridiumTeams = iridiumTeams;
         this.team = team;
         this.rank = rank;
@@ -51,7 +53,7 @@ public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> implements
 
     @Override
     public void addContent(Inventory inventory) {
-        InventoryUtils.fillInventory(inventory, iridiumTeams.getInventories().permissionsGUI.background);
+        super.addContent(inventory);
 
         for (Map.Entry<String, Permission> permission : iridiumTeams.getPermissionList().entrySet()) {
             if (permission.getValue().getPage() != page) continue;

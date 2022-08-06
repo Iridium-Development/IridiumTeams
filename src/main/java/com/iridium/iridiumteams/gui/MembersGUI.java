@@ -21,8 +21,16 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
 
-    public MembersGUI(T team, IridiumTeams<T, U> iridiumTeams) {
-        super(1, iridiumTeams.getInventories().membersGUI.size, iridiumTeams.getInventories().membersGUI.background, iridiumTeams.getInventories().previousPage, iridiumTeams.getInventories().nextPage);
+    public MembersGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+        super(
+                1,
+                iridiumTeams.getInventories().membersGUI.size,
+                iridiumTeams.getInventories().membersGUI.background,
+                iridiumTeams.getInventories().previousPage,
+                iridiumTeams.getInventories().nextPage,
+                previousInventory,
+                iridiumTeams.getInventories().backButton
+        );
         this.iridiumTeams = iridiumTeams;
         this.team = team;
     }

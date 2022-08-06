@@ -18,7 +18,7 @@ public class InvitesCommand<T extends Team, U extends IridiumUser<T>> extends Co
     @Override
     public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        player.openInventory(new InvitesGUI<>(team, iridiumTeams).getInventory());
+        player.openInventory(new InvitesGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
     }
 
 }

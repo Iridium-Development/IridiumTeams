@@ -17,7 +17,7 @@ public class Inventories {
     private final Background background1 = new Background(ImmutableMap.<Integer, Item>builder().build());
     @JsonIgnore
     private final Background background2 = new Background(ImmutableMap.<Integer, Item>builder().put(9, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(10, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(11, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(12, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(13, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(14, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(15, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(16, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).put(17, new Item(XMaterial.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ", Collections.emptyList())).build());
-
+    public Item backButton;
     public SingleItemGUI membersGUI;
     public SingleItemGUI invitesGUI;
     public NoItemGUI ranksGUI;
@@ -34,6 +34,8 @@ public class Inventories {
     }
 
     public Inventories(String team, String color) {
+        backButton = new Item(XMaterial.NETHER_STAR, -5, 1, "&c&lBack", Collections.emptyList());
+
         membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList("&7Joined: %player_join%", "&7Rank: %player_rank%", "", color + "&l[!] &7Right Click to promote", color + "&l[!] &7Left click to demote/kick")));
 
         invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList("", color + "&l[!] &7Left click to uninvite")));

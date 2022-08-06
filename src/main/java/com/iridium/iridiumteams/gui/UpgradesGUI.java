@@ -1,7 +1,6 @@
 package com.iridium.iridiumteams.gui;
 
-import com.iridium.iridiumcore.gui.GUI;
-import com.iridium.iridiumcore.utils.InventoryUtils;
+import com.iridium.iridiumcore.gui.BackGUI;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
@@ -13,7 +12,6 @@ import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
-import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -24,12 +22,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-@AllArgsConstructor
-public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> implements GUI {
+public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
     private final Map<Integer, String> upgrades = new HashMap<>();
+
+    public UpgradesGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().upgradesGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+        this.team = team;
+        this.iridiumTeams = iridiumTeams;
+    }
 
     @NotNull
     @Override
@@ -42,7 +45,8 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> implements GU
 
     @Override
     public void addContent(Inventory inventory) {
-        InventoryUtils.fillInventory(inventory, iridiumTeams.getInventories().upgradesGUI.background);
+        super.addContent(inventory);
+        
         upgrades.clear();
         for (Map.Entry<String, Enhancement<?>> enhancementEntry : iridiumTeams.getEnhancementList().entrySet()) {
             if (enhancementEntry.getValue().type != EnhancementType.UPGRADE) continue;

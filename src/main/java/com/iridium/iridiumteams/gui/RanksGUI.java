@@ -1,7 +1,6 @@
 package com.iridium.iridiumteams.gui;
 
-import com.iridium.iridiumcore.gui.GUI;
-import com.iridium.iridiumcore.utils.InventoryUtils;
+import com.iridium.iridiumcore.gui.BackGUI;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
@@ -15,12 +14,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class RanksGUI<T extends Team, U extends IridiumUser<T>> implements GUI {
+public class RanksGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
 
-    public RanksGUI(T team, IridiumTeams<T, U> iridiumTeams) {
+    public RanksGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().ranksGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
         this.team = team;
         this.iridiumTeams = iridiumTeams;
     }
@@ -35,7 +35,8 @@ public class RanksGUI<T extends Team, U extends IridiumUser<T>> implements GUI {
 
     @Override
     public void addContent(Inventory inventory) {
-        InventoryUtils.fillInventory(inventory, iridiumTeams.getInventories().ranksGUI.background);
+        super.addContent(inventory);
+
         for (UserRank userRank : iridiumTeams.getUserRanks().values()) {
             inventory.setItem(userRank.item.slot, ItemStackUtils.makeItem(userRank.item));
         }
@@ -45,7 +46,7 @@ public class RanksGUI<T extends Team, U extends IridiumUser<T>> implements GUI {
     public void onInventoryClick(InventoryClickEvent event) {
         for (Map.Entry<Integer, UserRank> userRank : iridiumTeams.getUserRanks().entrySet()) {
             if (event.getSlot() != userRank.getValue().item.slot) continue;
-            event.getWhoClicked().openInventory(new PermissionsGUI<>(team, userRank.getKey(), iridiumTeams).getInventory());
+            event.getWhoClicked().openInventory(new PermissionsGUI<>(team, userRank.getKey(), event.getWhoClicked().getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
             return;
         }
     }

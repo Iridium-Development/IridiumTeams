@@ -39,7 +39,7 @@ class InvitesGUITest {
     @Test
     public void invitesGUIIsEmpty() {
         TestTeam testTeam = new TeamBuilder().build();
-        InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, TestPlugin.getInstance());
+        InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, null, TestPlugin.getInstance());
         Inventory inventory = invitesGUI.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
             assertEquals(Material.BLACK_STAINED_GLASS_PANE, inventory.getContents()[i].getType());
@@ -53,7 +53,7 @@ class InvitesGUITest {
             User user = TestPlugin.getInstance().getUserManager().getUser(new UserBuilder(serverMock).build());
             TestPlugin.getInstance().getTeamManager().createTeamInvite(testTeam, user, user);
         }
-        InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, TestPlugin.getInstance());
+        InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, null, TestPlugin.getInstance());
         Inventory inventory = invitesGUI.getInventory();
         for (int i = 0; i < 5; i++) {
             assertEquals(Material.PLAYER_HEAD, inventory.getContents()[i].getType());
@@ -70,7 +70,7 @@ class InvitesGUITest {
         User user = TestPlugin.getInstance().getUserManager().getUser(new UserBuilder(serverMock).build());
         TestPlugin.getInstance().getTeamManager().createTeamInvite(testTeam, user, user);
 
-        InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, TestPlugin.getInstance());
+        InvitesGUI<TestTeam, User> invitesGUI = new InvitesGUI<>(testTeam, null, TestPlugin.getInstance());
 
         playerMock.openInventory(invitesGUI.getInventory());
         InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 0, ClickType.LEFT, InventoryAction.UNKNOWN);

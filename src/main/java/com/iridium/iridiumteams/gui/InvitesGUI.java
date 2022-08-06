@@ -23,8 +23,16 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public InvitesGUI(T team, IridiumTeams<T, U> iridiumTeams) {
-        super(1, iridiumTeams.getInventories().invitesGUI.size, iridiumTeams.getInventories().invitesGUI.background, iridiumTeams.getInventories().previousPage, iridiumTeams.getInventories().nextPage);
+    public InvitesGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+        super(
+                1,
+                iridiumTeams.getInventories().invitesGUI.size,
+                iridiumTeams.getInventories().invitesGUI.background,
+                iridiumTeams.getInventories().previousPage,
+                iridiumTeams.getInventories().nextPage,
+                previousInventory,
+                iridiumTeams.getInventories().backButton
+        );
         this.team = team;
         this.iridiumTeams = iridiumTeams;
     }

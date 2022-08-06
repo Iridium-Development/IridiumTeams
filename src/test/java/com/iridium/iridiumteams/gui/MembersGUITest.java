@@ -41,7 +41,7 @@ class MembersGUITest {
     @Test
     public void membersGUIIsEmpty() {
         TestTeam testTeam = new TeamBuilder().build();
-        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
+        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, null, TestPlugin.getInstance());
         Inventory inventory = membersGUI.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
             assertEquals(Material.BLACK_STAINED_GLASS_PANE, inventory.getContents()[i].getType());
@@ -51,7 +51,7 @@ class MembersGUITest {
     @Test
     public void membersGUIHasFivePlayers() {
         TestTeam testTeam = new TeamBuilder().withMembers(5, serverMock).build();
-        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
+        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, null, TestPlugin.getInstance());
         Inventory inventory = membersGUI.getInventory();
         for (int i = 0; i < 5; i++) {
             assertEquals(Material.PLAYER_HEAD, inventory.getContents()[i].getType());
@@ -68,18 +68,14 @@ class MembersGUITest {
         User user = TestPlugin.getInstance().getUserManager().getUser(new UserBuilder(serverMock).withTeam(testTeam).withRank(2).build());
         TestPlugin.getInstance().getTeamManager().createTeamInvite(testTeam, user, user);
 
-        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
+        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, null, TestPlugin.getInstance());
 
         playerMock.openInventory(membersGUI.getInventory());
         InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.LEFT, InventoryAction.UNKNOWN);
         serverMock.getPluginManager().callEvent(inventoryClickEvent);
         assertTrue(inventoryClickEvent.isCancelled());
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
-                .replace("%player%", user.getName())
-                .replace("%rank%", "Member")
-                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-        ));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer.replace("%player%", user.getName()).replace("%rank%", "Member").replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
         playerMock.assertNoMoreSaid();
         assertEquals(1, user.getUserRank());
     }
@@ -91,18 +87,14 @@ class MembersGUITest {
         User user = TestPlugin.getInstance().getUserManager().getUser(new UserBuilder(serverMock).withTeam(testTeam).withRank(1).build());
         TestPlugin.getInstance().getTeamManager().createTeamInvite(testTeam, user, user);
 
-        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
+        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, null, TestPlugin.getInstance());
 
         playerMock.openInventory(membersGUI.getInventory());
         InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.LEFT, InventoryAction.UNKNOWN);
         serverMock.getPluginManager().callEvent(inventoryClickEvent);
         assertTrue(inventoryClickEvent.isCancelled());
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked
-                .replace("%player%", user.getName())
-                .replace("%kicker%", playerMock.getName())
-                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-        ));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked.replace("%player%", user.getName()).replace("%kicker%", playerMock.getName()).replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
         playerMock.assertNoMoreSaid();
         assertEquals(0, user.getTeamID());
     }
@@ -114,18 +106,14 @@ class MembersGUITest {
         User user = TestPlugin.getInstance().getUserManager().getUser(new UserBuilder(serverMock).withTeam(testTeam).withRank(2).build());
         TestPlugin.getInstance().getTeamManager().createTeamInvite(testTeam, user, user);
 
-        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, TestPlugin.getInstance());
+        MembersGUI<TestTeam, User> membersGUI = new MembersGUI<>(testTeam, null, TestPlugin.getInstance());
 
         playerMock.openInventory(membersGUI.getInventory());
         InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, 1, ClickType.RIGHT, InventoryAction.UNKNOWN);
         serverMock.getPluginManager().callEvent(inventoryClickEvent);
         assertTrue(inventoryClickEvent.isCancelled());
 
-        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().promotedPlayer
-                .replace("%player%", user.getName())
-                .replace("%rank%", "CoOwner")
-                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-        ));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().promotedPlayer.replace("%player%", user.getName()).replace("%rank%", "CoOwner").replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
         playerMock.assertNoMoreSaid();
         assertEquals(3, user.getUserRank());
     }
