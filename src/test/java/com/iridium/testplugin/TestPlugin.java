@@ -87,6 +87,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     }
 
     @Override
+    public BlockValues getBlockValues() {
+        return new BlockValues();
+    }
+
+    @Override
     public Permissions getPermissions() {
         return new Permissions();
     }

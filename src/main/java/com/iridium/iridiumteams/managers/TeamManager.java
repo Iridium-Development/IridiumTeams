@@ -1,14 +1,17 @@
 package com.iridium.iridiumteams.managers;
 
+import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +22,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
-    private IridiumTeams<T, U> iridiumTeams;
+    private final IridiumTeams<T, U> iridiumTeams;
 
     public TeamManager(IridiumTeams<T, U> iridiumTeams) {
         this.iridiumTeams = iridiumTeams;
@@ -70,6 +73,24 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void deleteTeamInvite(TeamInvite teamInvite);
 
     public abstract TeamBank getTeamBank(T team, String bankItem);
+
+    public abstract TeamSpawners getTeamSpawners(T team, EntityType entityType);
+
+    public abstract TeamBlock getTeamBlock(T team, XMaterial xMaterial);
+
+    public double getTeamValue(T team) {
+        double value = 0;
+
+        for (Map.Entry<XMaterial, BlockValues.ValuableBlock> valuableBlock : iridiumTeams.getBlockValues().blockValues.entrySet()) {
+            value += getTeamBlock(team, valuableBlock.getKey()).getAmount() * valuableBlock.getValue().value;
+        }
+
+        for (Map.Entry<EntityType, BlockValues.ValuableBlock> valuableSpawner : iridiumTeams.getBlockValues().spawnerValues.entrySet()) {
+            value += getTeamSpawners(team, valuableSpawner.getKey()).getAmount() * valuableSpawner.getValue().value;
+        }
+
+        return value;
+    }
 
     public abstract TeamEnhancement getTeamEnhancement(T team, String enhancement);
 

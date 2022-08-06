@@ -37,6 +37,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public BoostersCommand<T, U> boostersCommand;
     public UpgradesCommand<T, U> upgradesCommand;
     public FlyCommand<T, U> flyCommand;
+    public ValueCommand<T, U> valueCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -73,5 +74,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         boostersCommand = new BoostersCommand<>(Collections.singletonList("boosters"), "View your " + team + " Boosters", "%prefix% &7/" + commandBase + " boosters buy <booster>", "");
         upgradesCommand = new UpgradesCommand<>(Collections.singletonList("upgrades"), "View your " + team + " Upgrades", "%prefix% &7/" + commandBase + " upgrades buy <upgrade>", "");
         flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", "");
+        valueCommand = new ValueCommand<>(Collections.singletonList("value"), "View your " + team + " Value", "%prefix% &7/" + commandBase + " value", "");
     }
 }

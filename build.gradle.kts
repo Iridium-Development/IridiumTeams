@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "1.2.5"
+version = "1.2.6"
 description = "IridiumTeams"
 
 repositories {
@@ -22,7 +22,6 @@ dependencies {
     implementation("org.jetbrains:annotations:23.0.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.github.cryptomorin:XSeries:8.8.0")
     implementation("com.iridium:IridiumCore:1.6.7")
     implementation("com.j256.ormlite:ormlite-core:6.1")
 

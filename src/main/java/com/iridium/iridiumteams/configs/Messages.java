@@ -85,6 +85,7 @@ public class Messages {
     public String notEnoughBankItem;
     public String purchasedUpgrade;
     public String purchasedBooster;
+    public String teamValue;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -175,5 +176,6 @@ public class Messages {
         notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your "+team+" Bank.";
         purchasedBooster = "%prefix% &7You have purchased a %booster% booster";
         purchasedUpgrade = "%prefix% &7You have purchased a %upgrade% upgrade";
+        teamValue = "%prefix% &7Your "+team+" Value is %value%";
     }
 }

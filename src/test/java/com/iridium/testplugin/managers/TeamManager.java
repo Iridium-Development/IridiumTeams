@@ -1,17 +1,16 @@
 package com.iridium.testplugin.managers;
 
+import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.Rank;
-import com.iridium.iridiumteams.database.TeamBank;
-import com.iridium.iridiumteams.database.TeamEnhancement;
-import com.iridium.iridiumteams.database.TeamInvite;
-import com.iridium.iridiumteams.database.TeamPermission;
+import com.iridium.iridiumteams.database.*;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -140,6 +139,16 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
             teamBank.put(bankItem, new TeamBank(team, bankItem, 0));
         }
         return teamBank.get(bankItem);
+    }
+
+    @Override
+    public TeamSpawners getTeamSpawners(TestTeam team, EntityType entityType) {
+        return new TeamSpawners(team, entityType, 0);
+    }
+
+    @Override
+    public TeamBlock getTeamBlock(TestTeam team, XMaterial xMaterial) {
+        return new TeamBlock(team, xMaterial, 0);
     }
 
     @Override

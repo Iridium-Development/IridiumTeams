@@ -1,13 +1,18 @@
 package com.iridium.iridiumteams.listeners;
 
+import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamBlock;
+import com.iridium.iridiumteams.database.TeamSpawners;
 import lombok.AllArgsConstructor;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
@@ -30,5 +35,20 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
                 event.setCancelled(true);
             }
         }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void monitorBlockBreak(BlockBreakEvent event) {
+        XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
+        iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+            TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);
+            teamBlock.setAmount(Math.max(0, teamBlock.getAmount() - 1));
+
+            if (event.getBlock().getState() instanceof CreatureSpawner) {
+                CreatureSpawner creatureSpawner = (CreatureSpawner) event.getBlock().getState();
+                TeamSpawners teamSpawners = iridiumTeams.getTeamManager().getTeamSpawners(team, creatureSpawner.getSpawnedType());
+                teamSpawners.setAmount(Math.max(0, teamSpawners.getAmount() - 1));
+            }
+        });
     }
 }
