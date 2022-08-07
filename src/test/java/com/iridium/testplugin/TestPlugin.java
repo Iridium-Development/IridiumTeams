@@ -27,17 +27,13 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
     @Override
     public void onEnable() {
-        super.onEnable();
         instance = this;
 
         this.teamManager = new TeamManager();
         this.userManager = new UserManager();
 
         this.commandManager = new CommandManager(this, "&c", "iridiumtest");
-    }
-
-    @Override
-    public void recalculateTeams() {
+        super.onEnable();
     }
 
     @Override
