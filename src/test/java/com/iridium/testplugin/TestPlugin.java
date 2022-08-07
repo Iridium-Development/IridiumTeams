@@ -37,7 +37,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     }
 
     @Override
-    public void recalculateIslands() {
+    public void recalculateTeams() {
     }
 
     @Override
