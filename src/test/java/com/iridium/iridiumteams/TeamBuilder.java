@@ -31,6 +31,11 @@ public class TeamBuilder {
         TeamManager.teams.add(testTeam);
     }
 
+    public TeamBuilder withExperience(int experience) {
+        testTeam.setExperience(experience);
+        return this;
+    }
+
     public TeamBuilder withBlocks(XMaterial xMaterial, int amount) {
         TestPlugin.getInstance().getTeamManager().getTeamBlock(testTeam, xMaterial).setAmount(amount);
         return this;

@@ -26,7 +26,7 @@ class ReloadCommandTest {
     }
 
     @Test
-    public void executeReloadCommandNoPermission() {
+    public void executeReloadCommand__NoPermission() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test reload");
@@ -35,7 +35,7 @@ class ReloadCommandTest {
     }
 
     @Test
-    public void executeReloadCommandSuccessful() {
+    public void executeReloadCommand__Successful() {
         PlayerMock playerMock = new UserBuilder(serverMock).withPermission("iridiumteams.reload").build();
 
         serverMock.dispatchCommand(playerMock, "test reload");

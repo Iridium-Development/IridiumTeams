@@ -31,7 +31,7 @@ class LeaveCommandTest {
     }
 
     @Test
-    public void executeLeaveCommandNoTeam() {
+    public void executeLeaveCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test leave");
@@ -41,7 +41,7 @@ class LeaveCommandTest {
     }
 
     @Test
-    public void executeLeaveCommandSuccessful() {
+    public void executeLeaveCommand__Successful() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).build();

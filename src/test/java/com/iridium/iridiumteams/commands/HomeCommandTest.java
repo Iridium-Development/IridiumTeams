@@ -30,7 +30,7 @@ class HomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandNoTeam() {
+    public void executeHomeCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test home");
@@ -40,7 +40,7 @@ class HomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandNoHomeSet() {
+    public void executeHomeCommand__NoHomeSet() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -51,7 +51,7 @@ class HomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandNotInLand() {
+    public void executeHomeCommand__NotInLand() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -66,7 +66,7 @@ class HomeCommandTest {
     }
 
     @Test
-    public void executeDescriptionCommandSuccessful() {
+    public void executeHomeCommand__Successful() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         TeamManager.teamViaLocation = Optional.of(team);
