@@ -37,6 +37,10 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     }
 
     @Override
+    public void recalculateIslands() {
+    }
+
+    @Override
     public Economy getEconomy() {
         return economyProvider;
     }

@@ -152,22 +152,22 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public TeamSpawners getTeamSpawners(TestTeam team, EntityType entityType) {
-        Optional<TeamSpawners> spawners = teamSpawners.stream().filter(s -> s.getTeamID()==team.getId() && s.getEntityType() == entityType).findFirst();
-        if(spawners.isPresent()){
+        Optional<TeamSpawners> spawners = teamSpawners.stream().filter(s -> s.getTeamID() == team.getId() && s.getEntityType() == entityType).findFirst();
+        if (spawners.isPresent()) {
             return spawners.get();
         }
-        TeamSpawners s =  new TeamSpawners(team, entityType, 0);
+        TeamSpawners s = new TeamSpawners(team, entityType, 0);
         teamSpawners.add(s);
         return s;
     }
 
     @Override
     public TeamBlock getTeamBlock(TestTeam team, XMaterial xMaterial) {
-        Optional<TeamBlock> blocks = teamBlocks.stream().filter(s -> s.getTeamID()==team.getId() && s.getXMaterial() == xMaterial).findFirst();
-        if(blocks.isPresent()){
+        Optional<TeamBlock> blocks = teamBlocks.stream().filter(s -> s.getTeamID() == team.getId() && s.getXMaterial() == xMaterial).findFirst();
+        if (blocks.isPresent()) {
             return blocks.get();
         }
-        TeamBlock b =  new TeamBlock(team, xMaterial, 0);
+        TeamBlock b = new TeamBlock(team, xMaterial, 0);
         teamBlocks.add(b);
         return b;
     }
@@ -178,5 +178,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
             teamEnhancements.put(enhancement, new TeamEnhancement(team, enhancement, 0));
         }
         return teamEnhancements.get(enhancement);
+    }
+
+    @Override
+    public CompletableFuture<Void> recalculateTeam(TestTeam team) {
+        return CompletableFuture.runAsync(() -> {
+        });
     }
 }

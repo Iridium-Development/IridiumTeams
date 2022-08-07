@@ -17,6 +17,9 @@ public class Configuration {
     public NumberFormatter numberFormatter;
     public int minTeamNameLength;
     public int maxTeamNameLength;
+
+    public int recalculateInterval;
+    public int forceRecalculateInterval;
     public Map<Integer, UserRank> userRanks;
     public UserRank visitor;
     public UserRank owner;
@@ -36,6 +39,8 @@ public class Configuration {
         this.numberFormatter = new NumberFormatter();
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
+        this.recalculateInterval = 5;
+        this.forceRecalculateInterval = 1;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()
                 .put(1, new UserRank("Member", new Item(XMaterial.STONE_AXE, 12, 1, "&9&lMember", Collections.emptyList())))
                 .put(2, new UserRank("Moderator", new Item(XMaterial.IRON_AXE, 13, 1, "&5&lModerator", Collections.emptyList())))

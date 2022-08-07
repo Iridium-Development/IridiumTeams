@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams;
 
 import com.iridium.iridiumcore.IridiumCore;
+import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.database.IridiumUser;
@@ -14,17 +15,16 @@ import com.iridium.iridiumteams.managers.TeamManager;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -38,6 +38,9 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     private final List<ChatType> chatTypes = new ArrayList<>();
     private final List<TeamSorting<T>> sortingTypes = new ArrayList<>();
 
+    @Setter
+    private boolean recalculating = false;
+
     public IridiumTeams(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
     }
@@ -50,6 +53,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         initializeChatTypes();
         initializeEnhancements();
         initializeSortingTypes();
+        recalculateIslands();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -93,10 +97,46 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Enhancements getEnhancements();
 
     public abstract Commands<T, U> getCommands();
+
     public abstract BlockValues getBlockValues();
+
     public abstract Top<T> getTop();
 
     public abstract BankItems getBankItems();
+
+    public void recalculateIslands() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            ListIterator<Integer> teams = getTeamManager().getTeams().stream().map(T::getId).collect(Collectors.toList()).listIterator();
+            boolean locked = false;
+            int counter = 0;
+
+            @Override
+            public void run() {
+                counter++;
+                if (counter % (recalculating ? getConfiguration().forceRecalculateInterval : getConfiguration().recalculateInterval) == 0) {
+                    if (locked) return;
+                    if (!teams.hasNext()) {
+                        teams = getTeamManager().getTeams().stream().map(T::getId).collect(Collectors.toList()).listIterator();
+                        if (recalculating) {
+                            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                                if (!player.hasPermission(getCommands().recalculateCommand.permission)) continue;
+                                player.sendMessage(StringUtils.color(getMessages().calculatingFinished
+                                        .replace("%prefix%", getConfiguration().prefix)
+                                ));
+                            }
+                        }
+                        recalculating = false;
+                    } else {
+                        getTeamManager().getTeamViaID(teams.next()).ifPresent(team -> {
+                            locked = true;
+                            getTeamManager().recalculateTeam(team).thenRun(() -> locked = false);
+                        });
+                    }
+                }
+            }
+
+        }, 0, 0);
+    }
 
     public void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
@@ -169,7 +209,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addEnhancement("flight", getEnhancements().flightEnhancement);
     }
 
-    public void initializeSortingTypes(){
+    public void initializeSortingTypes() {
         addSortingType(getTop().experienceTeamSort);
         addSortingType(getTop().valueTeamSort);
     }

@@ -144,4 +144,5 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return true;
     }
 
+    public abstract CompletableFuture<Void> recalculateTeam(T team);
 }

@@ -40,6 +40,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public FlyCommand<T, U> flyCommand;
     public ValueCommand<T, U> valueCommand;
     public TopCommand<T, U> topCommand;
+    public RecalculateCommand<T, U> recalculateCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -78,5 +79,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", "");
         valueCommand = new ValueCommand<>(Collections.singletonList("value"), "View your " + team + " Value", "%prefix% &7/" + commandBase + " value", "");
         topCommand = new TopCommand<>(Collections.singletonList("top"), "View the top " + team + "'s", "%prefix% &7/" + commandBase + " top", "");
+        recalculateCommand = new RecalculateCommand<>(Collections.singletonList("recalculate"), "Recalculate all "+team+"'s value ", "%prefix% &7/" + commandBase + " recalculate", permissionBase + ".recalculate");
     }
 }
