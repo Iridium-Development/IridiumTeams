@@ -32,7 +32,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void executeDeleteCommandNoTeam() {
+    public void executeDeleteCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test delete");
@@ -43,7 +43,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void executeDeleteCommandNotOwnerOrBypassing() {
+    public void executeDeleteCommand__NotOwnerOrBypassing() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
 
@@ -55,7 +55,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void executeDeleteCommandOwner() {
+    public void executeDeleteCommand__Owner() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).withRank(Rank.OWNER.getId()).build();
 
@@ -65,7 +65,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void executeDeleteCommandBypass() {
+    public void executeDeleteCommand__Bypass() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).setBypassing().build();
 
@@ -75,7 +75,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void executeDeleteCommandExecutes() {
+    public void executeDeleteCommand__Executes() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).setBypassing().build();
 

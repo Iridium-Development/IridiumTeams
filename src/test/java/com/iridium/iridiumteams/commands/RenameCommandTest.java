@@ -30,7 +30,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommandNoTeam() {
+    public void executeRenameCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test rename my new awesome name");
@@ -40,7 +40,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommand__InvalidSyntax() {
+    public void executeRenameCommand____InvalidSyntax() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -53,7 +53,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommand__NoPermission() {
+    public void executeRenameCommand____NoPermission() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -66,7 +66,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommandTeamNameTooShort() {
+    public void executeRenameCommand__TeamNameTooShort() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -80,7 +80,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommandTeamNameTooLong() {
+    public void executeRenameCommand__TeamNameTooLong() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -94,7 +94,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommandTeamNameTaken() {
+    public void executeRenameCommand__TeamNameTaken() {
         new TeamBuilder("test").build();
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
@@ -108,7 +108,7 @@ class RenameCommandTest {
     }
 
     @Test
-    public void executeRenameCommand__Successful() {
+    public void executeRenameCommand____Successful() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.RENAME, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 

@@ -30,7 +30,7 @@ class BypassCommandTest {
     }
 
     @Test
-    public void executeBypassCommandPermission() {
+    public void executeBypassCommand__NoPermission() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test bypass");
@@ -42,7 +42,7 @@ class BypassCommandTest {
     }
 
     @Test
-    public void executeBypassCommandOn() {
+    public void executeBypassCommand__On() {
         PlayerMock playerMock = new UserBuilder(serverMock).withPermission("iridiumteams.bypass").build();
         User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
 
@@ -55,7 +55,7 @@ class BypassCommandTest {
     }
 
     @Test
-    public void executeBypassCommandOff() {
+    public void executeBypassCommand__Off() {
         PlayerMock playerMock = new UserBuilder(serverMock).withPermission("iridiumteams.bypass").setBypassing().build();
         User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
 

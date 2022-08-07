@@ -35,7 +35,7 @@ class PermissionsCommandTest {
     }
 
     @Test
-    public void executePermissionsCommandNoTeam() {
+    public void executePermissionsCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test permissions");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
@@ -45,7 +45,7 @@ class PermissionsCommandTest {
     }
 
     @Test
-    public void executePermissionsCommandNoArgsSuccess() {
+    public void executePermissionsCommand__NoArgsSuccess() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test permissions");
@@ -53,7 +53,7 @@ class PermissionsCommandTest {
     }
 
     @Test
-    public void executePermissionsCommandWithArgsSuccess() {
+    public void executePermissionsCommand__WithArgsSuccess() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test permissions Member");
@@ -61,7 +61,7 @@ class PermissionsCommandTest {
     }
 
     @Test
-    public void executePermissionsCommandWithInvalidArgs() {
+    public void executePermissionsCommand__WithInvalidArgs() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test permissions InvalidRank");

@@ -31,7 +31,7 @@ class InvitesCommandTest {
     }
 
     @Test
-    public void executeInvitesCommandNoTeam() {
+    public void executeInvitesCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test invites");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam
@@ -41,7 +41,7 @@ class InvitesCommandTest {
     }
 
     @Test
-    public void executeInvitesCommandSuccess() {
+    public void executeInvitesCommand__Success() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test invites");

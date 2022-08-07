@@ -34,7 +34,7 @@ class InfoCommandTest {
     }
 
     @Test
-    public void executeInfoCommandNoTeam() {
+    public void executeInfoCommand__NoTeam() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test info");
@@ -46,7 +46,7 @@ class InfoCommandTest {
     }
 
     @Test
-    public void executeInfoCommandWithTeam() {
+    public void executeInfoCommand__WithTeam() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
@@ -61,7 +61,7 @@ class InfoCommandTest {
     }
 
     @Test
-    public void executeInfoCommandTeamDoesntExist() {
+    public void executeInfoCommand__TeamDoesntExist() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         serverMock.dispatchCommand(playerMock, "test info InvalidTeamName");
@@ -73,7 +73,7 @@ class InfoCommandTest {
     }
 
     @Test
-    public void executeInfoCommandWithTeamName() {
+    public void executeInfoCommand__WithTeamName() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
