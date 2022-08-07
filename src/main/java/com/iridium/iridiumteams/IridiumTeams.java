@@ -53,7 +53,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         initializeChatTypes();
         initializeEnhancements();
         initializeSortingTypes();
-        recalculateIslands();
+        recalculateTeams();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + "Enabled!");
@@ -104,7 +104,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public abstract BankItems getBankItems();
 
-    public void recalculateIslands() {
+    public void recalculateTeams() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             ListIterator<Integer> teams = getTeamManager().getTeams().stream().map(T::getId).collect(Collectors.toList()).listIterator();
             boolean locked = false;
