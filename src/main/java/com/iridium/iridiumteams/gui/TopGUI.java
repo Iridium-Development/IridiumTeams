@@ -8,6 +8,9 @@ import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.sorting.TeamSorting;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -15,9 +18,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@Getter
+@Setter
+
 public class TopGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     private TeamSorting<T> sortingType;
+    private int page = 1;
+    @Setter(AccessLevel.NONE)
     private final IridiumTeams<T, U> iridiumTeams;
 
     public TopGUI(TeamSorting<T> sortingType, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
@@ -43,8 +51,9 @@ public class TopGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
         for (int rank : iridiumTeams.getConfiguration().teamTopSlots.keySet()) {
             int slot = iridiumTeams.getConfiguration().teamTopSlots.get(rank);
-            if (teams.size() >= rank) {
-                T team = teams.get(rank - 1);
+            int actualRank = rank + (iridiumTeams.getConfiguration().teamTopSlots.size() * (page - 1));
+            if (teams.size() >= actualRank) {
+                T team = teams.get(actualRank - 1);
                 inventory.setItem(slot, ItemStackUtils.makeItem(iridiumTeams.getInventories().topGUI.item, iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(team)));
             } else {
                 inventory.setItem(slot, ItemStackUtils.makeItem(iridiumTeams.getInventories().topGUI.filler));
@@ -62,6 +71,17 @@ public class TopGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
+
+        if (event.getSlot() == iridiumTeams.getInventories().topGUI.size - 7 && page > 1) {
+            page--;
+            event.getWhoClicked().openInventory(getInventory());
+            return;
+        }
+
+        if (event.getSlot() == iridiumTeams.getInventories().topGUI.size - 3 && iridiumTeams.getTeamManager().getTeams().size() >= 1 + (iridiumTeams.getConfiguration().teamTopSlots.size() * page)) {
+            page++;
+            event.getWhoClicked().openInventory(getInventory());
+        }
 
         iridiumTeams.getSortingTypes().stream().filter(sorting -> sorting.item.slot == event.getSlot()).findFirst().ifPresent(sortingType -> {
             this.sortingType = sortingType;

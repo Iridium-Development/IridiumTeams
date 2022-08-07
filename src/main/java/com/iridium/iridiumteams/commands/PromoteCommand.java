@@ -47,16 +47,16 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
         targetUser.setUserRank(nextRank);
 
         for (U member : iridiumTeams.getTeamManager().getTeamMembers(team)) {
-            Player islandMember = Bukkit.getPlayer(member.getUuid());
-            if (islandMember != null) {
-                if (islandMember.equals(player)) {
-                    islandMember.sendMessage(StringUtils.color(iridiumTeams.getMessages().promotedPlayer
+            Player teamMember = Bukkit.getPlayer(member.getUuid());
+            if (teamMember != null) {
+                if (teamMember.equals(player)) {
+                    teamMember.sendMessage(StringUtils.color(iridiumTeams.getMessages().promotedPlayer
                             .replace("%player%", targetUser.getName())
                             .replace("%rank%", iridiumTeams.getUserRanks().get(nextRank).name)
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
                 } else {
-                    islandMember.sendMessage(StringUtils.color(iridiumTeams.getMessages().userPromotedPlayer
+                    teamMember.sendMessage(StringUtils.color(iridiumTeams.getMessages().userPromotedPlayer
                             .replace("%promoter%", player.getName())
                             .replace("%player%", targetUser.getName())
                             .replace("%rank%", iridiumTeams.getUserRanks().get(nextRank).name)

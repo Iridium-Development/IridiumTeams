@@ -52,7 +52,7 @@ public class Configuration {
         this.teamInfoTitleFiller = "&8&m ";
         this.teamInfo = Arrays.asList(
                 color + "Description: &7%" + team.toLowerCase() + "_description%",
-                color + "Level: &7%" + team.toLowerCase() + "_level% (#%" + team.toLowerCase() + "_level_rank%)",
+                color + "Level: &7%" + team.toLowerCase() + "_level% (#%" + team.toLowerCase() + "_experience_rank%)",
                 color + "Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
                 color + "Online Members (%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
                 color + "Offline Members (%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"

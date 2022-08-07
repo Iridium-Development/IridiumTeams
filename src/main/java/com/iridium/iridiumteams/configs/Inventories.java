@@ -57,9 +57,7 @@ public class Inventories {
                 color + "&l * &7Gold Blocks: " + color + "%GOLD_BLOCK_AMOUNT%",
                 color + "&l * &7Iron Blocks: " + color + "%IRON_BLOCK_AMOUNT%",
                 color + "&l * &7Hopper Blocks: " + color + "%HOPPER_AMOUNT%",
-                color + "&l * &7Beacon Blocks: " + color + "%BEACON_AMOUNT%",
-                "",
-                color + "&l[!] " + color + "Left Click to Teleport to this Island."
+                color + "&l * &7Beacon Blocks: " + color + "%BEACON_AMOUNT%"
         )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
 
         confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));
