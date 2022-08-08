@@ -5,18 +5,17 @@ import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 @NoArgsConstructor
 @DatabaseTable(tableName = "team_permissions")
 public final class TeamPermission extends TeamData {
 
-    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false, uniqueCombo = true)
+    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
     private int id;
 
     @DatabaseField(columnName = "permission", canBeNull = false, uniqueCombo = true)
-    private @NotNull String permission;
+    private String permission;
 
     @DatabaseField(columnName = "rank", canBeNull = false)
     private int rank;
@@ -25,7 +24,7 @@ public final class TeamPermission extends TeamData {
     @Setter
     private boolean allowed;
 
-    public TeamPermission(@NotNull Team team, @NotNull String permission, int rank, boolean allowed) {
+    public TeamPermission(Team team, String permission, int rank, boolean allowed) {
         super(team);
         this.permission = permission;
         this.rank = rank;

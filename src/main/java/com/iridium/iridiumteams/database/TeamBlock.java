@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @DatabaseTable(tableName = "team_blocks")
 public class TeamBlock extends TeamData {
 
-    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false, uniqueCombo = true)
+    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
     private int id;
 
     @DatabaseField(columnName = "block", uniqueCombo = true)

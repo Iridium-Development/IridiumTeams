@@ -27,6 +27,8 @@ public class Inventories {
     public TopGUIConfig topGUI;
     public NoItemGUI boostersGUI;
     public NoItemGUI upgradesGUI;
+
+    public SingleItemGUI warpsGUI;
     public ConfirmationInventoryConfig confirmationGUI;
     public Item nextPage;
     public Item previousPage;
@@ -46,6 +48,14 @@ public class Inventories {
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
+        warpsGUI = new SingleItemGUI(27, "&7%" + team.toLowerCase() + "_name%'s " + team + " Warps", background2, new Item(
+                XMaterial.GREEN_STAINED_GLASS_PANE, 1, "&b&l%warp_name%",
+                Arrays.asList(
+                        "&7%description%",
+                        "",
+                        "&b&l[!] &bLeft Click to Teleport",
+                        "&b&l[!] &bRight Click to Delete"
+                )));
         topGUI = new TopGUIConfig(54, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", "%" + team.toLowerCase() + "_owner%", Arrays.asList(
                 "",
                 color + "&l * &7" + team + " Name: " + color + "%" + team.toLowerCase() + "_name%",

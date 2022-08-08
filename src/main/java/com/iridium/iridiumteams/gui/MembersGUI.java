@@ -8,7 +8,6 @@ import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -64,13 +63,13 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
         switch (event.getClick()) {
             case LEFT:
                 if (user.getUserRank() != 1) {
-                    iridiumTeams.getCommands().demoteCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{user.getName()}, iridiumTeams);
+                    iridiumTeams.getCommands().demoteCommand.execute(event.getWhoClicked(), new String[]{user.getName()}, iridiumTeams);
                 } else {
-                    iridiumTeams.getCommands().kickCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{user.getName()}, iridiumTeams);
+                    iridiumTeams.getCommands().kickCommand.execute(event.getWhoClicked(), new String[]{user.getName()}, iridiumTeams);
                 }
                 break;
             case RIGHT:
-                iridiumTeams.getCommands().promoteCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{user.getName()}, iridiumTeams);
+                iridiumTeams.getCommands().promoteCommand.execute(event.getWhoClicked(), new String[]{user.getName()}, iridiumTeams);
                 break;
         }
     }

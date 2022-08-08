@@ -14,6 +14,7 @@ import java.util.Map;
 public class Configuration {
     public String prefix;
 
+    public String dateTimeFormat;
     public NumberFormatter numberFormatter;
     public int minTeamNameLength;
     public int maxTeamNameLength;
@@ -30,12 +31,15 @@ public class Configuration {
     public List<String> teamChatAlias;
     public Map<Integer, Integer> teamTopSlots;
 
+    public Map<Integer, Integer> teamWarpSlots;
+
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
     }
 
     public Configuration(String color, String team, String pluginName) {
         this.prefix = color + "&l" + pluginName + " &8»";
+        this.dateTimeFormat = "EEEE, MMMM dd HH:mm:ss";
         this.numberFormatter = new NumberFormatter();
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
@@ -70,6 +74,13 @@ public class Configuration {
                 .put(7, 32)
                 .put(8, 33)
                 .put(9, 34)
+                .build();
+        this.teamWarpSlots = ImmutableMap.<Integer, Integer>builder()
+                .put(1, 9)
+                .put(2, 11)
+                .put(3, 13)
+                .put(4, 15)
+                .put(5, 17)
                 .build();
 
     }

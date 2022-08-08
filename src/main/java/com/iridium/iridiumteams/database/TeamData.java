@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TeamData {
-    @DatabaseField(columnName = "team_id", canBeNull = false)
+    @DatabaseField(columnName = "team_id", canBeNull = false, uniqueCombo = true)
     private int teamID;
 
     public TeamData(Team team) {

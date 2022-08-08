@@ -105,7 +105,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract BankItems getBankItems();
 
     public void recalculateTeams() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
             ListIterator<Integer> teams = getTeamManager().getTeams().stream().map(T::getId).collect(Collectors.toList()).listIterator();
             boolean locked = false;
             int counter = 0;
@@ -113,7 +113,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
             @Override
             public void run() {
                 counter++;
-                if (counter % (recalculating ? getConfiguration().forceRecalculateInterval : getConfiguration().recalculateInterval) == 0) {
+                int interval = recalculating ? getConfiguration().forceRecalculateInterval : getConfiguration().recalculateInterval;
+                if (counter % interval == 0) {
                     if (locked) return;
                     if (!teams.hasNext()) {
                         teams = getTeamManager().getTeams().stream().map(T::getId).collect(Collectors.toList()).listIterator();

@@ -11,7 +11,6 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamBank;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -57,20 +56,19 @@ public class BankGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
         Optional<BankItem> bankItem = iridiumTeams.getBankItemList().stream().filter(item -> item.getItem().slot == event.getSlot()).findFirst();
         if (!bankItem.isPresent()) return;
-        U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked());
 
         switch (event.getClick()) {
             case LEFT:
-                iridiumTeams.getCommands().withdrawCommand.execute(user, team, new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())}, iridiumTeams);
+                iridiumTeams.getCommands().withdrawCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())}, iridiumTeams);
                 break;
             case RIGHT:
-                iridiumTeams.getCommands().depositCommand.execute(user, team, new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())}, iridiumTeams);
+                iridiumTeams.getCommands().depositCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())}, iridiumTeams);
                 break;
             case SHIFT_LEFT:
-                iridiumTeams.getCommands().withdrawCommand.execute(user, team, new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)}, iridiumTeams);
+                iridiumTeams.getCommands().withdrawCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)}, iridiumTeams);
                 break;
             case SHIFT_RIGHT:
-                iridiumTeams.getCommands().depositCommand.execute(user, team, new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)}, iridiumTeams);
+                iridiumTeams.getCommands().depositCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)}, iridiumTeams);
                 break;
         }
 

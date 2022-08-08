@@ -10,7 +10,6 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -84,8 +83,7 @@ public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> extends Ba
             if (permission.getValue().getItem().slot != event.getSlot()) continue;
             if (permission.getValue().getPage() != page) continue;
 
-            U user = iridiumTeams.getUserManager().getUser((Player) event.getWhoClicked());
-            iridiumTeams.getCommands().setPermissionCommand.execute(user, team, new String[]{permission.getKey(), iridiumTeams.getUserRanks().get(rank).name}, iridiumTeams);
+            iridiumTeams.getCommands().setPermissionCommand.execute(event.getWhoClicked(), new String[]{permission.getKey(), iridiumTeams.getUserRanks().get(rank).name}, iridiumTeams);
             return;
         }
     }

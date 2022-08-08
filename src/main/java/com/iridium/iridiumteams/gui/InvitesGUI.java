@@ -9,7 +9,6 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -65,6 +64,6 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
         if (teamInvite == null) return;
 
         String username = iridiumTeams.getUserManager().getUserByUUID(teamInvite.getUser()).map(U::getName).orElse("N/A");
-        iridiumTeams.getCommands().unInviteCommand.execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked()), team, new String[]{username}, iridiumTeams);
+        iridiumTeams.getCommands().unInviteCommand.execute(event.getWhoClicked(), new String[]{username}, iridiumTeams);
     }
 }
