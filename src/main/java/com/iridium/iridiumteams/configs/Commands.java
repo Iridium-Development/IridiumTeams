@@ -41,6 +41,10 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public ValueCommand<T, U> valueCommand;
     public TopCommand<T, U> topCommand;
     public RecalculateCommand<T, U> recalculateCommand;
+    public WarpsCommand<T, U> warpsCommand;
+    public WarpCommand<T, U> warpCommand;
+    public SetWarpCommand<T, U> setWarpCommand;
+    public DeleteWarpCommand<T, U> deleteWarpCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -79,6 +83,10 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", "");
         valueCommand = new ValueCommand<>(Collections.singletonList("value"), "View your " + team + " Value", "%prefix% &7/" + commandBase + " value", "");
         topCommand = new TopCommand<>(Collections.singletonList("top"), "View the top " + team + "'s", "%prefix% &7/" + commandBase + " top", "");
-        recalculateCommand = new RecalculateCommand<>(Collections.singletonList("recalculate"), "Recalculate all "+team+"'s value ", "%prefix% &7/" + commandBase + " recalculate", permissionBase + ".recalculate");
+        recalculateCommand = new RecalculateCommand<>(Collections.singletonList("recalculate"), "Recalculate all " + team + "'s value ", "%prefix% &7/" + commandBase + " recalculate", permissionBase + ".recalculate");
+        warpsCommand = new WarpsCommand<>(Collections.singletonList("warps"), "View your " + team + "'s warps", "%prefix% &7/" + commandBase + " warps", "");
+        warpCommand = new WarpCommand<>(Collections.singletonList("warp"), "Teleport to your " + team + "'s warps", "%prefix% &7/" + commandBase + " warp <name> (password)", "");
+        setWarpCommand = new SetWarpCommand<>(Collections.singletonList("setwarp"), "Create a " + team + " warp", "%prefix% &7/" + commandBase + " setwarp", "");
+        deleteWarpCommand = new DeleteWarpCommand<>(Arrays.asList("deletewarp", "delwarp"), "Delete a " + team + " warp", "%prefix% &7/" + commandBase + " deletewarp", "");
     }
 }

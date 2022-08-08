@@ -25,6 +25,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TeamInvite> teamInvites;
     public static List<TeamSpawners> teamSpawners;
     public static List<TeamBlock> teamBlocks;
+    public static List<TeamWarp> teamWarps;
     public static Optional<TestTeam> teamViaLocation;
     public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
@@ -41,6 +42,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         cancelsCreate = false;
         teamBlocks = new ArrayList<>();
         teamSpawners = new ArrayList<>();
+        teamWarps = new ArrayList<>();
     }
 
     @Override
@@ -184,5 +186,25 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public CompletableFuture<Void> recalculateTeam(TestTeam team) {
         return CompletableFuture.runAsync(() -> {
         });
+    }
+
+    @Override
+    public void createWarp(TestTeam team, Location location, String name, String password) {
+        teamWarps.add(new TeamWarp(team, location, name, password));
+    }
+
+    @Override
+    public void deleteWarp(TeamWarp teamWarp) {
+        teamWarps.remove(teamWarp);
+    }
+
+    @Override
+    public List<TeamWarp> getTeamWarps(TestTeam team) {
+        return teamWarps.stream().filter(teamWarp -> teamWarp.getTeamID() == team.getId()).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<TeamWarp> getTeamWarp(TestTeam team, String name) {
+        return teamWarps.stream().filter(teamWarp -> teamWarp.getTeamID() == team.getId() && teamWarp.getName().equals(name)).findFirst();
     }
 }

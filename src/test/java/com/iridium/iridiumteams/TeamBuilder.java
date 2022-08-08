@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.managers.TeamManager;
+import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,11 @@ public class TeamBuilder {
     public TeamBuilder(int id) {
         this.testTeam = new TestTeam("Team_" + id, id);
         TeamManager.teams.add(testTeam);
+    }
+
+    public TeamBuilder withWarp(String name, String password, Location location) {
+        TestPlugin.getInstance().getTeamManager().createWarp(testTeam, location, name, password);
+        return this;
     }
 
     public TeamBuilder withExperience(int experience) {

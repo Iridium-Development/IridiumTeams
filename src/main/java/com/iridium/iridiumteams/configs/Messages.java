@@ -28,6 +28,7 @@ public class Messages {
     public String cannotChangeDescription;
     public String cannotChangeName;
     public String cannotSetHome;
+    public String cannotManageWarps;
     public String invalidUserRank;
     public String invalidPermission;
     public String permissionSet;
@@ -90,6 +91,13 @@ public class Messages {
     public String calculatingTeams;
     public String calculatingFinished;
     public String calculationAlreadyInProcess;
+    public String createdWarp;
+    public String deletedWarp;
+    public String warpAlreadyExists;
+    public String unknownWarp;
+    public String incorrectPassword;
+    public String teleportingWarp;
+    public String notSafe;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -123,6 +131,7 @@ public class Messages {
         cannotChangeDescription = "%prefix% &7You cannot change the " + team + "'s Description.";
         cannotChangeName = "%prefix% &7You cannot change the " + team + "'s Name.";
         cannotSetHome = "%prefix% &7You cannot change the " + team + "'s Home.";
+        cannotManageWarps = "%prefix% &7You cannot manage the " + team + "'s Warps.";
         invalidUserRank = "%prefix% &7User rank doesn't exist.";
         invalidPermission = "%prefix% &7Permission doesn't exist.";
         permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
@@ -185,5 +194,12 @@ public class Messages {
         calculatingTeams = "%prefix% &7%player% is recalculating value for %amount% " + team + "'s \n%prefix% &7Estimated time: %minutes% Minutes and %seconds% Seconds";
         calculatingFinished = "%prefix% &7Recalculating " + team + "'s completed!";
         calculationAlreadyInProcess = "%prefix% &7Recalculating " + team + "'s already in process.";
+        createdWarp = "%prefix% &7Created warp %name%.";
+        deletedWarp = "%prefix% &7%player% has deleted the warp %name%.";
+        warpAlreadyExists = "%prefix% &7A warp with that name already exists.";
+        unknownWarp = "%prefix% &7No warp exists by that name.";
+        incorrectPassword = "%prefix% &7Incorrect password.";
+        teleportingWarp = "%prefix% &7teleporting to warp %name%.";
+        notSafe = "%prefix% &7This location is not safe.";
     }
 }

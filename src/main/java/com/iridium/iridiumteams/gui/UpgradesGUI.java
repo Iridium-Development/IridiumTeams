@@ -13,7 +13,6 @@ import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -76,7 +75,6 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
         
         if (!upgrades.containsKey(event.getSlot())) return;
         String upgrade = upgrades.get(event.getSlot());
-        U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) event.getWhoClicked());
-        iridiumTeams.getCommands().upgradesCommand.execute(user, team, new String[]{"buy", upgrade}, iridiumTeams);
+        iridiumTeams.getCommands().upgradesCommand.execute(event.getWhoClicked(), new String[]{"buy", upgrade}, iridiumTeams);
     }
 }
