@@ -45,6 +45,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public WarpCommand<T, U> warpCommand;
     public SetWarpCommand<T, U> setWarpCommand;
     public DeleteWarpCommand<T, U> deleteWarpCommand;
+    public EditWarpCommand<T, U> editWarpCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -88,5 +89,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         warpCommand = new WarpCommand<>(Collections.singletonList("warp"), "Teleport to your " + team + "'s warps", "%prefix% &7/" + commandBase + " warp <name> (password)", "");
         setWarpCommand = new SetWarpCommand<>(Collections.singletonList("setwarp"), "Create a " + team + " warp", "%prefix% &7/" + commandBase + " setwarp", "");
         deleteWarpCommand = new DeleteWarpCommand<>(Arrays.asList("deletewarp", "delwarp"), "Delete a " + team + " warp", "%prefix% &7/" + commandBase + " deletewarp", "");
+        editWarpCommand = new EditWarpCommand<>(Collections.singletonList("editwarp"), "Edit a " + team + " warp", "%prefix% &7/" + commandBase + " editwarp <warp> <icon/description> <value>", "");
     }
 }

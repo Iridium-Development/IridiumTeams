@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,9 +29,11 @@ public class TeamWarp extends TeamData {
     private String password;
 
     @DatabaseField(columnName = "description")
+    @Setter
     private String description;
 
     @DatabaseField(columnName = "icon")
+    @Setter
     private XMaterial icon;
 
     @DatabaseField(columnName = "create_time")
