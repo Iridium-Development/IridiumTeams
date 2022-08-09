@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TeamBuilder {
@@ -33,7 +34,7 @@ public class TeamBuilder {
     }
 
     public TeamBuilder withWarp(String name, String password, Location location) {
-        TestPlugin.getInstance().getTeamManager().createWarp(testTeam, location, name, password);
+        TestPlugin.getInstance().getTeamManager().createWarp(testTeam, UUID.randomUUID(), location, name, password);
         return this;
     }
 

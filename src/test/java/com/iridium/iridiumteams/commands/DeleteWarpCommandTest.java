@@ -15,8 +15,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class DeleteWarpCommandTest {
@@ -102,6 +105,21 @@ class DeleteWarpCommandTest {
         ));
         playerMock.assertNoMoreSaid();
         assertFalse(TestPlugin.getInstance().getTeamManager().getTeamWarp(team, "name").isPresent());
+    }
+
+    @Test
+    public void tabCompleteDeleteWarpCommand__NoTeam() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Collections.emptyList(), serverMock.getCommandTabComplete(playerMock, "test deletewarp "));
+    }
+
+    @Test
+    public void tabCompleteDeleteWarpCommand__WithWarps() {
+        TestTeam team = new TeamBuilder().withWarp("warp", "", null).withWarp("name", "", null).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        assertEquals(Arrays.asList("name", "warp"), serverMock.getCommandTabComplete(playerMock, "test deletewarp "));
     }
 
 

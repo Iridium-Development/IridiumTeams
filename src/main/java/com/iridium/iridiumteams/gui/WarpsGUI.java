@@ -54,6 +54,7 @@ public class WarpsGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI 
                     new Placeholder("island_name", team.getName()),
                     new Placeholder("warp_name", teamWarp.getName()),
                     new Placeholder("warp_description", teamWarp.getDescription() != null ? teamWarp.getDescription() : ""),
+                    new Placeholder("warp_creator", Bukkit.getServer().getOfflinePlayer(teamWarp.getUser()).getName()),
                     new Placeholder("warp_create_time", teamWarp.getCreateTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat)))
             ));
             Material material = teamWarp.getIcon().parseMaterial();

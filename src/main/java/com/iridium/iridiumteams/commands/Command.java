@@ -62,6 +62,17 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
     }
 
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
+        if (commandSender instanceof Player) {
+            U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) commandSender);
+            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+            if (team.isPresent()) {
+                return onTabComplete(user, team.get(), args, iridiumTeams);
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    public List<String> onTabComplete(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         return Collections.emptyList();
     }
 

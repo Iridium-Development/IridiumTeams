@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
@@ -36,25 +37,29 @@ public class TeamWarp extends TeamData {
     @Setter
     private XMaterial icon;
 
+    @DatabaseField(columnName = "user", canBeNull = false, uniqueCombo = true)
+    private UUID user;
     @DatabaseField(columnName = "create_time")
     private LocalDateTime createTime;
 
-    public TeamWarp(@NotNull Team team, Location location, String name) {
+    public TeamWarp(@NotNull Team team, UUID user, Location location, String name) {
         super(team);
         this.location = location;
         this.name = name;
         this.icon = XMaterial.STONE;
         this.description = "";
+        this.user = user;
         this.createTime = LocalDateTime.now();
     }
 
-    public TeamWarp(@NotNull Team team, Location location, String name, String password) {
+    public TeamWarp(@NotNull Team team, UUID user, Location location, String name, String password) {
         super(team);
         this.location = location;
         this.name = name;
         this.password = password;
         this.icon = XMaterial.STONE;
         this.description = "";
+        this.user = user;
         this.createTime = LocalDateTime.now();
     }
 }

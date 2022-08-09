@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
@@ -76,4 +78,20 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
         }
     }
 
+    @Override
+    public List<String> onTabComplete(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+        List<TeamWarp> teamWarps = iridiumTeams.getTeamManager().getTeamWarps(team);
+        switch (args.length) {
+            case 1:
+                return teamWarps.stream().map(TeamWarp::getName).collect(Collectors.toList());
+            case 2:
+                return Arrays.asList("icon", "description");
+            case 3:
+                if (args[1].equalsIgnoreCase("icon")) {
+                    return Arrays.stream(XMaterial.values()).map(XMaterial::name).collect(Collectors.toList());
+                }
+            default:
+                return Collections.emptyList();
+        }
+    }
 }

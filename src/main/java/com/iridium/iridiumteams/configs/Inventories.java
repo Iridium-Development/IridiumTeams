@@ -48,10 +48,12 @@ public class Inventories {
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
-        warpsGUI = new SingleItemGUI(27, "&7%" + team.toLowerCase() + "_name%'s " + team + " Warps", background2, new Item(
+        warpsGUI = new SingleItemGUI(27, "&7" + team + " Warps", background2, new Item(
                 XMaterial.GREEN_STAINED_GLASS_PANE, 1, "&b&l%warp_name%",
                 Arrays.asList(
-                        "&7%description%",
+                        "Description: &7%warp_description%",
+                        "&7Created By: &7%warp_creator%",
+                        "&7Date: &7%warp_create_time%",
                         "",
                         "&b&l[!] &bLeft Click to Teleport",
                         "&b&l[!] &bRight Click to Delete"

@@ -16,9 +16,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EditWarpCommandTest {
 
@@ -172,6 +175,45 @@ class EditWarpCommandTest {
         ));
         playerMock.assertNoMoreSaid();
         assertEquals("My warps description.", TestPlugin.getInstance().getTeamManager().getTeamWarp(team, "name").map(TeamWarp::getDescription).orElse(""));
+    }
+
+    @Test
+    public void tabCompleteEditWarpCommand__NoTeam() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Collections.emptyList(), serverMock.getCommandTabComplete(playerMock, "test editwarp "));
+    }
+
+    @Test
+    public void tabCompleteEditWarpCommand__WithWarps() {
+        TestTeam team = new TeamBuilder().withWarp("warp", "", null).withWarp("name", "", null).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        assertEquals(Arrays.asList("name", "warp"), serverMock.getCommandTabComplete(playerMock, "test editwarp "));
+    }
+
+    @Test
+    public void tabCompleteEditWarpCommand__EditOptions() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        assertEquals(Arrays.asList("description", "icon"), serverMock.getCommandTabComplete(playerMock, "test editwarp name "));
+    }
+
+    @Test
+    public void tabCompleteEditWarpCommand__MaterialOptions() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        assertTrue(serverMock.getCommandTabComplete(playerMock, "test editwarp name icon ").contains("DIAMOND_BLOCK"));
+    }
+
+    @Test
+    public void tabCompleteEditWarpCommand__DescriptionOptions() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        assertEquals(Collections.emptyList(), serverMock.getCommandTabComplete(playerMock, "test editwarp name descriptiopn "));
     }
 
 
