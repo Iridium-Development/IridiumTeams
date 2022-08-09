@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
@@ -146,7 +147,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract CompletableFuture<Void> recalculateTeam(T team);
 
-    public abstract void createWarp(T team, Location location, String name, String password);
+    public abstract void createWarp(T team, UUID creator, Location location, String name, String password);
+
     public abstract void deleteWarp(TeamWarp teamWarp);
 
     public abstract List<TeamWarp> getTeamWarps(T team);

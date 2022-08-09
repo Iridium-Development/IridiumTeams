@@ -50,7 +50,7 @@ public class SetWarpCommand<T extends Team, U extends IridiumUser<T>> extends Co
             return;
         }
 
-        iridiumTeams.getTeamManager().createWarp(team, player.getLocation(), args[0], args.length == 2 ? args[1] : null);
+        iridiumTeams.getTeamManager().createWarp(team, player.getUniqueId(), player.getLocation(), args[0], args.length == 2 ? args[1] : null);
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().createdWarp
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%name%", args[0])

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class WarpCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
@@ -47,4 +48,9 @@ public class WarpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         ));
     }
 
+    @Override
+    public List<String> onTabComplete(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+        List<TeamWarp> teamWarps = iridiumTeams.getTeamManager().getTeamWarps(team);
+        return teamWarps.stream().map(TeamWarp::getName).collect(Collectors.toList());
+    }
 }

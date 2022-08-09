@@ -13,6 +13,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WarpCommandTest {
@@ -112,6 +115,21 @@ class WarpCommandTest {
         playerMock.assertNoMoreSaid();
         assertEquals(location, playerMock.getLocation());
 
+    }
+
+    @Test
+    public void tabCompleteWarpCommand__NoTeam() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        assertEquals(Collections.emptyList(), serverMock.getCommandTabComplete(playerMock, "test warp "));
+    }
+
+    @Test
+    public void tabCompleteWarpCommand__WithWarps() {
+        TestTeam team = new TeamBuilder().withWarp("warp", "", null).withWarp("name", "", null).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+
+        assertEquals(Arrays.asList("name", "warp"), serverMock.getCommandTabComplete(playerMock, "test warp "));
     }
 
 }

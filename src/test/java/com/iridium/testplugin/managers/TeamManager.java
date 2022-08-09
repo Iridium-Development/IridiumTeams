@@ -189,8 +189,8 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public void createWarp(TestTeam team, Location location, String name, String password) {
-        teamWarps.add(new TeamWarp(team, location, name, password));
+    public void createWarp(TestTeam team, UUID creator, Location location, String name, String password) {
+        teamWarps.add(new TeamWarp(team, creator, location, name, password));
     }
 
     @Override
