@@ -69,6 +69,11 @@ public class TeamBuilder {
         return this;
     }
 
+    public TeamBuilder withBank(String bank, int amount) {
+        TestPlugin.getInstance().getTeamManager().getTeamBank(testTeam, bank).setNumber(amount);
+        return this;
+    }
+
     public TeamBuilder withMembers(int amount, ServerMock serverMock) {
         for (int i = 0; i < amount; i++) {
             new UserBuilder(serverMock).withTeam(testTeam).build();

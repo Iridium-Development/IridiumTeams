@@ -6,7 +6,6 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
-import com.iridium.testplugin.TestBankItem;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import org.junit.jupiter.api.AfterEach;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,8 +24,6 @@ class DepositCommandTest {
     public void setup() {
         this.serverMock = MockBukkit.mock();
         MockBukkit.load(TestPlugin.class);
-        TestPlugin.getInstance().getBankItemList().clear();
-        TestPlugin.getInstance().addBankItem(new TestBankItem());
     }
 
     @AfterEach
@@ -71,7 +67,7 @@ class DepositCommandTest {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
-        serverMock.dispatchCommand(playerMock, "test deposit TestBankItem a");
+        serverMock.dispatchCommand(playerMock, "test deposit money a");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notANumber.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
         playerMock.assertNoMoreSaid();
     }
@@ -81,10 +77,10 @@ class DepositCommandTest {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
-        serverMock.dispatchCommand(playerMock, "test deposit TestBankItem 100");
+        serverMock.dispatchCommand(playerMock, "test deposit money 100");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().insufficientFundsToDeposit
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%type%", "testBankItem")
+                .replace("%type%", "money")
         ));
         playerMock.assertNoMoreSaid();
     }
@@ -93,27 +89,28 @@ class DepositCommandTest {
     public void executeDepositCommand__Successful() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-        TestBankItem.playerBalances.put(playerMock.getUniqueId(), 50);
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 150.00);
 
-        serverMock.dispatchCommand(playerMock, "test deposit TestBankItem 100");
+        serverMock.dispatchCommand(playerMock, "test deposit money 100");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().bankDeposited
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%type%", "testBankItem")
-                .replace("%amount%", "50.0")
+                .replace("%type%", "money")
+                .replace("%amount%", "100.0")
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(0, TestBankItem.playerBalances.get(playerMock.getUniqueId()));
+        assertEquals(50.00, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+        assertEquals(100, TestPlugin.getInstance().getTeamManager().getTeamBank(team, "money").getNumber());
     }
 
     @Test
     public void tabCompleteDepositCommand__BankItem() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
-        assertEquals(Collections.singletonList("testBankItem"), serverMock.getCommandTabComplete(playerMock, "test deposit "));
+        assertEquals(Arrays.asList("experience", "money"), serverMock.getCommandTabComplete(playerMock, "test deposit "));
     }
 
     @Test
     public void tabCompleteDepositCommand__Number() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
-        assertEquals(Arrays.asList("100", "1000", "10000", "100000"), serverMock.getCommandTabComplete(playerMock, "test deposit testBankItem "));
+        assertEquals(Arrays.asList("100", "1000", "10000", "100000"), serverMock.getCommandTabComplete(playerMock, "test deposit money "));
     }
 }

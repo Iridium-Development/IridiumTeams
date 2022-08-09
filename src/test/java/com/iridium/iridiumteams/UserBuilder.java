@@ -2,6 +2,7 @@ package com.iridium.iridiumteams;
 
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
+import com.iridium.iridiumteams.utils.PlayerUtils;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
@@ -21,6 +22,11 @@ public class UserBuilder {
         this.serverMock = serverMock;
         this.playerMock = serverMock.addPlayer(playerName);
         this.user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+    }
+
+    public UserBuilder withExperience(int experience) {
+        PlayerUtils.setTotalExperience(playerMock, experience);
+        return this;
     }
 
     public UserBuilder withTeamInvite(TestTeam testTeam) {

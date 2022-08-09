@@ -67,11 +67,17 @@ public class WarpsGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI 
         super.onInventoryClick(event);
 
         List<TeamWarp> teamWarps = iridiumTeams.getTeamManager().getTeamWarps(team);
-        for(Map.Entry<Integer, Integer> entrySet : iridiumTeams.getConfiguration().teamWarpSlots.entrySet()){
-            if(entrySet.getValue()!=event.getSlot())continue;
-            if(teamWarps.size() < entrySet.getKey())continue;
-            TeamWarp teamWarp = teamWarps.get(entrySet.getKey());
-            iridiumTeams.getCommands().warpCommand.execute(event.getWhoClicked(), new String[]{"", teamWarp.getName()}, iridiumTeams);
+        for (Map.Entry<Integer, Integer> entrySet : iridiumTeams.getConfiguration().teamWarpSlots.entrySet()) {
+            if (entrySet.getValue() != event.getSlot()) continue;
+            if (teamWarps.size() < entrySet.getKey()) continue;
+            TeamWarp teamWarp = teamWarps.get(entrySet.getKey() - 1);
+            switch (event.getClick()) {
+                case LEFT:
+                    iridiumTeams.getCommands().warpCommand.execute(event.getWhoClicked(), new String[]{teamWarp.getName()}, iridiumTeams);
+                    return;
+                case RIGHT:
+                    iridiumTeams.getCommands().deleteWarpCommand.execute(event.getWhoClicked(), new String[]{teamWarp.getName()}, iridiumTeams);
+            }
         }
     }
 }

@@ -12,10 +12,7 @@ import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,84 +65,78 @@ class PermissionsGUITest {
     }
 
     @Test
-    public void permissionsGUIHasPermissions() {
+    public void PermissionsGUI__HasItems() {
         TestTeam testTeam = new TeamBuilder().build();
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, null, TestPlugin.getInstance());
         Inventory inventory = permissionsGUI.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
-            Material correctType = inventoryLayout.getOrDefault(i, Material.BLACK_STAINED_GLASS_PANE);
-            assertEquals(correctType, inventory.getContents()[i].getType(), "Item on slot " + i + " not as expected");
+            assertEquals(inventoryLayout.getOrDefault(i, Material.BLACK_STAINED_GLASS_PANE), inventory.getContents()[i].getType(), "Item on slot " + i + " not as expected");
         }
     }
 
     @Test
-    public void permissionsGUINextPageError() {
+    public void PermissionsGUI__NextPageError() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         TestTeam testTeam = new TeamBuilder().build();
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, null, TestPlugin.getInstance());
 
         playerMock.openInventory(permissionsGUI.getInventory());
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getInventories().permissionsGUI.size - 3, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
-        assertTrue(inventoryClickEvent.isCancelled());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(51);
 
+        assertTrue(inventoryClickEvent.isCancelled());
         assertEquals(1, permissionsGUI.getPage());
     }
 
     @Test
-    public void permissionsGUINextPageSuccess() {
+    public void PermissionsGUI__NextPageSuccess() {
         TestPlugin.getInstance().addPermission("test", new Permission(new Item(XMaterial.STONE, 1, 1, "", Collections.emptyList()), 2, 1));
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         TestTeam testTeam = new TeamBuilder().build();
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, null, TestPlugin.getInstance());
 
         playerMock.openInventory(permissionsGUI.getInventory());
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getInventories().permissionsGUI.size - 3, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
-        assertTrue(inventoryClickEvent.isCancelled());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(51);
 
+        assertTrue(inventoryClickEvent.isCancelled());
         assertEquals(2, permissionsGUI.getPage());
     }
 
     @Test
-    public void permissionsGUIPreviousPageError() {
+    public void PermissionsGUI__PreviousPageError() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         TestTeam testTeam = new TeamBuilder().build();
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, null, TestPlugin.getInstance());
 
         playerMock.openInventory(permissionsGUI.getInventory());
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getInventories().permissionsGUI.size - 7, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
-        assertTrue(inventoryClickEvent.isCancelled());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(47);
 
+        assertTrue(inventoryClickEvent.isCancelled());
         assertEquals(1, permissionsGUI.getPage());
     }
 
     @Test
-    public void permissionsGUIPreviousPageSuccess() {
+    public void PermissionsGUI__PreviousPageSuccess() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         TestTeam testTeam = new TeamBuilder().build();
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, 2, null, TestPlugin.getInstance());
 
         playerMock.openInventory(permissionsGUI.getInventory());
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getInventories().permissionsGUI.size - 7, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
-        assertTrue(inventoryClickEvent.isCancelled());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(47);
 
+        assertTrue(inventoryClickEvent.isCancelled());
         assertEquals(1, permissionsGUI.getPage());
     }
 
     @Test
-    public void permissionsGUICannotChangePermissions() {
+    public void PermissionsGUI__CannotChangePermissions() {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, null, TestPlugin.getInstance());
 
         playerMock.openInventory(permissionsGUI.getInventory());
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
-        assertTrue(inventoryClickEvent.isCancelled());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot);
 
+        assertTrue(inventoryClickEvent.isCancelled());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotChangePermissions
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
@@ -153,17 +144,15 @@ class PermissionsGUITest {
     }
 
     @Test
-    public void permissionsGUISuccessOwner() {
+    public void PermissionsGUI__SuccessOwner() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
-
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(team, 1, null, TestPlugin.getInstance());
+
         playerMock.openInventory(permissionsGUI.getInventory());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot);
 
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
         assertTrue(inventoryClickEvent.isCancelled());
-
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().permissionSet
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%permission%", "blockBreak")
@@ -175,17 +164,15 @@ class PermissionsGUITest {
     }
 
     @Test
-    public void permissionsGUISuccess() {
+    public void PermissionsGUI__Success() {
         TestTeam testTeam = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).setBypassing().withTeam(testTeam).withRank(2).build();
-
         PermissionsGUI<TestTeam, User> permissionsGUI = new PermissionsGUI<>(testTeam, 1, null, TestPlugin.getInstance());
+
         playerMock.openInventory(permissionsGUI.getInventory());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot);
 
-        InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getPermissions().blockBreak.getItem().slot, ClickType.LEFT, InventoryAction.UNKNOWN);
-        serverMock.getPluginManager().callEvent(inventoryClickEvent);
         assertTrue(inventoryClickEvent.isCancelled());
-
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().permissionSet
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%permission%", "blockBreak")

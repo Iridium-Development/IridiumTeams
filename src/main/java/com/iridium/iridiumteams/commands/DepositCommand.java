@@ -39,7 +39,6 @@ public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Co
             TeamBank teamBank = iridiumTeams.getTeamManager().getTeamBank(team, bankItem.get().getName());
             BankResponse bankResponse = bankItem.get().deposit(player, Double.parseDouble(args[1]), teamBank, iridiumTeams);
 
-            if (bankResponse.isSuccess()) teamBank.setNumber(teamBank.getNumber() + bankResponse.getAmount());
             player.sendMessage(StringUtils.color((bankResponse.isSuccess() ? iridiumTeams.getMessages().bankDeposited : iridiumTeams.getMessages().insufficientFundsToDeposit)
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%amount%", String.valueOf(bankResponse.getAmount()))

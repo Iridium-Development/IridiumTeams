@@ -20,12 +20,12 @@ import java.util.List;
 
 @Getter
 @Setter
-
 public class TopGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     private TeamSorting<T> sortingType;
     private int page = 1;
     @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     private final IridiumTeams<T, U> iridiumTeams;
 
     public TopGUI(TeamSorting<T> sortingType, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
