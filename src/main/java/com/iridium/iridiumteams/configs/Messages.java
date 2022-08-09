@@ -98,6 +98,9 @@ public class Messages {
     public String incorrectPassword;
     public String teleportingWarp;
     public String notSafe;
+    public String warpIconSet;
+    public String warpDescriptionSet;
+    public String noSuchMaterial;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -201,5 +204,8 @@ public class Messages {
         incorrectPassword = "%prefix% &7Incorrect password.";
         teleportingWarp = "%prefix% &7teleporting to warp %name%.";
         notSafe = "%prefix% &7This location is not safe.";
+        warpIconSet = "%prefix% &7warp icon set.";
+        warpDescriptionSet = "%prefix% &7warp description set.";
+        noSuchMaterial = "%prefix% &7Material doesn't exist.";
     }
 }
