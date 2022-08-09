@@ -17,12 +17,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.Map;
 
-@Getter
 public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
+    @Getter
     private final int rank;
+    @Getter
     private int page;
 
     public PermissionsGUI(T team, int rank, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {

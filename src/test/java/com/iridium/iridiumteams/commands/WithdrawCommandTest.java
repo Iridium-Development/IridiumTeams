@@ -6,17 +6,13 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
-import com.iridium.iridiumteams.database.TeamBank;
-import com.iridium.testplugin.TestBankItem;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
-import com.iridium.testplugin.managers.TeamManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,8 +24,6 @@ class WithdrawCommandTest {
     public void setup() {
         this.serverMock = MockBukkit.mock();
         MockBukkit.load(TestPlugin.class);
-        TestPlugin.getInstance().getBankItemList().clear();
-        TestPlugin.getInstance().addBankItem(new TestBankItem());
     }
 
     @AfterEach
@@ -73,7 +67,7 @@ class WithdrawCommandTest {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
-        serverMock.dispatchCommand(playerMock, "test withdraw TestBankItem a");
+        serverMock.dispatchCommand(playerMock, "test withdraw money a");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().notANumber.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
         playerMock.assertNoMoreSaid();
     }
@@ -83,39 +77,39 @@ class WithdrawCommandTest {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
-        serverMock.dispatchCommand(playerMock, "test withdraw TestBankItem 100");
+        serverMock.dispatchCommand(playerMock, "test withdraw money 100");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().insufficientFundsToWithdraw
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%type%", "testBankItem")
+                .replace("%type%", "money")
         ));
         playerMock.assertNoMoreSaid();
     }
 
     @Test
     public void executeWithdrawCommand__Successful() {
-        TestTeam team = new TeamBuilder().build();
+        TestTeam team = new TeamBuilder().withBank("money", 150).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
-        TeamManager.teamBank.put("testBankItem", new TeamBank(team, "testBankItem", 50));
 
-        serverMock.dispatchCommand(playerMock, "test withdraw TestBankItem 100");
+        serverMock.dispatchCommand(playerMock, "test withdraw money 100");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().bankWithdrew
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%type%", "testBankItem")
-                .replace("%amount%", "50.0")
+                .replace("%type%", "money")
+                .replace("%amount%", "100.0")
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(50, TestBankItem.playerBalances.get(playerMock.getUniqueId()));
+        assertEquals(100.00, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+        assertEquals(50, TestPlugin.getInstance().getTeamManager().getTeamBank(team, "money").getNumber());
     }
 
     @Test
     public void tabCompleteWithdrawCommand__BankItem() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
-        assertEquals(Collections.singletonList("testBankItem"), serverMock.getCommandTabComplete(playerMock, "test withdraw "));
+        assertEquals(Arrays.asList("experience", "money"), serverMock.getCommandTabComplete(playerMock, "test withdraw "));
     }
 
     @Test
     public void tabCompleteWithdrawCommand__Number() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
-        assertEquals(Arrays.asList("100", "1000", "10000", "100000"), serverMock.getCommandTabComplete(playerMock, "test withdraw testBankItem "));
+        assertEquals(Arrays.asList("100", "1000", "10000", "100000"), serverMock.getCommandTabComplete(playerMock, "test withdraw money "));
     }
 }
