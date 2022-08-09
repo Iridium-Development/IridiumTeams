@@ -51,9 +51,9 @@ public class Inventories {
         warpsGUI = new SingleItemGUI(27, "&7" + team + " Warps", background2, new Item(
                 XMaterial.GREEN_STAINED_GLASS_PANE, 1, "&b&l%warp_name%",
                 Arrays.asList(
-                        "Description: &7%warp_description%",
-                        "&7Created By: &7%warp_creator%",
-                        "&7Date: &7%warp_create_time%",
+                        "&7Description: %warp_description%",
+                        "&7Created By: %warp_creator%",
+                        "&7Date: %warp_create_time%",
                         "",
                         "&b&l[!] &bLeft Click to Teleport",
                         "&b&l[!] &bRight Click to Delete"
