@@ -14,6 +14,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TeamSpawners> teamSpawners;
     public static List<TeamBlock> teamBlocks;
     public static List<TeamWarp> teamWarps;
+    public static List<TeamMission> teamMissions;
     public static Optional<TestTeam> teamViaLocation;
     public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
@@ -43,6 +45,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamBlocks = new ArrayList<>();
         teamSpawners = new ArrayList<>();
         teamWarps = new ArrayList<>();
+        teamMissions = new ArrayList<>();
     }
 
     @Override
@@ -206,5 +209,28 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public Optional<TeamWarp> getTeamWarp(TestTeam team, String name) {
         return teamWarps.stream().filter(teamWarp -> teamWarp.getTeamID() == team.getId() && teamWarp.getName().equals(name)).findFirst();
+    }
+
+    @Override
+    public List<TeamMission> getTeamMissions(TestTeam team) {
+        return teamMissions.stream()
+                .filter(teamMission -> teamMission.getTeamID()==team.getId())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public TeamMission getTeamMission(TestTeam team, String missionName, int missionIndex) {
+        Optional<TeamMission> teamMission = teamMissions.stream().filter(mission -> mission.getTeamID()==team.getId() && mission.getMissionName().equals(missionName) && mission.getMissionIndex()==missionIndex).findFirst();
+        if (teamMission.isPresent()) {
+            return teamMission.get();
+        }
+        TeamMission newTeamMission = new TeamMission(team, missionName, missionIndex, LocalDateTime.now().plusHours(1));
+        teamMissions.add(newTeamMission);
+        return newTeamMission;
+    }
+
+    @Override
+    public void deleteTeamMission(TeamMission teamMission) {
+        teamMissions.remove(teamMission);
     }
 }

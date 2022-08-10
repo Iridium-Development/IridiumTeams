@@ -2,10 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.CreateCancelledException;
-import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.PermissionType;
-import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.*;
 import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
@@ -16,11 +13,10 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     private final IridiumTeams<T, U> iridiumTeams;
@@ -154,4 +150,40 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract List<TeamWarp> getTeamWarps(T team);
 
     public abstract Optional<TeamWarp> getTeamWarp(T team, String name);
+
+    public abstract List<TeamMission> getTeamMissions(T team);
+
+    public abstract TeamMission getTeamMission(T team, String missionName, int missionIndex);
+
+    public abstract void deleteTeamMission(TeamMission teamMission);
+
+    public Map<String, Mission> getTeamMission(T team, MissionType missionType) {
+        // Get list of current missions
+        List<TeamMission> teamMissions = getTeamMissions(team).stream()
+                .filter(teamMission -> iridiumTeams.getMissions().missions.containsKey(teamMission.getMissionName()))
+                .filter(teamMission -> iridiumTeams.getMissions().missions.get(teamMission.getMissionName()).getMissionType() == missionType)
+                .collect(Collectors.toList());
+        // Filter and delete expired ones
+        Map<String, Mission> missions = new HashMap<>();
+        for (TeamMission teamMission : teamMissions) {
+            if (teamMission.getExpiration().isBefore(LocalDateTime.now())) {
+                deleteTeamMission(teamMission);
+            } else {
+                missions.put(teamMission.getMissionName(), iridiumTeams.getMissions().missions.get(teamMission.getMissionName()));
+            }
+        }
+
+        // Fill to make sure list is at correct size
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        List<Map.Entry<String, Mission>> availableMissions = iridiumTeams.getMissions().missions.entrySet().stream()
+                .filter(mission -> mission.getValue().getMissionType() == missionType)
+                .filter(mission -> !missions.containsKey(mission.getKey()))
+                .collect(Collectors.toList());
+        while (missions.size() < iridiumTeams.getMissions().dailySlots.size() && availableMissions.size() > 0) {
+            Map.Entry<String, Mission> newMission = availableMissions.get(random.nextInt(availableMissions.size()));
+            missions.put(newMission.getKey(), newMission.getValue());
+            availableMissions.remove(newMission);
+        }
+        return missions;
+    }
 }
