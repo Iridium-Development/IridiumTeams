@@ -23,19 +23,36 @@ public class MissionsCommand<T extends Team, U extends IridiumUser<T>> extends C
     @Override
     public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
+        MissionTypeSelectorInventoryConfig missionTypeSelectorInventoryConfig = iridiumTeams.getInventories().missionTypeSelectorGUI;
         if (args.length == 1) {
             switch (args[0].toLowerCase()) {
                 case "daily":
-                    player.openInventory(new MissionGUI<>(team, MissionType.DAILY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    if (missionTypeSelectorInventoryConfig.daily.enabled) {
+                        player.openInventory(new MissionGUI<>(team, MissionType.DAILY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    } else {
+                        player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    }
                     return;
                 case "weekly":
-                    player.openInventory(new MissionGUI<>(team, MissionType.WEEKLY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    if (missionTypeSelectorInventoryConfig.weekly.enabled) {
+                        player.openInventory(new MissionGUI<>(team, MissionType.WEEKLY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    } else {
+                        player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    }
                     return;
                 case "infinite":
-                    player.openInventory(new MissionGUI<>(team, MissionType.INFINITE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    if (missionTypeSelectorInventoryConfig.infinite.enabled) {
+                        player.openInventory(new MissionGUI<>(team, MissionType.INFINITE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    } else {
+                        player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    }
                     return;
                 case "once":
-                    player.openInventory(new MissionGUI<>(team, MissionType.ONCE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    if (missionTypeSelectorInventoryConfig.once.enabled) {
+                        player.openInventory(new MissionGUI<>(team, MissionType.ONCE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    } else {
+                        player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    }
                     return;
             }
         }
