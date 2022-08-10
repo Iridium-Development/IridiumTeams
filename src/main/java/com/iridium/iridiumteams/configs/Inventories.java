@@ -5,10 +5,7 @@ import com.iridium.iridiumcore.Background;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
-import com.iridium.iridiumteams.configs.inventories.ConfirmationInventoryConfig;
-import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
-import com.iridium.iridiumteams.configs.inventories.SingleItemGUI;
-import com.iridium.iridiumteams.configs.inventories.TopGUIConfig;
+import com.iridium.iridiumteams.configs.inventories.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +27,8 @@ public class Inventories {
     public NoItemGUI upgradesGUI;
 
     public SingleItemGUI warpsGUI;
+
+    public MissionTypeSelectorInventoryConfig missionTypeSelectorGUI;
     public ConfirmationInventoryConfig confirmationGUI;
     public Item nextPage;
     public Item previousPage;
@@ -73,6 +72,13 @@ public class Inventories {
                 color + "&l * &7Hopper Blocks: " + color + "%HOPPER_AMOUNT%",
                 color + "&l * &7Beacon Blocks: " + color + "%BEACON_AMOUNT%"
         )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
+
+        missionTypeSelectorGUI = new MissionTypeSelectorInventoryConfig(27, "&7"+team+" Missions", background2,
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.IRON_INGOT, 11, 1, color+"&lDaily Missions", Collections.emptyList()), true),
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.GOLD_INGOT, 13, 1, color+"&lWeekly Missions", Collections.emptyList()), true),
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.IRON_INGOT, 11, 1, color+"&lInstant Missions", Collections.emptyList()), false),
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.DIAMOND, 15, 1, color+"&lOne Time Missions", Collections.emptyList()), true)
+        );
 
         confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));
 

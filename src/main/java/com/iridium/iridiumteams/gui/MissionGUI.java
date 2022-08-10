@@ -10,6 +10,7 @@ import com.iridium.iridiumteams.MissionType;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamMission;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -51,13 +52,19 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
         for (Map.Entry<String, Mission> entry : missions.entrySet()) {
             if (iridiumTeams.getMissions().dailySlots.size() <= index) continue;
             int slot = iridiumTeams.getMissions().dailySlots.get(index);
+            TeamMission teamMission = iridiumTeams.getTeamManager().getTeamMission(team, entry.getKey(), 0);
 
             List<Placeholder> placeholders = IntStream.range(0, entry.getValue().getMissions().size())
                     .boxed()
                     .map(integer -> iridiumTeams.getTeamManager().getTeamMission(team, entry.getKey(), integer))
-                    .map(islandMission -> new Placeholder("progress_" + (islandMission.getMissionIndex() + 1), String.valueOf(islandMission.getProgress())))
-                    .collect(Collectors.toList());
+                    .map(islandMission -> new Placeholder("progress_" + (islandMission.getMissionIndex() + 1), String.valueOf(islandMission.getProgress()))).collect(Collectors.toList());
 
+            int seconds = Math.max((int) (teamMission.getRemainingTime() % 60), 0);
+            int minutes = Math.max((int) ((teamMission.getRemainingTime() % 3600) / 60), 0);
+            int hours = Math.max((int) (teamMission.getRemainingTime() / 3600), 0);
+            placeholders.add(new Placeholder("timeremaining_hours", String.valueOf(hours)));
+            placeholders.add(new Placeholder("timeremaining_minutes", String.valueOf(minutes)));
+            placeholders.add(new Placeholder("timeremaining_seconds", String.valueOf(seconds)));
             inventory.setItem(slot, ItemStackUtils.makeItem(entry.getValue().getItem(), placeholders));
             index++;
         }
