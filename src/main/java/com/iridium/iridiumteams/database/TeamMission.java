@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Getter
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class TeamMission extends TeamData {
     @DatabaseField(columnName = "mission_name", uniqueCombo = true)
     private String missionName;
 
-    @DatabaseField(columnName = "mission_index")
+    @DatabaseField(columnName = "mission_index", uniqueCombo = true)
     private int missionIndex;
 
     @Setter
@@ -35,5 +36,9 @@ public class TeamMission extends TeamData {
         this.missionIndex = missionIndex;
         this.expiration = expiration;
         this.progress = 0;
+    }
+
+    public long getRemainingTime() {
+        return LocalDateTime.now().until(expiration, ChronoUnit.SECONDS);
     }
 }

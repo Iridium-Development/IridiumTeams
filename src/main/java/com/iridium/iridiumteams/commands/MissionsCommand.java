@@ -2,12 +2,16 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.MissionType;
+import com.iridium.iridiumteams.configs.inventories.MissionTypeSelectorInventoryConfig;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.MissionGUI;
+import com.iridium.iridiumteams.gui.MissionTypeSelectorGUI;
 import lombok.NoArgsConstructor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,9 +21,46 @@ public class MissionsCommand<T extends Team, U extends IridiumUser<T>> extends C
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        player.openInventory(new MissionGUI<>(team, MissionType.DAILY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        if (args.length == 1) {
+            switch (args[0].toLowerCase()) {
+                case "daily":
+                    player.openInventory(new MissionGUI<>(team, MissionType.DAILY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    return;
+                case "weekly":
+                    player.openInventory(new MissionGUI<>(team, MissionType.WEEKLY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    return;
+                case "infinite":
+                    player.openInventory(new MissionGUI<>(team, MissionType.INFINITE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    return;
+                case "once":
+                    player.openInventory(new MissionGUI<>(team, MissionType.ONCE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    return;
+            }
+        }
+        player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
+        MissionTypeSelectorInventoryConfig missionTypeSelectorInventoryConfig = iridiumTeams.getInventories().missionTypeSelectorGUI;
+        List<String> missionTypes = new ArrayList<>();
+        if (missionTypeSelectorInventoryConfig.daily.enabled) {
+            missionTypes.add("Daily");
+        }
+
+        if (missionTypeSelectorInventoryConfig.weekly.enabled) {
+            missionTypes.add("Weekly");
+        }
+
+        if (missionTypeSelectorInventoryConfig.infinite.enabled) {
+            missionTypes.add("Infinite");
+        }
+
+        if (missionTypeSelectorInventoryConfig.once.enabled) {
+            missionTypes.add("Once");
+        }
+        return missionTypes;
+    }
 }
