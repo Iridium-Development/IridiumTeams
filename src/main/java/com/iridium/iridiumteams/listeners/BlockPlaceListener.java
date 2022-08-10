@@ -41,6 +41,7 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
     public void monitorBlockPlace(BlockPlaceEvent event) {
         XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "PLACE", material.name(), 1);
             TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);
             teamBlock.setAmount(teamBlock.getAmount() + 1);
 

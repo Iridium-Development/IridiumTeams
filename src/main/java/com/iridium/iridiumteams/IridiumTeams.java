@@ -152,6 +152,13 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerExpChangeListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockGrowListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new EnchantItemListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDeathListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new FurnaceSmeltListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerCraftListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerFishListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PotionBrewListener<>(this), this);
     }
 
     public void saveData() {
