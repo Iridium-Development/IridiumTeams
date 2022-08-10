@@ -4,6 +4,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PlaceholderBuilder;
 import com.iridium.iridiumteams.TeamChatPlaceholderBuilder;
 import com.iridium.iridiumteams.configs.*;
+import com.iridium.iridiumteams.managers.MissionManager;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
 import com.iridium.testplugin.managers.UserManager;
@@ -17,8 +18,8 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private static TestPlugin instance;
     private TeamManager teamManager;
     private UserManager userManager;
-
     private CommandManager commandManager;
+    private MissionManager<TestTeam, User> missionManager;
 
     private final TestEconomyProvider economyProvider = new TestEconomyProvider();
 
@@ -32,8 +33,9 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
         this.teamManager = new TeamManager();
         this.userManager = new UserManager();
-
         this.commandManager = new CommandManager(this, "&c", "iridiumtest");
+        this.missionManager = new MissionManager<>(this);
+
         super.onEnable();
     }
 
@@ -70,6 +72,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public CommandManager getCommandManager() {
         return commandManager;
+    }
+
+    @Override
+    public MissionManager<TestTeam, User> getMissionManager() {
+        return missionManager;
     }
 
     @Override
@@ -115,6 +122,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public BankItems getBankItems() {
         return new BankItems();
+    }
+
+    @Override
+    public Missions getMissions() {
+        return new Missions();
     }
 
     public static TestPlugin getInstance() {

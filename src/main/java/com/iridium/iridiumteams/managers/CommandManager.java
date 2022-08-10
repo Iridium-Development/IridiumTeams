@@ -73,6 +73,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(iridiumTeams.getCommands().setWarpCommand);
         registerCommand(iridiumTeams.getCommands().deleteWarpCommand);
         registerCommand(iridiumTeams.getCommands().editWarpCommand);
+        registerCommand(iridiumTeams.getCommands().missionsCommand);
     }
 
     public void registerCommand(Command<T, U> command) {

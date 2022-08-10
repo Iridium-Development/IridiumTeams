@@ -11,6 +11,7 @@ import com.iridium.iridiumteams.enhancements.PotionEnhancementData;
 import com.iridium.iridiumteams.listeners.*;
 import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
+import com.iridium.iridiumteams.managers.MissionManager;
 import com.iridium.iridiumteams.managers.TeamManager;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import lombok.Getter;
@@ -86,6 +87,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public abstract CommandManager<T, U> getCommandManager();
 
+    public abstract MissionManager<T, U> getMissionManager();
+
     public abstract Configuration getConfiguration();
 
     public abstract Messages getMessages();
@@ -103,6 +106,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Top<T> getTop();
 
     public abstract BankItems getBankItems();
+
+    public abstract Missions getMissions();
 
     public void recalculateTeams() {
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {

@@ -24,6 +24,7 @@ public class Inventories {
     public NoItemGUI ranksGUI;
     public NoItemGUI permissionsGUI;
     public NoItemGUI bankGUI;
+    public NoItemGUI missionGUI;
     public TopGUIConfig topGUI;
     public NoItemGUI boostersGUI;
     public NoItemGUI upgradesGUI;
@@ -46,6 +47,7 @@ public class Inventories {
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
+        missionGUI = new NoItemGUI(27, "&7" + team + " Missions", background2);
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
         warpsGUI = new SingleItemGUI(27, "&7" + team + " Warps", background2, new Item(
