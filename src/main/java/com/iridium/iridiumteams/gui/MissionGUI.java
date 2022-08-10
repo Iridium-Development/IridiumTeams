@@ -59,6 +59,7 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
                     .collect(Collectors.toList());
 
             inventory.setItem(slot, ItemStackUtils.makeItem(entry.getValue().getItem(), placeholders));
+            index++;
         }
     }
 
