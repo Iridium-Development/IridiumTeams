@@ -187,7 +187,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         List<Map.Entry<String, Mission>> availableMissions = iridiumTeams.getMissions().missions.entrySet().stream()
                 .filter(mission -> !mission.getValue().getMissionData().isEmpty())
-                .filter(mission -> mission.getValue().getMissionData().get(0).getItem().slot == null)
+                .filter(mission -> mission.getValue().getMissionData().get(1).getItem().slot == null)
                 .filter(mission -> mission.getValue().getMissionType() == missionType)
                 .filter(mission -> !missions.containsKey(mission.getKey()))
                 .collect(Collectors.toList());
