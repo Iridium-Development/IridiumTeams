@@ -171,6 +171,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         List<TeamMission> teamMissions = getTeamMissions(team).stream()
                 .filter(teamMission -> iridiumTeams.getMissions().missions.containsKey(teamMission.getMissionName()))
                 .filter(teamMission -> iridiumTeams.getMissions().missions.get(teamMission.getMissionName()).getMissionType() == missionType)
+                .filter(teamMission -> iridiumTeams.getMissions().missions.get(teamMission.getMissionName()).getMissionData().get(teamMission.getMissionLevel()).getItem().slot == null)
                 .collect(Collectors.toList());
         // Filter and delete expired ones
         Map<String, Mission> missions = new HashMap<>();
