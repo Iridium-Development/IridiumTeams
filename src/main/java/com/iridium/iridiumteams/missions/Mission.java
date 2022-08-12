@@ -3,7 +3,7 @@ package com.iridium.iridiumteams.missions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Represents an Island mission.
@@ -13,10 +13,10 @@ import java.util.List;
 @Getter
 public class Mission {
 
-    List<MissionData> missionData;
+    Map<Integer, MissionData> missionData;
     MissionType missionType;
 
-    public Mission(List<MissionData> missionData, MissionType missionType) {
+    public Mission(Map<Integer, MissionData> missionData, MissionType missionType) {
         this.missionData = missionData;
         this.missionType = missionType;
     }

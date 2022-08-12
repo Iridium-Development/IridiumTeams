@@ -76,7 +76,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
             if (!teamMission.isPresent()) continue;
             //Check if we have completed the mission before by testing if we update any values
             boolean completedBefore = true;
-            int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(0);
+            int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(1);
             MissionData missionData = entry.getValue().getMissionData().get(level);
             List<String> missions = missionData.getMissions();
             for (int missionIndex = 0; missionIndex < missions.size(); missionIndex++) {
