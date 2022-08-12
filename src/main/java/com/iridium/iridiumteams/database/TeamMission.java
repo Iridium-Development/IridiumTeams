@@ -31,7 +31,7 @@ public class TeamMission extends TeamData {
         super(team);
         this.missionName = missionName;
         this.expiration = expiration;
-        this.missionLevel = 0;
+        this.missionLevel = 1;
     }
 
     public long getRemainingTime() {
