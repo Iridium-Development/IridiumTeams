@@ -3,11 +3,15 @@ package com.iridium.iridiumteams.managers;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Mission;
+import com.iridium.iridiumteams.MissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamMission;
 import org.bukkit.World;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -20,6 +24,21 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
         this.iridiumTeams = iridiumTeams;
     }
 
+    public LocalDateTime getExpirationTime(MissionType missionType, LocalDateTime startTime) {
+        LocalDateTime baseTime = startTime.withSecond(0).withMinute(0).withHour(0);
+        switch (missionType) {
+            case ONCE:
+                return null;
+            case DAILY:
+                return baseTime.plusDays(1);
+            case WEEKLY:
+                baseTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+            case INFINITE:
+                return null;
+        }
+        return null;
+    }
+
     /**
      * Determines the missions to be checked
      *
@@ -30,6 +49,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
      * @param amount      The amount we are incrementing by
      */
     public void handleMissionUpdate(T team, World.Environment environment, String missionType, String identifier, int amount) {
+        //TODO Do something to generate all missions
         incrementMission(team, missionType + ":" + identifier, amount);
         incrementMission(team, missionType + ":ANY", amount);
         incrementMission(team, environment.name() + ":" + missionType + ":" + identifier, amount);
