@@ -35,6 +35,12 @@ public class TeamMission extends TeamData {
     }
 
     public long getRemainingTime() {
+        if (expiration == null) return 0;
         return LocalDateTime.now().until(expiration, ChronoUnit.SECONDS);
+    }
+
+    public boolean hasExpired() {
+        if (expiration == null) return false;
+        return expiration.isBefore(LocalDateTime.now());
     }
 }

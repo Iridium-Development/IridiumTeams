@@ -176,7 +176,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         // Filter and delete expired ones
         Map<String, Mission> missions = new HashMap<>();
         for (TeamMission teamMission : teamMissions) {
-            if (teamMission.getExpiration().isBefore(LocalDateTime.now())) {
+            if (teamMission.hasExpired()) {
                 deleteTeamMission(teamMission);
             } else {
                 missions.put(teamMission.getMissionName(), iridiumTeams.getMissions().missions.get(teamMission.getMissionName()));
