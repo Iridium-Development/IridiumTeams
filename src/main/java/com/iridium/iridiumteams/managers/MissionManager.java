@@ -110,8 +110,8 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
                     missionData.getCompleteSound().play(member);
                 });
                 // Next Mission Level
-                if (entry.getValue().getMissionData().size() > level + 1) {
-                    teamMission.get().setMissionLevel(teamMission.get().getMissionLevel() + 1);
+                if (entry.getValue().getMissionData().containsKey(level + 1)) {
+                    teamMission.get().setMissionLevel(level + 1);
                     iridiumTeams.getTeamManager().deleteTeamMissionData(teamMission.get());
                 }
             }
