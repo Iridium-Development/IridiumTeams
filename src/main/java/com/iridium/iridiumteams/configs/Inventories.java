@@ -6,9 +6,11 @@ import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.configs.inventories.*;
+import com.iridium.iridiumteams.missions.MissionType;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 
 public class Inventories {
     @JsonIgnore
@@ -21,7 +23,7 @@ public class Inventories {
     public NoItemGUI ranksGUI;
     public NoItemGUI permissionsGUI;
     public NoItemGUI bankGUI;
-    public NoItemGUI missionGUI;
+    public Map<MissionType, NoItemGUI> missionGUI;
     public TopGUIConfig topGUI;
     public NoItemGUI boostersGUI;
     public NoItemGUI upgradesGUI;
@@ -46,7 +48,12 @@ public class Inventories {
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
-        missionGUI = new NoItemGUI(27, "&7" + team + " Missions", background2);
+        missionGUI = new ImmutableMap.Builder<MissionType, NoItemGUI>()
+                .put(MissionType.DAILY, new NoItemGUI(27, "&7Daily " + team + " Missions", background2))
+                .put(MissionType.WEEKLY, new NoItemGUI(27, "&7Weekly " + team + " Missions", background2))
+                .put(MissionType.INFINITE, new NoItemGUI(27, "&7" + team + " Missions", background2))
+                .put(MissionType.ONCE, new NoItemGUI(45, "&7" + team + " Missions", background1))
+                .build();
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
         warpsGUI = new SingleItemGUI(27, "&7" + team + " Warps", background2, new Item(
@@ -73,11 +80,11 @@ public class Inventories {
                 color + "&l * &7Beacon Blocks: " + color + "%BEACON_AMOUNT%"
         )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
 
-        missionTypeSelectorGUI = new MissionTypeSelectorInventoryConfig(27, "&7"+team+" Missions", background2,
-                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.IRON_INGOT, 11, 1, color+"&lDaily Missions", Collections.emptyList()), true),
-                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.GOLD_INGOT, 13, 1, color+"&lWeekly Missions", Collections.emptyList()), true),
-                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.IRON_INGOT, 11, 1, color+"&lInstant Missions", Collections.emptyList()), false),
-                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.DIAMOND, 15, 1, color+"&lOne Time Missions", Collections.emptyList()), true)
+        missionTypeSelectorGUI = new MissionTypeSelectorInventoryConfig(27, "&7" + team + " Missions", background2,
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.IRON_INGOT, 11, 1, color + "&lDaily Missions", Collections.emptyList()), true),
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.GOLD_INGOT, 13, 1, color + "&lWeekly Missions", Collections.emptyList()), true),
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.IRON_INGOT, 11, 1, color + "&lInstant Missions", Collections.emptyList()), false),
+                new MissionTypeSelectorInventoryConfig.MissionTypeItem(new Item(XMaterial.DIAMOND, 15, 1, color + "&lOne Time Missions", Collections.emptyList()), true)
         );
 
         confirmationGUI = new ConfirmationInventoryConfig(27, "&7Are you sure?", background2, new Item(XMaterial.GREEN_STAINED_GLASS_PANE, 15, 1, "&a&lYes", Collections.emptyList()), new Item(XMaterial.RED_STAINED_GLASS_PANE, 11, 1, color + "&lNo", Collections.emptyList()));

@@ -1,12 +1,12 @@
 package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.MissionType;
 import com.iridium.iridiumteams.configs.inventories.MissionTypeSelectorInventoryConfig;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.MissionGUI;
 import com.iridium.iridiumteams.gui.MissionTypeSelectorGUI;
+import com.iridium.iridiumteams.missions.MissionType;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

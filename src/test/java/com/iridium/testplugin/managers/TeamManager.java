@@ -28,6 +28,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TeamBlock> teamBlocks;
     public static List<TeamWarp> teamWarps;
     public static List<TeamMission> teamMissions;
+    public static List<TeamMissionData> teamMissionData;
     public static Optional<TestTeam> teamViaLocation;
     public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
@@ -46,6 +47,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamSpawners = new ArrayList<>();
         teamWarps = new ArrayList<>();
         teamMissions = new ArrayList<>();
+        teamMissionData = new ArrayList<>();
     }
 
     @Override
@@ -214,23 +216,43 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public List<TeamMission> getTeamMissions(TestTeam team) {
         return teamMissions.stream()
-                .filter(teamMission -> teamMission.getTeamID()==team.getId())
+                .filter(teamMission -> teamMission.getTeamID() == team.getId())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TeamMission getTeamMission(TestTeam team, String missionName, int missionIndex) {
-        Optional<TeamMission> teamMission = teamMissions.stream().filter(mission -> mission.getTeamID()==team.getId() && mission.getMissionName().equals(missionName) && mission.getMissionIndex()==missionIndex).findFirst();
+    public TeamMission getTeamMission(TestTeam team, String missionName) {
+        Optional<TeamMission> teamMission = teamMissions.stream().filter(mission -> mission.getTeamID() == team.getId()).findFirst();
         if (teamMission.isPresent()) {
             return teamMission.get();
         }
-        TeamMission newTeamMission = new TeamMission(team, missionName, missionIndex, LocalDateTime.now().plusHours(1));
+        TeamMission newTeamMission = new TeamMission(team, missionName, LocalDateTime.now().plusHours(1));
         teamMissions.add(newTeamMission);
         return newTeamMission;
     }
 
     @Override
+    public TeamMissionData getTeamMissionData(TeamMission teamMission, int missionIndex) {
+        Optional<TeamMissionData> missionData = teamMissionData.stream()
+                .filter(mission -> mission.getMissionID() == teamMission.getId() && mission.getMissionIndex() == missionIndex)
+                .findFirst();
+        if (missionData.isPresent()) {
+            return missionData.get();
+        }
+        TeamMissionData newTeamMissionData = new TeamMissionData(teamMission, missionIndex);
+        teamMissionData.add(newTeamMissionData);
+        return newTeamMissionData;
+    }
+
+    @Override
     public void deleteTeamMission(TeamMission teamMission) {
         teamMissions.remove(teamMission);
+    }
+
+    @Override
+    public void deleteTeamMissionData(TeamMission teamMission) {
+        teamMissionData.removeAll(teamMissionData.stream()
+                .filter(mission -> mission.getMissionID() == teamMission.getId())
+                .toList());
     }
 }

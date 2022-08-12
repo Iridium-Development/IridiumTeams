@@ -5,9 +5,10 @@ import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnoreProperties;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.dependencies.xseries.XSound;
-import com.iridium.iridiumteams.Mission;
-import com.iridium.iridiumteams.MissionType;
 import com.iridium.iridiumteams.Reward;
+import com.iridium.iridiumteams.missions.Mission;
+import com.iridium.iridiumteams.missions.MissionData;
+import com.iridium.iridiumteams.missions.MissionType;
 
 import java.util.*;
 
@@ -36,7 +37,7 @@ public class Missions {
     public Missions(String color) {
         missions = ImmutableMap.<String, Mission>builder()
 
-                .put("farmer", new Mission(new Item(XMaterial.SUGAR_CANE, 1, color + "&lFarmer",
+                .put("farmer", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.SUGAR_CANE, 1, color + "&lFarmer",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -52,7 +53,7 @@ public class Missions {
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                         )
-                ), Arrays.asList("GROW:SUGAR_CANE:10", "GROW:WHEAT:10", "GROW:CARROTS:10"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFarmer Reward",
+                ), Arrays.asList("GROW:SUGAR_CANE:10", "GROW:WHEAT:10", "GROW:CARROTS:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFarmer Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -63,9 +64,9 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
 
-                .put("hunter", new Mission(new Item(XMaterial.BONE, 1, color + "&lHunter",
+                .put("hunter", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.BONE, 1, color + "&lHunter",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -81,7 +82,7 @@ public class Missions {
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                         )
-                ), Arrays.asList("KILL:ZOMBIE:10", "KILL:SKELETON:10", "KILL:CREEPER:10"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lHunter Reward",
+                ), Arrays.asList("KILL:ZOMBIE:10", "KILL:SKELETON:10", "KILL:CREEPER:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lHunter Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -92,9 +93,9 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
 
-                .put("baker", new Mission(new Item(XMaterial.BREAD, 1, color + "&lBaker",
+                .put("baker", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.BREAD, 1, color + "&lBaker",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -108,7 +109,7 @@ public class Missions {
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                         )
-                ), Collections.singletonList("CRAFT:BREAD:64"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBaker Reward",
+                ), Collections.singletonList("CRAFT:BREAD:64"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBaker Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -119,9 +120,9 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
 
-                .put("miner", new Mission(new Item(XMaterial.GOLD_ORE, 1, color + "&lMiner",
+                .put("miner", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.GOLD_ORE, 1, color + "&lMiner",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -137,7 +138,7 @@ public class Missions {
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                         )
-                ), Arrays.asList("MINE:IRON_ORE:15", "MINE:COAL_ORE:30", "MINE:DIAMOND_ORE:1"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lMiner Reward",
+                ), Arrays.asList("MINE:IRON_ORE:15", "MINE:COAL_ORE:30", "MINE:DIAMOND_ORE:1"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lMiner Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -148,9 +149,9 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
 
-                .put("fisherman", new Mission(new Item(XMaterial.FISHING_ROD, 1, color + "&lFisherman",
+                .put("fisherman", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.FISHING_ROD, 1, color + "&lFisherman",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -164,7 +165,7 @@ public class Missions {
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                         )
-                ), Collections.singletonList("FISH:ANY:10"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFisherman Reward",
+                ), Collections.singletonList("FISH:ANY:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFisherman Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -175,9 +176,9 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
 
-                .put("blacksmith", new Mission(new Item(XMaterial.IRON_INGOT, 1, color + "&lBlacksmith",
+                .put("blacksmith", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.IRON_INGOT, 1, color + "&lBlacksmith",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -191,7 +192,7 @@ public class Missions {
                                 color + "&l* &7$1000",
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
-                        )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
+                        )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -202,9 +203,9 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
 
-                .put("brewer", new Mission(new Item(XMaterial.POTION, 1, color + "&lPotion Brewer",
+                .put("brewer", new Mission(Collections.singletonList(new MissionData(new Item(XMaterial.POTION, 1, color + "&lPotion Brewer",
                         Arrays.asList(
                                 "&7Complete Island Missions to gain rewards",
                                 "&7Which can be used to purchase Island Upgrades",
@@ -219,7 +220,7 @@ public class Missions {
                                 "",
                                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                         )
-                ), Arrays.asList("BREW:SPEED:2:3", "BREW:STRENGTH:2:3"), MissionType.DAILY, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                ), Arrays.asList("BREW:SPEED:2:3", "BREW:STRENGTH:2:3"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                         Arrays.asList(
                                 color + "&l Rewards",
                                 color + "&l* &75 Island Crystals",
@@ -230,7 +231,7 @@ public class Missions {
                                 color + "&l* &7+5 Island Crystals\n" +
                                 color + "&l* &7+1000 Money\n" +
                                 "&7/is rewards to redeem rewards"
-                ))
+                )), MissionType.DAILY))
                 .build();
     }
 
