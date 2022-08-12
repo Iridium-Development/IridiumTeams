@@ -39,8 +39,9 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockBreak(BlockBreakEvent event) {
+        U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
         XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
-        iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+        iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "MINE", material.name(), 1);
             TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);
             teamBlock.setAmount(Math.max(0, teamBlock.getAmount() - 1));
