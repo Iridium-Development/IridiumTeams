@@ -8,10 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Represents a reward for a {@link Mission}.
- * Serialized in Configuration files.
- */
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reward {

@@ -21,21 +21,17 @@ public class TeamMission extends TeamData {
     @DatabaseField(columnName = "mission_name", uniqueCombo = true)
     private String missionName;
 
-    @DatabaseField(columnName = "mission_index", uniqueCombo = true)
-    private int missionIndex;
-
+    @DatabaseField(columnName = "mission_level", uniqueCombo = true)
     @Setter
-    @DatabaseField(columnName = "progress")
-    private int progress;
+    private int missionLevel;
     @DatabaseField(columnName = "expiration")
     private LocalDateTime expiration;
 
-    public TeamMission(@NotNull Team team, String missionName, int missionIndex, LocalDateTime expiration) {
+    public TeamMission(@NotNull Team team, String missionName, LocalDateTime expiration) {
         super(team);
         this.missionName = missionName;
-        this.missionIndex = missionIndex;
         this.expiration = expiration;
-        this.progress = 0;
+        this.missionLevel = 0;
     }
 
     public long getRemainingTime() {

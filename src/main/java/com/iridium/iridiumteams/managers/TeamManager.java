@@ -2,11 +2,16 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.*;
+import com.iridium.iridiumteams.CreateCancelledException;
+import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
+import com.iridium.iridiumteams.missions.Mission;
+import com.iridium.iridiumteams.missions.MissionType;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -153,9 +158,13 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract List<TeamMission> getTeamMissions(T team);
 
-    public abstract TeamMission getTeamMission(T team, String missionName, int missionIndex);
+    public abstract TeamMission getTeamMission(T team, String missionName);
+
+    public abstract TeamMissionData getTeamMissionData(TeamMission teamMission, int missionIndex);
 
     public abstract void deleteTeamMission(TeamMission teamMission);
+
+    public abstract void deleteTeamMissionData(TeamMission teamMission);
 
     public Map<String, Mission> getTeamMission(T team, MissionType missionType) {
         // Get list of current missions
@@ -176,6 +185,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         // Fill to make sure list is at correct size
         ThreadLocalRandom random = ThreadLocalRandom.current();
         List<Map.Entry<String, Mission>> availableMissions = iridiumTeams.getMissions().missions.entrySet().stream()
+                .filter(mission -> !mission.getValue().getMissionData().isEmpty())
+                .filter(mission -> mission.getValue().getMissionData().get(0).getItem().slot == null)
                 .filter(mission -> mission.getValue().getMissionType() == missionType)
                 .filter(mission -> !missions.containsKey(mission.getKey()))
                 .collect(Collectors.toList());

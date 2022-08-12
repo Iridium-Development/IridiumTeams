@@ -1,4 +1,4 @@
-package com.iridium.iridiumteams;
+package com.iridium.iridiumteams.missions;
 
 public enum MissionType {
 
