@@ -51,7 +51,7 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
         List<TeamMission> teamMissions = iridiumTeams.getTeamManager().getTeamMissions(team);
         for (Map.Entry<String, Mission> entry : iridiumTeams.getMissions().missions.entrySet()) {
             if (entry.getValue().getMissionType() != missionType) continue;
-            int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(0);
+            int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(1);
             if (entry.getValue().getMissionData().get(level).getItem().slot == null) continue;
             addItem(entry.getValue().getMissionData().get(level).getItem().slot, entry, inventory);
         }
