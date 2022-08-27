@@ -21,6 +21,17 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private CommandManager commandManager;
     private MissionManager<TestTeam, User> missionManager;
 
+    private Configuration configuration;
+    private Messages messages;
+    private Commands<TestTeam, User> commands;
+    private BlockValues blockValues;
+    private Top<TestTeam> top;
+    private Permissions permissions;
+    private Inventories inventories;
+    private Enhancements enhancements;
+    private BankItems bankItems;
+    private Missions missions;
+
     private final TestEconomyProvider economyProvider = new TestEconomyProvider();
 
     public TestPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
@@ -37,6 +48,21 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.missionManager = new MissionManager<>(this);
 
         super.onEnable();
+    }
+
+    @Override
+    public void loadConfigs() {
+        this.configuration = new Configuration();
+        this.messages = new Messages();
+        this.commands = new Commands<>();
+        this.blockValues = new BlockValues();
+        this.top = new Top<>();
+        this.permissions = new Permissions();
+        this.inventories = new Inventories();
+        this.enhancements = new Enhancements();
+        this.bankItems = new BankItems();
+        this.missions = new Missions();
+        super.loadConfigs();
     }
 
     @Override
@@ -59,74 +85,60 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         return new com.iridium.testplugin.TeamChatPlaceholderBuilder();
     }
 
-    @Override
     public TeamManager getTeamManager() {
-        return teamManager;
+        return this.teamManager;
     }
 
-    @Override
     public UserManager getUserManager() {
-        return userManager;
+        return this.userManager;
     }
 
-    @Override
     public CommandManager getCommandManager() {
-        return commandManager;
+        return this.commandManager;
     }
 
-    @Override
     public MissionManager<TestTeam, User> getMissionManager() {
-        return missionManager;
+        return this.missionManager;
     }
 
-    @Override
     public Configuration getConfiguration() {
-        return new Configuration();
+        return this.configuration;
     }
 
-    @Override
     public Messages getMessages() {
-        return new Messages();
+        return this.messages;
     }
 
-    @Override
     public Commands<TestTeam, User> getCommands() {
-        return new Commands<>();
+        return this.commands;
     }
 
-    @Override
     public BlockValues getBlockValues() {
-        return new BlockValues();
+        return this.blockValues;
     }
 
-    @Override
     public Top<TestTeam> getTop() {
-        return new Top<>();
+        return this.top;
     }
 
-    @Override
     public Permissions getPermissions() {
-        return new Permissions();
+        return this.permissions;
     }
 
-    @Override
     public Inventories getInventories() {
-        return new Inventories();
+        return this.inventories;
     }
 
-    @Override
     public Enhancements getEnhancements() {
-        return new Enhancements();
+        return this.enhancements;
     }
 
-    @Override
     public BankItems getBankItems() {
-        return new BankItems();
+        return this.bankItems;
     }
 
-    @Override
     public Missions getMissions() {
-        return new Missions();
+        return this.missions;
     }
 
     public static TestPlugin getInstance() {

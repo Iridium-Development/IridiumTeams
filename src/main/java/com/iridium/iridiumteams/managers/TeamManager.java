@@ -166,7 +166,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract void deleteTeamMissionData(TeamMission teamMission);
 
-    public Map<String, Mission> getTeamMission(T team, MissionType missionType) {
+    public List<String> getTeamMission(T team, MissionType missionType) {
         // Get list of current missions
         List<TeamMission> teamMissions = getTeamMissions(team).stream()
                 .filter(teamMission -> iridiumTeams.getMissions().missions.containsKey(teamMission.getMissionName()))
@@ -174,12 +174,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                 .filter(teamMission -> iridiumTeams.getMissions().missions.get(teamMission.getMissionName()).getMissionData().get(teamMission.getMissionLevel()).getItem().slot == null)
                 .collect(Collectors.toList());
         // Filter and delete expired ones
-        Map<String, Mission> missions = new HashMap<>();
+        List<String> missions = new ArrayList<>();
         for (TeamMission teamMission : teamMissions) {
             if (teamMission.hasExpired()) {
                 deleteTeamMission(teamMission);
             } else {
-                missions.put(teamMission.getMissionName(), iridiumTeams.getMissions().missions.get(teamMission.getMissionName()));
+                missions.add(teamMission.getMissionName());
             }
         }
 
@@ -189,11 +189,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                 .filter(mission -> !mission.getValue().getMissionData().isEmpty())
                 .filter(mission -> mission.getValue().getMissionData().get(1).getItem().slot == null)
                 .filter(mission -> mission.getValue().getMissionType() == missionType)
-                .filter(mission -> !missions.containsKey(mission.getKey()))
+                .filter(mission -> !missions.contains(mission.getKey()))
                 .collect(Collectors.toList());
         while (missions.size() < iridiumTeams.getMissions().dailySlots.size() && availableMissions.size() > 0) {
             Map.Entry<String, Mission> newMission = availableMissions.get(random.nextInt(availableMissions.size()));
-            missions.put(newMission.getKey(), newMission.getValue());
+            missions.add(newMission.getKey());
             availableMissions.remove(newMission);
         }
         return missions;

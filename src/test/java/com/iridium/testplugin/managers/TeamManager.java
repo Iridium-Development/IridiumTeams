@@ -222,7 +222,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public TeamMission getTeamMission(TestTeam team, String missionName) {
-        Optional<TeamMission> teamMission = teamMissions.stream().filter(mission -> mission.getTeamID() == team.getId()).findFirst();
+        Optional<TeamMission> teamMission = teamMissions.stream().filter(mission -> mission.getTeamID() == team.getId() && mission.getMissionName().equalsIgnoreCase(missionName)).findFirst();
         if (teamMission.isPresent()) {
             return teamMission.get();
         }

@@ -239,6 +239,81 @@ public class Missions {
                                         color + "&l* &7+1000 Money\n" +
                                         "&7/is rewards to redeem rewards"
                         )).build(), MissionType.DAILY))
+
+                .put("mine_oak", new Mission(ImmutableMap.<Integer, MissionData>builder()
+                        .put(1, new MissionData(new Item(XMaterial.OAK_LOG, 0, 1, color + "&lMine 10 Logs",
+                                Arrays.asList(
+                                        "&7Complete Island Missions to gain rewards",
+                                        "&7Which can be used to purchase Island Upgrades",
+                                        "",
+                                        color + "&lObjectives:",
+                                        color + "&l* &7Mine 10 logs: %progress_1%/3",
+                                        "",
+                                        color + "&lRewards",
+                                        color + "&l* &75 Island Crystals",
+                                        color + "&l* &7$1000"
+                                )
+                        ), Collections.singletonList("MINE:LOGS:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                                Arrays.asList(
+                                        color + "&l Rewards",
+                                        color + "&l* &75 Island Crystals",
+                                        color + "&l* &7$1000"
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                "%prefix% &7Mission Completed!\n" +
+                                        color + "&l* &7+3 Island Experience\n" +
+                                        color + "&l* &7+5 Island Crystals\n" +
+                                        color + "&l* &7+1000 Money\n" +
+                                        "&7/is rewards to redeem rewards"
+                        ))
+                        .put(2, new MissionData(new Item(XMaterial.OAK_LOG, 0, 1, color + "&lMine 100 Logs",
+                                Arrays.asList(
+                                        "&7Complete Island Missions to gain rewards",
+                                        "&7Which can be used to purchase Island Upgrades",
+                                        "",
+                                        color + "&lObjectives:",
+                                        color + "&l* &7Mine 100 logs: %progress_1%/3",
+                                        "",
+                                        color + "&lRewards",
+                                        color + "&l* &75 Island Crystals",
+                                        color + "&l* &7$1000"
+                                )
+                        ), Collections.singletonList("MINE:LOGS:100"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                                Arrays.asList(
+                                        color + "&l Rewards",
+                                        color + "&l* &75 Island Crystals",
+                                        color + "&l* &7$1000"
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                "%prefix% &7Mission Completed!\n" +
+                                        color + "&l* &7+3 Island Experience\n" +
+                                        color + "&l* &7+5 Island Crystals\n" +
+                                        color + "&l* &7+1000 Money\n" +
+                                        "&7/is rewards to redeem rewards"
+                        ))
+                        .put(3, new MissionData(new Item(XMaterial.OAK_LOG, 0, 1, color + "&lMine 1000 Logs",
+                                Arrays.asList(
+                                        "&7Complete Island Missions to gain rewards",
+                                        "&7Which can be used to purchase Island Upgrades",
+                                        "",
+                                        color + "&lObjectives:",
+                                        color + "&l* &7Mine 1000 logs: %progress_1%/3",
+                                        "",
+                                        color + "&lRewards",
+                                        color + "&l* &75 Island Crystals",
+                                        color + "&l* &7$1000"
+                                )
+                        ), Collections.singletonList("MINE:LOGS:1000"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                                Arrays.asList(
+                                        color + "&l Rewards",
+                                        color + "&l* &75 Island Crystals",
+                                        color + "&l* &7$1000"
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                "%prefix% &7Mission Completed!\n" +
+                                        color + "&l* &7+3 Island Experience\n" +
+                                        color + "&l* &7+5 Island Crystals\n" +
+                                        color + "&l* &7+1000 Money\n" +
+                                        "&7/is rewards to redeem rewards"
+                        ))
+                        .build(), MissionType.ONCE))
                 .build();
     }
 

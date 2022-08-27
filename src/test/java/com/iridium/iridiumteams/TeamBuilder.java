@@ -33,6 +33,13 @@ public class TeamBuilder {
         TeamManager.teams.add(testTeam);
     }
 
+    public TeamBuilder withMissions(String... missions) {
+        for (String mission : missions) {
+            TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, mission);
+        }
+        return this;
+    }
+
     public TeamBuilder withWarp(String name, String password, Location location) {
         TestPlugin.getInstance().getTeamManager().createWarp(testTeam, UUID.randomUUID(), location, name, password);
         return this;
