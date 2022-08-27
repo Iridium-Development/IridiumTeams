@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamMission;
 import com.iridium.iridiumteams.database.TeamMissionData;
+import com.iridium.iridiumteams.gui.MissionGUI;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionData;
 import com.iridium.iridiumteams.missions.MissionType;
@@ -51,7 +52,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
      * @param amount      The amount we are incrementing by
      */
     public void handleMissionUpdate(T team, World.Environment environment, String missionType, String identifier, int amount) {
-        //TODO Do something to generate all missions
+        generateMissionData(team);
         incrementMission(team, missionType + ":" + identifier, amount);
         incrementMission(team, missionType + ":ANY", amount);
         incrementMission(team, environment.name() + ":" + missionType + ":" + identifier, amount);
@@ -144,5 +145,12 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
             }
         }
         return true;
+    }
+
+    private void generateMissionData(T team) {
+        // Generate mission data by opening all missionGUI's
+        new MissionGUI<T, U>(team, MissionType.ONCE, null, iridiumTeams).getInventory();
+        new MissionGUI<T, U>(team, MissionType.DAILY, null, iridiumTeams).getInventory();
+        new MissionGUI<T, U>(team, MissionType.WEEKLY, null, iridiumTeams).getInventory();
     }
 }
