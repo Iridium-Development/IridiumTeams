@@ -23,8 +23,6 @@ dependencies {
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
     implementation("com.iridium:IridiumCore:1.6.7")
-    implementation("com.j256.ormlite:ormlite-core:6.1")
-    implementation("org.projectlombok:lombok:1.18.22")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.24")
