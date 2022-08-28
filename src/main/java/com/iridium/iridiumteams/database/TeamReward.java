@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 @NoArgsConstructor
-@DatabaseTable(tableName = "team_bank")
+@DatabaseTable(tableName = "team_rewards")
 public class TeamReward extends TeamData {
 
     @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
