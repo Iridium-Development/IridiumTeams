@@ -61,6 +61,7 @@ class MissionManagerTest {
                         .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamRewards(testTeam).size());
     }
 
     @Test

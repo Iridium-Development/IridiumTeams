@@ -2,16 +2,14 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.CreateCancelledException;
-import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.PermissionType;
-import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.*;
 import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
+import com.iridium.iridiumteams.utils.PlayerUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -197,5 +195,25 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
             availableMissions.remove(newMission);
         }
         return missions;
+    }
+
+    public abstract List<TeamReward> getTeamRewards(T team);
+
+    public abstract void addTeamReward(TeamReward teamReward);
+
+    public abstract void deleteTeamReward(TeamReward teamReward);
+
+    public void claimTeamReward(TeamReward teamReward, Player player) {
+        Reward reward = teamReward.getReward();
+        deleteTeamReward(teamReward);
+        reward.sound.play(player);
+        iridiumTeams.getEconomy().depositPlayer(player, reward.money);
+        PlayerUtils.setTotalExperience(player, PlayerUtils.getTotalExperience(player) + reward.experience);
+        getTeamViaID(teamReward.getTeamID()).ifPresent(team -> {
+            for (Map.Entry<String, Double> entry : reward.bankRewards.entrySet()) {
+                TeamBank teamBank = getTeamBank(team, entry.getKey());
+                teamBank.setNumber(teamBank.getNumber() + entry.getValue());
+            }
+        });
     }
 }
