@@ -32,6 +32,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static Optional<TestTeam> teamViaLocation;
     public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
+    public static List<TeamReward> teamRewards;
     public static boolean cancelsCreate;
 
     public TeamManager() {
@@ -48,6 +49,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamWarps = new ArrayList<>();
         teamMissions = new ArrayList<>();
         teamMissionData = new ArrayList<>();
+        teamRewards = new ArrayList<>();
     }
 
     @Override
@@ -254,5 +256,20 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamMissionData.removeAll(teamMissionData.stream()
                 .filter(mission -> mission.getMissionID() == teamMission.getId())
                 .toList());
+    }
+
+    @Override
+    public List<TeamReward> getTeamRewards(TestTeam team) {
+        return teamRewards.stream().filter(teamReward -> teamReward.getTeamID()==team.getId()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addTeamReward(TeamReward teamReward) {
+        teamRewards.add(teamReward);
+    }
+
+    @Override
+    public void deleteTeamReward(TeamReward teamReward) {
+        teamRewards.remove(teamReward);
     }
 }

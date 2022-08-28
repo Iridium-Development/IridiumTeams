@@ -3,6 +3,7 @@ package com.iridium.iridiumteams;
 import be.seeseemelk.mockbukkit.ServerMock;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.database.TeamEnhancement;
+import com.iridium.iridiumteams.database.TeamReward;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.managers.TeamManager;
@@ -31,6 +32,13 @@ public class TeamBuilder {
     public TeamBuilder(int id) {
         this.testTeam = new TestTeam("Team_" + id, id);
         TeamManager.teams.add(testTeam);
+    }
+
+    public TeamBuilder withReward(Reward... rewards) {
+        for (Reward reward : rewards) {
+            TestPlugin.getInstance().getTeamManager().addTeamReward(new TeamReward(testTeam, reward));
+        }
+        return this;
     }
 
     public TeamBuilder withMissions(String... missions) {

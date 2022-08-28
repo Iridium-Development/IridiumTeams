@@ -2,10 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.database.IridiumUser;
-import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamMission;
-import com.iridium.iridiumteams.database.TeamMissionData;
+import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.gui.MissionGUI;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionData;
@@ -106,6 +103,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
 
             // Check if this mission is now completed
             if (!completedBefore && hasCompletedMission(team, entry.getKey(), missionData)) {
+                iridiumTeams.getTeamManager().addTeamReward(new TeamReward(team, missionData.getReward()));
                 iridiumTeams.getTeamManager().getTeamMembers(team).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(member -> {
                     member.sendMessage(StringUtils.color(missionData.getMessage().replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
                     missionData.getCompleteSound().play(member);
