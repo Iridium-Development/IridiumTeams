@@ -57,7 +57,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         recalculateTeams();
         getLogger().info("-------------------------------");
         getLogger().info("");
-        getLogger().info(getDescription().getName() + "Enabled!");
+        getLogger().info(getDescription().getName() + " Enabled!");
         getLogger().info("");
         getLogger().info("-------------------------------");
     }
