@@ -42,11 +42,21 @@ public class Inventories {
 
     public Inventories(String team, String color) {
         backButton = new Item(XMaterial.NETHER_STAR, -5, 1, "&c&lBack", Collections.emptyList());
-        rewardsGUI = new SingleItemGUI(54, "&7" + team + " Rewards", background1, new Item(XMaterial.SUNFLOWER, 53, 1, color+"Claim All!", Collections.emptyList()));
+        rewardsGUI = new SingleItemGUI(54, "&7" + team + " Rewards", background1, new Item(XMaterial.SUNFLOWER, 53, 1, color + "&lClaim All!", Collections.emptyList()));
 
-        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList("&7Joined: %player_join%", "&7Rank: %player_rank%", "", color + "&l[!] &7Right Click to promote", color + "&l[!] &7Left click to demote/kick")));
+        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
+                color + "Joined: &7%player_join%",
+                color + "Rank: &7%player_rank%",
+                "",
+                color + "&l[!] &7Right Click to promote",
+                color + "&l[!] &7Left click to demote/kick"
+        )));
 
-        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList("", color + "&l[!] &7Left click to uninvite")));
+        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
+                color + "Invited: &7%invite_time%",
+                "",
+                color + "&l[!] &7Left click to uninvite"
+        )));
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
@@ -61,25 +71,25 @@ public class Inventories {
         warpsGUI = new SingleItemGUI(27, "&7" + team + " Warps", background2, new Item(
                 XMaterial.GREEN_STAINED_GLASS_PANE, 1, "&b&l%warp_name%",
                 Arrays.asList(
-                        "&7Description: %warp_description%",
-                        "&7Created By: %warp_creator%",
-                        "&7Date: %warp_create_time%",
+                        color + "Description: &7%warp_description%",
+                        color + "Created By: &7%warp_creator%",
+                        color + "Date: &7%warp_create_time%",
                         "",
                         "&b&l[!] &bLeft Click to Teleport",
                         "&b&l[!] &bRight Click to Delete"
                 )));
         topGUI = new TopGUIConfig(54, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", "%" + team.toLowerCase() + "_owner%", Arrays.asList(
                 "",
-                color + "&l * &7" + team + " Name: " + color + "%" + team.toLowerCase() + "_name%",
-                color + "&l * &7" + team + " Value: " + color + "%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
-                color + "&l * &7" + team + " Experience: " + color + "%" + team.toLowerCase() + "_experience% (#%" + team.toLowerCase() + "_experience_rank%)",
-                color + "&l * &7Netherite Blocks: " + color + "%NETHERITE_BLOCK_AMOUNT%",
-                color + "&l * &7Emerald Blocks: " + color + "%EMERALD_BLOCK_AMOUNT%",
-                color + "&l * &7Diamond Blocks: " + color + "%DIAMOND_BLOCK_AMOUNT%",
-                color + "&l * &7Gold Blocks: " + color + "%GOLD_BLOCK_AMOUNT%",
-                color + "&l * &7Iron Blocks: " + color + "%IRON_BLOCK_AMOUNT%",
-                color + "&l * &7Hopper Blocks: " + color + "%HOPPER_AMOUNT%",
-                color + "&l * &7Beacon Blocks: " + color + "%BEACON_AMOUNT%"
+                color + team + " Name: &7%" + team.toLowerCase() + "_name%",
+                color + team + " Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
+                color + team + " Experience: &7%" + team.toLowerCase() + "_experience% (#%" + team.toLowerCase() + "_experience_rank%)",
+                color + "Netherite Blocks: &7%NETHERITE_BLOCK_AMOUNT%",
+                color + "Emerald Blocks: &7%EMERALD_BLOCK_AMOUNT%",
+                color + "Diamond Blocks: &7%DIAMOND_BLOCK_AMOUNT%",
+                color + "Gold Blocks: &7%GOLD_BLOCK_AMOUNT%",
+                color + "Iron Blocks: &7%IRON_BLOCK_AMOUNT%",
+                color + "Hopper Blocks: &7%HOPPER_AMOUNT%",
+                color + "Beacon Blocks: &7%BEACON_AMOUNT%"
         )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
 
         missionTypeSelectorGUI = new MissionTypeSelectorInventoryConfig(27, "&7" + team + " Missions", background2,
