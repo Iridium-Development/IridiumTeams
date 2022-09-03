@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 @DatabaseTable(tableName = "team_rewards")
 public class TeamReward extends TeamData {
 
-    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
+    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false, uniqueCombo = true)
     private int id;
 
     @DatabaseField(columnName = "reward", canBeNull = false, width = 2048)

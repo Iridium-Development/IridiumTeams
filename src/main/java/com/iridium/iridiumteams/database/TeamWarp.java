@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@DatabaseTable(tableName = "team_bank")
+@DatabaseTable(tableName = "team_warps")
 public class TeamWarp extends TeamData {
 
     @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
