@@ -220,6 +220,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addEnhancement("spawner", getEnhancements().spawnerEnhancement);
         addEnhancement("experience", getEnhancements().experienceEnhancement);
         addEnhancement("flight", getEnhancements().flightEnhancement);
+        addEnhancement("members", getEnhancements().membersEnhancement);
+        addEnhancement("warps", getEnhancements().warpsEnhancement);
     }
 
     public void initializeSortingTypes() {

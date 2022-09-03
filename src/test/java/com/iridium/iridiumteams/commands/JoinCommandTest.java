@@ -80,6 +80,22 @@ class JoinCommandTest {
     }
 
     @Test
+    public void executeJoinCommand__LimitReached() {
+        TestTeam team = new TeamBuilder().build();
+        for (int i = 0; i < 5; i++) {
+            new UserBuilder(serverMock).withTeam(team).build();
+        }
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeamInvite(team).build();
+
+        serverMock.dispatchCommand(playerMock, "test join " + team.getName());
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().memberLimitReached
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
     public void executeJoinCommand__WithInvite() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock teamMember = new UserBuilder(serverMock).withTeam(team).build();

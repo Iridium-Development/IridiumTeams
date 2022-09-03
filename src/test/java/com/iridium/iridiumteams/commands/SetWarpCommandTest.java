@@ -104,13 +104,31 @@ class SetWarpCommandTest {
 
     @Test
     public void executeSetWarpCommand__WarpAlreadyExists() {
-        TestTeam team = new TeamBuilder().withWarp("name", "", new Location(null, 0, 0, 0)).withPermission(1, PermissionType.MANAGE_WARPS, true).build();
+        TestTeam team = new TeamBuilder()
+                .withWarp("name", "", new Location(null, 0, 0, 0))
+                .withPermission(1, PermissionType.MANAGE_WARPS, true)
+                .withEnhancement("warps", 2)
+                .build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         TeamManager.teamViaLocation = Optional.of(team);
 
         serverMock.dispatchCommand(playerMock, "test setwarp name");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().warpAlreadyExists
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeSetWarpCommand__LimitReached() {
+        TestTeam team = new TeamBuilder().withWarp("name", "", new Location(null, 0, 0, 0)).withPermission(1, PermissionType.MANAGE_WARPS, true).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+        TeamManager.teamViaLocation = Optional.of(team);
+
+        serverMock.dispatchCommand(playerMock, "test setwarp name");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().warpLimitReached
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();

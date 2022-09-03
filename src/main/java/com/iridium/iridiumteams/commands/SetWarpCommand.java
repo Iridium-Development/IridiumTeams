@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.enhancements.WarpsEnhancementData;
 import com.iridium.iridiumteams.utils.LocationUtils;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
@@ -38,6 +39,14 @@ public class SetWarpCommand<T extends Team, U extends IridiumUser<T>> extends Co
         }
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.MANAGE_WARPS)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotManageWarps
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+
+        WarpsEnhancementData data = iridiumTeams.getEnhancements().warpsEnhancement.levels.get(iridiumTeams.getTeamManager().getTeamEnhancement(team, "warps").getLevel());
+        if (iridiumTeams.getTeamManager().getTeamWarps(team).size() >= (data == null ? 0 : data.warps)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpLimitReached
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return;

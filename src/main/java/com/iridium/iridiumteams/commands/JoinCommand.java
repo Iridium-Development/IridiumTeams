@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
+import com.iridium.iridiumteams.enhancements.MembersEnhancementData;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -43,6 +44,14 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         Optional<TeamInvite> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team.get(), user);
         if (!teamInvite.isPresent() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noActiveInvite
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+
+        MembersEnhancementData data = iridiumTeams.getEnhancements().membersEnhancement.levels.get(iridiumTeams.getTeamManager().getTeamEnhancement(team.get(), "members").getLevel());
+        if (iridiumTeams.getTeamManager().getTeamMembers(team.get()).size() >= (data == null ? 0 : data.members)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().memberLimitReached
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return;
