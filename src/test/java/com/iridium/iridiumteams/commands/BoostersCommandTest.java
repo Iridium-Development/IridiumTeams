@@ -9,6 +9,7 @@ import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.gui.BoostersGUI;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.api.EnhancementUpdateEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -114,6 +115,7 @@ class BoostersCommandTest {
         assertEquals(90000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "farming").getLevel());
         assertTrue(TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "farming").isActive());
+        assertTrue(EnhancementUpdateEvent.called);
     }
 
     @Test

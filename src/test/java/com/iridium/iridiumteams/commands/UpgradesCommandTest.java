@@ -9,6 +9,7 @@ import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.gui.UpgradesGUI;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.api.EnhancementUpdateEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -112,6 +113,7 @@ class UpgradesCommandTest {
         assertEquals(90000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "haste").getLevel());
         assertTrue(TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "haste").isActive());
+        assertTrue(EnhancementUpdateEvent.called);
     }
 
 }

@@ -5,10 +5,12 @@ import com.iridium.iridiumteams.PlaceholderBuilder;
 import com.iridium.iridiumteams.TeamChatPlaceholderBuilder;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.managers.MissionManager;
+import com.iridium.testplugin.api.EnhancementUpdateEvent;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
 import com.iridium.testplugin.managers.UserManager;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
@@ -139,6 +141,12 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
     public Missions getMissions() {
         return this.missions;
+    }
+
+    @Override
+    public void registerListeners() {
+        super.registerListeners();
+        Bukkit.getPluginManager().registerEvents(new EnhancementUpdateEvent(), this);
     }
 
     public static TestPlugin getInstance() {

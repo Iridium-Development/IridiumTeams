@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.managers;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.*;
+import com.iridium.iridiumteams.api.EnhancementUpdateEvent;
 import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.Enhancement;
@@ -10,6 +11,7 @@ import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
 import com.iridium.iridiumteams.utils.PlayerUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -138,7 +140,13 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         }
 
         if (enhancement.levels.containsKey(teamEnhancement.getLevel() + 1)) {
-            teamEnhancement.setLevel(teamEnhancement.getLevel() + 1);
+            U user = iridiumTeams.getUserManager().getUser(player);
+            EnhancementUpdateEvent<T, U> enhancementUpdateEvent = new EnhancementUpdateEvent<>(team, user, teamEnhancement.getLevel() + 1, booster);
+
+            Bukkit.getPluginManager().callEvent(enhancementUpdateEvent);
+            if (enhancementUpdateEvent.isCancelled()) return false;
+
+            teamEnhancement.setLevel(enhancementUpdateEvent.getNextLevel());
         }
         teamEnhancement.setExpirationTime(LocalDateTime.now().plusHours(1));
         return true;
