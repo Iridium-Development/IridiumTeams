@@ -59,7 +59,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Farmer mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -89,7 +89,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Hunter mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -117,7 +117,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Baker mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -147,7 +147,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Miner mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -175,7 +175,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Fisherman mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -203,7 +203,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Blacksmith mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -232,7 +232,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Potion Brewer mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -258,7 +258,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -282,7 +282,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +
@@ -306,7 +306,7 @@ public class Missions {
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
-                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP),
+                                )), Collections.emptyList(), 1000, new HashMap<>(), 0, 10, XSound.ENTITY_PLAYER_LEVELUP),
                                 "%prefix% &7Mission Completed!\n" +
                                         color + "&l* &7+3 Island Experience\n" +
                                         color + "&l* &7+5 Island Crystals\n" +

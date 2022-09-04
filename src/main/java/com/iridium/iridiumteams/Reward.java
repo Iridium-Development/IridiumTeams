@@ -17,6 +17,7 @@ public class Reward {
     public double money;
     public Map<String, Double> bankRewards;
     public int experience;
+    public int teamExperience;
     public XSound sound;
 
 }

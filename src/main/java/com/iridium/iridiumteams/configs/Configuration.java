@@ -16,6 +16,7 @@ public class Configuration {
 
     public String dateTimeFormat;
     public NumberFormatter numberFormatter;
+    public boolean createRequiresName;
     public int minTeamNameLength;
     public int maxTeamNameLength;
 
@@ -41,6 +42,7 @@ public class Configuration {
         this.prefix = color + "&l" + pluginName + " &8»";
         this.dateTimeFormat = "EEEE, MMMM dd HH:mm:ss";
         this.numberFormatter = new NumberFormatter();
+        this.createRequiresName = true;
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
         this.recalculateInterval = 5;

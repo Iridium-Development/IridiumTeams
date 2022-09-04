@@ -10,7 +10,6 @@ import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
-import com.iridium.testplugin.managers.TeamManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,18 +83,6 @@ class CreateCommandTest {
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamNameAlreadyExists
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
-        playerMock.assertNoMoreSaid();
-    }
-
-    @Test
-    public void executeCreateCommand__Canceled() {
-        PlayerMock playerMock = new UserBuilder(serverMock).build();
-        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
-        TeamManager.cancelsCreate = true;
-
-        serverMock.dispatchCommand(playerMock, "test create test");
-
-        assertEquals(0, user.getUserRank());
         playerMock.assertNoMoreSaid();
     }
 

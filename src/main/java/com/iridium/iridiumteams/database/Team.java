@@ -17,8 +17,8 @@ public abstract class Team {
     @DatabaseField(columnName = "id", canBeNull = false, generatedId = true)
     private int id;
 
-    @DatabaseField(columnName = "name", canBeNull = false)
-    private @NotNull String name;
+    @DatabaseField(columnName = "name")
+    private String name;
 
     @DatabaseField(columnName = "description", canBeNull = false)
     private @NotNull String description;

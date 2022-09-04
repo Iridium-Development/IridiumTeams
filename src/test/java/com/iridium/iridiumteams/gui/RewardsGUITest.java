@@ -54,7 +54,7 @@ class RewardsGUITest {
 
     @Test
     public void RewardsGUI__HasItems() {
-        TestTeam testTeam = new TeamBuilder().withReward(new Reward(new Item(XMaterial.DIAMOND, 1, "&c&lReward", Collections.emptyList()), Collections.emptyList(), 1000, new HashMap<>(), 0, XSound.ENTITY_PLAYER_LEVELUP)).build();
+        TestTeam testTeam = new TeamBuilder().withReward(new Reward(new Item(XMaterial.DIAMOND, 1, "&c&lReward", Collections.emptyList()), Collections.emptyList(), 1000, new HashMap<>(), 0,10, XSound.ENTITY_PLAYER_LEVELUP)).build();
         RewardsGUI<TestTeam, User> rewardsGUI = new RewardsGUI<>(testTeam, null, TestPlugin.getInstance());
         Inventory inventory = rewardsGUI.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
@@ -66,7 +66,7 @@ class RewardsGUITest {
     public void RewardsGUI__OnInventoryClick__RedeemReward() {
         TestTeam testTeam = new TeamBuilder().withReward(new Reward(
                 new Item(XMaterial.DIAMOND, 1, "&c&lReward", Collections.emptyList()), Collections.emptyList(),
-                1000, new ImmutableMap.Builder<String, Double>().put("money", 10000.00).build(), 1000, XSound.ENTITY_PLAYER_LEVELUP
+                1000, new ImmutableMap.Builder<String, Double>().put("money", 10000.00).build(), 1000,10, XSound.ENTITY_PLAYER_LEVELUP
         )).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         RewardsGUI<TestTeam, User> rewardsGUI = new RewardsGUI<>(testTeam, null, TestPlugin.getInstance());
@@ -80,6 +80,7 @@ class RewardsGUITest {
         assertEquals(1000, PlayerUtils.getTotalExperience(playerMock));
         assertEquals(1000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
         assertEquals(10000, TestPlugin.getInstance().getTeamManager().getTeamBank(testTeam, "money").getNumber());
+        assertEquals(10, testTeam.getExperience());
     }
 
     @Test
@@ -87,11 +88,11 @@ class RewardsGUITest {
         TestTeam testTeam = new TeamBuilder().withReward(
                 new Reward(
                         new Item(XMaterial.DIAMOND, 1, "&c&lReward", Collections.emptyList()), Collections.emptyList(),
-                        1000, new ImmutableMap.Builder<String, Double>().put("money", 10000.00).build(), 1000, XSound.ENTITY_PLAYER_LEVELUP
+                        1000, new ImmutableMap.Builder<String, Double>().put("money", 10000.00).build(), 1000,10, XSound.ENTITY_PLAYER_LEVELUP
                 ),
                 new Reward(
                         new Item(XMaterial.DIAMOND, 1, "&c&lReward", Collections.emptyList()), Collections.emptyList(),
-                        1000, new ImmutableMap.Builder<String, Double>().put("money", 10000.00).build(), 1000, XSound.ENTITY_PLAYER_LEVELUP
+                        1000, new ImmutableMap.Builder<String, Double>().put("money", 10000.00).build(), 1000,10, XSound.ENTITY_PLAYER_LEVELUP
                 )
         ).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
@@ -106,6 +107,7 @@ class RewardsGUITest {
         assertEquals(2000, PlayerUtils.getTotalExperience(playerMock));
         assertEquals(2000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
         assertEquals(20000, TestPlugin.getInstance().getTeamManager().getTeamBank(testTeam, "money").getNumber());
+        assertEquals(20, testTeam.getExperience());
     }
 
 }
