@@ -1,7 +1,6 @@
 package com.iridium.testplugin.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
-import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.testplugin.TestPlugin;
@@ -13,6 +12,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -33,7 +33,6 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static Map<String, TeamEnhancement> teamEnhancements;
     public static Map<String, TeamBank> teamBank;
     public static List<TeamReward> teamRewards;
-    public static boolean cancelsCreate;
 
     public TeamManager() {
         super(TestPlugin.getInstance());
@@ -43,7 +42,6 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamViaLocation = Optional.empty();
         teamBank = new HashMap<>();
         teamEnhancements = new HashMap<>();
-        cancelsCreate = false;
         teamBlocks = new ArrayList<>();
         teamSpawners = new ArrayList<>();
         teamWarps = new ArrayList<>();
@@ -89,8 +87,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public CompletableFuture<TestTeam> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException {
-        if (cancelsCreate) throw new CreateCancelledException();
+    public CompletableFuture<TestTeam> createTeam(@NotNull Player owner, @Nullable String name) {
         TestTeam testTeam = new TestTeam(name);
         User user = TestPlugin.getInstance().getUserManager().getUser(owner);
 
@@ -260,7 +257,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public List<TeamReward> getTeamRewards(TestTeam team) {
-        return teamRewards.stream().filter(teamReward -> teamReward.getTeamID()==team.getId()).collect(Collectors.toList());
+        return teamRewards.stream().filter(teamReward -> teamReward.getTeamID() == team.getId()).collect(Collectors.toList());
     }
 
     @Override

@@ -21,4 +21,9 @@ public class TestTeam extends Team {
     public double getValue() {
         return TestPlugin.getInstance().getTeamManager().getTeamValue(this);
     }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
 }

@@ -2,7 +2,10 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.*;
+import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.PermissionType;
+import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.Reward;
 import com.iridium.iridiumteams.api.EnhancementUpdateEvent;
 import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
@@ -16,6 +19,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -42,7 +46,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract List<U> getTeamMembers(T team);
 
-    public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @NotNull String name) throws CreateCancelledException;
+    public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @Nullable String name);
 
     public abstract void deleteTeam(T team, U user);
 
@@ -218,6 +222,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         iridiumTeams.getEconomy().depositPlayer(player, reward.money);
         PlayerUtils.setTotalExperience(player, PlayerUtils.getTotalExperience(player) + reward.experience);
         getTeamViaID(teamReward.getTeamID()).ifPresent(team -> {
+            team.setExperience(team.getExperience() + reward.teamExperience);
             for (Map.Entry<String, Double> entry : reward.bankRewards.entrySet()) {
                 TeamBank teamBank = getTeamBank(team, entry.getKey());
                 teamBank.setNumber(teamBank.getNumber() + entry.getValue());

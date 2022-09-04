@@ -1,7 +1,6 @@
 package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.CreateCancelledException;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
@@ -21,7 +20,16 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
     public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length < 1) {
-            player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            if (iridiumTeams.getConfiguration().createRequiresName) {
+                player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                return;
+            }
+            iridiumTeams.getTeamManager().createTeam(player, null).thenAccept(team -> {
+                user.setUserRank(Rank.OWNER.getId());
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
+            });
             return;
         }
         if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
@@ -52,16 +60,12 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             ));
             return;
         }
-        try {
-            iridiumTeams.getTeamManager().createTeam(player, teamName).thenAccept(team -> {
-                user.setUserRank(Rank.OWNER.getId());
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-            });
-        } catch (CreateCancelledException ignored) {
-            //The create command has been cancelled, ignore
-        }
+        iridiumTeams.getTeamManager().createTeam(player, teamName).thenAccept(team -> {
+            user.setUserRank(Rank.OWNER.getId());
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+        });
     }
 
 }
