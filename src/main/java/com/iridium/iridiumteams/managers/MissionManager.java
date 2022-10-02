@@ -76,6 +76,8 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
             boolean completedBefore = true;
             int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(1);
             MissionData missionData = entry.getValue().getMissionData().get(level);
+            if (!dependenciesComplete(team, missionData.getMissionDependencies(), teamMissions)) continue;
+
             List<String> missions = missionData.getMissions();
             for (int missionIndex = 0; missionIndex < missions.size(); missionIndex++) {
                 TeamMissionData teamMissionData = iridiumTeams.getTeamManager().getTeamMissionData(teamMission.get(), missionIndex);
@@ -115,6 +117,19 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
                 }
             }
         }
+    }
+
+    private boolean dependenciesComplete(T team, List<MissionData.MissionDependency> missionDependencies, List<TeamMission> teamMissions) {
+        for (MissionData.MissionDependency missionDependency : missionDependencies) {
+            Optional<TeamMission> teamMission = teamMissions.stream()
+                    .filter(mission -> mission.getMissionName().equals(missionDependency.getMission()))
+                    .filter(mission -> mission.getMissionLevel() == missionDependency.getLevel())
+                    .findFirst();
+            if (!teamMission.isPresent()) return false;
+            MissionData missionData = iridiumTeams.getMissions().missions.get(missionDependency.getMission()).getMissionData().get(missionDependency.getLevel());
+            if (!hasCompletedMission(team, missionDependency.getMission(), missionData)) return false;
+        }
+        return true;
     }
 
     private boolean matchesMission(String[] missionConditions, String[] conditions) {
