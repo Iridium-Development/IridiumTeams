@@ -30,32 +30,34 @@ public class DescriptionCommand<T extends Team, U extends IridiumUser<T>> extend
             return;
         }
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(args[0]);
-        String description;
         if (team.isPresent() && player.hasPermission(adminPermission)) {
-            description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+            String description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+            changeDescription(team.get(), description, player, iridiumTeams);
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().changedPlayerDescription
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%name%", team.get().getName())
                     .replace("%description%", description)
             ));
-        } else {
-            team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
-            if (!team.isPresent()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
-                );
-                return;
-            }
-            if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.DESCRIPTION)) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeDescription
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return;
-            }
-            description = String.join(" ", args);
+            return;
         }
-        team.get().setDescription(description);
-        iridiumTeams.getTeamManager().getTeamMembers(team.get()).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(member ->
+        super.execute(user, args, iridiumTeams);
+    }
+
+    @Override
+    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+        Player player = user.getPlayer();
+        if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DESCRIPTION)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeDescription
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        changeDescription(team, String.join(" ", arguments), player, iridiumTeams);
+    }
+
+    private void changeDescription(T team, String description, Player player, IridiumTeams<T, U> iridiumTeams) {
+        team.setDescription(description);
+        iridiumTeams.getTeamManager().getTeamMembers(team).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(member ->
                 member.sendMessage(StringUtils.color(iridiumTeams.getMessages().descriptionChanged
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                         .replace("%player%", player.getName())
@@ -63,5 +65,4 @@ public class DescriptionCommand<T extends Team, U extends IridiumUser<T>> extend
                 ))
         );
     }
-
 }

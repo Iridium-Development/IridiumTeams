@@ -15,6 +15,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     private String adminPermission;
+
     public DeleteCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
         super(args, description, syntax, permission);
         this.adminPermission = adminPermission;
@@ -23,22 +24,7 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if(arguments.length==0){
-            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
-            if(!team.isPresent()){
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
-                );
-                return;
-            }
-            if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDeleteTeam
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return;
-            }
-            deleteTeam(user, team.get(), iridiumTeams, false);
-        } else if (arguments.length==1) {
+        if (arguments.length == 1) {
             if (!player.hasPermission(adminPermission)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
@@ -46,19 +32,31 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 return;
             }
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[0]);
-            if(!team.isPresent()){
+            if (!team.isPresent()) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
                 );
                 return;
             }
             deleteTeam(user, team.get(), iridiumTeams, true);
-        }else{
-            player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            return;
         }
+        super.execute(user, arguments, iridiumTeams);
     }
 
-    private void deleteTeam(U user, T team, IridiumTeams<T, U> iridiumTeams, boolean admin){
+    @Override
+    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+        Player player = user.getPlayer();
+        if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDeleteTeam
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        deleteTeam(user, team, iridiumTeams, false);
+    }
+
+    private void deleteTeam(U user, T team, IridiumTeams<T, U> iridiumTeams, boolean admin) {
         Player player = user.getPlayer();
         player.openInventory(new ConfirmationGUI<>(() -> {
             iridiumTeams.getTeamManager().deleteTeam(team, user);
@@ -72,7 +70,7 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
                     ));
                 }
             }
-            if(admin){
+            if (admin) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().deletedPlayerTeam
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                         .replace("%name%", team.getName())
