@@ -10,10 +10,12 @@ import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
+import com.iridium.testplugin.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteCommandTest {
@@ -87,6 +89,53 @@ class DeleteCommandTest {
                 .replace("%player%", playerMock.getName())
         ));
         playerMock.assertNoMoreSaid();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+        assertEquals(0, user.getTeamID());
+    }
+
+    @Test
+    public void executeDeleteCommand__Other__NoPermissions() {
+        PlayerMock adminPlayerMock = new UserBuilder(serverMock).build();
+
+        serverMock.dispatchCommand(adminPlayerMock, "test delete unknown");
+        adminPlayerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().noPermission
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        adminPlayerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeDeleteCommand__Other__NoTeamFound() {
+        PlayerMock adminPlayerMock = new UserBuilder(serverMock).setOp().build();
+
+        serverMock.dispatchCommand(adminPlayerMock, "test delete unknown");
+        adminPlayerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamDoesntExistByName
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        adminPlayerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeDeleteCommand__Other__Executes() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).setBypassing().build();
+        PlayerMock adminPlayerMock = new UserBuilder(serverMock).setOp().build();
+
+        serverMock.dispatchCommand(adminPlayerMock, "test delete " + playerMock.getName());
+        assertTrue(adminPlayerMock.getOpenInventory().getTopInventory().getHolder() instanceof ConfirmationGUI);
+        adminPlayerMock.simulateInventoryClick(TestPlugin.getInstance().getInventories().confirmationGUI.yes.slot);
+        adminPlayerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().deletedPlayerTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%name%", testTeam.getName())
+        ));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamDeleted
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", adminPlayerMock.getName())
+        ));
+        playerMock.assertNoMoreSaid();
+        adminPlayerMock.assertNoMoreSaid();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+        assertEquals(0, user.getTeamID());
     }
 
 }
