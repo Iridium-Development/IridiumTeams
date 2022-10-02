@@ -79,4 +79,26 @@ class DescriptionCommandTest {
         playerMock.assertNoMoreSaid();
         assertEquals(team.getDescription(), "my new awesome description");
     }
+
+    @Test
+    public void executeDescriptionCommand__Other__Executes() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).setBypassing().build();
+        PlayerMock adminPlayerMock = new UserBuilder(serverMock).setOp().build();
+
+        serverMock.dispatchCommand(adminPlayerMock, "test description " + playerMock.getName() + " my new awesome description");
+        adminPlayerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().changedPlayerDescription
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%name%", testTeam.getName())
+                .replace("%description%", "my new awesome description")
+        ));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().descriptionChanged
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", adminPlayerMock.getName())
+                .replace("%description%", "my new awesome description")
+        ));
+        playerMock.assertNoMoreSaid();
+        adminPlayerMock.assertNoMoreSaid();
+        assertEquals(testTeam.getDescription(), "my new awesome description");
+    }
 }

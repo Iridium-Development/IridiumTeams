@@ -55,7 +55,9 @@ public class Messages {
     public String leftTeam;
     public String userLeftTeam;
     public String teamDoesntExistByName;
+    public String changedPlayerDescription;
     public String descriptionChanged;
+    public String changedPlayerName;
     public String nameChanged;
     public String notInTeamLand;
     public String homeSet;
@@ -163,7 +165,9 @@ public class Messages {
         leftTeam = "%prefix% &7You have left the " + team + " %name%.";
         userLeftTeam = "%prefix% &7%player% has left your " + team + ".";
         teamDoesntExistByName = "%prefix% &7No " + team + " by that name exists.";
+        changedPlayerDescription = "%prefix% &7You changed %name%'s description to to %description%.";
         descriptionChanged = "%prefix% &7%player% has changed your " + team + "'s description to %description%.";
+        changedPlayerName = "%prefix% &7You changed %player%'s " + team + "'s name to to %name%.";
         nameChanged = "%prefix% &7%player% has changed your " + team + "'s name to %name%.";
         notInTeamLand = "%prefix% &7You must be inside your " + team + "'s land to do this.";
         homeSet = "%prefix% &7%player% has set " + team + "'s home.";
