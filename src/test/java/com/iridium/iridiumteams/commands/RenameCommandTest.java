@@ -121,4 +121,26 @@ class RenameCommandTest {
         playerMock.assertNoMoreSaid();
         assertEquals(team.getName(), "my new awesome name");
     }
+
+    @Test
+    public void executeRenameCommand__Other__Executes() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).setBypassing().build();
+        PlayerMock adminPlayerMock = new UserBuilder(serverMock).setOp().build();
+
+        serverMock.dispatchCommand(adminPlayerMock, "test rename " + playerMock.getName() + " my new awesome name");
+        adminPlayerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().changedPlayerName
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%name%", "my new awesome name")
+                .replace("%player%", playerMock.getName())
+        ));
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().nameChanged
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", adminPlayerMock.getName())
+                .replace("%name%", "my new awesome name")
+        ));
+        playerMock.assertNoMoreSaid();
+        adminPlayerMock.assertNoMoreSaid();
+        assertEquals(testTeam.getName(), "my new awesome name");
+    }
 }

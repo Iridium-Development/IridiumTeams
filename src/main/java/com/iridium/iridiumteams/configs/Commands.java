@@ -69,8 +69,8 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         leaveCommand = new LeaveCommand<>(Collections.singletonList("leave"), "Leave your current " + team, "%prefix% &7/" + commandBase + " leave", "");
         deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete (player)", "", permissionBase + ".delete.others");
         infoCommand = new InfoCommand<>(Arrays.asList("info", "level", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "");
-        descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Set your " + team + " description.", "%prefix% &7/" + commandBase + " description <description>", "");
-        renameCommand = new RenameCommand<>(Collections.singletonList("rename"), "Rename your " + team, "%prefix% &7/" + commandBase + " rename <name>", "");
+        descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Set your " + team + " description.", "%prefix% &7/" + commandBase + " description <description>", "",permissionBase + ".description.others");
+        renameCommand = new RenameCommand<>(Collections.singletonList("rename"), "Rename your " + team, "%prefix% &7/" + commandBase + " rename <name>", "", permissionBase + ".rename.others");
         setHomeCommand = new SetHomeCommand<>(Collections.singletonList("sethome"), "Set your " + team + "'s home", "%prefix% &7/" + commandBase + " sethome", "");
         homeCommand = new HomeCommand<>(Collections.singletonList("home"), "Teleport to your " + team + "'s home", "%prefix% &7/" + commandBase + " home", "");
         bypassCommand = new BypassCommand<>(Collections.singletonList("bypass"), "Bypass " + team + " restrictions", "%prefix% &7/" + commandBase + " bypass", permissionBase + ".bypass");
