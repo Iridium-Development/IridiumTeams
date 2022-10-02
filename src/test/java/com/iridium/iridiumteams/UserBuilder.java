@@ -61,6 +61,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder setOp() {
+        playerMock.setOp(true);
+        return this;
+    }
+
     public PlayerMock build() {
         return playerMock;
     }

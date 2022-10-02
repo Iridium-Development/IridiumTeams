@@ -20,6 +20,7 @@ public class Messages {
     public String teamNameTooLong;
     public String teamCreated;
     public String teamDeleted;
+    public String deletedPlayerTeam;
     public String dontHaveTeam;
     public String cannotChangePermissions;
     public String cannotInvite;
@@ -126,6 +127,7 @@ public class Messages {
         teamNameTooShort = "%prefix% &7This " + team + " name is too short. It must be at least %min_length% characters long.";
         teamNameTooLong = "%prefix% &7This " + team + " name is too long. It must be at most %max_length% characters long.";
         teamCreated = "%prefix% &7You have created a " + team + "!";
+        deletedPlayerTeam = "%prefix% &7You have deleted The " + team + " %name%!";
         teamDeleted = "%prefix% &7%player% has deleted your " + team + "!";
         dontHaveTeam = "%prefix% &7You dont have a " + team + ".";
         cannotChangePermissions = "%prefix% &7You cannot change this permission.";
