@@ -7,6 +7,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.database.TeamMission;
+import com.iridium.iridiumteams.missions.MissionData;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import org.bukkit.Sound;
@@ -30,6 +31,18 @@ class MissionManagerTest {
     @AfterEach
     public void tearDown() {
         MockBukkit.unmock();
+    }
+
+    @Test
+    public void handleMissionUpdate__DoesntIncrementsValue__DependencyNotComplete() {
+        TestTeam testTeam = new TeamBuilder().build();
+        TestPlugin.getInstance().getMissions().missions.get("mine_oak").getMissionData().get(1).getMissionDependencies().add(new MissionData.MissionDependency("test", 1));
+        TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
+
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, World.Environment.NORMAL, "MINE", "OAK_LOG", 1);
+
+        assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
     }
 
     @Test
