@@ -38,7 +38,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public BoostersCommand<T, U> boostersCommand;
     public UpgradesCommand<T, U> upgradesCommand;
     public FlyCommand<T, U> flyCommand;
-    public ValueCommand<T, U> valueCommand;
     public TopCommand<T, U> topCommand;
     public RecalculateCommand<T, U> recalculateCommand;
     public WarpsCommand<T, U> warpsCommand;
@@ -69,8 +68,8 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         kickCommand = new KickCommand<>(Collections.singletonList("kick"), "Kick a player from your " + team, "%prefix% &7/" + commandBase + " kick <player>", "");
         leaveCommand = new LeaveCommand<>(Collections.singletonList("leave"), "Leave your current " + team, "%prefix% &7/" + commandBase + " leave", "");
         deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete", "");
-        infoCommand = new InfoCommand<>(Collections.singletonList("info"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "");
-        descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Edit your " + team + " description.", "%prefix% &7/" + commandBase + " description", "");
+        infoCommand = new InfoCommand<>(Arrays.asList("info", "level", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "");
+        descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Set your " + team + " description.", "%prefix% &7/" + commandBase + " description <description>", "");
         renameCommand = new RenameCommand<>(Collections.singletonList("rename"), "Rename your " + team, "%prefix% &7/" + commandBase + " rename <name>", "");
         setHomeCommand = new SetHomeCommand<>(Collections.singletonList("sethome"), "Set your " + team + "'s home", "%prefix% &7/" + commandBase + " sethome", "");
         homeCommand = new HomeCommand<>(Collections.singletonList("home"), "Teleport to your " + team + "'s home", "%prefix% &7/" + commandBase + " home", "");
@@ -79,12 +78,11 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         joinCommand = new JoinCommand<>(Collections.singletonList("join"), "Join a " + team, "%prefix% &7/" + commandBase + " join", "");
         bankCommand = new BankCommand<>(Collections.singletonList("bank"), "View your " + team + " bank", "%prefix% &7/" + commandBase + " bank", "");
         depositCommand = new DepositCommand<>(Collections.singletonList("deposit"), "Deposit into your " + team + " bank", "%prefix% &7/" + commandBase + " deposit <name> <amount>", "");
-        withdrawCommand = new WithdrawCommand<>(Collections.singletonList("withdraw"), "Withdraw from you " + team + " bank", "%prefix% &7/" + commandBase + " withdraw <name> <amount>", "");
+        withdrawCommand = new WithdrawCommand<>(Collections.singletonList("withdraw"), "Withdraw from your " + team + " bank", "%prefix% &7/" + commandBase + " withdraw <name> <amount>", "");
         chatCommand = new ChatCommand<>(Arrays.asList("chat", "c"), "Change your " + team + " chat type", "%prefix% &7/" + commandBase + " chat <chattype>", "");
         boostersCommand = new BoostersCommand<>(Collections.singletonList("boosters"), "View your " + team + " Boosters", "%prefix% &7/" + commandBase + " boosters buy <booster>", "");
         upgradesCommand = new UpgradesCommand<>(Collections.singletonList("upgrades"), "View your " + team + " Upgrades", "%prefix% &7/" + commandBase + " upgrades buy <upgrade>", "");
         flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", "");
-        valueCommand = new ValueCommand<>(Collections.singletonList("value"), "View your " + team + " Value", "%prefix% &7/" + commandBase + " value", "");
         topCommand = new TopCommand<>(Collections.singletonList("top"), "View the top " + team + "'s", "%prefix% &7/" + commandBase + " top", "");
         recalculateCommand = new RecalculateCommand<>(Collections.singletonList("recalculate"), "Recalculate all " + team + "'s value ", "%prefix% &7/" + commandBase + " recalculate", permissionBase + ".recalculate");
         warpsCommand = new WarpsCommand<>(Collections.singletonList("warps"), "View your " + team + "'s warps", "%prefix% &7/" + commandBase + " warps", "");
