@@ -87,7 +87,6 @@ public class Messages {
     public String notEnoughBankItem;
     public String purchasedUpgrade;
     public String purchasedBooster;
-    public String teamValue;
     public String calculatingTeams;
     public String calculatingFinished;
     public String calculationAlreadyInProcess;
@@ -195,7 +194,6 @@ public class Messages {
         notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your " + team + " Bank.";
         purchasedBooster = "%prefix% &7You have purchased a %booster% booster";
         purchasedUpgrade = "%prefix% &7You have purchased a %upgrade% upgrade";
-        teamValue = "%prefix% &7Your " + team + " Value is %value%";
         calculatingTeams = "%prefix% &7%player% is recalculating value for %amount% " + team + "'s \n%prefix% &7Estimated time: %minutes% Minutes and %seconds% Seconds";
         calculatingFinished = "%prefix% &7Recalculating " + team + "'s completed!";
         calculationAlreadyInProcess = "%prefix% &7Recalculating " + team + "'s already in process.";
