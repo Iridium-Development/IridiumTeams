@@ -16,6 +16,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     private String adminPermission;
+
     public RenameCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
         super(args, description, syntax, permission);
         this.adminPermission = adminPermission;
@@ -29,65 +30,63 @@ public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(args[0]);
-        String name;
-        boolean admin = false;
-
         if (team.isPresent() && player.hasPermission(adminPermission)) {
-            name = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-            admin = true;
-        } else {
-            team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
-            if (!team.isPresent()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
-                );
-                return;
-            }
-            if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.RENAME)) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeName
+            String name = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+            if(changeName(team.get(), name, player, iridiumTeams)){
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().changedPlayerName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                        .replace("%name%", team.get().getName())
+                        .replace("%player%", args[0])
                 ));
-                return;
             }
-            name = String.join(" ", args);
+            return;
         }
+        super.execute(user, args, iridiumTeams);
+    }
 
-        Optional<T> teamViaName = iridiumTeams.getTeamManager().getTeamViaName(name);
-        if (teamViaName.isPresent() && teamViaName.get().getId() != team.get().getId()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists
+    @Override
+    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+        Player player = user.getPlayer();
+        if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.RENAME)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeName
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return;
+        }
+        changeName(team, String.join(" ", arguments), player, iridiumTeams);
+    }
+
+    private boolean changeName(T team, String name, Player player, IridiumTeams<T, U> iridiumTeams) {
+        Optional<T> teamViaName = iridiumTeams.getTeamManager().getTeamViaName(name);
+        if (teamViaName.isPresent() && teamViaName.get().getId() != team.getId()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameAlreadyExists
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
         }
         if (name.length() < iridiumTeams.getConfiguration().minTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooShort
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%min_length%", String.valueOf(iridiumTeams.getConfiguration().minTeamNameLength))
             ));
-            return;
+            return false;
         }
         if (name.length() > iridiumTeams.getConfiguration().maxTeamNameLength) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamNameTooLong
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%max_length%", String.valueOf(iridiumTeams.getConfiguration().maxTeamNameLength))
             ));
-            return;
+            return false;
         }
-        team.get().setName(name);
-        if(admin){
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().changedPlayerName
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                    .replace("%name%", team.get().getName())
-                    .replace("%player%", args[0])
-            ));
-        }
-        iridiumTeams.getTeamManager().getTeamMembers(team.get()).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(member ->
+        team.setName(name);
+        iridiumTeams.getTeamManager().getTeamMembers(team).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(member ->
                 member.sendMessage(StringUtils.color(iridiumTeams.getMessages().nameChanged
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                         .replace("%player%", player.getName())
                         .replace("%name%", name)
                 ))
         );
+        return true;
     }
 
 }
