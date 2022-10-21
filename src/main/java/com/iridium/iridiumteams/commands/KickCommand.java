@@ -41,6 +41,12 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             ));
             return;
         }
+        if (kickedPlayer.getPlayer().getUniqueId() == player.getUniqueId()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickYourself
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
         if (kickedPlayer.getUserRank() >= user.getUserRank() && !user.isBypassing() && user.getUserRank() != Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickHigherRank
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

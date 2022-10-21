@@ -52,6 +52,7 @@ public class Messages {
     public String youHaveBeenKicked;
     public String playerKicked;
     public String cannotKickHigherRank;
+    public String cannotKickYourself;
     public String leftTeam;
     public String userLeftTeam;
     public String teamDoesntExistByName;
@@ -161,7 +162,8 @@ public class Messages {
         teamInviteRevoked = "%prefix% &7You have revoked a " + team + " invite from %player%.";
         youHaveBeenKicked = "%prefix% &7You have been kicked from your " + team + " by %player%";
         playerKicked = "%prefix% &7%player% has been kicked from your " + team + " by %kicker%";
-        cannotKickHigherRank = "%prefix% &7You cannot kick somone with a higher rank than you.";
+        cannotKickHigherRank = "%prefix% &7You cannot kick someone with a higher rank than you.";
+        cannotKickYourself = "%prefix% &7You cannot kick yourself.";
         leftTeam = "%prefix% &7You have left the " + team + " %name%.";
         userLeftTeam = "%prefix% &7%player% has left your " + team + ".";
         teamDoesntExistByName = "%prefix% &7No " + team + " by that name exists.";
