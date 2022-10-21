@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -37,6 +38,17 @@ class LeaveCommandTest {
         serverMock.dispatchCommand(playerMock, "test leave");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().dontHaveTeam.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeLeaveCommand__OwnerCannotLeave() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+
+        serverMock.dispatchCommand(playerMock, "test leave");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().ownerCannotLeave.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
         playerMock.assertNoMoreSaid();
     }
 

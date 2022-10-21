@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,13 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
     @Override
     public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
+
+        if(user.getUserRank()== Rank.OWNER.getId()){
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().ownerCannotLeave
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().leftTeam
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
