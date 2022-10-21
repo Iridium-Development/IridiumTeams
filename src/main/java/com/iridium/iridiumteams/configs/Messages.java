@@ -54,6 +54,7 @@ public class Messages {
     public String cannotKickHigherRank;
     public String cannotKickYourself;
     public String leftTeam;
+    public String ownerCannotLeave;
     public String userLeftTeam;
     public String teamDoesntExistByName;
     public String changedPlayerDescription;
@@ -165,6 +166,7 @@ public class Messages {
         cannotKickHigherRank = "%prefix% &7You cannot kick someone with a higher rank than you.";
         cannotKickYourself = "%prefix% &7You cannot kick yourself.";
         leftTeam = "%prefix% &7You have left the " + team + " %name%.";
+        ownerCannotLeave = "%prefix% &7You cannot leave your "+team+" try /"+command+" delete.";
         userLeftTeam = "%prefix% &7%player% has left your " + team + ".";
         teamDoesntExistByName = "%prefix% &7No " + team + " by that name exists.";
         changedPlayerDescription = "%prefix% &7You changed %name%'s description to to %description%.";
