@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
@@ -51,28 +52,30 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             if (enhancementEntry.getValue().type != EnhancementType.UPGRADE) continue;
             upgrades.put(enhancementEntry.getValue().item.slot, enhancementEntry.getKey());
             TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, enhancementEntry.getKey());
+            EnhancementData currentData = enhancementEntry.getValue().levels.get(teamEnhancement.getLevel());
             EnhancementData nextData = enhancementEntry.getValue().levels.get(teamEnhancement.getLevel() + 1);
             int seconds = Math.max((int) (teamEnhancement.getRemainingTime() % 60), 0);
             int minutes = Math.max((int) ((teamEnhancement.getRemainingTime() % 3600) / 60), 0);
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
             String nextLevel = nextData == null ? "N/A" : String.valueOf(teamEnhancement.getLevel() + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
-            inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, Arrays.asList(
+            List<Placeholder> placeholders = currentData.getPlaceholders();
+            placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
                     new Placeholder("timeremaining_minutes", String.valueOf(minutes)),
                     new Placeholder("timeremaining_seconds", String.valueOf(seconds)),
                     new Placeholder("current_level", String.valueOf(teamEnhancement.getLevel())),
                     new Placeholder("next_level", nextLevel),
                     new Placeholder("cost", cost)
-
-            )));
+            ));
+            inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
     }
 
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
-        
+
         if (!upgrades.containsKey(event.getSlot())) return;
         String upgrade = upgrades.get(event.getSlot());
         iridiumTeams.getCommands().upgradesCommand.execute(event.getWhoClicked(), new String[]{"buy", upgrade}, iridiumTeams);
