@@ -17,10 +17,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
@@ -59,7 +56,7 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
             String nextLevel = nextData == null ? "N/A" : String.valueOf(teamEnhancement.getLevel() + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
-            List<Placeholder> placeholders = currentData.getPlaceholders();
+            List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
                     new Placeholder("timeremaining_minutes", String.valueOf(minutes)),

@@ -17,10 +17,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
@@ -59,7 +56,7 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int currentLevel = teamEnhancement.isActive(enhancementEntry.getValue().type) ? teamEnhancement.getLevel() : 0;
             String nextLevel = nextData == null ? "N/A" : String.valueOf(currentLevel + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
-            List<Placeholder> placeholders = currentData.getPlaceholders();
+            List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
                     new Placeholder("timeremaining_minutes", String.valueOf(minutes)),

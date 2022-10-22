@@ -76,7 +76,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         bypassCommand = new BypassCommand<>(Collections.singletonList("bypass"), "Bypass " + team + " restrictions", "%prefix% &7/" + commandBase + " bypass", permissionBase + ".bypass");
         transferCommand = new TransferCommand<>(Collections.singletonList("transfer"), "Transfer " + team + " ownership to another player", "%prefix% &7/" + commandBase + " transfer <player>", "");
         joinCommand = new JoinCommand<>(Collections.singletonList("join"), "Join a " + team, "%prefix% &7/" + commandBase + " join", "");
-        bankCommand = new BankCommand<>(Collections.singletonList("bank"), "View your " + team + " bank", "%prefix% &7/" + commandBase + " bank", "");
+        bankCommand = new BankCommand<>(Collections.singletonList("bank"), "View your " + team + " bank", "%prefix% &7/" + commandBase + " bank <give/set/remove> <player> <item> <amount>", "", permissionBase + ".bank.modify");
         depositCommand = new DepositCommand<>(Collections.singletonList("deposit"), "Deposit into your " + team + " bank", "%prefix% &7/" + commandBase + " deposit <name> <amount>", "");
         withdrawCommand = new WithdrawCommand<>(Collections.singletonList("withdraw"), "Withdraw from your " + team + " bank", "%prefix% &7/" + commandBase + " withdraw <name> <amount>", "");
         chatCommand = new ChatCommand<>(Arrays.asList("chat", "c"), "Change your " + team + " chat type", "%prefix% &7/" + commandBase + " chat <chattype>", "");
