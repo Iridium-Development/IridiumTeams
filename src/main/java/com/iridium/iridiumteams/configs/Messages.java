@@ -75,6 +75,9 @@ public class Messages {
     public String userJoinedTeam;
     public String bankWithdrew;
     public String bankDeposited;
+    public String gaveBank;
+    public String setBank;
+    public String removedBank;
     public String insufficientFundsToWithdraw;
     public String insufficientFundsToDeposit;
     public String noSuchBankItem;
@@ -166,7 +169,7 @@ public class Messages {
         cannotKickHigherRank = "%prefix% &7You cannot kick someone with a higher rank than you.";
         cannotKickYourself = "%prefix% &7You cannot kick yourself.";
         leftTeam = "%prefix% &7You have left the " + team + " %name%.";
-        ownerCannotLeave = "%prefix% &7You cannot leave your "+team+" try /"+command+" delete.";
+        ownerCannotLeave = "%prefix% &7You cannot leave your " + team + " try /" + command + " delete.";
         userLeftTeam = "%prefix% &7%player% has left your " + team + ".";
         teamDoesntExistByName = "%prefix% &7No " + team + " by that name exists.";
         changedPlayerDescription = "%prefix% &7You changed %name%'s description to to %description%.";
@@ -187,6 +190,9 @@ public class Messages {
         userJoinedTeam = "%prefix% &7%player% has joined your " + team + ".";
         bankWithdrew = "%prefix% &7You successfully withdrew %amount% %type% from your " + team + " bank.";
         bankDeposited = "%prefix% &7You successfully deposited %amount% %type% from your " + team + " bank.";
+        gaveBank = "%prefix% &7You gave %player% %amount% %item%.";
+        setBank = "%prefix% &7You set %player%'s %amount% to %item%.";
+        removedBank = "%prefix% &7You took %amount% %item%'s from %player%.";
         insufficientFundsToWithdraw = "%prefix% &7You do not have enough %type% to withdraw from your " + team + " bank.";
         insufficientFundsToDeposit = "%prefix% &7You do not have enough %type% to deposit into your " + team + " bank.";
         noSuchBankItem = "%prefix% &7That bank item doesn't exist.";
