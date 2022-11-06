@@ -4,7 +4,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -21,7 +20,6 @@ public final class TeamPermission extends TeamData {
     private int rank;
 
     @DatabaseField(columnName = "allowed", canBeNull = false)
-    @Setter
     private boolean allowed;
 
     public TeamPermission(Team team, String permission, int rank, boolean allowed) {
@@ -31,4 +29,8 @@ public final class TeamPermission extends TeamData {
         this.allowed = allowed;
     }
 
+    public void setAllowed(boolean allowed) {
+        this.allowed = allowed;
+        setChanged(true);
+    }
 }

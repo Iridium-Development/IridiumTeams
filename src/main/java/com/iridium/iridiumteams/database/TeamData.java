@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TeamData {
+public class TeamData extends DatabaseObject{
     @DatabaseField(columnName = "team_id", canBeNull = false, uniqueCombo = true)
     private int teamID;
 

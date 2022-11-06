@@ -5,7 +5,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
@@ -20,12 +19,16 @@ public class TeamBlock extends TeamData {
     private XMaterial xMaterial;
 
     @DatabaseField(columnName = "amount", canBeNull = false)
-    @Setter
     private int amount;
 
     public TeamBlock(@NotNull Team team, XMaterial xMaterial, int amount) {
         super(team);
         this.xMaterial = xMaterial;
         this.amount = amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+        setChanged(true);
     }
 }

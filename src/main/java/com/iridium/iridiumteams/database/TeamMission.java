@@ -4,7 +4,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -22,7 +21,6 @@ public class TeamMission extends TeamData {
     private String missionName;
 
     @DatabaseField(columnName = "mission_level", uniqueCombo = true)
-    @Setter
     private int missionLevel;
     @DatabaseField(columnName = "expiration")
     private LocalDateTime expiration;
@@ -42,5 +40,10 @@ public class TeamMission extends TeamData {
     public boolean hasExpired() {
         if (expiration == null) return false;
         return expiration.isBefore(LocalDateTime.now());
+    }
+
+    public void setMissionLevel(int missionLevel) {
+        this.missionLevel = missionLevel;
+        setChanged(true);
     }
 }

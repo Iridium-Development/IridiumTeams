@@ -5,7 +5,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -23,11 +22,9 @@ public final class TeamEnhancement extends TeamData {
     private String enhancementName;
 
     @DatabaseField(columnName = "level", canBeNull = false)
-    @Setter
     private int level;
 
     @DatabaseField(columnName = "start_time", canBeNull = false)
-    @Setter
     private LocalDateTime expirationTime;
 
     public TeamEnhancement(@NotNull Team team, String enhancementName, int level) {
@@ -50,4 +47,13 @@ public final class TeamEnhancement extends TeamData {
         return LocalDateTime.now().until(expirationTime, ChronoUnit.SECONDS);
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+        setChanged(true);
+    }
+
+    public void setExpirationTime(LocalDateTime expirationTime) {
+        this.expirationTime = expirationTime;
+        setChanged(true);
+    }
 }
