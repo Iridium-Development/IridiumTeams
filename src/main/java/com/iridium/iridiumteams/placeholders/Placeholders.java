@@ -33,7 +33,7 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
         List<Placeholder> placeholders = new ArrayList<>();
 
         placeholders.addAll(iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(team));
-        if (user != null) placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
+        placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(Optional.ofNullable(user)));
         for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(current)) {
             placeholders.add(new Placeholder("current_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
         }

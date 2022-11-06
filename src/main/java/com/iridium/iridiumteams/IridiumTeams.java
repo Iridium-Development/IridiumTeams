@@ -14,7 +14,6 @@ import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.MissionManager;
 import com.iridium.iridiumteams.managers.TeamManager;
 import com.iridium.iridiumteams.placeholders.ClipPlaceholderAPI;
-import com.iridium.iridiumteams.placeholders.MVDWPlaceholderAPI;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -78,18 +77,11 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     private void registerPlaceholderSupport() {
-        Plugin MVDWPlaceholderAPI = getServer().getPluginManager().getPlugin("MVdWPlaceholderAPI");
-        if (MVDWPlaceholderAPI != null && MVDWPlaceholderAPI.isEnabled()) {
-            MVDWPlaceholderAPI<T, U> mvdwPlaceholderAPI = new MVDWPlaceholderAPI<>(this);
-            mvdwPlaceholderAPI.register();
-            getLogger().info("Successfully registered " + mvdwPlaceholderAPI.getPlaceholderCount() + " placeholders with MVDWPlaceholderAPI.");
-        }
-
         Plugin PlaceholderAPI = getServer().getPluginManager().getPlugin("PlaceholderAPI");
         if (PlaceholderAPI != null && PlaceholderAPI.isEnabled()) {
             ClipPlaceholderAPI<T, U> clipPlaceholderAPI = new ClipPlaceholderAPI<>(this);
             if (clipPlaceholderAPI.register()) {
-                getLogger().info("Successfully registered " + clipPlaceholderAPI.getPlaceholderCount() + " placeholders with PlaceholderAPI.");
+                getLogger().info("Successfully registered Placeholders for PlaceholderAPI.");
             }
         }
     }
