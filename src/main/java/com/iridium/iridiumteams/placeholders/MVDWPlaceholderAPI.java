@@ -24,9 +24,6 @@ public class MVDWPlaceholderAPI<T extends Team, U extends IridiumUser<T>> {
         for (Placeholder placeholder : defaultList) {
             PlaceholderAPI.registerPlaceholder(iridiumTeams, iridiumTeams.getName().toLowerCase() + "_" + placeholder.getKey(), event -> {
 
-                if (event.getPlayer() == null) {
-                    return "N/A";
-                }
                 List<Placeholder> placeholderList = placeholders.getPlaceholders(event.getPlayer());
 
                 return placeholderList.stream().filter(placeholder1 -> placeholder1.getKey().equals(placeholder.getKey())).findFirst().get().getValue();
