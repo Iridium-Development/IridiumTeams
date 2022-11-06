@@ -13,6 +13,8 @@ import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
+import com.iridium.iridiumteams.sorting.ExperienceTeamSort;
+import com.iridium.iridiumteams.sorting.ValueTeamSort;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -42,7 +44,19 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract Optional<T> getTeamViaNameOrPlayer(String name);
 
+    public Optional<T> getTeamViaPlayerLocation(Player player){
+        return getTeamViaLocation(player.getLocation());
+    }
+
     public abstract List<T> getTeams();
+
+    public List<T> getTeams(SortType sortType) {
+        switch (sortType){
+            case Value: return new ValueTeamSort<T>().getSortedTeams(iridiumTeams);
+            case Experience: return new ExperienceTeamSort<T>().getSortedTeams(iridiumTeams);
+            default: return getTeams();
+        }
+    }
 
     public abstract List<U> getTeamMembers(T team);
 
@@ -228,5 +242,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                 teamBank.setNumber(teamBank.getNumber() + entry.getValue());
             }
         });
+    }
+
+    public enum SortType{
+        Experience, Value
     }
 }

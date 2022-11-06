@@ -5,10 +5,12 @@ plugins {
 }
 
 group = "com.iridium"
-version = "1.6.0"
+version = "1.6.1"
 description = "IridiumTeams"
 
 repositories {
+    maven("https://repo.mvdw-software.com/content/groups/public/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://ci.ender.zone/plugin/repository/everything/")
     maven("https://nexus.iridiumdevelopment.net/repository/maven-releases/")
@@ -28,6 +30,10 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.24")
     compileOnly("org.spigotmc:spigot-api:1.19.1-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("me.clip:placeholderapi:2.9.2")
+    compileOnly("be.maximvdw:MVdWPlaceholderAPI:2.1.1-SNAPSHOT") {
+        exclude("org.spigotmc")
+    }
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.24")
