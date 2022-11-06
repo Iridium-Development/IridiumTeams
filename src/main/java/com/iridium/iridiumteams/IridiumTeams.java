@@ -13,6 +13,8 @@ import com.iridium.iridiumteams.managers.CommandManager;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.iridiumteams.managers.MissionManager;
 import com.iridium.iridiumteams.managers.TeamManager;
+import com.iridium.iridiumteams.placeholders.ClipPlaceholderAPI;
+import com.iridium.iridiumteams.placeholders.MVDWPlaceholderAPI;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
@@ -55,6 +58,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         initializeEnhancements();
         initializeSortingTypes();
         recalculateTeams();
+        registerPlaceholderSupport();
         getLogger().info("-------------------------------");
         getLogger().info("");
         getLogger().info(getDescription().getName() + " Enabled!");
@@ -71,6 +75,23 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         getLogger().info(getDescription().getName() + " Disabled!");
         getLogger().info("");
         getLogger().info("-------------------------------");
+    }
+
+    private void registerPlaceholderSupport() {
+        Plugin MVDWPlaceholderAPI = getServer().getPluginManager().getPlugin("MVdWPlaceholderAPI");
+        if (MVDWPlaceholderAPI != null && MVDWPlaceholderAPI.isEnabled()) {
+            MVDWPlaceholderAPI<T, U> mvdwPlaceholderAPI = new MVDWPlaceholderAPI<>(this);
+            mvdwPlaceholderAPI.register();
+            getLogger().info("Successfully registered " + mvdwPlaceholderAPI.getPlaceholderCount() + " placeholders with MVDWPlaceholderAPI.");
+        }
+
+        Plugin PlaceholderAPI = getServer().getPluginManager().getPlugin("PlaceholderAPI");
+        if (PlaceholderAPI != null && PlaceholderAPI.isEnabled()) {
+            ClipPlaceholderAPI<T, U> clipPlaceholderAPI = new ClipPlaceholderAPI<>(this);
+            if (clipPlaceholderAPI.register()) {
+                getLogger().info("Successfully registered " + clipPlaceholderAPI.getPlaceholderCount() + " placeholders with PlaceholderAPI.");
+            }
+        }
     }
 
     public abstract Economy getEconomy();
