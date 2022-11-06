@@ -31,16 +31,11 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (arguments.length == 4) {
-            Player targetPlayer = Bukkit.getServer().getPlayer(arguments[1]);
-            if (targetPlayer == null) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notAPlayer
+            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
+            if (!team.isPresent()) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
-            }
-            U target = iridiumTeams.getUserManager().getUser(targetPlayer);
-            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(target.getTeamID());
-            if (!team.isPresent()) {
                 return;
             }
             Optional<BankItem> bankItem = iridiumTeams.getBankItemList().stream()
@@ -71,7 +66,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().gaveBank
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                            .replace("%player%", targetPlayer.getName())
+                            .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
                             .replace("%item%", bankItem.get().getName())
                     ));
@@ -81,7 +76,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().removedBank
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                            .replace("%player%", targetPlayer.getName())
+                            .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
                             .replace("%item%", bankItem.get().getName())
                     ));
@@ -91,7 +86,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().setBank
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                            .replace("%player%", targetPlayer.getName())
+                            .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
                             .replace("%item%", bankItem.get().getName())
                     ));
