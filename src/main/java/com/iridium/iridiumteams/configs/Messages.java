@@ -78,6 +78,9 @@ public class Messages {
     public String gaveBank;
     public String setBank;
     public String removedBank;
+    public String gaveExperience;
+    public String setExperience;
+    public String removedExperience;
     public String insufficientFundsToWithdraw;
     public String insufficientFundsToDeposit;
     public String noSuchBankItem;
@@ -192,6 +195,9 @@ public class Messages {
         bankDeposited = "%prefix% &7You successfully deposited %amount% %type% from your " + team + " bank.";
         gaveBank = "%prefix% &7You gave %player% %amount% %item%.";
         setBank = "%prefix% &7You set %player%'s %amount% to %item%.";
+        removedExperience = "%prefix% &7You took %amount% "+team+" experience from %player%.";
+        gaveExperience = "%prefix% &7You gave %amount% "+team+" experience to %player%.";
+        setExperience = "%prefix% &7You set %player%'s "+team+" experience to %amount%.";
         removedBank = "%prefix% &7You took %amount% %item%'s from %player%.";
         insufficientFundsToWithdraw = "%prefix% &7You do not have enough %type% to withdraw from your " + team + " bank.";
         insufficientFundsToDeposit = "%prefix% &7You do not have enough %type% to deposit into your " + team + " bank.";
