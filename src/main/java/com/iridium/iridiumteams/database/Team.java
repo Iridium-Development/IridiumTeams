@@ -32,6 +32,10 @@ public abstract class Team {
     @DatabaseField(columnName = "experience")
     private int experience;
 
+    public void setExperience(int experience) {
+        this.experience = Math.max(0, experience);
+    }
+
     public int getLevel() {
         return (int) Math.floor(Math.cbrt(experience));
     }
