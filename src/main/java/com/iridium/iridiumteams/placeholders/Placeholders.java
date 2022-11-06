@@ -7,6 +7,7 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.managers.TeamManager;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,17 +23,17 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
         return iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(Optional.empty());
     }
 
-    public List<Placeholder> getPlaceholders(Player player) {
-        U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
-        Optional<T> current = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
+    public List<Placeholder> getPlaceholders(@Nullable Player player) {
+        U user = player == null ? null : iridiumTeams.getUserManager().getUser(player);
+        Optional<T> team = user == null ? Optional.empty() : iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+        Optional<T> current = user == null ? Optional.empty() : iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
         List<T> topValue = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Value);
         List<T> topExperience = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Experience);
 
         List<Placeholder> placeholders = new ArrayList<>();
 
         placeholders.addAll(iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(team));
-        placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
+        if (user != null) placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
         for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(current)) {
             placeholders.add(new Placeholder("current_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
         }
@@ -51,7 +52,7 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
         return placeholders;
     }
 
-    private String formatPlaceholderKey(String key){
+    private String formatPlaceholderKey(String key) {
         return key.replace("%", "");
     }
 

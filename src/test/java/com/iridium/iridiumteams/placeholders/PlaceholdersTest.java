@@ -94,9 +94,8 @@ class PlaceholdersTest {
     @Test
     public void Placeholders__getPlaceholders__ReturnsTopValueTeamPlaceholders() {
         TestTeam testTeam = new TeamBuilder("My Team").build();
-        PlayerMock playerMock = new UserBuilder(serverMock).build();
 
-        List<Placeholder> placeholderList = placeholders.getPlaceholders(playerMock);
+        List<Placeholder> placeholderList = placeholders.getPlaceholders(null);
         Optional<Placeholder> value1 = placeholderList.stream().filter(p -> p.getKey().equals("%top_value_1_team_name%")).findFirst();
         Optional<Placeholder> experience1 = placeholderList.stream().filter(p -> p.getKey().equals("%top_experience_1_team_name%")).findFirst();
         Optional<Placeholder> value2 = placeholderList.stream().filter(p -> p.getKey().equals("%top_value_2_team_name%")).findFirst();
