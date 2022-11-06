@@ -41,9 +41,6 @@ public class ClipPlaceholderAPI<T extends Team, U extends IridiumUser<T>> extend
 
     @Override
     public String onPlaceholderRequest(Player player, String placeholderKey) {
-        if (player == null) {
-            return "N/A";
-        }
         List<Placeholder> placeholderList = placeholders.getPlaceholders(player);
 
         for (Placeholder placeholder : placeholderList) {
