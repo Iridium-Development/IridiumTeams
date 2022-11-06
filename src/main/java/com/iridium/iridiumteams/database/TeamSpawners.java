@@ -4,7 +4,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,12 +19,16 @@ public class TeamSpawners extends TeamData {
     private EntityType entityType;
 
     @DatabaseField(columnName = "amount", canBeNull = false)
-    @Setter
     private int amount;
 
     public TeamSpawners(@NotNull Team team, EntityType entityType, int amount) {
         super(team);
         this.entityType = entityType;
         this.amount = amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+        setChanged(true);
     }
 }

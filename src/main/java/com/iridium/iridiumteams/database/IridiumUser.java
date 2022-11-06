@@ -7,9 +7,7 @@ import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.PotionEnhancementData;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -21,9 +19,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Getter
-@Setter
 @DatabaseTable(tableName = "users")
-public class IridiumUser<T extends Team> {
+public class IridiumUser<T extends Team> extends DatabaseObject{
 
     @DatabaseField(columnName = "uuid", canBeNull = false, id = true)
     private @NotNull UUID uuid;
@@ -44,7 +41,6 @@ public class IridiumUser<T extends Team> {
 
     private String chatType = "";
 
-    @Setter(AccessLevel.NONE)
     private BukkitTask bukkitTask;
 
     private int bukkitTaskTicks = 0;
@@ -127,5 +123,42 @@ public class IridiumUser<T extends Team> {
             }
         }
         return false;
+    }
+
+    public void setUuid(@NotNull UUID uuid) {
+        this.uuid = uuid;
+        setChanged(true);
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+        setChanged(true);
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
+        setChanged(true);
+    }
+
+    public void setUserRank(int userRank) {
+        this.userRank = userRank;
+        setChanged(true);
+    }
+
+    public void setJoinTime(LocalDateTime joinTime) {
+        this.joinTime = joinTime;
+        setChanged(true);
+    }
+
+    public void setBypassing(boolean bypassing) {
+        this.bypassing = bypassing;
+    }
+
+    public void setFlying(boolean flying) {
+        this.flying = flying;
+    }
+
+    public void setChatType(String chatType) {
+        this.chatType = chatType;
     }
 }

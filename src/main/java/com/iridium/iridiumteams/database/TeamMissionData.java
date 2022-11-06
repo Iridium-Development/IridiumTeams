@@ -4,12 +4,11 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
 @DatabaseTable(tableName = "team_mission_data")
-public class TeamMissionData {
+public class TeamMissionData extends DatabaseObject{
 
     @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
     private int id;
@@ -20,12 +19,16 @@ public class TeamMissionData {
     @DatabaseField(columnName = "mission_index", uniqueCombo = true)
     private int missionIndex;
 
-    @Setter
     @DatabaseField(columnName = "progress")
     private int progress;
 
     public TeamMissionData(TeamMission teamMission, int missionIndex) {
         this.missionID = teamMission.getId();
         this.missionIndex = missionIndex;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+        setChanged(true);
     }
 }
