@@ -33,7 +33,7 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
         List<Placeholder> placeholders = new ArrayList<>();
 
         placeholders.addAll(iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(team));
-        placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
+        if (user != null) placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
         for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(current)) {
             placeholders.add(new Placeholder("current_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
         }
@@ -52,7 +52,7 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
         return placeholders;
     }
 
-    private String formatPlaceholderKey(String key){
+    private String formatPlaceholderKey(String key) {
         return key.replace("%", "");
     }
 
