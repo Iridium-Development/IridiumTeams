@@ -2,12 +2,17 @@ package com.iridium.iridiumteams.gui;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
+import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.google.common.collect.ImmutableMap;
+import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ShopOverviewGUITest {
 
@@ -47,5 +53,21 @@ class ShopOverviewGUITest {
         for (int i = 0; i < inventory.getSize(); i++) {
             assertEquals(inventoryLayout.getOrDefault(i, Material.BLACK_STAINED_GLASS_PANE), inventory.getContents()[i].getType(),"Item on slot " + i + " not as expected");
         }
+    }
+
+    @Test
+    public void ShopOverviewGUI__Click() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+
+        ShopOverviewGUI<TestTeam, User> upgradesGUI = new ShopOverviewGUI<>(null, TestPlugin.getInstance());
+
+        playerMock.openInventory(upgradesGUI.getInventory());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(playerMock.getOpenInventory(), ClickType.LEFT, 12);
+
+        assertTrue(inventoryClickEvent.isCancelled());
+        InventoryHolder inventoryHolder = playerMock.getOpenInventory().getTopInventory().getHolder();
+        assertTrue(inventoryHolder instanceof ShopCategoryGUI<?,?>);
+        ShopCategoryGUI shopCategoryGUI = (ShopCategoryGUI) inventoryHolder;
+        assertEquals("Blocks", shopCategoryGUI.getCategoryName());
     }
 }
