@@ -57,6 +57,9 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 return;
             }
             if (!bankItem.isPresent()) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchBankItem
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
                 return;
             }
             TeamBank teamBank = iridiumTeams.getTeamManager().getTeamBank(team.get(), bankItem.get().getName());
