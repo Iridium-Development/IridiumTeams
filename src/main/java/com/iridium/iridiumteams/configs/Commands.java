@@ -48,6 +48,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public MissionsCommand<T, U> missionsCommand;
     public RewardsCommand<T, U> rewardsCommand;
     public ExperienceCommand<T, U> experienceCommand;
+    public ShopCommand<T, U> shopCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -94,5 +95,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         missionsCommand = new MissionsCommand<>(Collections.singletonList("missions"), "View your " + team + " missions", "%prefix% &7/" + commandBase + " missions", "");
         rewardsCommand = new RewardsCommand<>(Collections.singletonList("rewards"), "View your " + team + " rewards", "%prefix% &7/" + commandBase + " rewards", "");
         experienceCommand = new ExperienceCommand<>(Collections.singletonList("experience"), "View your " + team + " experience", "%prefix% &7/" + commandBase + " experience <give/set/remove> <player> <amount>", "", permissionBase+".experience.modify");
+        shopCommand = new ShopCommand<>(Collections.singletonList("shop"), "Open the Shop", "%prefix% &7/" + commandBase + " shop", "");
     }
 }

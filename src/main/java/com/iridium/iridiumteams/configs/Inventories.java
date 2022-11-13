@@ -28,6 +28,8 @@ public class Inventories {
     public TopGUIConfig topGUI;
     public NoItemGUI boostersGUI;
     public NoItemGUI upgradesGUI;
+    public NoItemGUI shopOverviewGUI;
+    public NoItemGUI shopCategoryGUI;
 
     public SingleItemGUI warpsGUI;
 
@@ -68,6 +70,8 @@ public class Inventories {
                 .build();
         boostersGUI = new NoItemGUI(27, "&7" + team + " Boosters", background2);
         upgradesGUI = new NoItemGUI(27, "&7" + team + " Upgrades", background2);
+        shopOverviewGUI = new NoItemGUI(36, "&7Island Shop", background1);
+        shopCategoryGUI = new NoItemGUI(0, "&7Island Shop | %category_name%", background1);
         warpsGUI = new SingleItemGUI(27, "&7" + team + " Warps", background2, new Item(
                 XMaterial.GREEN_STAINED_GLASS_PANE, 1, "&b&l%warp_name%",
                 Arrays.asList(
