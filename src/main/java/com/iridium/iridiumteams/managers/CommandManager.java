@@ -75,6 +75,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(iridiumTeams.getCommands().missionsCommand);
         registerCommand(iridiumTeams.getCommands().rewardsCommand);
         registerCommand(iridiumTeams.getCommands().experienceCommand);
+        registerCommand(iridiumTeams.getCommands().shopCommand);
     }
 
     public void registerCommand(Command<T, U> command) {

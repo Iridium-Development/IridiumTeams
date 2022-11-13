@@ -122,6 +122,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public abstract Missions getMissions();
 
+    public abstract Shop getShop();
+
     public void recalculateTeams() {
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
             ListIterator<Integer> teams = getTeamManager().getTeams().stream().map(T::getId).collect(Collectors.toList()).listIterator();

@@ -33,6 +33,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private Enhancements enhancements;
     private BankItems bankItems;
     private Missions missions;
+    private Shop shop;
 
     private final TestEconomyProvider economyProvider = new TestEconomyProvider();
 
@@ -64,6 +65,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.enhancements = new Enhancements();
         this.bankItems = new BankItems();
         this.missions = new Missions();
+        this.shop = new Shop();
         super.loadConfigs();
     }
 
@@ -141,6 +143,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
     public Missions getMissions() {
         return this.missions;
+    }
+
+    @Override
+    public Shop getShop() {
+        return shop;
     }
 
     @Override
