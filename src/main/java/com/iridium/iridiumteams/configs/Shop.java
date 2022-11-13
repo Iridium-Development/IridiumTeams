@@ -698,8 +698,8 @@ public class Shop {
             )
             .build();
 
-    public String buyPriceLore = "&aBuy Price: $%buy_price_vault%, %buy_price_crystals% Crystals";
-    public String sellRewardLore = "&cSelling Reward: $%sell_reward_vault%, %sell_reward_crystals% Crystals";
+    public String buyPriceLore = "&aBuy Price: $%buy_price_vault%";
+    public String sellRewardLore = "&cSelling Reward: $%sell_reward_vault%";
     public String notPurchasableLore = "&cThis item cannot be purchased!";
     public String notSellableLore = "&cThis item cannot be sold!";
 
@@ -734,9 +734,9 @@ public class Shop {
         public int slot;
         public int page;
         public Cost buyCost;
-        public Cost sellReward;
+        public Cost sellCost;
 
-        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, Cost buyCost, Cost sellReward) {
+        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, Cost buyCost, Cost sellCost) {
             this.name = name;
             this.type = type;
             this.lore = Collections.emptyList();
@@ -744,7 +744,7 @@ public class Shop {
             this.slot = slot;
             this.page = 1;
             this.buyCost = buyCost;
-            this.sellReward = sellReward;
+            this.sellCost = sellCost;
         }
     }
 

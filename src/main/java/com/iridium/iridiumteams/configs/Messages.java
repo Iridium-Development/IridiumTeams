@@ -113,7 +113,7 @@ public class Messages {
     public String warpIconSet;
     public String warpDescriptionSet;
     public String noSuchMaterial;
-
+    public String noShopCategory;
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
     }
@@ -231,5 +231,6 @@ public class Messages {
         warpIconSet = "%prefix% &7warp icon set.";
         warpDescriptionSet = "%prefix% &7warp description set.";
         noSuchMaterial = "%prefix% &7Material doesn't exist.";
+        noShopCategory = "%prefix% &7There is no category with this name.";
     }
 }
