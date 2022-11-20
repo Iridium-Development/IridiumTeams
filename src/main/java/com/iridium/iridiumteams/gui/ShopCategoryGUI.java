@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams.gui;
 
 import com.iridium.iridiumcore.gui.BackGUI;
+import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.configs.Shop;
@@ -9,13 +10,14 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
     private final IridiumTeams<T, U> iridiumTeams;
@@ -53,46 +55,75 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
 
             itemStack.setAmount(shopItem.defaultAmount);
             itemMeta.setDisplayName(StringUtils.color(shopItem.name));
+            itemMeta.setLore(getShopLore(shopItem));
 
-            List<String> lore = shopItem.lore == null ? new ArrayList<>() : new ArrayList<>(StringUtils.color(shopItem.lore));
-            addShopLore(lore, shopItem);
-
-            itemMeta.setLore(lore);
             itemStack.setItemMeta(itemMeta);
-
             inventory.setItem(shopItem.slot, itemStack);
         }
     }
 
-    private void addShopLore(List<String> lore, Shop.ShopItem item) {
+    private List<Placeholder> getShopLorePlaceholders(Shop.ShopItem item){
+        List<Placeholder> placeholders = new ArrayList<>(Arrays.asList(
+                new Placeholder("amount", formatPrice(item.defaultAmount)),
+                new Placeholder("vault_cost", formatPrice(item.buyCost.money)),
+                new Placeholder("vault_reward", formatPrice(item.sellCost.money))
+        ));
+        for (Map.Entry<String, Double> bankItem : item.buyCost.bankItems.entrySet()) {
+            placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+        }
+        for (Map.Entry<String, Double> bankItem : item.sellCost.bankItems.entrySet()) {
+            placeholders.add(new Placeholder(bankItem.getKey() + "_reward", formatPrice(bankItem.getValue())));
+        }
+        return placeholders;
+    }
+
+    private List<String> getShopLore(Shop.ShopItem item) {
+        List<String> lore = item.lore == null ? new ArrayList<>() : new ArrayList<>(StringUtils.color(item.lore));
+        List<Placeholder> placeholders = getShopLorePlaceholders(item);
+
         if (item.buyCost.canPurchase()) {
-            lore.add(StringUtils.color(iridiumTeams.getShop().buyPriceLore
-                    .replace("%amount%", String.valueOf(item.defaultAmount))
-                    .replace("%buy_price_vault%", formatPrice(item.buyCost.money))
-            ));
+            lore.add(iridiumTeams.getShop().buyPriceLore);
         } else {
-            lore.add(StringUtils.color(iridiumTeams.getShop().notPurchasableLore));
+            lore.add(iridiumTeams.getShop().notPurchasableLore);
         }
 
         if (item.sellCost.canPurchase()) {
-            lore.add(StringUtils.color(iridiumTeams.getShop().sellRewardLore
-                    .replace("%amount%", String.valueOf(item.defaultAmount))
-                    .replace("%sell_reward_vault%", formatPrice(item.sellCost.money))
-            ));
+            lore.add(iridiumTeams.getShop().sellRewardLore);
         } else {
-            lore.add(StringUtils.color(iridiumTeams.getShop().notSellableLore));
+            lore.add(iridiumTeams.getShop().notSellableLore);
         }
 
-        iridiumTeams.getShop().shopItemLore.stream()
-                .map(StringUtils::color)
-                .forEach(line -> lore.add(line.replace("%amount%", String.valueOf(item.defaultAmount))));
+        lore.addAll(iridiumTeams.getShop().shopItemLore);
+
+        return StringUtils.color(StringUtils.processMultiplePlaceholders(lore, placeholders));
     }
 
     private String formatPrice(double value) {
         if (iridiumTeams.getShop().abbreviatePrices) {
             return iridiumTeams.getConfiguration().numberFormatter.format(value);
+        }
+        return String.valueOf(value);
+    }
+
+    @Override
+    public void onInventoryClick(InventoryClickEvent event) {
+        super.onInventoryClick(event);
+        Optional<Shop.ShopItem> shopItem = iridiumTeams.getShop().items.get(categoryName).stream()
+                .filter(item -> item.slot == event.getSlot())
+                .findAny();
+
+        if (!shopItem.isPresent()) {
+            return;
+        }
+
+        Player player = (Player) event.getWhoClicked();
+        int amount = event.isShiftClick() ? 64 : shopItem.get().defaultAmount;
+        if (event.isLeftClick() && shopItem.get().buyCost.canPurchase()) {
+            iridiumTeams.getShopManager().buy(player, shopItem.get(), amount);
+        } else if (event.isRightClick() && shopItem.get().sellCost.canPurchase()) {
+            iridiumTeams.getShopManager().sell(player, shopItem.get(), amount);
         } else {
-            return String.valueOf(value);
+            iridiumTeams.getShop().failSound.play(player);
         }
     }
 }
