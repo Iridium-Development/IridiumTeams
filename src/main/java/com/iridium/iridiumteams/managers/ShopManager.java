@@ -59,16 +59,38 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
         iridiumTeams.getShop().successSound.play(player);
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().successfullyBought
-                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                .replace("%amount%", String.valueOf(amount))
-                .replace("%item%", StringUtils.color(shopItem.name))
-                .replace("%vault_cost%", String.valueOf(moneyCost))
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                        .replace("%amount%", String.valueOf(amount))
+                        .replace("%item%", StringUtils.color(shopItem.name))
+                        .replace("%vault_cost%", String.valueOf(moneyCost))
                 //TODO add bank placeholders
         ));
     }
 
     public void sell(Player player, Shop.ShopItem shopItem, int amount) {
-        //Todo
+        double moneyReward = calculateCost(amount, shopItem.defaultAmount, shopItem.sellCost.money);
+        int inventoryAmount = InventoryUtils.getAmount(player.getInventory(), shopItem.type);
+        if (inventoryAmount == 0) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchItem
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            iridiumTeams.getShop().failSound.play(player);
+            return;
+        }
+
+        int soldAmount = Math.min(inventoryAmount, amount);
+
+        InventoryUtils.removeAmount(player.getInventory(), shopItem.type, soldAmount);
+
+        iridiumTeams.getEconomy().depositPlayer(player, moneyReward);
+
+        player.sendMessage(StringUtils.color(iridiumTeams.getMessages().successfullySold
+                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                .replace("%amount%", String.valueOf(amount))
+                .replace("%item%", StringUtils.color(shopItem.name))
+                .replace("%vault_reward%", String.valueOf(moneyReward))
+        ));
+        iridiumTeams.getShop().successSound.play(player);
     }
 
     private boolean canPurchase(double money, Player player) {
