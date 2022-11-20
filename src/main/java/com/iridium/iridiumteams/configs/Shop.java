@@ -729,8 +729,8 @@ public class Shop {
 
         shopItemLore = Arrays.asList(
                 " ",
-                color + "&l[!] &bLeft-Click to Purchase %amount%, Shift for 64",
-                color + "&l[!] &bRight Click to Sell %amount%, Shift for 64"
+                color + "&l[!] " + color + "Left-Click to Purchase %amount%, Shift for 64",
+                color + "&l[!] " + color + "Right Click to Sell %amount%, Shift for 64"
         );
     }
 
