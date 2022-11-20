@@ -716,9 +716,8 @@ public class Shop {
                 )
                 .build();
 
-        buyPriceLore = "&aBuy Price: $%buy_price_vault%";
-        buyPriceLore = "&aBuy Price: $%buy_price_vault%";
-        sellRewardLore = "&cSelling Reward: $%sell_reward_vault%";
+        buyPriceLore = "&aBuy Price: $%vault_cost%";
+        sellRewardLore = "&cSelling Reward: $%vault_reward%";
         notPurchasableLore = "&cThis item cannot be purchased!";
         notSellableLore = "&cThis item cannot be sold!";
 
