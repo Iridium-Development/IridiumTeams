@@ -114,6 +114,11 @@ public class Messages {
     public String warpDescriptionSet;
     public String noSuchMaterial;
     public String noShopCategory;
+    public String inventoryFull;
+    public String noSuchItem;
+    public String successfullyBought;
+    public String successfullySold;
+    public String cannotAfford;
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
     }
@@ -232,5 +237,10 @@ public class Messages {
         warpDescriptionSet = "%prefix% &7warp description set.";
         noSuchMaterial = "%prefix% &7Material doesn't exist.";
         noShopCategory = "%prefix% &7There is no category with this name.";
+        inventoryFull = "%prefix% &7Your inventory is full!";
+        noSuchItem = "%prefix% &7You don't have this item!";
+        successfullyBought = "%prefix% &7You have successfully bought %amount%x %item% &7for $%vault_cost%.";
+        successfullySold = "%prefix% &7You have successfully sold %amount%x %item% &7for $%vault_reward%.";
+        cannotAfford = "%prefix% &7You cannot afford this.";
     }
 }
