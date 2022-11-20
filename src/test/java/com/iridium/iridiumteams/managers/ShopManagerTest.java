@@ -9,7 +9,9 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.iridiumteams.configs.Shop;
 import com.iridium.testplugin.TestPlugin;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.inventory.ItemStack;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,5 +75,42 @@ class ShopManagerTest {
 
         assertEquals(64, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.DIRT));
         assertEquals(9200, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+    }
+
+    @Test
+    public void ShopManager__Sell() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        playerMock.getInventory().addItem(new ItemStack(Material.DIRT, 64));
+
+        TestPlugin.getInstance().getShopManager().sell(playerMock, dirtItem, 64);
+
+        playerMock.assertSoundHeard(Sound.ENTITY_PLAYER_LEVELUP);
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().successfullySold
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%amount%", "64")
+                .replace("%item%", StringUtils.color(dirtItem.name))
+                .replace("%vault_reward%", "120.0")
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(0, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.DIRT));
+        assertEquals(120, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+    }
+
+    @Test
+    public void ShopManager__Sell__NoneInInventory() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 10000);
+
+        TestPlugin.getInstance().getShopManager().sell(playerMock, dirtItem, 64);
+
+        playerMock.assertSoundHeard(Sound.BLOCK_ANVIL_LAND);
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().noSuchItem
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(0, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.DIRT));
+        assertEquals(10000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
     }
 }
