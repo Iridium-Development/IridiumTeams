@@ -87,13 +87,13 @@ public class Inventories {
                 color + team + " Name: &7%" + team.toLowerCase() + "_name%",
                 color + team + " Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
                 color + team + " Experience: &7%" + team.toLowerCase() + "_experience% (#%" + team.toLowerCase() + "_experience_rank%)",
-                color + "Netherite Blocks: &7%NETHERITE_BLOCK_AMOUNT%",
-                color + "Emerald Blocks: &7%EMERALD_BLOCK_AMOUNT%",
-                color + "Diamond Blocks: &7%DIAMOND_BLOCK_AMOUNT%",
-                color + "Gold Blocks: &7%GOLD_BLOCK_AMOUNT%",
-                color + "Iron Blocks: &7%IRON_BLOCK_AMOUNT%",
-                color + "Hopper Blocks: &7%HOPPER_AMOUNT%",
-                color + "Beacon Blocks: &7%BEACON_AMOUNT%"
+                color + "Netherite Blocks: &7%" + team.toLowerCase() + "_netherrite_block_amount%",
+                color + "Emerald Blocks: &7%" + team.toLowerCase() + "_emerald_block_amount%",
+                color + "Diamond Blocks: &7%" + team.toLowerCase() + "_diamond_block_amount%",
+                color + "Gold Blocks: &7%" + team.toLowerCase() + "_gold_block_amount%",
+                color + "Iron Blocks: &7%" + team.toLowerCase() + "_iron_block_amount%",
+                color + "Hopper Blocks: &7%" + team.toLowerCase() + "_hopper_amount%",
+                color + "Beacon Blocks: &7%" + team.toLowerCase() + "_beacon_amount%"
         )), new Item(XMaterial.BARRIER, 1, " ", Collections.emptyList()));
 
         missionTypeSelectorGUI = new MissionTypeSelectorInventoryConfig(27, "&7" + team + " Missions", background2,
