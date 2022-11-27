@@ -244,6 +244,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         });
     }
 
+    public boolean teleport(Player player, Location location, T team){
+        player.setFallDistance(0);
+        player.teleport(location);
+        return true;
+    }
+
     public enum SortType{
         Experience, Value
     }
