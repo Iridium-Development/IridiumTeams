@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ShopManager<T extends Team, U extends IridiumUser<T>> {
@@ -27,15 +28,14 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public void buy(Player player, Shop.ShopItem shopItem, int amount) {
-        double moneyCost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.money);
-        if (!canPurchase(moneyCost, player)) {
+        if (!canPurchase(player, shopItem, amount)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotAfford
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             iridiumTeams.getShop().failSound.play(player);
             return;
         }
 
-        iridiumTeams.getEconomy().withdrawPlayer(player, moneyCost);
+        purchase(player, shopItem, amount);
 
         if (shopItem.command == null) {
             // Add item to the player Inventory
@@ -67,6 +67,7 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
                 .map(BankItem::getName)
                 .map(name -> new Placeholder(name + "_cost", formatPrice(getBankBalance(player, name))))
                 .collect(Collectors.toList());
+        double moneyCost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.money);
 
         player.sendMessage(StringUtils.color(StringUtils.processMultiplePlaceholders(iridiumTeams.getMessages().successfullyBought
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
@@ -111,11 +112,32 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
                 .orElse(0.0);
     }
 
-    private boolean canPurchase(double money, Player player) {
-        Economy economy = iridiumTeams.getEconomy();
-        //TODO add bank costs
+    private void setBankBalance(Player player, String bankItem, double amount) {
+        U user = iridiumTeams.getUserManager().getUser(player);
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+        if (!team.isPresent()) return;
+        iridiumTeams.getTeamManager().getTeamBank(team.get(), bankItem).setNumber(amount);
+    }
 
-        return money == 0 || economy != null && economy.getBalance(player) >= money;
+    private boolean canPurchase(Player player, Shop.ShopItem shopItem, int amount) {
+        double moneyCost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.money);
+        Economy economy = iridiumTeams.getEconomy();
+        for (String bankItem : shopItem.buyCost.bankItems.keySet()) {
+            double cost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.bankItems.get(bankItem));
+            if (getBankBalance(player, bankItem) < cost) return false;
+        }
+
+        return moneyCost == 0 || economy != null && economy.getBalance(player) >= moneyCost;
+    }
+
+    private void purchase(Player player, Shop.ShopItem shopItem, int amount) {
+        double moneyCost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.money);
+        iridiumTeams.getEconomy().withdrawPlayer(player, moneyCost);
+
+        for (String bankItem : shopItem.buyCost.bankItems.keySet()) {
+            double cost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.bankItems.get(bankItem));
+            setBankBalance(player, bankItem, getBankBalance(player, bankItem) - cost);
+        }
     }
 
     private double calculateCost(int amount, int defaultAmount, double defaultPrice) {
