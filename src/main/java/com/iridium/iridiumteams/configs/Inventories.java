@@ -87,7 +87,7 @@ public class Inventories {
                 color + team + " Name: &7%" + team.toLowerCase() + "_name%",
                 color + team + " Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
                 color + team + " Experience: &7%" + team.toLowerCase() + "_experience% (#%" + team.toLowerCase() + "_experience_rank%)",
-                color + "Netherite Blocks: &7%" + team.toLowerCase() + "_netherrite_block_amount%",
+                color + "Netherite Blocks: &7%" + team.toLowerCase() + "_netherite_block_amount%",
                 color + "Emerald Blocks: &7%" + team.toLowerCase() + "_emerald_block_amount%",
                 color + "Diamond Blocks: &7%" + team.toLowerCase() + "_diamond_block_amount%",
                 color + "Gold Blocks: &7%" + team.toLowerCase() + "_gold_block_amount%",
