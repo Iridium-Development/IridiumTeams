@@ -64,15 +64,15 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
 
     private List<Placeholder> getShopLorePlaceholders(Shop.ShopItem item){
         List<Placeholder> placeholders = new ArrayList<>(Arrays.asList(
-                new Placeholder("amount", formatPrice(item.defaultAmount)),
-                new Placeholder("vault_cost", formatPrice(item.buyCost.money)),
-                new Placeholder("vault_reward", formatPrice(item.sellCost.money))
+                new Placeholder("amount", iridiumTeams.getShopManager().formatPrice(item.defaultAmount)),
+                new Placeholder("vault_cost", iridiumTeams.getShopManager().formatPrice(item.buyCost.money)),
+                new Placeholder("vault_reward", iridiumTeams.getShopManager().formatPrice(item.sellCost.money))
         ));
         for (Map.Entry<String, Double> bankItem : item.buyCost.bankItems.entrySet()) {
-            placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+            placeholders.add(new Placeholder(bankItem.getKey() + "_cost", iridiumTeams.getShopManager().formatPrice(bankItem.getValue())));
         }
         for (Map.Entry<String, Double> bankItem : item.sellCost.bankItems.entrySet()) {
-            placeholders.add(new Placeholder(bankItem.getKey() + "_reward", formatPrice(bankItem.getValue())));
+            placeholders.add(new Placeholder(bankItem.getKey() + "_reward", iridiumTeams.getShopManager().formatPrice(bankItem.getValue())));
         }
         return placeholders;
     }
@@ -96,13 +96,6 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
         lore.addAll(iridiumTeams.getShop().shopItemLore);
 
         return StringUtils.color(StringUtils.processMultiplePlaceholders(lore, placeholders));
-    }
-
-    private String formatPrice(double value) {
-        if (iridiumTeams.getShop().abbreviatePrices) {
-            return iridiumTeams.getConfiguration().numberFormatter.format(value);
-        }
-        return String.valueOf(value);
     }
 
     @Override
