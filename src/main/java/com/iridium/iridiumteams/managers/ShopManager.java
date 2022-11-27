@@ -1,11 +1,14 @@
 package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.utils.InventoryUtils;
+import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.configs.Shop;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamBank;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,6 +16,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShopManager<T extends Team, U extends IridiumUser<T>> {
     private final IridiumTeams<T, U> iridiumTeams;
@@ -58,12 +63,17 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
         iridiumTeams.getShop().successSound.play(player);
 
-        player.sendMessage(StringUtils.color(iridiumTeams.getMessages().successfullyBought
+        List<Placeholder> bankPlaceholders = iridiumTeams.getBankItemList().stream()
+                .map(BankItem::getName)
+                .map(name -> new Placeholder(name + "_cost", formatPrice(getBankBalance(player, name))))
+                .collect(Collectors.toList());
+
+        player.sendMessage(StringUtils.color(StringUtils.processMultiplePlaceholders(iridiumTeams.getMessages().successfullyBought
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                         .replace("%amount%", String.valueOf(amount))
                         .replace("%item%", StringUtils.color(shopItem.name))
-                        .replace("%vault_cost%", String.valueOf(moneyCost))
-                //TODO add bank placeholders
+                        .replace("%vault_cost%", formatPrice(moneyCost)),
+                bankPlaceholders)
         ));
     }
 
@@ -93,6 +103,14 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
         iridiumTeams.getShop().successSound.play(player);
     }
 
+    private double getBankBalance(Player player, String bankItem) {
+        U user = iridiumTeams.getUserManager().getUser(player);
+        return iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID())
+                .map(team -> iridiumTeams.getTeamManager().getTeamBank(team, bankItem))
+                .map(TeamBank::getNumber)
+                .orElse(0.0);
+    }
+
     private boolean canPurchase(double money, Player player) {
         Economy economy = iridiumTeams.getEconomy();
         //TODO add bank costs
@@ -109,5 +127,12 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
         BigDecimal bigDecimal = BigDecimal.valueOf(value);
         bigDecimal = bigDecimal.setScale(places, RoundingMode.HALF_UP);
         return bigDecimal.doubleValue();
+    }
+
+    public String formatPrice(double value) {
+        if (iridiumTeams.getShop().abbreviatePrices) {
+            return iridiumTeams.getConfiguration().numberFormatter.format(value);
+        }
+        return String.valueOf(value);
     }
 }

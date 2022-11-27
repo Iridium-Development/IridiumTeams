@@ -69,7 +69,7 @@ class ShopManagerTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%amount%", "64")
                 .replace("%item%", StringUtils.color(dirtItem.name))
-                .replace("%vault_cost%", "800.0")
+                .replace("%vault_cost%", "800")
         ));
         playerMock.assertNoMoreSaid();
 
