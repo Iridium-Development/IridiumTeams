@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    private String adminPermission;
+    public String adminPermission;
 
     public ExperienceCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
         super(args, description, syntax, permission);

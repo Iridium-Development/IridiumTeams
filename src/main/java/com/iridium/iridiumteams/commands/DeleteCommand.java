@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @NoArgsConstructor
 public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    private String adminPermission;
+    public String adminPermission;
 
     public DeleteCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
         super(args, description, syntax, permission);

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    private String adminPermission;
+    public String adminPermission;
 
     public BankCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
         super(args, description, syntax, permission);
