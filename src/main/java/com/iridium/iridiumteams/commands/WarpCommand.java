@@ -40,12 +40,13 @@ public class WarpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 return;
             }
         }
-        player.setFallDistance(0);
-        player.teleport(teamWarp.get().getLocation());
-        player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportingWarp
-                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                .replace("%name%", teamWarp.get().getName())
-        ));
+        
+        if (iridiumTeams.getTeamManager().teleport(player, teamWarp.get().getLocation(), team)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportingWarp
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                    .replace("%name%", teamWarp.get().getName())
+            ));
+        }
     }
 
     @Override

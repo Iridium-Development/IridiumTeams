@@ -32,10 +32,11 @@ public class HomeCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             ));
             return;
         }
-        player.teleport(home);
-        player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportingHome
-                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-        ));
+        if(iridiumTeams.getTeamManager().teleport(player, home, team)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportingHome
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+        }
     }
 
 }
