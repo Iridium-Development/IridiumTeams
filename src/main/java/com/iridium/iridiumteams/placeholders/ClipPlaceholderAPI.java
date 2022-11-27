@@ -44,7 +44,7 @@ public class ClipPlaceholderAPI<T extends Team, U extends IridiumUser<T>> extend
         List<Placeholder> placeholderList = placeholders.getPlaceholders(player);
 
         for (Placeholder placeholder : placeholderList) {
-            if (formatPlaceholderKey(placeholder.getKey()).equals(placeholderKey)) return placeholder.getValue();
+            if (formatPlaceholderKey(placeholder.getKey()).equalsIgnoreCase(placeholderKey)) return placeholder.getValue();
         }
 
         return null;
