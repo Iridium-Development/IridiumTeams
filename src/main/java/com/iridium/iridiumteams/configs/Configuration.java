@@ -17,6 +17,7 @@ public class Configuration {
     public String dateTimeFormat;
     public NumberFormatter numberFormatter;
     public boolean createRequiresName;
+    public boolean preventTntGriefing;
     public int minTeamNameLength;
     public int maxTeamNameLength;
 
@@ -43,6 +44,7 @@ public class Configuration {
         this.dateTimeFormat = "EEEE, MMMM dd HH:mm:ss";
         this.numberFormatter = new NumberFormatter();
         this.createRequiresName = true;
+        this.preventTntGriefing = true;
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
         this.recalculateInterval = 5;
