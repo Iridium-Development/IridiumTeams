@@ -273,6 +273,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void addSetting(String key, Setting setting, List<String> values) {
+        if (!setting.enabled) return;
         setting.setValues(values);
         settingsList.put(key, setting);
     }
