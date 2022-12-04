@@ -24,7 +24,7 @@ public enum PermissionType {
     SETHOME("sethome"),
     MANAGE_WARPS("managewarps"),
     SPAWNERS("spawners"),
-    UNCLAIM("unclaim");
+    SETTINGS("settings");
 
 
     private final String permissionKey;

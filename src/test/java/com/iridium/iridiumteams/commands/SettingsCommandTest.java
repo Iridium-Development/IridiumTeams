@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
@@ -65,8 +66,19 @@ class SettingsCommandTest {
     }
 
     @Test
-    public void executeSettingsCommand__UnknownSetting() {
+    public void executeSettingsCommand__NoPermission() {
         TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test settings time day");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotChangeSettings
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeSettingsCommand__UnknownSetting() {
+        TestTeam testTeam = new TeamBuilder().withPermission(1, PermissionType.SETTINGS, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test settings unknown Enabled");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().invalidSetting
@@ -77,7 +89,7 @@ class SettingsCommandTest {
 
     @Test
     public void executeSettingsCommand__UnknownSettingValue() {
-        TestTeam testTeam = new TeamBuilder().build();
+        TestTeam testTeam = new TeamBuilder().withPermission(1, PermissionType.SETTINGS, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test settings weather unknown");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().invalidSettingValue
@@ -88,7 +100,7 @@ class SettingsCommandTest {
 
     @Test
     public void executeSettingsCommand__SettingSet() {
-        TestTeam testTeam = new TeamBuilder().build();
+        TestTeam testTeam = new TeamBuilder().withPermission(1, PermissionType.SETTINGS, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         serverMock.dispatchCommand(playerMock, "test settings time day");
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().settingSet

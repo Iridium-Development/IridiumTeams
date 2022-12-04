@@ -28,6 +28,7 @@ public class Messages {
     public String cannotDeleteTeam;
     public String cannotChangeDescription;
     public String cannotChangeName;
+    public String cannotChangeSettings;
     public String cannotSetHome;
     public String cannotManageWarps;
     public String invalidUserRank;
@@ -154,6 +155,7 @@ public class Messages {
         cannotDeleteTeam = "%prefix% &7Only the " + team + " owner can delete the " + team + ".";
         cannotChangeDescription = "%prefix% &7You cannot change the " + team + "'s Description.";
         cannotChangeName = "%prefix% &7You cannot change the " + team + "'s Name.";
+        cannotChangeSettings = "%prefix% &7You cannot change the " + team + "'s Settings.";
         cannotSetHome = "%prefix% &7You cannot change the " + team + "'s Home.";
         cannotManageWarps = "%prefix% &7You cannot manage the " + team + "'s Warps.";
         invalidUserRank = "%prefix% &7User rank doesn't exist.";
