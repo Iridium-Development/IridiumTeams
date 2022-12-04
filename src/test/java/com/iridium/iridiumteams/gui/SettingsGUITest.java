@@ -28,16 +28,16 @@ class SettingsGUITest {
     private ServerMock serverMock;
 
     private final Map<Integer, Material> inventoryLayout = new ImmutableMap.Builder<Integer, Material>()
-            .put(10, Material.COBBLESTONE)
+            .put(10, Material.GUNPOWDER)
             .put(11, Material.SUNFLOWER)
             .put(12, Material.SPAWNER)
             .put(13, Material.JUNGLE_LEAVES)
             .put(14, Material.ICE)
             .put(15, Material.FLINT_AND_STEEL)
             .put(16, Material.WHEAT_SEEDS)
-            .put(19, Material.COBBLESTONE)
+            .put(19, Material.BLAZE_POWDER)
             .put(20, Material.CLOCK)
-            .put(21, Material.COBBLESTONE)
+            .put(21, Material.ENDER_PEARL)
             .build();
 
     @BeforeEach
