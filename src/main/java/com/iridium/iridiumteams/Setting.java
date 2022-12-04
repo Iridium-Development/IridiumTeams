@@ -16,6 +16,7 @@ public class Setting {
     private Item item;
     private String displayName;
     private String defaultValue;
+    public boolean enabled;
     @JsonIgnore
     private List<String> values;
 
@@ -23,6 +24,7 @@ public class Setting {
         this.item = item;
         this.displayName = displayName;
         this.defaultValue = defaultValue;
+        this.enabled = true;
         this.values = new ArrayList<>();
     }
 }

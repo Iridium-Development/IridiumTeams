@@ -33,7 +33,7 @@ public class Settings {
         cropTrample = new Setting(new Item(XMaterial.WHEAT_SEEDS, 16, 1, color + team + " Crop Trample", Arrays.asList("&7Control Trampling Crops on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "CropTrample", "Enabled");
         weather = new Setting(new Item(XMaterial.COBBLESTONE, 19, 1, color + team + " Weather", Arrays.asList("&7Control Weather on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "Weather", "Server");
         time = new Setting(new Item(XMaterial.CLOCK, 20, 1, color + team + " Time", Arrays.asList("&7Control Time on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "Time", "Server");
-        endermanGrief = new Setting(new Item(XMaterial.COBBLESTONE, 21, 1, color + team + " Enderman Grief", Arrays.asList("&7Control Enderman Grief on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "EndermanGrief", "Disabled");
+        endermanGrief = new Setting(new Item(XMaterial.ENDER_PEARL, 21, 1, color + team + " Enderman Grief", Arrays.asList("&7Control Enderman Grief on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "EndermanGrief", "Disabled");
     }
 
 }
