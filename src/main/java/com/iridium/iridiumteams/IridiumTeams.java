@@ -224,7 +224,16 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void initializeSettings() {
-        addSetting(SettingType.TEAM_JOINING.getSettingKey(), getSettings().teamJoining);
+        addSetting(SettingType.TEAM_JOINING.getSettingKey(), getSettings().teamJoining, Arrays.asList("Private", "Public"));
+        addSetting(SettingType.VALUE_VISIBILITY.getSettingKey(), getSettings().teamValue, Arrays.asList("Private", "Public"));
+        addSetting(SettingType.MOB_SPAWNING.getSettingKey(), getSettings().mobSpawning, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.LEAF_DECAY.getSettingKey(), getSettings().leafDecay, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.ICE_FORM.getSettingKey(), getSettings().iceForm, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.FIRE_SPREAD.getSettingKey(), getSettings().fireSpread, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.CROP_TRAMPLE.getSettingKey(), getSettings().cropTrample, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.WEATHER.getSettingKey(), getSettings().weather, Arrays.asList("Server", "Sunny", "Raining", "Thunder"));
+        addSetting(SettingType.TIME.getSettingKey(), getSettings().time, Arrays.asList("Server", "Sunrise", "Day", "Morning", "Noon", "Sunset", "Night", "Midnight"));
+        addSetting(SettingType.ENDERMAN_GRIEF.getSettingKey(), getSettings().endermanGrief, Arrays.asList("Enabled", "Disabled"));
     }
 
     public void initializeBankItem() {
@@ -263,7 +272,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         permissionList.put(key, permission);
     }
 
-    public void addSetting(String key, Setting setting) {
+    public void addSetting(String key, Setting setting, List<String> values) {
+        setting.setValues(values);
         settingsList.put(key, setting);
     }
 

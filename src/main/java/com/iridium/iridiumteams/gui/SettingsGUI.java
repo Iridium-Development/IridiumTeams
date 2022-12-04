@@ -58,7 +58,7 @@ public class SettingsGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
             int currentIndex = setting.getValue().getValues().indexOf(teamSetting.getValue());
             String newValue = setting.getValue().getValues().get(setting.getValue().getValues().size() > currentIndex + 1 ? currentIndex + 1 : 0);
-            iridiumTeams.getCommands().setPermissionCommand.execute(event.getWhoClicked(), new String[]{setting.getKey(), newValue}, iridiumTeams);
+            iridiumTeams.getCommands().settingsCommand.execute(event.getWhoClicked(), new String[]{setting.getValue().getDisplayName(), newValue}, iridiumTeams);
             return;
         }
     }

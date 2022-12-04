@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
@@ -59,7 +63,7 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         switch (args.length) {
             case 1:
-                return new ArrayList<>(iridiumTeams.getSettingsList().keySet());
+                return iridiumTeams.getSettingsList().values().stream().map(Setting::getDisplayName).collect(Collectors.toList());
             case 2:
                 for (Map.Entry<String, Setting> setting : iridiumTeams.getSettingsList().entrySet()) {
                     if (!setting.getValue().getDisplayName().equalsIgnoreCase(args[0])) continue;
