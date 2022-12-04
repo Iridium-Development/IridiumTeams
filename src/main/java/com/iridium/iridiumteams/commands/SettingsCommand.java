@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Setting;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -30,6 +31,12 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
             player.openInventory(new SettingsGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
             return;
         } else if (args.length == 2) {
+            if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.SETTINGS)) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeSettings
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
+                return;
+            }
             String settingKey = args[0];
             for (Map.Entry<String, Setting> setting : iridiumTeams.getSettingsList().entrySet()) {
                 if (!setting.getValue().getDisplayName().equalsIgnoreCase(settingKey)) continue;

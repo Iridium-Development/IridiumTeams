@@ -27,7 +27,7 @@ public class Permissions {
     public Permission rename;
     public Permission setHome;
     public Permission spawners;
-    public Permission unclaim;
+    public Permission settings;
     public Permission manageWarps;
 
     public Permissions() {
@@ -54,7 +54,7 @@ public class Permissions {
         this.rename = new Permission(new Item(XMaterial.PAPER, 28, 1, "" + color + "Rename " + team + "", Arrays.asList("&7Grant the ability to rename your " + team + ".", "", "" + color + "&lPermission", "%permission%")), 1, 3);
         this.setHome = new Permission(new Item(XMaterial.WHITE_BED, 29, 1, "" + color + "" + team + " Home", Arrays.asList("&7Grant the ability to change your " + team + " home.", "", "" + color + "&lPermission", "%permission%")), 1, 2);
         this.spawners = new Permission(new Item(XMaterial.SPAWNER, 30, 1, "" + color + "Break Spawners", Arrays.asList("&7Grant the ability to mine spawners in your " + team + ".", "", "" + color + "&lPermission", "%permission%")), 1, 1);
-        this.unclaim = new Permission(new Item(XMaterial.GRASS_BLOCK, 31, 1, "" + color + "Un-Claim Land", Arrays.asList("&7Grant the ability to unclaim your " + team + " land.", "", "" + color + "&lPermission", "%permission%")), 1, 2);
+        this.settings = new Permission(new Item(XMaterial.GUNPOWDER, 31, 1, "" + color + "Change Settings", Arrays.asList("&7Grant the ability to change your " + team + " settings.", "", "" + color + "&lPermission", "%permission%")), 1, 3);
         this.manageWarps = new Permission(new Item(XMaterial.END_PORTAL_FRAME, 32, 1, "" + color + "Manage Warps", Arrays.asList("&7Grant the ability to create edit and delete " + team + " Warps.", "", "" + color + "&lPermission", "%permission%")), 1, 2);
     }
 

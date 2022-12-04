@@ -219,7 +219,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addPermission(PermissionType.RENAME.getPermissionKey(), getPermissions().rename);
         addPermission(PermissionType.SETHOME.getPermissionKey(), getPermissions().setHome);
         addPermission(PermissionType.SPAWNERS.getPermissionKey(), getPermissions().spawners);
-        addPermission(PermissionType.UNCLAIM.getPermissionKey(), getPermissions().unclaim);
+        addPermission(PermissionType.SETTINGS.getPermissionKey(), getPermissions().settings);
         addPermission(PermissionType.MANAGE_WARPS.getPermissionKey(), getPermissions().manageWarps);
     }
 
