@@ -100,6 +100,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract TeamBlock getTeamBlock(T team, XMaterial xMaterial);
 
+    public abstract TeamSetting getTeamSetting(T team, String setting);
+
     public double getTeamValue(T team) {
         double value = 0;
 

@@ -23,6 +23,7 @@ public class Inventories {
     public SingleItemGUI invitesGUI;
     public NoItemGUI ranksGUI;
     public NoItemGUI permissionsGUI;
+    public NoItemGUI settingsGUI;
     public NoItemGUI bankGUI;
     public Map<MissionType, NoItemGUI> missionGUI;
     public TopGUIConfig topGUI;
@@ -61,6 +62,7 @@ public class Inventories {
         )));
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
+        settingsGUI = new NoItemGUI(54, "&7" + team + " Settings", background1);
         bankGUI = new NoItemGUI(27, "&7" + team + " Bank", background2);
         missionGUI = new ImmutableMap.Builder<MissionType, NoItemGUI>()
                 .put(MissionType.DAILY, new NoItemGUI(27, "&7Daily " + team + " Missions", background2))

@@ -23,6 +23,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     public static List<TestTeam> teams;
     public static List<TeamPermission> teamPermissions;
+    public static List<TeamSetting> teamSettings;
     public static List<TeamInvite> teamInvites;
     public static List<TeamSpawners> teamSpawners;
     public static List<TeamBlock> teamBlocks;
@@ -176,6 +177,17 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         TeamBlock b = new TeamBlock(team, xMaterial, 0);
         teamBlocks.add(b);
         return b;
+    }
+
+    @Override
+    public TeamSetting getTeamSetting(TestTeam team, String setting) {
+        Optional<TeamSetting> teamSetting = teamSettings.stream().filter(s -> s.getTeamID() == team.getId() && s.getSetting() == setting).findFirst();
+        if (teamSetting.isPresent()) {
+            return teamSetting.get();
+        }
+        TeamSetting ts = new TeamSetting(team, setting, "");
+        teamSettings.add(ts);
+        return ts;
     }
 
     @Override
