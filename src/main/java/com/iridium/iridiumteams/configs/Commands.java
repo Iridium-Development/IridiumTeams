@@ -13,6 +13,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public MembersCommand<T, U> membersCommand;
     public PermissionsCommand<T, U> permissionsCommand;
     public SetPermissionCommand<T, U> setPermissionCommand;
+    public SettingsCommand<T, U> settingsCommand;
     public PromoteCommand<T, U> promoteCommand;
     public DemoteCommand<T, U> demoteCommand;
     public HelpCommand<T, U> helpCommand;
@@ -60,6 +61,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         membersCommand = new MembersCommand<>(Collections.singletonList("members"), "View your " + team + " members", "%prefix% &7/" + commandBase + " members", "");
         permissionsCommand = new PermissionsCommand<>(Collections.singletonList("permissions"), "Edit your " + team + " permissions", "%prefix% &7/" + commandBase + " permissions", "");
         setPermissionCommand = new SetPermissionCommand<>(Collections.singletonList("setpermission"), "Set your " + team + " permissions", "%prefix% &7/" + commandBase + " setpermission <permission> <rank> (true/false)", "");
+        settingsCommand = new SettingsCommand<>(Collections.singletonList("settings"), "Set your " + team + " settings", "%prefix% &7/" + commandBase + " settings <setting> <value>", "");
         promoteCommand = new PromoteCommand<>(Collections.singletonList("promote"), "Promote a member of your " + team, "%prefix% &7/" + commandBase + " promote <player>", "");
         demoteCommand = new DemoteCommand<>(Collections.singletonList("demote"), "Demote a member of your " + team, "%prefix% &7/" + commandBase + " demote <player>", "");
         helpCommand = new HelpCommand<>(Collections.singletonList("help"), "Show all the plugin commands", "%prefix% &7/" + commandBase + " help", "");

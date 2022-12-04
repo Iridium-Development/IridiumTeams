@@ -33,6 +33,9 @@ public class Messages {
     public String invalidUserRank;
     public String invalidPermission;
     public String permissionSet;
+    public String invalidSetting;
+    public String invalidSettingValue;
+    public String settingSet;
     public String userNotInYourTeam;
     public String cannotPromoteUser;
     public String cannotDemoteUser;
@@ -156,6 +159,9 @@ public class Messages {
         invalidUserRank = "%prefix% &7User rank doesn't exist.";
         invalidPermission = "%prefix% &7Permission doesn't exist.";
         permissionSet = "%prefix% &7%permission% permission set to %allowed% for %rank%'s.";
+        invalidSetting = "%prefix% &7Setting doesn't exist.";
+        invalidSettingValue = "%prefix% &7Setting Value doesn't exist.";
+        settingSet = "%prefix% &7%setting% set to %value%.";
         userNotInYourTeam = "%prefix% &7That user is not in your " + team + ".";
         cannotPromoteUser = "%prefix% &7You cannot promote this User";
         cannotDemoteUser = "%prefix% &7You cannot demote this User";

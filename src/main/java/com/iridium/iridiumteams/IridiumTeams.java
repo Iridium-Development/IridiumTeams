@@ -33,6 +33,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     private final Map<Integer, UserRank> userRanks = new HashMap<>();
     private final Map<String, Permission> permissionList = new HashMap<>();
+    private final Map<String, Setting> settingsList = new HashMap<>();
     private final Map<String, Enhancement<?>> enhancementList = new HashMap<>();
     private final List<BankItem> bankItemList = new ArrayList<>();
     private final List<ChatType> chatTypes = new ArrayList<>();
@@ -49,6 +50,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public void onEnable() {
         super.onEnable();
         initializePermissions();
+        initializeSettings();
         initializeBankItem();
         initializeChatTypes();
         initializeEnhancements();
@@ -122,6 +124,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Missions getMissions();
 
     public abstract Shop getShop();
+
+    public abstract Settings getSettings();
 
     public void recalculateTeams() {
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
@@ -219,6 +223,10 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addPermission(PermissionType.MANAGE_WARPS.getPermissionKey(), getPermissions().manageWarps);
     }
 
+    public void initializeSettings() {
+        addSetting(SettingType.TEAM_JOINING.getSettingKey(), getSettings().teamJoining);
+    }
+
     public void initializeBankItem() {
         addBankItem(getBankItems().experienceBankItem);
         addBankItem(getBankItems().moneyBankItem);
@@ -253,6 +261,10 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void addPermission(String key, Permission permission) {
         permissionList.put(key, permission);
+    }
+
+    public void addSetting(String key, Setting setting) {
+        settingsList.put(key, setting);
     }
 
     public void addBankItem(BankItem bankItem) {
