@@ -2,6 +2,7 @@ package com.iridium.testplugin.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.Setting;
 import com.iridium.iridiumteams.database.*;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
@@ -39,6 +40,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         super(TestPlugin.getInstance());
         teams = new ArrayList<>();
         teamPermissions = new ArrayList<>();
+        teamSettings = new ArrayList<>();
         teamInvites = new ArrayList<>();
         teamViaLocation = Optional.empty();
         teamBank = new HashMap<>();
@@ -181,11 +183,13 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public TeamSetting getTeamSetting(TestTeam team, String setting) {
-        Optional<TeamSetting> teamSetting = teamSettings.stream().filter(s -> s.getTeamID() == team.getId() && s.getSetting() == setting).findFirst();
+        Setting settingConfig = TestPlugin.getInstance().getSettingsList().get(setting);
+        String defaultValue = settingConfig == null ? "" : settingConfig.getDefaultValue();
+        Optional<TeamSetting> teamSetting = teamSettings.stream().filter(s -> s.getTeamID() == team.getId() && s.getSetting().equals(setting)).findFirst();
         if (teamSetting.isPresent()) {
             return teamSetting.get();
         }
-        TeamSetting ts = new TeamSetting(team, setting, "");
+        TeamSetting ts = new TeamSetting(team, setting, defaultValue);
         teamSettings.add(ts);
         return ts;
     }

@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum SettingType {
     VALUE_VISIBILITY,
-    TEAM_JOINING,
+    TEAM_TYPE,
     MOB_SPAWNING,
     LEAF_DECAY,
     ICE_FORM,

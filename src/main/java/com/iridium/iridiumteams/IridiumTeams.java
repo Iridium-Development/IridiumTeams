@@ -224,7 +224,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void initializeSettings() {
-        addSetting(SettingType.TEAM_JOINING.getSettingKey(), getSettings().teamJoining, Arrays.asList("Private", "Public"));
+        addSetting(SettingType.TEAM_TYPE.getSettingKey(), getSettings().teamJoining, Arrays.asList("Private", "Public"));
         addSetting(SettingType.VALUE_VISIBILITY.getSettingKey(), getSettings().teamValue, Arrays.asList("Private", "Public"));
         addSetting(SettingType.MOB_SPAWNING.getSettingKey(), getSettings().mobSpawning, Arrays.asList("Enabled", "Disabled"));
         addSetting(SettingType.LEAF_DECAY.getSettingKey(), getSettings().leafDecay, Arrays.asList("Enabled", "Disabled"));
