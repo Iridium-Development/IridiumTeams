@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -93,6 +94,29 @@ class JoinCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeJoinCommand__WithPublicTeam() {
+        TestTeam team = new TeamBuilder().withSetting(SettingType.TEAM_TYPE, "Public").build();
+        PlayerMock teamMember = new UserBuilder(serverMock).withTeam(team).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test join " + team.getName());
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().joinedTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%name%", team.getName())
+        ));
+        playerMock.assertNoMoreSaid();
+        teamMember.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().userJoinedTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", playerMock.getName())
+        ));
+        teamMember.assertNoMoreSaid();
+        assertEquals(team.getId(), user.getTeamID());
+        assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(team, user).isPresent());
     }
 
     @Test

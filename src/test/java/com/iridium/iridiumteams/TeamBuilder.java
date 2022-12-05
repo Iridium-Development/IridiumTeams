@@ -102,6 +102,11 @@ public class TeamBuilder {
         return this;
     }
 
+    public TeamBuilder withSetting(SettingType setting, String value) {
+        TestPlugin.getInstance().getTeamManager().getTeamSetting(testTeam, setting.getSettingKey()).setValue(value);
+        return this;
+    }
+
     public TestTeam build() {
         return testTeam;
     }
