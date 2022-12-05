@@ -48,18 +48,18 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract List<T> getTeams();
 
-    public List<T> getTeams(TeamSorting<T> sortType) {
+    public List<T> getTeams(TeamSorting<T> sortType, boolean excludePrivate) {
         return sortType.getSortedTeams(iridiumTeams).stream()
-                .filter(team -> getTeamSetting(team, SettingType.VALUE_VISIBILITY.getSettingKey()).getValue().equalsIgnoreCase("Public"))
+                .filter(team -> !excludePrivate || getTeamSetting(team, SettingType.VALUE_VISIBILITY.getSettingKey()).getValue().equalsIgnoreCase("Public"))
                 .collect(Collectors.toList());
     }
 
-    public List<T> getTeams(SortType sortType) {
+    public List<T> getTeams(SortType sortType, boolean excludePrivate) {
         switch (sortType) {
             case Value:
-                return getTeams(new ValueTeamSort<>());
+                return getTeams(new ValueTeamSort<>(), excludePrivate);
             case Experience:
-                return getTeams(new ExperienceTeamSort<>());
+                return getTeams(new ExperienceTeamSort<>(), excludePrivate);
             default:
                 return getTeams();
         }
