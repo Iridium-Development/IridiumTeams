@@ -5,6 +5,7 @@ import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
@@ -63,7 +64,7 @@ class SettingsGUITest {
 
     @Test
     public void SettingsGUI__OnClick() {
-        TestTeam testTeam = new TeamBuilder().build();
+        TestTeam testTeam = new TeamBuilder().withPermission(1, PermissionType.SETTINGS, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         SettingsGUI<TestTeam, User> settingsGUI = new SettingsGUI<>(testTeam, null, TestPlugin.getInstance());
         Inventory inventory = settingsGUI.getInventory();
