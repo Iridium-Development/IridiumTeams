@@ -158,7 +158,6 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
                     }
                 }
             }
-
         }, 0, 0);
     }
 

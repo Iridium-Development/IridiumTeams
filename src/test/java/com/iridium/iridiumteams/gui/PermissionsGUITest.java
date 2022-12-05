@@ -46,7 +46,7 @@ class PermissionsGUITest {
             .put(28, Material.PAPER)
             .put(29, Material.WHITE_BED)
             .put(30, Material.SPAWNER)
-            .put(31, Material.GRASS_BLOCK)
+            .put(31, Material.GUNPOWDER)
             .put(32, Material.END_PORTAL_FRAME)
             //Next and Back Button
             .put(51, Material.LIME_STAINED_GLASS_PANE)
