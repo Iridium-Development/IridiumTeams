@@ -2,10 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.PermissionType;
-import com.iridium.iridiumteams.Rank;
-import com.iridium.iridiumteams.Reward;
+import com.iridium.iridiumteams.*;
 import com.iridium.iridiumteams.api.EnhancementUpdateEvent;
 import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.database.*;
@@ -14,6 +11,7 @@ import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
 import com.iridium.iridiumteams.sorting.ExperienceTeamSort;
+import com.iridium.iridiumteams.sorting.TeamSorting;
 import com.iridium.iridiumteams.sorting.ValueTeamSort;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import org.bukkit.Bukkit;
@@ -44,17 +42,26 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract Optional<T> getTeamViaNameOrPlayer(String name);
 
-    public Optional<T> getTeamViaPlayerLocation(Player player){
+    public Optional<T> getTeamViaPlayerLocation(Player player) {
         return getTeamViaLocation(player.getLocation());
     }
 
     public abstract List<T> getTeams();
 
+    public List<T> getTeams(TeamSorting<T> sortType) {
+        return sortType.getSortedTeams(iridiumTeams).stream()
+                .filter(team -> getTeamSetting(team, SettingType.VALUE_VISIBILITY.getSettingKey()).getValue().equalsIgnoreCase("Public"))
+                .collect(Collectors.toList());
+    }
+
     public List<T> getTeams(SortType sortType) {
-        switch (sortType){
-            case Value: return new ValueTeamSort<T>().getSortedTeams(iridiumTeams);
-            case Experience: return new ExperienceTeamSort<T>().getSortedTeams(iridiumTeams);
-            default: return getTeams();
+        switch (sortType) {
+            case Value:
+                return getTeams(new ValueTeamSort<>());
+            case Experience:
+                return getTeams(new ExperienceTeamSort<>());
+            default:
+                return getTeams();
         }
     }
 
@@ -246,13 +253,13 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         });
     }
 
-    public boolean teleport(Player player, Location location, T team){
+    public boolean teleport(Player player, Location location, T team) {
         player.setFallDistance(0);
         player.teleport(location);
         return true;
     }
 
-    public enum SortType{
+    public enum SortType {
         Experience, Value
     }
 }

@@ -47,7 +47,7 @@ public class TopGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
     public void addContent(Inventory inventory) {
         super.addContent(inventory);
 
-        List<T> teams = sortingType.getSortedTeams(iridiumTeams);
+        List<T> teams = iridiumTeams.getTeamManager().getTeams(sortingType);
 
         for (int rank : iridiumTeams.getConfiguration().teamTopSlots.keySet()) {
             int slot = iridiumTeams.getConfiguration().teamTopSlots.get(rank);
