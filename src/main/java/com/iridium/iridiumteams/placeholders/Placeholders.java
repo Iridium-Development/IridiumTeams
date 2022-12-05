@@ -27,8 +27,8 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
         U user = player == null ? null : iridiumTeams.getUserManager().getUser(player);
         Optional<T> team = user == null ? Optional.empty() : iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
         Optional<T> current = user == null ? Optional.empty() : iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
-        List<T> topValue = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Value);
-        List<T> topExperience = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Experience);
+        List<T> topValue = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Value, true);
+        List<T> topExperience = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Experience, true);
 
         List<Placeholder> placeholders = new ArrayList<>();
 
