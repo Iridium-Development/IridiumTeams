@@ -13,7 +13,9 @@ public enum SettingType {
     CROP_TRAMPLE,
     WEATHER,
     TIME,
-    ENDERMAN_GRIEF;
+    ENDERMAN_GRIEF,
+    TNT_DAMAGE,
+    TEAM_VISITING;
 
 
     private final String settingKey = this.name();

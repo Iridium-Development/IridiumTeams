@@ -39,6 +39,8 @@ class SettingsGUITest {
             .put(19, Material.BLAZE_POWDER)
             .put(20, Material.CLOCK)
             .put(21, Material.ENDER_PEARL)
+            .put(22, Material.TNT)
+            .put(23, Material.BEACON)
             .build();
 
     @BeforeEach
