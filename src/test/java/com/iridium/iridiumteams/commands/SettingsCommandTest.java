@@ -116,7 +116,7 @@ class SettingsCommandTest {
     public void settingsCommand__TabComplete() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
-        assertEquals(Arrays.asList("CropTrample", "EndermanGrief", "FireSpread", "IceForm", "JoinType", "LeafDecay", "MobSpawning", "Time", "ValueVisibility", "Weather"), serverMock.getCommandTabComplete(playerMock, "test settings "));
+        assertEquals(Arrays.asList("CropTrample", "EndermanGrief", "FireSpread", "IceForm", "JoinType", "LeafDecay", "MobSpawning", "Time", "TnTDamage", "ValueVisibility", "Visiting", "Weather"), serverMock.getCommandTabComplete(playerMock, "test settings "));
 
         assertEquals(Arrays.asList("Disabled", "Enabled"), serverMock.getCommandTabComplete(playerMock, "test settings IceForm "));
 

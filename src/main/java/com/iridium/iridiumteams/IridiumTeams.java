@@ -233,6 +233,9 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addSetting(SettingType.WEATHER.getSettingKey(), getSettings().weather, Arrays.asList("Server", "Sunny", "Raining", "Thunder"));
         addSetting(SettingType.TIME.getSettingKey(), getSettings().time, Arrays.asList("Server", "Sunrise", "Day", "Morning", "Noon", "Sunset", "Night", "Midnight"));
         addSetting(SettingType.ENDERMAN_GRIEF.getSettingKey(), getSettings().endermanGrief, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.TNT_DAMAGE.getSettingKey(), getSettings().tntDamage, Arrays.asList("Enabled", "Disabled"));
+        addSetting(SettingType.TEAM_VISITING.getSettingKey(), getSettings().visiting, Arrays.asList("Enabled", "Disabled"));
+
     }
 
     public void initializeBankItem() {
