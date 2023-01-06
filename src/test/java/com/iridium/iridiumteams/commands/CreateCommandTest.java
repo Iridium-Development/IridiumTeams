@@ -54,6 +54,29 @@ class CreateCommandTest {
     }
 
     @Test
+    public void executeCreateCommand__AlreadyHaveTeam__NoName() {
+        TestPlugin.getInstance().getConfiguration().createRequiresName = false;
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        serverMock.dispatchCommand(playerMock, "test create");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().alreadyHaveTeam
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
+    public void executeCreateCommand__RequiresName() {
+        TestPlugin.getInstance().getConfiguration().createRequiresName = true;
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        serverMock.dispatchCommand(playerMock, "test create");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getCommands().createCommand.syntax
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
     public void executeCreateCommand__TeamNameTooShort() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         serverMock.dispatchCommand(playerMock, "test create a");
