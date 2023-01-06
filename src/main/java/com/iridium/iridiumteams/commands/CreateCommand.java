@@ -19,6 +19,13 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
+        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+
         if (args.length < 1) {
             if (iridiumTeams.getConfiguration().createRequiresName) {
                 player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
@@ -30,12 +37,6 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
             });
-            return;
-        }
-        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-            ));
             return;
         }
 
