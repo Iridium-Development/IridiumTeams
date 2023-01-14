@@ -2,8 +2,10 @@
 package com.iridium.iridiumteams.listeners;
 
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamSetting;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,6 +22,15 @@ public class BlockExplodeListener<T extends Team, U extends IridiumUser<T>> impl
     public void onBlockExplode(BlockExplodeEvent event) {
         if (!iridiumTeams.getConfiguration().preventTntGriefing) return;
         Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
+
+        if (currentTeam.isPresent()) {
+            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.TNT_DAMAGE.getSettingKey());
+            if (teamType.getValue().equalsIgnoreCase("Disabled")) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+
         int currentTeamId = currentTeam.map(T::getId).orElse(0);
 
         event.blockList().removeIf(blockState -> {

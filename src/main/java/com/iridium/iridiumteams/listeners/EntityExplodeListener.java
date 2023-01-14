@@ -2,8 +2,10 @@
 package com.iridium.iridiumteams.listeners;
 
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamSetting;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,11 +24,21 @@ public class EntityExplodeListener<T extends Team, U extends IridiumUser<T>> imp
     public void onEntityExplode(EntityExplodeEvent event) {
         if (!iridiumTeams.getConfiguration().preventTntGriefing) return;
         List<MetadataValue> list = event.getEntity().getMetadata("team_spawned");
-        int currentTeamId = list.stream().map(MetadataValue::asInt).findFirst().orElse(0);
+        Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getEntity().getLocation());
+
+        if (currentTeam.isPresent()) {
+            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.TNT_DAMAGE.getSettingKey());
+            if (teamType.getValue().equalsIgnoreCase("Disabled")) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+
+        int originalTeamId = list.stream().map(MetadataValue::asInt).findFirst().orElse(0);
 
         event.blockList().removeIf(blockState -> {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(blockState.getLocation());
-            return team.map(T::getId).orElse(currentTeamId) != currentTeamId;
+            return team.map(T::getId).orElse(originalTeamId) != originalTeamId;
         });
     }
 
