@@ -1,10 +1,7 @@
 package com.iridium.iridiumteams.database;
 
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.enhancements.Enhancement;
-import com.iridium.iridiumteams.enhancements.EnhancementAffectsType;
-import com.iridium.iridiumteams.enhancements.EnhancementData;
-import com.iridium.iridiumteams.enhancements.PotionEnhancementData;
+import com.iridium.iridiumteams.enhancements.*;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
@@ -20,7 +17,7 @@ import java.util.*;
 
 @Getter
 @DatabaseTable(tableName = "users")
-public class IridiumUser<T extends Team> extends DatabaseObject{
+public class IridiumUser<T extends Team> extends DatabaseObject {
 
     @DatabaseField(columnName = "uuid", canBeNull = false, id = true)
     private @NotNull UUID uuid;
@@ -53,6 +50,27 @@ public class IridiumUser<T extends Team> extends DatabaseObject{
 
     public Player getPlayer() {
         return Bukkit.getServer().getPlayer(uuid);
+    }
+
+    public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
+        Player player = getPlayer();
+        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return true;
+        if (isBypassing()) return true;
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(getTeamID());
+        Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
+        return canFly(team.orElse(null), iridiumTeams) || canFly(visitor.orElse(null), iridiumTeams);
+    }
+
+    private boolean canFly(T team, IridiumTeams<T, ?> iridiumTeams) {
+        if (team == null) return false;
+        Enhancement<FlightEnhancementData> flightEnhancement = iridiumTeams.getEnhancements().flightEnhancement;
+        TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "flight");
+        FlightEnhancementData data = flightEnhancement.levels.get(teamEnhancement.getLevel());
+
+        if (!teamEnhancement.isActive(flightEnhancement.type)) return false;
+        if (data == null) return false;
+
+        return canApply(iridiumTeams, team, data.enhancementAffectsType);
     }
 
     public void initBukkitTask(IridiumTeams<T, ?> iridiumTeams) {
