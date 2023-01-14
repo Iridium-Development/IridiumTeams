@@ -25,6 +25,7 @@ public class PlayerTeleportListener<T extends Team, U extends IridiumUser<T>> im
         if (to == null) return; // This is possible apparently?
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> toTeam = iridiumTeams.getTeamManager().getTeamViaLocation(to);
+        Optional<T> fromTeam = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer());
         if (user.isFlying() && (to.getBlockX() != from.getBlockX() || to.getBlockZ() != from.getBlockZ()) && !user.canFly(iridiumTeams)) {
             user.setFlying(false);
             player.setAllowFlight(false);
@@ -41,8 +42,10 @@ public class PlayerTeleportListener<T extends Team, U extends IridiumUser<T>> im
             );
             return;
         }
-
-        iridiumTeams.getTeamManager().sendTeamTitle(player, toTeam.get());
+        
+        if (!toTeam.map(T::getId).orElse(-1).equals(fromTeam.map(T::getId).orElse(-1))) {
+            iridiumTeams.getTeamManager().sendTeamTitle(player, toTeam.get());
+        }
     }
 
 }
