@@ -25,8 +25,8 @@ public class BlockSpreadListener<T extends Team, U extends IridiumUser<T>> imple
             event.setCancelled(true);
         }
         if(team.isPresent() && event.getSource().getType() == Material.FIRE){
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team.get(), SettingType.FIRE_SPREAD.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled")) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team.get(), SettingType.FIRE_SPREAD.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
                 event.setCancelled(true);
             }
         }

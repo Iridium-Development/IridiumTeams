@@ -11,11 +11,16 @@ public enum SettingType {
     ICE_FORM,
     FIRE_SPREAD,
     CROP_TRAMPLE,
-    WEATHER,
-    TIME,
-    ENDERMAN_GRIEF,
+    WEATHER, //todo
+    TIME, //todo
+    ENTITY_GRIEF,
     TNT_DAMAGE,
-    TEAM_VISITING;
+    TEAM_VISITING; //todo
+    /*
+    /is visit
+    Player Move Event -> if event.getFrom is in claim teleport home, otherwise event.set cancelled
+    Player Teleport Event -> if event.getFrom is in claim teleport home, otherwise event.set cancelled
+     */
 
 
     private final String settingKey = this.name();

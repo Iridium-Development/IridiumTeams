@@ -43,9 +43,9 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             ));
             return;
         }
-        TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team.get(), SettingType.TEAM_TYPE.getSettingKey());
+        TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team.get(), SettingType.TEAM_TYPE.getSettingKey());
         Optional<TeamInvite> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team.get(), user);
-        if (!teamInvite.isPresent() && !user.isBypassing() && !teamType.getValue().equalsIgnoreCase("public")) {
+        if (!teamInvite.isPresent() && !user.isBypassing() && !teamSetting.getValue().equalsIgnoreCase("public")) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noActiveInvite
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

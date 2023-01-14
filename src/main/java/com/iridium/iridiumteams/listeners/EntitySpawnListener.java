@@ -24,8 +24,8 @@ public class EntitySpawnListener<T extends Team, U extends IridiumUser<T>> imple
     public void onEntitySpawn(EntitySpawnEvent event) {
         Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getEntity().getLocation());
         if (currentTeam.isPresent()) {
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.MOB_SPAWNING.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled") && event.getEntity() instanceof LivingEntity && event.getEntityType() != EntityType.ARMOR_STAND) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.MOB_SPAWNING.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled") && event.getEntity() instanceof LivingEntity && event.getEntityType() != EntityType.ARMOR_STAND) {
                 event.setCancelled(true);
             }
         }
