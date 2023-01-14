@@ -163,6 +163,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBurnListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new BlockExplodeListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new BlockFertilizeListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new BlockFormListener<>(this), this);

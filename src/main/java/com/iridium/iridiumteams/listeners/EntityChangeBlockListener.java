@@ -19,8 +19,8 @@ public class EntityChangeBlockListener<T extends Team, U extends IridiumUser<T>>
     @EventHandler(ignoreCancelled = true)
     public void onEntityChangeBlock(EntityChangeBlockEvent event) {
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.ENTITY_GRIEF.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled")) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.ENTITY_GRIEF.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
                 event.setCancelled(true);
             }
         });
@@ -29,8 +29,8 @@ public class EntityChangeBlockListener<T extends Team, U extends IridiumUser<T>>
     @EventHandler(ignoreCancelled = true)
     public void onEntityBreakDoor(EntityBreakDoorEvent event) {
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.ENTITY_GRIEF.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled")) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.ENTITY_GRIEF.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
                 event.setCancelled(true);
             }
         });

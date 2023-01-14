@@ -21,8 +21,8 @@ public class EntityInteractListener<T extends Team, U extends IridiumUser<T>> im
     @EventHandler(ignoreCancelled = true)
     public void onEntityInteract(EntityInteractEvent event) {
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getBlock().getType()) == XMaterial.FARMLAND)) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getBlock().getType()) == XMaterial.FARMLAND)) {
                 event.setCancelled(true);
             }
         });
@@ -32,8 +32,8 @@ public class EntityInteractListener<T extends Team, U extends IridiumUser<T>> im
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction() != Action.PHYSICAL || event.getClickedBlock() == null) return;
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getClickedBlock().getLocation()).ifPresent(team -> {
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getClickedBlock().getType()) == XMaterial.FARMLAND)) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getClickedBlock().getType()) == XMaterial.FARMLAND)) {
                 event.setCancelled(true);
             }
         });

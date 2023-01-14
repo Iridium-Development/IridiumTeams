@@ -17,8 +17,8 @@ public class LeavesDecayListener<T extends Team, U extends IridiumUser<T>> imple
     @EventHandler(ignoreCancelled = true)
     public void onLeavesDecay(LeavesDecayEvent event) {
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            TeamSetting teamType = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.MOB_SPAWNING.getSettingKey());
-            if (teamType.getValue().equalsIgnoreCase("Disabled")) {
+            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.MOB_SPAWNING.getSettingKey());
+            if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
                 event.setCancelled(true);
             }
         });
