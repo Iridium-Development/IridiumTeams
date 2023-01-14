@@ -17,7 +17,7 @@ public class Settings {
     public Setting cropTrample;
     public Setting weather;
     public Setting time;
-    public Setting endermanGrief;
+    public Setting entityGrief;
     public Setting tntDamage;
     public Setting visiting;
 
@@ -35,7 +35,7 @@ public class Settings {
         cropTrample = new Setting(new Item(XMaterial.WHEAT_SEEDS, 16, 1, color + team + " Crop Trample", Arrays.asList("&7Control Trampling Crops on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "CropTrample", "Enabled");
         weather = new Setting(new Item(XMaterial.BLAZE_POWDER, 19, 1, color + team + " Weather", Arrays.asList("&7Control Weather on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "Weather", "Server");
         time = new Setting(new Item(XMaterial.CLOCK, 20, 1, color + team + " Time", Arrays.asList("&7Control Time on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "Time", "Server");
-        endermanGrief = new Setting(new Item(XMaterial.ENDER_PEARL, 21, 1, color + team + " Enderman Grief", Arrays.asList("&7Control Enderman Grief on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "EndermanGrief", "Disabled");
+        entityGrief = new Setting(new Item(XMaterial.ENDER_PEARL, 21, 1, color + team + " Entity Grief", Arrays.asList("&7Control Entity Grief on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "EntityGrief", "Disabled");
         tntDamage = new Setting(new Item(XMaterial.TNT, 22, 1, color + team + " TnT Damage", Arrays.asList("&7Control TnT Damage on your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "TnTDamage", "Enabled");
         visiting = new Setting(new Item(XMaterial.BEACON, 23, 1, color + team + " Visiting", Arrays.asList("&7Control if people can visit your " + team + ".", "", "" + color + "&lValue", "&7%value%")), "Visiting", "Enabled");
     }
