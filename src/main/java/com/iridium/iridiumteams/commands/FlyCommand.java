@@ -4,16 +4,12 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamEnhancement;
-import com.iridium.iridiumteams.enhancements.Enhancement;
-import com.iridium.iridiumteams.enhancements.FlightEnhancementData;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @NoArgsConstructor
 public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
@@ -58,23 +54,7 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
 
     public boolean canFly(Player player, IridiumTeams<T, U> iridiumTeams) {
         U user = iridiumTeams.getUserManager().getUser(player);
-        if (player.hasPermission(permission)) return true;
-        if (user.isBypassing()) return true;
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
-        Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaLocation(player.getLocation());
-        return canFly(user, team.orElse(null), iridiumTeams) || canFly(user, visitor.orElse(null), iridiumTeams);
-    }
-
-    private boolean canFly(U user, T team, IridiumTeams<T, U> iridiumTeams) {
-        if (team == null) return false;
-        Enhancement<FlightEnhancementData> flightEnhancement = iridiumTeams.getEnhancements().flightEnhancement;
-        TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "flight");
-        FlightEnhancementData data = flightEnhancement.levels.get(teamEnhancement.getLevel());
-
-        if (!teamEnhancement.isActive(flightEnhancement.type)) return false;
-        if (data == null) return false;
-
-        return user.canApply(iridiumTeams, team, data.enhancementAffectsType);
+        return user.canFly(iridiumTeams);
     }
 
     @Override
