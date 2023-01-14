@@ -123,6 +123,8 @@ public class Messages {
     public String successfullyBought;
     public String successfullySold;
     public String cannotAfford;
+    public String cannotVisit;
+
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
     }
@@ -208,9 +210,9 @@ public class Messages {
         bankDeposited = "%prefix% &7You successfully deposited %amount% %type% from your " + team + " bank.";
         gaveBank = "%prefix% &7You gave %player% %amount% %item%.";
         setBank = "%prefix% &7You set %player%'s %amount% to %item%.";
-        removedExperience = "%prefix% &7You took %amount% "+team+" experience from %player%.";
-        gaveExperience = "%prefix% &7You gave %amount% "+team+" experience to %player%.";
-        setExperience = "%prefix% &7You set %player%'s "+team+" experience to %amount%.";
+        removedExperience = "%prefix% &7You took %amount% " + team + " experience from %player%.";
+        gaveExperience = "%prefix% &7You gave %amount% " + team + " experience to %player%.";
+        setExperience = "%prefix% &7You set %player%'s " + team + " experience to %amount%.";
         removedBank = "%prefix% &7You took %amount% %item%'s from %player%.";
         insufficientFundsToWithdraw = "%prefix% &7You do not have enough %type% to withdraw from your " + team + " bank.";
         insufficientFundsToDeposit = "%prefix% &7You do not have enough %type% to deposit into your " + team + " bank.";
@@ -250,5 +252,6 @@ public class Messages {
         successfullyBought = "%prefix% &7You have successfully bought %amount%x %item% &7for $%vault_cost%.";
         successfullySold = "%prefix% &7You have successfully sold %amount%x %item% &7for $%vault_reward%.";
         cannotAfford = "%prefix% &7You cannot afford this.";
+        cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
     }
 }

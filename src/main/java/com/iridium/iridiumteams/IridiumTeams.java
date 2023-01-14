@@ -187,6 +187,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new PlayerFishListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PotionBrewListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new StructureGrowListener<>(this), this);
