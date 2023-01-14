@@ -22,7 +22,7 @@ public class TeamWarp extends TeamData {
     @DatabaseField(columnName = "location")
     private Location location;
 
-    @DatabaseField(columnName = "name", unique = true)
+    @DatabaseField(columnName = "name", uniqueCombo = true)
     private String name;
 
     @DatabaseField(columnName = "password")
@@ -34,7 +34,7 @@ public class TeamWarp extends TeamData {
     @DatabaseField(columnName = "icon")
     private XMaterial icon;
 
-    @DatabaseField(columnName = "user", canBeNull = false, uniqueCombo = true)
+    @DatabaseField(columnName = "user", canBeNull = false)
     private UUID user;
     @DatabaseField(columnName = "create_time")
     private LocalDateTime createTime;
