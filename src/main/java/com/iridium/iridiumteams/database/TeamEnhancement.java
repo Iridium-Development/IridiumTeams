@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 @DatabaseTable(tableName = "team_enhancements")
 public final class TeamEnhancement extends TeamData {
 
-    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false, uniqueCombo = true)
+    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
     private int id;
 
     @DatabaseField(columnName = "enhancement_name", canBeNull = false, uniqueCombo = true)

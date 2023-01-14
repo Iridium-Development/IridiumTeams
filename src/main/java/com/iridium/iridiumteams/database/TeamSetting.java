@@ -16,7 +16,7 @@ public final class TeamSetting extends TeamData {
     @DatabaseField(columnName = "setting", canBeNull = false, uniqueCombo = true)
     private String setting;
 
-    @DatabaseField(columnName = "value", canBeNull = false, uniqueCombo = true)
+    @DatabaseField(columnName = "value", canBeNull = false)
     private String value;
 
     public TeamSetting(Team team, String setting, String value) {
