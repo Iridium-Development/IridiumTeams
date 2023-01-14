@@ -33,12 +33,16 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
             );
         }
-        if (toTeam.isPresent() && !iridiumTeams.getTeamManager().canVisit(player, toTeam.get())) {
+        if(!toTeam.isPresent()) return;
+        if (!iridiumTeams.getTeamManager().canVisit(player, toTeam.get())) {
             event.setCancelled(true);
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotVisit
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
             );
+            return;
         }
+
+        iridiumTeams.getTeamManager().sendTeamTitle(player, toTeam.get());
     }
 
 }

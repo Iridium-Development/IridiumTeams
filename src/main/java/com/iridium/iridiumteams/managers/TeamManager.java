@@ -46,6 +46,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return getTeamViaLocation(player.getLocation());
     }
 
+    public abstract void sendTeamTitle(Player player, T team);
+
     public boolean canVisit(Player player, T team) {
         TeamSetting teamSetting = getTeamSetting(team, SettingType.TEAM_VISITING.getSettingKey());
         U user = iridiumTeams.getUserManager().getUser(player);
