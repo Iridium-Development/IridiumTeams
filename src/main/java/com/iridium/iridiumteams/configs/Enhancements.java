@@ -82,8 +82,8 @@ public class Enhancements {
                 "",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, FlightEnhancementData>()
-                .put(1, new FlightEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.MEMBERS_ANYWHERE)))
-                .put(2, new FlightEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS)))
+                .put(1, new FlightEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.MEMBERS_IN_TERRITORY)))
+                .put(2, new FlightEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.MEMBERS_ANYWHERE)))
                 .build());
 
         membersEnhancement = new Enhancement<>(true, EnhancementType.UPGRADE, new Item(XMaterial.PLAYER_HEAD, 11, 1, color + "&lMember Upgrade", "Peaches_MLG", Arrays.asList(
