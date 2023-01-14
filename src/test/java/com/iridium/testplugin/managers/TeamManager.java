@@ -80,6 +80,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public void sendTeamTitle(Player player, TestTeam team) {
+        // Do nothing
+    }
+
+    @Override
     public List<TestTeam> getTeams() {
         return teams;
     }
