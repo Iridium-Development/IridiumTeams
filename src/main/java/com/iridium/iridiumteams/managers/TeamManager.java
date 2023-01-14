@@ -46,6 +46,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return getTeamViaLocation(player.getLocation());
     }
 
+    public boolean canVisit(Player player, T team) {
+        TeamSetting teamSetting = getTeamSetting(team, SettingType.TEAM_VISITING.getSettingKey());
+        U user = iridiumTeams.getUserManager().getUser(player);
+        return user.isBypassing() || user.getTeamID() == team.getId() || teamSetting.getValue().equalsIgnoreCase("Enabled");
+    }
+
     public abstract List<T> getTeams();
 
     public List<T> getTeams(TeamSorting<T> sortType, boolean excludePrivate) {

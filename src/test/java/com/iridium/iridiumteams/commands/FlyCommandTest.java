@@ -6,6 +6,7 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
+import com.iridium.iridiumteams.enhancements.EnhancementAffectsType;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -142,6 +144,7 @@ class FlyCommandTest {
 
     @Test
     public void canFly__Your_Booster_Active() {
+        TestPlugin.getInstance().getEnhancements().flightEnhancement.levels.get(1).enhancementAffectsType = Collections.singletonList(EnhancementAffectsType.MEMBERS_ANYWHERE);
         TestTeam team = new TeamBuilder().withEnhancement("flight", 1).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         assertTrue(TestPlugin.getInstance().getCommands().flyCommand.canFly(playerMock, TestPlugin.getInstance()));
@@ -149,6 +152,7 @@ class FlyCommandTest {
 
     @Test
     public void canFly__Visitors_Booster_Active() {
+        TestPlugin.getInstance().getEnhancements().flightEnhancement.levels.get(2).enhancementAffectsType = Collections.singletonList(EnhancementAffectsType.VISITORS);
         TestTeam team = new TeamBuilder().withEnhancement("flight", 2).build();
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         TeamManager.teamViaLocation = Optional.of(team);
