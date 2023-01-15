@@ -1,8 +1,10 @@
 package com.iridium.iridiumteams.database;
 
+import com.iridium.iridiumteams.api.TeamLevelUpEvent;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @DatabaseTable(tableName = "teams")
-public abstract class Team extends DatabaseObject{
+public abstract class Team extends DatabaseObject {
 
     @DatabaseField(columnName = "id", canBeNull = false, generatedId = true)
     private int id;
@@ -30,8 +32,13 @@ public abstract class Team extends DatabaseObject{
     @DatabaseField(columnName = "experience")
     private int experience;
 
+    @DatabaseField(columnName = "max_experience")
+    private int maxExperience;
+
     public void setExperience(int experience) {
         this.experience = Math.max(0, experience);
+        this.maxExperience = Math.max(maxExperience, experience);
+        Bukkit.getPluginManager().callEvent(new TeamLevelUpEvent<>(this));
     }
 
     public int getLevel() {
