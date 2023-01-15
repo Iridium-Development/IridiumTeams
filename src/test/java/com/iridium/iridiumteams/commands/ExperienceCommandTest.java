@@ -64,7 +64,7 @@ public class ExperienceCommandTest {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
 
-        serverMock.dispatchCommand(playerMock, "test experience give "+playerMock.getName()+" 100");
+        serverMock.dispatchCommand(playerMock, "test experience give "+team.getName()+" 100");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().noPermission
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
@@ -87,13 +87,13 @@ public class ExperienceCommandTest {
     @Test
     public void executeExperienceCommand__WithTeam__Give() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).setOp().withTeam(team).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).setOp().build();
 
-        serverMock.dispatchCommand(playerMock, "test experience give "+playerMock.getName()+" 100");
+        serverMock.dispatchCommand(playerMock, "test experience give "+team.getName()+" 100");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().gaveExperience
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%player%", playerMock.getName())
+                .replace("%player%", team.getName())
                 .replace("%amount%", "100")
         ));
         playerMock.assertNoMoreSaid();
@@ -103,14 +103,14 @@ public class ExperienceCommandTest {
     @Test
     public void executeExperienceCommand__WithTeam__Set() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).setOp().withTeam(team).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).setOp().build();
         team.setExperience(50000);
 
-        serverMock.dispatchCommand(playerMock, "test experience set "+playerMock.getName()+" 100");
+        serverMock.dispatchCommand(playerMock, "test experience set "+team.getName()+" 100");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().setExperience
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%player%", playerMock.getName())
+                .replace("%player%", team.getName())
                 .replace("%amount%", "100")
         ));
         playerMock.assertNoMoreSaid();
@@ -120,14 +120,14 @@ public class ExperienceCommandTest {
     @Test
     public void executeExperienceCommand__WithTeam__Remove() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).setOp().withTeam(team).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).setOp().build();
         team.setExperience(100);
 
-        serverMock.dispatchCommand(playerMock, "test experience remove "+playerMock.getName()+" 10");
+        serverMock.dispatchCommand(playerMock, "test experience remove "+team.getName()+" 10");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().removedExperience
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%player%", playerMock.getName())
+                .replace("%player%", team.getName())
                 .replace("%amount%", "10")
         ));
         playerMock.assertNoMoreSaid();
@@ -137,14 +137,14 @@ public class ExperienceCommandTest {
     @Test
     public void executeExperienceCommand__WithTeam__Set__NonNegative() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).setOp().withTeam(team).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).setOp().build();
         team.setExperience(50000);
 
-        serverMock.dispatchCommand(playerMock, "test experience set "+playerMock.getName()+" -100000");
+        serverMock.dispatchCommand(playerMock, "test experience set "+team.getName()+" -100000");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().setExperience
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%player%", playerMock.getName())
+                .replace("%player%", team.getName())
                 .replace("%amount%", "0")
         ));
         playerMock.assertNoMoreSaid();
@@ -154,14 +154,14 @@ public class ExperienceCommandTest {
     @Test
     public void executeExperienceCommand__WithTeam__Remove__NonNegative() {
         TestTeam team = new TeamBuilder().build();
-        PlayerMock playerMock = new UserBuilder(serverMock).setOp().withTeam(team).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).setOp().build();
         team.setExperience(100);
 
-        serverMock.dispatchCommand(playerMock, "test experience remove "+playerMock.getName()+" 100000");
+        serverMock.dispatchCommand(playerMock, "test experience remove "+team.getName()+" 100000");
 
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().removedExperience
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
-                .replace("%player%", playerMock.getName())
+                .replace("%player%", team.getName())
                 .replace("%amount%", "100")
         ));
         playerMock.assertNoMoreSaid();
