@@ -254,6 +254,6 @@ public class Messages {
         successfullySold = "%prefix% &7You have successfully sold %amount%x %item% &7for $%vault_reward%.";
         cannotAfford = "%prefix% &7You cannot afford this.";
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
-        teamLevelUp = "%prefix% &7Your " + team + "has reached level %level%.";
+        teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
     }
 }
