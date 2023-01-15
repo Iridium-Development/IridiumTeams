@@ -2,7 +2,6 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.BankGUI;
@@ -111,8 +110,6 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
             case 2:
                 return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
             case 3:
-                return iridiumTeams.getBankItemList().stream().map(BankItem::getName).collect(Collectors.toList());
-            case 4:
                 return Arrays.asList("1", "10", "100");
             default:
                 return Collections.emptyList();
