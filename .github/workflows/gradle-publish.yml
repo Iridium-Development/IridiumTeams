@@ -31,7 +31,7 @@ jobs:
   upload:
     needs: build
     runs-on: ubuntu-latest
-    if: "!contains(github.event.commits[0].message, 'Version Increment')"
+    if: "contains(github.event.commits[0].message, 'Version Increment')"
     steps:
       - uses: actions/checkout@v2
       - uses: thecodemonkey/action-get-gradle-version@master
@@ -42,8 +42,6 @@ jobs:
         with:
           name: "IridiumTeams"
           path: "./"
-      - name: List directory contents
-        run: ls build/libs
       - name: Publish to Nexus
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
