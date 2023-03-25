@@ -43,7 +43,7 @@ jobs:
           name: "IridiumTeams"
           path: "build/libs/IridiumTeams-*.jar"
       - name: List directory contents
-        run: ls
+        run: ls build/libs
       - name: Publish to Nexus
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
