@@ -40,8 +40,8 @@ jobs:
           file: "build.gradle.kts"
       - uses: actions/download-artifact@v3.0.2
         with:
-        name: "IridiumTeams"
-        path: "build/libs/IridiumTeams-*.jar"
+          name: "IridiumTeams"
+          path: "build/libs/IridiumTeams-*.jar"
       - name: Publish to Nexus
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
