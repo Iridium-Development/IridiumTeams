@@ -50,4 +50,4 @@ jobs:
           groupId: "com.iridium"
           artifactId: "IridiumTeams"
           version: "${gradle.gradleVersion}"
-        path: "build/libs/IridiumTeams-*.jar"
+          path: "build/libs/IridiumTeams-*.jar"
