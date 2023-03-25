@@ -15,6 +15,7 @@ repositories {
     maven("https://ci.ender.zone/plugin/repository/everything/")
     maven("https://nexus.iridiumdevelopment.net/repository/maven-releases/")
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.jeff-media.com/nexus/repository/jeff-media-public/")
     maven("https://jitpack.io")
     mavenCentral()
 }
@@ -34,6 +35,9 @@ dependencies {
     compileOnly("be.maximvdw:MVdWPlaceholderAPI:2.1.1-SNAPSHOT") {
         exclude("org.spigotmc")
     }
+
+    implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
+    implementation("org.bstats:bstats-bukkit:3.0.1")
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.24")
