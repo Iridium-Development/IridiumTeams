@@ -55,4 +55,4 @@ jobs:
           repository: "maven-releases"
           coordinates: "groupId=com.iridium artifactId=IridiumTeams version=1.7.7"
           assets: "extension=jar"
-          filename: "build/libs/IridiumTeams-1.7.7.jar"
+          filename: "/home/runner/work/IridiumTeams/IridiumTeams/build/libs/IridiumTeams-1.7.7.jar"
