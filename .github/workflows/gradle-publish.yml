@@ -8,9 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: "!contains(github.event.commits[0].message, '[ci-skip]')"
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
     - uses: actions/checkout@v2
     - uses: gradle/wrapper-validation-action@v1
+    - uses: EmberCM/action-get-gradle-version@master
+      id: version
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
@@ -52,6 +56,6 @@ jobs:
           password: "${{ secrets.NEXUS_PASSWORD }}"
           format: "maven2"
           repository: "maven-releases"
-          coordinates: "groupId=com.iridium artifactId=IridiumTeams version=1.7.8"
+          coordinates: "groupId=com.iridium artifactId=IridiumTeams version=${{needs.build.outputs.version}}"
           assets: "extension=jar"
           filename: "build/libs/IridiumTeams-*.jar"
