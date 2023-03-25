@@ -28,3 +28,26 @@ jobs:
       with:
         name: "IridiumTeams"
         path: "build/libs/IridiumTeams-*.jar"
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.commits[0].message, '[ci-skip]')"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+      - name: Publish to Nexus
+        uses: sonatype-nexus-community/nexus-repository-gradle-publish-plugin@v1.1.0
+        with:
+          serverUrl: "https://nexus.iridiumdevelopment.net/"
+          username: "${{ secrets.NEXUS_USERNAME }}"
+          password: "${{ secrets.NEXUS_PASSWORD }}"
+          repository: "maven-releases"
+          groupId: "com.iridium"
+          artifactId: "IridiumTeams"
+          version: "${gradle.gradleVersion}"
+        path: "build/libs/IridiumTeams-*.jar"
