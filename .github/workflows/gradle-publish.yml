@@ -40,11 +40,10 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: gradle
-      - name: Download artifacts
-        uses: "actions/download-artifact@v3.0.2"
-        with:
-          name: "IridiumTeams"
-          path: "build/libs/IridiumTeams-*.jar"
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Publish to Nexus
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
@@ -55,4 +54,4 @@ jobs:
           repository: "maven-releases"
           coordinates: "groupId=com.iridium artifactId=IridiumTeams version=1.7.7"
           assets: "extension=jar"
-          filename: "/home/runner/work/IridiumTeams/IridiumTeams/build/libs/IridiumTeams-1.7.7.jar"
+          filename: "build/libs/IridiumTeams-1.7.7.jar"
