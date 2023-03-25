@@ -12,10 +12,12 @@ import com.iridium.iridiumteams.listeners.*;
 import com.iridium.iridiumteams.managers.*;
 import com.iridium.iridiumteams.placeholders.ClipPlaceholderAPI;
 import com.iridium.iridiumteams.sorting.TeamSorting;
+import de.jeff_media.updatechecker.UpdateChecker;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.milkbowl.vault.economy.Economy;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -302,5 +304,17 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void addSortingType(TeamSorting<T> sortingType) {
         sortingTypes.add(sortingType);
+    }
+
+    public void addBstats(int pluginId){
+        new Metrics(this, pluginId);
+    }
+
+    public void startUpdateChecker(int pluginId){
+        UpdateChecker.init(this, pluginId)
+                .checkEveryXHours(24)
+                .setDownloadLink(pluginId)
+                .setColoredConsoleOutput(true)
+                .checkNow();
     }
 }
