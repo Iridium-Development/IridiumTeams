@@ -52,6 +52,6 @@ jobs:
           password: "${{ secrets.NEXUS_PASSWORD }}"
           format: "maven2"
           repository: "maven-releases"
-          coordinates: "groupId=com.iridium artifactId=IridiumTeams version=1.7.7"
+          coordinates: "groupId=com.iridium artifactId=IridiumTeams version=1.7.8"
           assets: "extension=jar"
-          filename: "build/libs/IridiumTeams-1.7.7.jar"
+          filename: "build/libs/IridiumTeams-*.jar"
