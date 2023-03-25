@@ -41,7 +41,7 @@ jobs:
       - uses: actions/download-artifact@v3.0.2
         with:
           name: "IridiumTeams"
-          path: "build/libs/IridiumTeams-*.jar"
+          path: "build/libs"
       - name: List directory contents
         run: ls build/libs
       - name: Publish to Nexus
