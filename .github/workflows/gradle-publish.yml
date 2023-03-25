@@ -41,13 +41,13 @@ jobs:
           java-version: 17
           cache: gradle
       - name: Publish to Nexus
-        uses: sonatype-nexus-community/nexus-repository-gradle-publish-plugin@v1.1.0
+        uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
           serverUrl: "https://nexus.iridiumdevelopment.net/"
           username: "${{ secrets.NEXUS_USERNAME }}"
           password: "${{ secrets.NEXUS_PASSWORD }}"
+          format: "maven2"
           repository: "maven-releases"
-          groupId: "com.iridium"
-          artifactId: "IridiumTeams"
-          version: "${gradle.gradleVersion}"
-          path: "build/libs/IridiumTeams-*.jar"
+          coordinates: "groupId=com.iridium artifactId=IridiumTeams version=1.7.7"
+          assets: "extension=jar"
+          filename: "build/libs/IridiumTeams-1.7.7.jar"
