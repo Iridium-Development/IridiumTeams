@@ -3,13 +3,12 @@ package com.iridium.iridiumteams.configs;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.iridium.iridiumcore.dependencies.xseries.XSound;
 import com.iridium.iridiumcore.utils.NumberFormatter;
+import com.iridium.iridiumteams.Reward;
 import com.iridium.iridiumteams.UserRank;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Configuration {
     public String prefix;
@@ -34,6 +33,17 @@ public class Configuration {
     public Map<Integer, Integer> teamTopSlots;
 
     public Map<Integer, Integer> teamWarpSlots;
+
+
+    /**
+     * The Rewards the island gets for leveling up
+     * The integer represents the reward they will get, if the island level is divisible by this number they will get that reward
+     * Higest number takes priority
+     * <p>
+     * e.g. 1 will give the reward to every level since every number is divisible by 1
+     * 5 will give the reward to levels 5 10 15 20 25 ect since they are divisible by 5
+     */
+    public Map<Integer, Reward> levelRewards;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -85,6 +95,22 @@ public class Configuration {
                 .put(3, 13)
                 .put(4, 15)
                 .put(5, 17)
+                .build();
+
+        this.levelRewards = ImmutableMap.<Integer, Reward>builder()
+                .put(1, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %"+team.toLowerCase()+"_level% Reward", Arrays.asList(
+                        "&7"+team+" Level %"+team.toLowerCase()+"_level% Rewards:",
+                        "&b&l* &b200 Money",
+                        "",
+                        "&b&l[!] &bLeft click to redeem"
+                )), Collections.emptyList(), 0, new HashMap<>(), 200, 0, XSound.ENTITY_PLAYER_LEVELUP))
+
+                .put(5, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %"+team.toLowerCase()+"_level% Reward", Arrays.asList(
+                        "&7"+team+" Level %"+team.toLowerCase()+"_level% Rewards:",
+                        "&b&l* &b2000 Money",
+                        "",
+                        "&b&l[!] &bLeft click to redeem"
+                )), Collections.emptyList(), 0, new HashMap<>(), 2000, 0, XSound.ENTITY_PLAYER_LEVELUP))
                 .build();
 
     }
