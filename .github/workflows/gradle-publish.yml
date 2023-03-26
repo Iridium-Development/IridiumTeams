@@ -51,5 +51,5 @@ jobs:
           format: "maven2"
           repository: "maven-releases"
           coordinates: "groupId=com.iridium artifactId=IridiumTeams version=${{steps.version.outputs.version}}"
-          assets: "extension=jar,pom"
+          assets: "extension=pom"
           filename: "IridiumTeams-*.jar"
