@@ -51,10 +51,6 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
                     return;
                 }
 
-                SettingUpdateEvent<T, U> settingUpdateEvent = new SettingUpdateEvent<>(team, user, setting.getKey(), value.get());
-                Bukkit.getPluginManager().callEvent(settingUpdateEvent);
-                if(settingUpdateEvent.isCancelled())return;
-
                 TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
                 teamSetting.setValue(value.get());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().settingSet
@@ -62,6 +58,8 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
                         .replace("%setting%", setting.getValue().getDisplayName())
                         .replace("%value%", value.get())
                 ));
+
+                Bukkit.getPluginManager().callEvent(new SettingUpdateEvent<>(team, user, setting.getKey(), value.get()));
                 return;
             }
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidSetting
