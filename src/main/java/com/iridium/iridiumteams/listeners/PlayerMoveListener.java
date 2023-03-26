@@ -26,6 +26,10 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> toTeam = iridiumTeams.getTeamManager().getTeamViaLocation(to);
         Optional<T> fromTeam = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer());
+        if (fromTeam.isPresent()) {
+            iridiumTeams.getTeamManager().sendTeamTime(player);
+            iridiumTeams.getTeamManager().sendTeamWeather(player);
+        }
         if (user.isFlying() && (to.getBlockX() != from.getBlockX() || to.getBlockZ() != from.getBlockZ()) && !user.canFly(iridiumTeams)) {
             user.setFlying(false);
             player.setAllowFlight(false);

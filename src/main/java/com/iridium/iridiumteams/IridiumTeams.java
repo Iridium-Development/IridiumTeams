@@ -194,6 +194,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new StructureGrowListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new TeamLevelUpListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new SettingUpdateListener<>(this), this);
     }
 
     public void saveData() {
@@ -240,7 +241,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addSetting(SettingType.ICE_FORM.getSettingKey(), getSettings().iceForm, Arrays.asList("Enabled", "Disabled"));
         addSetting(SettingType.FIRE_SPREAD.getSettingKey(), getSettings().fireSpread, Arrays.asList("Enabled", "Disabled"));
         addSetting(SettingType.CROP_TRAMPLE.getSettingKey(), getSettings().cropTrample, Arrays.asList("Enabled", "Disabled"));
-        addSetting(SettingType.WEATHER.getSettingKey(), getSettings().weather, Arrays.asList("Server", "Sunny", "Raining", "Thunder"));
+        addSetting(SettingType.WEATHER.getSettingKey(), getSettings().weather, Arrays.asList("Server", "Sunny", "Raining"));
         addSetting(SettingType.TIME.getSettingKey(), getSettings().time, Arrays.asList("Server", "Sunrise", "Day", "Morning", "Noon", "Sunset", "Night", "Midnight"));
         addSetting(SettingType.ENTITY_GRIEF.getSettingKey(), getSettings().entityGrief, Arrays.asList("Enabled", "Disabled"));
         addSetting(SettingType.TNT_DAMAGE.getSettingKey(), getSettings().tntDamage, Arrays.asList("Enabled", "Disabled"));
