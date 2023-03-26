@@ -16,6 +16,7 @@ import com.iridium.iridiumteams.sorting.ValueTeamSort;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -257,6 +258,55 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
             for (Map.Entry<String, Double> entry : reward.bankRewards.entrySet()) {
                 TeamBank teamBank = getTeamBank(team, entry.getKey());
                 teamBank.setNumber(teamBank.getNumber() + entry.getValue());
+            }
+        });
+    }
+
+    public void sendTeamTime(Player player) {
+        getTeamViaPlayerLocation(player).ifPresent(team -> {
+            TeamSetting teamSetting = getTeamSetting(team, SettingType.TIME.getSettingKey());
+            switch (teamSetting.getValue().toLowerCase()){
+                case "sunrise":
+                    player.setPlayerTime(0, false);
+                    return;
+                case "day":
+                    player.setPlayerTime(1000, false);
+                    return;
+                case "morning":
+                    player.setPlayerTime(6000, false);
+                    return;
+                case "noon":
+                    player.setPlayerTime(9000, false);
+                    return;
+                case "sunset":
+                    player.setPlayerTime(12000, false);
+                    return;
+                case "night":
+                    player.setPlayerTime(13000, false);
+                    return;
+                case "midnight":
+                    player.setPlayerTime(18000, false);
+                    return;
+                default:
+                    player.setPlayerTime(0, true);
+                    return;
+            }
+        });
+    }
+
+    public void sendTeamWeather(Player player) {
+        getTeamViaPlayerLocation(player).ifPresent(team -> {
+            TeamSetting teamSetting = getTeamSetting(team, SettingType.WEATHER.getSettingKey());
+            switch (teamSetting.getValue().toLowerCase()){
+                case "sunny":
+                    player.setPlayerWeather(WeatherType.CLEAR);
+                    return;
+                case "raining":
+                    player.setPlayerWeather(WeatherType.DOWNFALL);
+                    return;
+                default:
+                    player.resetPlayerWeather();
+                    return;
             }
         });
     }

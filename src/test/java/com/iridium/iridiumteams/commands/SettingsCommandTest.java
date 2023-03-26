@@ -120,7 +120,7 @@ class SettingsCommandTest {
 
         assertEquals(Arrays.asList("Disabled", "Enabled"), serverMock.getCommandTabComplete(playerMock, "test settings IceForm "));
 
-        assertEquals(Arrays.asList("Raining", "Server", "Sunny", "Thunder"), serverMock.getCommandTabComplete(playerMock, "test settings Weather "));
+        assertEquals(Arrays.asList("Raining", "Server", "Sunny"), serverMock.getCommandTabComplete(playerMock, "test settings Weather "));
 
         assertEquals(Arrays.asList("Day", "Midnight", "Morning", "Night", "Noon", "Server", "Sunrise", "Sunset"), serverMock.getCommandTabComplete(playerMock, "test settings time "));
 

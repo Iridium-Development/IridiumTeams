@@ -4,11 +4,13 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Setting;
+import com.iridium.iridiumteams.api.SettingUpdateEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamSetting;
 import com.iridium.iridiumteams.gui.SettingsGUI;
 import lombok.NoArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -48,6 +50,10 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
                     ));
                     return;
                 }
+
+                SettingUpdateEvent<T, U> settingUpdateEvent = new SettingUpdateEvent<>(team, user, setting.getKey(), value.get());
+                Bukkit.getPluginManager().callEvent(settingUpdateEvent);
+                if(settingUpdateEvent.isCancelled())return;
 
                 TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
                 teamSetting.setValue(value.get());
