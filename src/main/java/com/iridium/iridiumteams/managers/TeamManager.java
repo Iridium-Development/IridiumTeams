@@ -265,31 +265,30 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public void sendTeamTime(Player player) {
         getTeamViaPlayerLocation(player).ifPresent(team -> {
             TeamSetting teamSetting = getTeamSetting(team, SettingType.TIME.getSettingKey());
-            switch (teamSetting.getValue().toLowerCase()){
+            switch (teamSetting.getValue().toLowerCase()) {
                 case "sunrise":
-                    player.setPlayerTime(0, false);
+                    setPlayerTime(player, 0, false);
                     return;
                 case "day":
-                    player.setPlayerTime(1000, false);
+                    setPlayerTime(player, 1000, false);
                     return;
                 case "morning":
-                    player.setPlayerTime(6000, false);
+                    setPlayerTime(player, 6000, false);
                     return;
                 case "noon":
-                    player.setPlayerTime(9000, false);
+                    setPlayerTime(player, 9000, false);
                     return;
                 case "sunset":
-                    player.setPlayerTime(12000, false);
+                    setPlayerTime(player, 12000, false);
                     return;
                 case "night":
-                    player.setPlayerTime(13000, false);
+                    setPlayerTime(player, 13000, false);
                     return;
                 case "midnight":
-                    player.setPlayerTime(18000, false);
+                    setPlayerTime(player, 18000, false);
                     return;
                 default:
-                    player.setPlayerTime(0, true);
-                    return;
+                    setPlayerTime(player, 0, true);
             }
         });
     }
@@ -297,18 +296,29 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public void sendTeamWeather(Player player) {
         getTeamViaPlayerLocation(player).ifPresent(team -> {
             TeamSetting teamSetting = getTeamSetting(team, SettingType.WEATHER.getSettingKey());
-            switch (teamSetting.getValue().toLowerCase()){
+            switch (teamSetting.getValue().toLowerCase()) {
                 case "sunny":
-                    player.setPlayerWeather(WeatherType.CLEAR);
+                    setPlayerWeather(player, WeatherType.CLEAR);
                     return;
                 case "raining":
-                    player.setPlayerWeather(WeatherType.DOWNFALL);
+                    setPlayerWeather(player, WeatherType.DOWNFALL);
                     return;
                 default:
                     player.resetPlayerWeather();
-                    return;
             }
         });
+    }
+
+    private void setPlayerTime(Player player, long time, boolean relative) {
+        if (player.isPlayerTimeRelative() != relative || player.getPlayerTime() != time) {
+            player.setPlayerTime(time, relative);
+        }
+    }
+
+    private void setPlayerWeather(Player player, WeatherType weatherType) {
+        if (player.getPlayerWeather() != weatherType) {
+            player.setPlayerWeather(weatherType);
+        }
     }
 
     public boolean teleport(Player player, Location location, T team) {
