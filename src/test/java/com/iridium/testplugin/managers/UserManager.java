@@ -1,5 +1,6 @@
 package com.iridium.testplugin.managers;
 
+import com.iridium.iridiumteams.database.IridiumUserProfile;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
@@ -33,5 +34,17 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
 
     public Optional<User> getUserByUUID(@NotNull UUID uuid) {
         return users.stream().filter(user -> user.getUuid() == uuid).findFirst();
+    }
+
+    @Override
+    public Optional<IridiumUserProfile<TestTeam>> getUserProfile(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUserProfile'");
+    }
+
+    @Override
+    public List<IridiumUserProfile<TestTeam>> getUserProfiles(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUserProfiles'");
     }
 }

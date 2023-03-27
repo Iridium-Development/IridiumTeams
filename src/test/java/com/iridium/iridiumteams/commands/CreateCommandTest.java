@@ -120,6 +120,6 @@ class CreateCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(Rank.OWNER.getId(), user.getUserRank());
+        assertEquals(Rank.OWNER.getId(), user.getActiveProfile().getUserRank());
     }
 }

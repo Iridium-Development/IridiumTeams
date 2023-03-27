@@ -115,7 +115,7 @@ class JoinCommandTest {
                 .replace("%player%", playerMock.getName())
         ));
         teamMember.assertNoMoreSaid();
-        assertEquals(team.getId(), user.getTeamID());
+        assertEquals(team.getId(), user.getActiveProfile().getTeamID());
         assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(team, user).isPresent());
     }
 
@@ -138,7 +138,7 @@ class JoinCommandTest {
                 .replace("%player%", playerMock.getName())
         ));
         teamMember.assertNoMoreSaid();
-        assertEquals(team.getId(), user.getTeamID());
+        assertEquals(team.getId(), user.getActiveProfile().getTeamID());
         assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(team, user).isPresent());
     }
 
@@ -161,7 +161,7 @@ class JoinCommandTest {
                 .replace("%player%", playerMock.getName())
         ));
         teamMember.assertNoMoreSaid();
-        assertEquals(team.getId(), user.getTeamID());
+        assertEquals(team.getId(), user.getActiveProfile().getTeamID());
         assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(team, user).isPresent());
     }
 

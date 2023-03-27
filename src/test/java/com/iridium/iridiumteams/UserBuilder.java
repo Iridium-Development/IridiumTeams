@@ -35,17 +35,17 @@ public class UserBuilder {
     }
 
     public UserBuilder withChatType(String chatType) {
-        user.setChatType(chatType);
+        user.getActiveProfile().setChatType(chatType);
         return this;
     }
 
     public UserBuilder withTeam(TestTeam testTeam) {
-        user.setTeam(testTeam);
+        user.getActiveProfile().setTeam(testTeam);
         return this;
     }
 
     public UserBuilder withRank(int rank) {
-        user.setUserRank(rank);
+        user.getActiveProfile().setUserRank(rank);
         return this;
     }
 
@@ -57,7 +57,7 @@ public class UserBuilder {
     }
 
     public UserBuilder setBypassing() {
-        user.setBypassing(true);
+        user.getActiveProfile().setBypassing(true);
         return this;
     }
 

@@ -32,23 +32,23 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
         OfflinePlayer targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
 
-        if (targetUser.getTeamID() != team.getId()) {
+        if (targetUser.getActiveProfile().getTeamID() != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return;
         }
 
-        int nextRank = targetUser.getUserRank() - 1;
+        int nextRank = targetUser.getActiveProfile().getUserRank() - 1;
 
-        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getUserRank() >= user.getUserRank() && user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
+        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getActiveProfile().getUserRank() >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.getActiveProfile().isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDemoteUser
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return;
         }
 
-        targetUser.setUserRank(nextRank);
+        targetUser.getActiveProfile().setUserRank(nextRank);
 
         for (U member : iridiumTeams.getTeamManager().getTeamMembers(team)) {
             Player teamMember = Bukkit.getPlayer(member.getUuid());

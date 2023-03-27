@@ -90,7 +90,7 @@ class DeleteCommandTest {
         ));
         playerMock.assertNoMoreSaid();
         User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
-        assertEquals(0, user.getTeamID());
+        assertEquals(0, user.getActiveProfile().getTeamID());
     }
 
     @Test
@@ -135,7 +135,7 @@ class DeleteCommandTest {
         playerMock.assertNoMoreSaid();
         adminPlayerMock.assertNoMoreSaid();
         User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
-        assertEquals(0, user.getTeamID());
+        assertEquals(0, user.getActiveProfile().getTeamID());
     }
 
 }

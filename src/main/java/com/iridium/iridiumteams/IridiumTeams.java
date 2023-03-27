@@ -257,7 +257,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public void initializeChatTypes() {
         addChatType(new ChatType(getConfiguration().noneChatAlias, player -> null));
         addChatType(new ChatType(getConfiguration().teamChatAlias, player ->
-                getTeamManager().getTeamViaID(getUserManager().getUser(player).getTeamID()).map(t ->
+                getTeamManager().getTeamViaID(getUserManager().getUser(player).getActiveProfile().getTeamID()).map(t ->
                         getTeamManager().getTeamMembers(t).stream().map(U::getPlayer).collect(Collectors.toList())
                 ).orElse(null))
         );

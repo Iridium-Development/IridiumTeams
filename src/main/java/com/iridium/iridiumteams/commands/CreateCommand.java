@@ -19,7 +19,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
+        if (iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID()).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -32,7 +32,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 return;
             }
             iridiumTeams.getTeamManager().createTeam(player, null).thenAccept(team -> {
-                user.setUserRank(Rank.OWNER.getId());
+                user.getActiveProfile().setUserRank(Rank.OWNER.getId());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
@@ -62,7 +62,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
         iridiumTeams.getTeamManager().createTeam(player, teamName).thenAccept(team -> {
-            user.setUserRank(Rank.OWNER.getId());
+            user.getActiveProfile().setUserRank(Rank.OWNER.getId());
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

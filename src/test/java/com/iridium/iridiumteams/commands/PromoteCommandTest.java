@@ -109,7 +109,7 @@ class PromoteCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         otherPlayer.assertNoMoreSaid();
-        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
     }
 
     @Test
@@ -133,7 +133,7 @@ class PromoteCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         otherPlayer.assertNoMoreSaid();
-        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
     }
 
     @Test
@@ -157,7 +157,7 @@ class PromoteCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         otherPlayer.assertNoMoreSaid();
-        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(2, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
     }
 
     @Test

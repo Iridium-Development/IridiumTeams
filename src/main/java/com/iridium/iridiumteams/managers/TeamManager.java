@@ -52,7 +52,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public boolean canVisit(Player player, T team) {
         TeamSetting teamSetting = getTeamSetting(team, SettingType.TEAM_VISITING.getSettingKey());
         U user = iridiumTeams.getUserManager().getUser(player);
-        return user.isBypassing() || user.getTeamID() == team.getId() || teamSetting.getValue().equalsIgnoreCase("Enabled");
+        return user.getActiveProfile().isBypassing() || user.getActiveProfile().getTeamID() == team.getId() || teamSetting.getValue().equalsIgnoreCase("Enabled");
     }
 
     public abstract List<T> getTeams();
@@ -81,7 +81,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void deleteTeam(T team, U user);
 
     public int getUserRank(T team, U user) {
-        if (user.getTeamID() == team.getId()) return user.getUserRank();
+        if (user.getActiveProfile().getTeamID() == team.getId()) return user.getActiveProfile().getUserRank();
         // if they are not in the same team, they are a visitor
         return Rank.VISITOR.getId();
     }
@@ -91,11 +91,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void setTeamPermission(T team, int rank, String permission, boolean allowed);
 
     public boolean getTeamPermission(T team, U user, String permission) {
-        return user.isBypassing() || getTeamPermission(team, getUserRank(team, user), permission);
+        return user.getActiveProfile().isBypassing() || getTeamPermission(team, getUserRank(team, user), permission);
     }
 
     public boolean getTeamPermission(T team, U user, PermissionType permissionType) {
-        return getTeamPermission(team, user, permissionType.getPermissionKey()) || user.isBypassing();
+        return getTeamPermission(team, user, permissionType.getPermissionKey()) || user.getActiveProfile().isBypassing();
     }
 
     public boolean getTeamPermission(Location location, U user, String permission) {

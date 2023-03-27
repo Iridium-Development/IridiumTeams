@@ -18,8 +18,8 @@ public class BypassCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        user.setBypassing(!user.isBypassing());
-        player.sendMessage(StringUtils.color((user.isBypassing() ? iridiumTeams.getMessages().nowBypassing : iridiumTeams.getMessages().noLongerBypassing)
+        user.getActiveProfile().setBypassing(!user.getActiveProfile().isBypassing());
+        player.sendMessage(StringUtils.color((user.getActiveProfile().isBypassing() ? iridiumTeams.getMessages().nowBypassing : iridiumTeams.getMessages().noLongerBypassing)
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
         ));
     }

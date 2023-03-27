@@ -43,7 +43,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
     }
 
     public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID());
         if (!team.isPresent()) {
             user.getPlayer().sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
@@ -64,7 +64,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         if (commandSender instanceof Player) {
             U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) commandSender);
-            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID());
             if (team.isPresent()) {
                 return onTabComplete(user, team.get(), args, iridiumTeams);
             }

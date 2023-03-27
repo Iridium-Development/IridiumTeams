@@ -109,7 +109,7 @@ class KickCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 
-        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getTeamID());
+        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getTeamID());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%player%", otherPlayer.getName())
@@ -131,7 +131,7 @@ class KickCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 
-        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getTeamID());
+        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getTeamID());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%player%", otherPlayer.getName())
@@ -153,7 +153,7 @@ class KickCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test kick " + otherPlayer.getName());
 
-        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getTeamID());
+        assertEquals(0, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getTeamID());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().playerKicked
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%player%", otherPlayer.getName())

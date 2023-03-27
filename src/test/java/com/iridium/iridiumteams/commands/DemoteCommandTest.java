@@ -107,7 +107,7 @@ class DemoteCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
 
-        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
                 .replace("%player%", otherPlayer.getName())
                 .replace("%rank%", "Member")
@@ -131,7 +131,7 @@ class DemoteCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
 
-        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
                 .replace("%player%", otherPlayer.getName())
                 .replace("%rank%", "Member")
@@ -155,7 +155,7 @@ class DemoteCommandTest {
 
         serverMock.dispatchCommand(playerMock, "test demote " + otherPlayer.getDisplayName());
 
-        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(1, TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().demotedPlayer
                 .replace("%player%", otherPlayer.getName())
                 .replace("%rank%", "Member")

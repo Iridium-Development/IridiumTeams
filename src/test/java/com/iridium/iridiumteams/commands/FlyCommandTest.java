@@ -86,7 +86,7 @@ class FlyCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertTrue(user.isFlying());
+        assertTrue(user.getActiveProfile().isFlying());
         assertTrue(playerMock.isFlying());
         assertTrue(playerMock.getAllowFlight());
 
@@ -96,7 +96,7 @@ class FlyCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertFalse(user.isFlying());
+        assertFalse(user.getActiveProfile().isFlying());
         assertFalse(playerMock.isFlying());
         assertFalse(playerMock.getAllowFlight());
     }
@@ -113,7 +113,7 @@ class FlyCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertTrue(user.isFlying());
+        assertTrue(user.getActiveProfile().isFlying());
         assertTrue(playerMock.isFlying());
         assertTrue(playerMock.getAllowFlight());
     }
@@ -130,7 +130,7 @@ class FlyCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertFalse(user.isFlying());
+        assertFalse(user.getActiveProfile().isFlying());
         assertFalse(playerMock.isFlying());
         assertFalse(playerMock.getAllowFlight());
     }

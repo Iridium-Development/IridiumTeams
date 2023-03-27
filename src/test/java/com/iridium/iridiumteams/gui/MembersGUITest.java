@@ -74,7 +74,7 @@ class MembersGUITest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(1, user.getUserRank());
+        assertEquals(1, user.getActiveProfile().getUserRank());
     }
 
     @Test
@@ -95,7 +95,7 @@ class MembersGUITest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(0, user.getTeamID());
+        assertEquals(0, user.getActiveProfile().getTeamID());
     }
 
     @Test
@@ -116,6 +116,6 @@ class MembersGUITest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals(3, user.getUserRank());
+        assertEquals(3, user.getActiveProfile().getUserRank());
     }
 }
