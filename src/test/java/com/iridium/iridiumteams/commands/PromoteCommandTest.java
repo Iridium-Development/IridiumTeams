@@ -89,6 +89,17 @@ class PromoteCommandTest {
     }
 
     @Test
+    public void executeDemoteCommand__CannotPromote_Owner() {
+        TestTeam team = new TeamBuilder().withPermission(8, PermissionType.PROMOTE, true).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
+        PlayerMock otherPlayer = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+
+        serverMock.dispatchCommand(playerMock, "test promote " + otherPlayer.getDisplayName());
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotPromoteUser.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
     public void executePromoteCommand__Successful() {
         TestTeam team = new TeamBuilder().withPermission(8, PermissionType.PROMOTE, true).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(8).build();
