@@ -18,14 +18,12 @@ If you need to take a look, here is the [Nexus](https://nexus.iridiumdevelopment
 
 ## Development
 
-You may notice when compiling and developing against IridiumTeams that there is a significant portion of code that isn't located in this repo. That's because IridiumTeams is an extension of IridiumCore.
+You may notice when compiling and developing against IridiumTeams that there is some code that isn't located in this repo. That's because IridiumTeams is an extension of IridiumCore.
 
 - [IridiumCore](https://github.com/Iridium-Development/IridiumCore)
-  - A sort of library for all of Iridium Development's plugins
+  - A library containing Utility methods for Messages Inventory and cross version support.
 - [IridiumTeams](https://github.com/Iridium-Development/IridiumTeams)
   - This plugin, which extends IridiumCore, and involves all of the code for team management, including leveling, missions, team members, the bank, etc.
-
-When developing with IridiumTeams, you may have to reference both repos for your project.
 
 ## Support
 
