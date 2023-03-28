@@ -1,4 +1,4 @@
-# IridiumSkyblock
+# IridiumTeams
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bf425571a86e4691a172e2b61ba40956)](https://www.codacy.com/gh/Iridium-Development/IridiumSkyblock/dashboard)
 ![GitHub](https://img.shields.io/github/license/Iridium-Development/IridiumTeams?color=479fc0)
 
