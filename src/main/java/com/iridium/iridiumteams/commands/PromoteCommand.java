@@ -39,7 +39,7 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
 
         int nextRank = targetUser.getActiveProfile().getUserRank() + 1;
 
-        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || (nextRank >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.getActiveProfile().isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.PROMOTE)) {
+        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || (nextRank >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.PROMOTE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotPromoteUser.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }

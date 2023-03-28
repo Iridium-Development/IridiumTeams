@@ -33,14 +33,26 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
     @DatabaseField(columnName = "user_rank", canBeNull = false)
     private int userRank;
 
-    @DatabaseField(columnName = "join_time")
-    private LocalDateTime joinTime;
-
-    private String chatType = "";
-    private boolean bypassing;
-    private boolean flying;
+    @DatabaseField(columnName = "create_time")
+    private LocalDateTime createTime;
 
     
+
+    
+
+    public IridiumUserProfile(@NotNull UUID uuid, @NotNull String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
+
+    public IridiumUserProfile(int id, @NotNull UUID uuid, @NotNull String name) {
+        this.id = id;
+        this.uuid = uuid;
+        this.name = name;
+    }
+
+    public IridiumUserProfile() {
+    }
 
     public void setUuid(@NotNull UUID uuid) {
         this.uuid = uuid;
@@ -62,28 +74,16 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
         setChanged(true);
     }
 
-    public void setJoinTime(LocalDateTime joinTime) {
-        this.joinTime = joinTime;
+    public void setCreateTime(LocalDateTime joinTime) {
+        this.createTime = joinTime;
         setChanged(true);
     }
 
 
     public void setTeam(T t) {
         this.teamID = t == null ? 0 : t.getId();
-        setJoinTime(LocalDateTime.now());
+        setCreateTime(LocalDateTime.now());
         userRank = 1;
-    }
-
-    public void setBypassing(boolean bypassing) {
-        this.bypassing=bypassing;
-    }
-
-    public void setFlying(boolean flying) {
-        this.flying = flying;
-    }
-
-    public void setChatType(String chatType) {
-        this.chatType = chatType;
     }
 
 }

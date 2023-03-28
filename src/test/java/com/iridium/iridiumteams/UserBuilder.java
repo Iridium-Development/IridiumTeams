@@ -35,7 +35,7 @@ public class UserBuilder {
     }
 
     public UserBuilder withChatType(String chatType) {
-        user.getActiveProfile().setChatType(chatType);
+        user.setChatType(chatType);
         return this;
     }
 
@@ -57,7 +57,7 @@ public class UserBuilder {
     }
 
     public UserBuilder setBypassing() {
-        user.getActiveProfile().setBypassing(true);
+        user.setBypassing(true);
         return this;
     }
 

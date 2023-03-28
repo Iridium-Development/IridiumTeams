@@ -77,7 +77,7 @@ class ChatCommandTest {
                 .replace("%type%", "Team")
         ));
         playerMock.assertNoMoreSaid();
-        assertEquals("Team", TestPlugin.getInstance().getUserManager().getUser(playerMock).getActiveProfile().getChatType());
+        assertEquals("Team", TestPlugin.getInstance().getUserManager().getUser(playerMock).getChatType());
     }
 
     @Test

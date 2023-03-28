@@ -12,15 +12,16 @@ public class User extends IridiumUser<TestTeam> {
         setName(username);
     }
 
-    IridiumUserProfile<TestTeam> profile = new IridiumUserProfile<>();
+    IridiumUserProfile<TestTeam> profileCache = new IridiumUserProfile<>();
 
     @Override
     public IridiumUserProfile<TestTeam> getActiveProfile() {
-        return profile;
+        return profileCache;
     }
 
     @Override
     public void setActiveProfile(IridiumUserProfile<TestTeam> profile) {
-        this.profile = profile;
+        this.profileCache = profile;
+        this.profile = profile.getId();
     }
 }

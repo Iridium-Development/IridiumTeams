@@ -19,4 +19,5 @@ public interface IridiumUserManager<T extends Team, U extends IridiumUser<T>> {
     Optional<IridiumUserProfile<T>> getUserProfile(int id);
 
     List<IridiumUserProfile<T>> getUserProfiles(U user);
+    IridiumUserProfile<T> createUserProfile(U user,String name);
 }

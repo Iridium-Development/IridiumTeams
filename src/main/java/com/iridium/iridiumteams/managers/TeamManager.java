@@ -52,7 +52,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public boolean canVisit(Player player, T team) {
         TeamSetting teamSetting = getTeamSetting(team, SettingType.TEAM_VISITING.getSettingKey());
         U user = iridiumTeams.getUserManager().getUser(player);
-        return user.getActiveProfile().isBypassing() || user.getActiveProfile().getTeamID() == team.getId() || teamSetting.getValue().equalsIgnoreCase("Enabled");
+        return user.isBypassing() || user.getActiveProfile().getTeamID() == team.getId() || teamSetting.getValue().equalsIgnoreCase("Enabled");
     }
 
     public abstract List<T> getTeams();
@@ -91,11 +91,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void setTeamPermission(T team, int rank, String permission, boolean allowed);
 
     public boolean getTeamPermission(T team, U user, String permission) {
-        return user.getActiveProfile().isBypassing() || getTeamPermission(team, getUserRank(team, user), permission);
+        return user.isBypassing() || getTeamPermission(team, getUserRank(team, user), permission);
     }
 
     public boolean getTeamPermission(T team, U user, PermissionType permissionType) {
-        return getTeamPermission(team, user, permissionType.getPermissionKey()) || user.getActiveProfile().isBypassing();
+        return getTeamPermission(team, user, permissionType.getPermissionKey()) || user.isBypassing();
     }
 
     public boolean getTeamPermission(Location location, U user, String permission) {

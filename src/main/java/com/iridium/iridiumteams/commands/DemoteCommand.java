@@ -41,7 +41,7 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
 
         int nextRank = targetUser.getActiveProfile().getUserRank() - 1;
 
-        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getActiveProfile().getUserRank() >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.getActiveProfile().isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
+        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getActiveProfile().getUserRank() >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDemoteUser
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

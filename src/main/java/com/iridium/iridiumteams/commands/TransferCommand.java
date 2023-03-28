@@ -27,7 +27,7 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        if (user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.getActiveProfile().isBypassing()) {
+        if (user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().mustBeOwnerToTransfer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -47,7 +47,7 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
             ));
             return;
         }
-        if (targetPlayer.getUniqueId().equals(player.getUniqueId()) && !user.getActiveProfile().isBypassing()) {
+        if (targetPlayer.getUniqueId().equals(player.getUniqueId()) && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotTransferToYourself
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

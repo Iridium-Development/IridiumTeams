@@ -91,7 +91,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public List<User> getTeamMembers(TestTeam team) {
-        return UserManager.users.stream().filter(user -> user.getActiveProfile().getTeamID() == team.getId()).collect(Collectors.toList());
+        return UserManager.users.stream().filter(user -> UserManager.profiles.stream().filter(profile->profile.getUuid().equals(user.getUuid())).anyMatch(profile->profile.getTeamID() == team.getId())).collect(Collectors.toList());
     }
 
     @Override

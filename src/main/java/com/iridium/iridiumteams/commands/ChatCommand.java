@@ -40,7 +40,7 @@ public class ChatCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         }
 
         String chat = WordUtils.capitalizeFully(chatType.get().getAliases().stream().max(Comparator.comparing(String::length)).orElse(args[0]));
-        user.getActiveProfile().setChatType(chat);
+        user.setChatType(chat);
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().setChatType
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%type%", chat))

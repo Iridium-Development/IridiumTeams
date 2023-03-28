@@ -51,7 +51,7 @@ class BypassCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertTrue(user.getActiveProfile().isBypassing());
+        assertTrue(user.isBypassing());
     }
 
     @Test
@@ -64,6 +64,6 @@ class BypassCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
-        assertFalse(user.getActiveProfile().isBypassing());
+        assertFalse(user.isBypassing());
     }
 }

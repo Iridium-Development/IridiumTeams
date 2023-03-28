@@ -26,11 +26,16 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
     private @NotNull String name;
 
     @DatabaseField(columnName = "active_profile")
-    private int profile =0;
+    protected int profile =0;
 
     private BukkitTask bukkitTask;
 
     private int bukkitTaskTicks = 0;
+
+    private String chatType = "";
+    private boolean bypassing;
+    private boolean flying;
+
 
     public abstract IridiumUserProfile<T> getActiveProfile();
     public abstract void setActiveProfile(IridiumUserProfile<T> profile);
@@ -59,10 +64,12 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
         applyPotionEffects(iridiumTeams);
     }
 
+    
+
     public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
         if (player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return true;
-        if (getActiveProfile().isBypassing()) return true;
+        if (isBypassing()) return true;
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(getActiveProfile().getTeamID());
         Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
         return canFly(team.orElse(null), iridiumTeams) || canFly(visitor.orElse(null), iridiumTeams);
@@ -138,4 +145,17 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
         }
         return false;
     }
+
+     public void setBypassing(boolean bypassing) {
+        this.bypassing=bypassing;
+    }
+
+    public void setFlying(boolean flying) {
+        this.flying = flying;
+    }
+
+    public void setChatType(String chatType) {
+        this.chatType = chatType;
+    }
+
 }

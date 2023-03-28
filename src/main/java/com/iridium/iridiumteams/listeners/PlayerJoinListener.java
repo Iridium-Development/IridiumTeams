@@ -17,7 +17,7 @@ public class PlayerJoinListener<T extends Team, U extends IridiumUser<T>> implem
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
-        user.getActiveProfile().setBypassing(false);
+        user.setBypassing(false);
         user.initBukkitTask(iridiumTeams);
 
         // Update the internal username in case of name change

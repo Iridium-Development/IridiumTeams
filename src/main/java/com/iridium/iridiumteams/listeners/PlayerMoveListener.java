@@ -30,8 +30,8 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
             iridiumTeams.getTeamManager().sendTeamTime(player);
             iridiumTeams.getTeamManager().sendTeamWeather(player);
         }
-        if (user.getActiveProfile().isFlying() && (to.getBlockX() != from.getBlockX() || to.getBlockZ() != from.getBlockZ()) && !user.canFly(iridiumTeams)) {
-            user.getActiveProfile().setFlying(false);
+        if (user.isFlying() && (to.getBlockX() != from.getBlockX() || to.getBlockZ() != from.getBlockZ()) && !user.canFly(iridiumTeams)) {
+            user.setFlying(false);
             player.setAllowFlight(false);
             player.setFlying(false);
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().flightDisabled
