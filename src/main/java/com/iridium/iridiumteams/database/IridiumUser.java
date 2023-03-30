@@ -12,7 +12,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Getter
@@ -26,7 +25,7 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
     private @NotNull String name;
 
     @DatabaseField(columnName = "active_profile")
-    protected int profile =0;
+    protected int activeProfileId = 0;
 
     private BukkitTask bukkitTask;
 
@@ -38,7 +37,11 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
 
 
     public abstract IridiumUserProfile<T> getActiveProfile();
-    public abstract void setActiveProfile(IridiumUserProfile<T> profile);
+
+    public void setActiveProfile(IridiumUserProfile<T> profile) {
+        this.activeProfileId = profile.getId();
+        setChanged(true);
+    }
 
     public Player getPlayer() {
         return Bukkit.getServer().getPlayer(uuid);
@@ -64,7 +67,6 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
         applyPotionEffects(iridiumTeams);
     }
 
-    
 
     public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
@@ -86,6 +88,7 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
 
         return canApply(iridiumTeams, team, data.enhancementAffectsType);
     }
+
     public void applyPotionEffects(IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
         if (player == null) return;
@@ -129,7 +132,7 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
     }
 
     public boolean canApply(IridiumTeams<T, ?> iridiumTeams, T team, List<EnhancementAffectsType> enhancementAffectsTypes) {
-        Player player =getPlayer();
+        Player player = getPlayer();
         if (player == null) return false;
         int teamLocationID = iridiumTeams.getTeamManager().getTeamViaLocation(player.getLocation()).map(T::getId).orElse(0);
         for (EnhancementAffectsType enhancementAffectsType : enhancementAffectsTypes) {
@@ -146,8 +149,8 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
         return false;
     }
 
-     public void setBypassing(boolean bypassing) {
-        this.bypassing=bypassing;
+    public void setBypassing(boolean bypassing) {
+        this.bypassing = bypassing;
     }
 
     public void setFlying(boolean flying) {

@@ -22,6 +22,6 @@ public class User extends IridiumUser<TestTeam> {
     @Override
     public void setActiveProfile(IridiumUserProfile<TestTeam> profile) {
         this.profileCache = profile;
-        this.profile = profile.getId();
+        this.activeProfileId = profile.getId();
     }
 }

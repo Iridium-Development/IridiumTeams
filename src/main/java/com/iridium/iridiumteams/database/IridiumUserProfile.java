@@ -34,21 +34,23 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
     private int userRank;
 
     @DatabaseField(columnName = "create_time")
+    private LocalDateTime joinTime;
+
+    @DatabaseField(columnName = "create_time")
     private LocalDateTime createTime;
 
-    
-
-    
 
     public IridiumUserProfile(@NotNull UUID uuid, @NotNull String name) {
         this.uuid = uuid;
         this.name = name;
+        this.createTime = LocalDateTime.now();
     }
 
     public IridiumUserProfile(int id, @NotNull UUID uuid, @NotNull String name) {
         this.id = id;
         this.uuid = uuid;
         this.name = name;
+        this.createTime = LocalDateTime.now();
     }
 
     public IridiumUserProfile() {
@@ -74,15 +76,9 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
         setChanged(true);
     }
 
-    public void setCreateTime(LocalDateTime joinTime) {
-        this.createTime = joinTime;
-        setChanged(true);
-    }
-
-
     public void setTeam(T t) {
         this.teamID = t == null ? 0 : t.getId();
-        setCreateTime(LocalDateTime.now());
+        this.joinTime = LocalDateTime.now();
         userRank = 1;
     }
 
