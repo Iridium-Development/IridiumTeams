@@ -37,9 +37,9 @@ public class Enhancements {
                 "",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, FarmingEnhancementData>()
-                .put(1, new FarmingEnhancementData(5, 10000, new HashMap<>(), 1.5))
+                .put(1, new FarmingEnhancementData(5, 10000, new HashMap<>(), 1))
                 .put(2, new FarmingEnhancementData(10, 10000, new HashMap<>(), 2))
-                .put(3, new FarmingEnhancementData(15, 10000, new HashMap<>(), 2.5))
+                .put(3, new FarmingEnhancementData(15, 10000, new HashMap<>(), 3))
                 .build());
 
         spawnerEnhancement = new Enhancement<>(true, EnhancementType.BOOSTER, new Item(XMaterial.SPAWNER, 12, 1, color + "&lSpawner Booster", Arrays.asList(
