@@ -15,6 +15,7 @@ public enum PermissionType {
     DESCRIPTION("description"),
     DOORS("doors"),
     INVITE("invite"),
+    TRUST("trust"),
     KICK("kick"),
     KILL_MOBS("killMobs"),
     OPEN_CONTAINERS("openContainers"),

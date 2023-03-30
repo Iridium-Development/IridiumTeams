@@ -21,6 +21,7 @@ public class Inventories {
     public SingleItemGUI rewardsGUI;
     public SingleItemGUI membersGUI;
     public SingleItemGUI invitesGUI;
+    public SingleItemGUI trustsGUI;
     public NoItemGUI ranksGUI;
     public NoItemGUI permissionsGUI;
     public NoItemGUI settingsGUI;
@@ -59,6 +60,13 @@ public class Inventories {
                 color + "Invited: &7%invite_time%",
                 "",
                 color + "&l[!] &7Left click to uninvite"
+        )));
+
+        trustsGUI = new SingleItemGUI(0, "&7" + team + " Trusts", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
+                color + "Trusted At: &7%trusted_time%",
+                color + "Trusted By: &7%truster%",
+                "",
+                color + "&l[!] &7Left click to un-trust"
         )));
         ranksGUI = new NoItemGUI(27, "&7" + team + " Permissions", background1);
         permissionsGUI = new NoItemGUI(54, "&7" + team + " Permissions", background1);
