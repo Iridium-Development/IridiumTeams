@@ -221,6 +221,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addPermission(PermissionType.DESCRIPTION.getPermissionKey(), getPermissions().description);
         addPermission(PermissionType.DOORS.getPermissionKey(), getPermissions().doors);
         addPermission(PermissionType.INVITE.getPermissionKey(), getPermissions().invite);
+        addPermission(PermissionType.TRUST.getPermissionKey(), getPermissions().trust);
         addPermission(PermissionType.KICK.getPermissionKey(), getPermissions().kick);
         addPermission(PermissionType.KILL_MOBS.getPermissionKey(), getPermissions().killMobs);
         addPermission(PermissionType.OPEN_CONTAINERS.getPermissionKey(), getPermissions().openContainers);
