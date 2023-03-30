@@ -52,6 +52,15 @@ class BlockPlaceListenerTest {
     }
 
     @Test
+    public void onBlockPlaceNotCancelled__IsTrusted() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_PLACE, true).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTrust(team).build();
+        TeamManager.teamViaLocation = Optional.of(team);
+
+        assertFalse(playerMock.simulateBlockPlace(Material.STONE, playerMock.getLocation()).isCancelled());
+    }
+
+    @Test
     public void onBlockPlaceCancelled__NoPermissions() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_PLACE, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();

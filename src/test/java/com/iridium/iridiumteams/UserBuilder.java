@@ -39,6 +39,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder withTrust(TestTeam testTeam) {
+        TestPlugin.getInstance().getTeamManager().createTeamTrust(testTeam, user, user);
+        return this;
+    }
+
     public UserBuilder withTeam(TestTeam testTeam) {
         user.setTeam(testTeam);
         return this;
