@@ -68,5 +68,11 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
+
+        TeamTrust teamTrust = getItem(event.getSlot());
+        if (teamTrust == null) return;
+
+        String username = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getUser()).map(U::getName).orElse("N/A");
+        iridiumTeams.getCommands().unTrustCommand.execute(event.getWhoClicked(), new String[]{username}, iridiumTeams);
     }
 }

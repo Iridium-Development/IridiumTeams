@@ -44,7 +44,7 @@ class TrustsGUITest {
     }
 
     @Test
-    public void InvitesGUI__HasItems() {
+    public void TrustsGUI__HasItems() {
         TestTeam testTeam = new TeamBuilder().build();
         for (int i = 0; i < 5; i++) {
             new UserBuilder(serverMock).withTrust(testTeam).build();
@@ -54,5 +54,26 @@ class TrustsGUITest {
         for (int i = 0; i < inventory.getSize(); i++) {
             assertEquals(inventoryLayout.getOrDefault(i, Material.BLACK_STAINED_GLASS_PANE), inventory.getContents()[i].getType(), "Item on slot " + i + " not as expected");
         }
+    }
+
+    @Test
+    public void TrustsGUI__Click() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        PlayerMock target = new UserBuilder(serverMock).withTrust(testTeam).build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(target);
+
+        TrustsGUI<TestTeam, User> trustsGUI = new TrustsGUI<>(testTeam, null, TestPlugin.getInstance());
+
+        playerMock.openInventory(trustsGUI.getInventory());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(0);
+
+        assertTrue(inventoryClickEvent.isCancelled());
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().teamTrustRevoked
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%player%", target.getName())
+        ));
+        playerMock.assertNoMoreSaid();
+        assertFalse(TestPlugin.getInstance().getTeamManager().getTeamInvite(testTeam, user).isPresent());
     }
 }
