@@ -74,7 +74,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         }
     }
 
-    public abstract List<U> getTeamMembers(T team);
+    public List<U> getTeamMembers(T team) {
+        return iridiumTeams.getUserManager().getUsers().stream()
+                .filter(user -> user.getTeamID() == team.getId())
+                .collect(Collectors.toList());
+    }
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @Nullable String name);
 

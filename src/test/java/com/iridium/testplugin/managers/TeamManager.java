@@ -92,11 +92,6 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public List<User> getTeamMembers(TestTeam team) {
-        return UserManager.users.stream().filter(user -> user.getTeamID() == team.getId()).collect(Collectors.toList());
-    }
-
-    @Override
     public CompletableFuture<TestTeam> createTeam(@NotNull Player owner, @Nullable String name) {
         TestTeam testTeam = new TestTeam(name);
         User user = TestPlugin.getInstance().getUserManager().getUser(owner);
