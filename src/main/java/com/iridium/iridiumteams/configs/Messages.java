@@ -54,6 +54,8 @@ public class Messages {
     public String trustAlreadyPresent;
     public String teamTrustSent;
     public String teamTrustReceived;
+    public String teamTrustRevoked;
+    public String noActiveTrust;
     public String dontHaveInvite;
     public String noActiveInvite;
     public String teamInviteRevoked;
@@ -188,6 +190,8 @@ public class Messages {
         trustAlreadyPresent = "%prefix% &7This user is already trusted.";
         teamTrustSent = "%prefix% &7You have trusted %player% in your " + team + ".";
         teamTrustReceived = "%prefix% &7You have been trusted in %player%'s " + team + ".";
+        noActiveTrust = "%prefix% &7That user is not trusted in your " + team + ".";
+        teamTrustRevoked = "%prefix% &7You have revoked a " + team + " trust from %player%.";
         dontHaveInvite = "%prefix% &7You dont have an active invite for that " + team + ".";
         noActiveInvite = "%prefix% &7There is no active invite for that user.";
         teamInviteRevoked = "%prefix% &7You have revoked a " + team + " invite from %player%.";

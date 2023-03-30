@@ -112,13 +112,15 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract void createTeamInvite(T team, U user, U invitee);
 
+    public abstract void deleteTeamInvite(TeamInvite teamInvite);
+
     public abstract Optional<TeamTrust> getTeamTrust(T team, U user);
 
     public abstract List<TeamTrust> getTeamTrusts(T team);
 
     public abstract void createTeamTrust(T team, U user, U invitee);
 
-    public abstract void deleteTeamInvite(TeamInvite teamInvite);
+    public abstract void deleteTeamTrust(TeamTrust teamTrust);
 
     public abstract TeamBank getTeamBank(T team, String bankItem);
 

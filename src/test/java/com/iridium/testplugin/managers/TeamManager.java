@@ -154,6 +154,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public void deleteTeamInvite(TeamInvite teamInvite) {
+        teamInvites.remove(teamInvite);
+    }
+
+    @Override
     public Optional<TeamTrust> getTeamTrust(TestTeam team, User user) {
         return teamTrusts.stream()
                 .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
@@ -174,8 +179,8 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public void deleteTeamInvite(TeamInvite teamInvite) {
-        teamInvites.remove(teamInvite);
+    public void deleteTeamTrust(TeamTrust teamTrust) {
+        teamTrusts.remove(teamTrust);
     }
 
     @Override
