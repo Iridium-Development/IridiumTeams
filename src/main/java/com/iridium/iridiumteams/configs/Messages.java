@@ -24,6 +24,7 @@ public class Messages {
     public String dontHaveTeam;
     public String cannotChangePermissions;
     public String cannotInvite;
+    public String cannotTrust;
     public String cannotKick;
     public String cannotDeleteTeam;
     public String cannotChangeDescription;
@@ -50,6 +51,11 @@ public class Messages {
     public String inviteAlreadyPresent;
     public String teamInviteSent;
     public String teamInviteReceived;
+    public String trustAlreadyPresent;
+    public String teamTrustSent;
+    public String teamTrustReceived;
+    public String teamTrustRevoked;
+    public String noActiveTrust;
     public String dontHaveInvite;
     public String noActiveInvite;
     public String teamInviteRevoked;
@@ -154,6 +160,7 @@ public class Messages {
         dontHaveTeam = "%prefix% &7You dont have a " + team + ".";
         cannotChangePermissions = "%prefix% &7You cannot change this permission.";
         cannotInvite = "%prefix% &7You cannot invite players to the " + team + ".";
+        cannotTrust = "%prefix% &7You cannot trust players in the " + team + ".";
         cannotKick = "%prefix% &7You cannot kick players from the " + team + ".";
         cannotDeleteTeam = "%prefix% &7Only the " + team + " owner can delete the " + team + ".";
         cannotChangeDescription = "%prefix% &7You cannot change the " + team + "'s Description.";
@@ -180,6 +187,11 @@ public class Messages {
         inviteAlreadyPresent = "%prefix% &7There is already an active invite for that user.";
         teamInviteSent = "%prefix% &7You have sent a " + team + " invite to %player%.";
         teamInviteReceived = "%prefix% &7You have received a " + team + " invite from %player%.";
+        trustAlreadyPresent = "%prefix% &7This user is already trusted.";
+        teamTrustSent = "%prefix% &7You have trusted %player% in your " + team + ".";
+        teamTrustReceived = "%prefix% &7You have been trusted in %player%'s " + team + ".";
+        noActiveTrust = "%prefix% &7That user is not trusted in your " + team + ".";
+        teamTrustRevoked = "%prefix% &7You have revoked a " + team + " trust from %player%.";
         dontHaveInvite = "%prefix% &7You dont have an active invite for that " + team + ".";
         noActiveInvite = "%prefix% &7There is no active invite for that user.";
         teamInviteRevoked = "%prefix% &7You have revoked a " + team + " invite from %player%.";

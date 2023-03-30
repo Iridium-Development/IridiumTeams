@@ -85,6 +85,6 @@ class HelpCommandTest {
     @Test
     public void helpCommand__TabComplete() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
-        assertEquals(Arrays.asList("1", "2", "3", "4", "5"), serverMock.getCommandTabComplete(playerMock, "test help "));
+        assertEquals(Arrays.asList("1", "2", "3", "4", "5", "6"), serverMock.getCommandTabComplete(playerMock, "test help "));
     }
 }
