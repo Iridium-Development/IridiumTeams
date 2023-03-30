@@ -40,7 +40,7 @@ public class TrustCommand<T extends Team, U extends IridiumUser<T>> extends Comm
             return;
         }
         U offlinePlayerUser = iridiumTeams.getUserManager().getUser(invitee);
-        if (offlinePlayerUser.getTeamID() == team.getId()) {
+        if (offlinePlayerUser.getActiveProfile().getTeamID() == team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userAlreadyInTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

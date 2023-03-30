@@ -79,10 +79,10 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
     }
 
     private boolean IsHigherRank(U target, U user) {
-        if (target.getUserRank() == Rank.OWNER.getId()) return true;
-        if (user.getUserRank() == Rank.OWNER.getId()) return false;
+        if (target.getActiveProfile().getUserRank() == Rank.OWNER.getId()) return true;
+        if (user.getActiveProfile().getUserRank() == Rank.OWNER.getId()) return false;
         if (user.isBypassing()) return false;
-        return target.getUserRank() + 1 >= user.getUserRank();
+        return target.getActiveProfile().getUserRank() + 1 >= user.getActiveProfile().getUserRank();
     }
 
 }

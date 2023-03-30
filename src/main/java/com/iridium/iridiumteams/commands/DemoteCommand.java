@@ -82,10 +82,10 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     }
 
     private boolean IsHigherRank(U target, U user) {
-        if (target.getUserRank() == Rank.OWNER.getId()) return true;
-        if (user.getUserRank() == Rank.OWNER.getId()) return false;
+        if (target.getActiveProfile().getUserRank() == Rank.OWNER.getId()) return true;
+        if (user.getActiveProfile().getUserRank() == Rank.OWNER.getId()) return false;
         if (user.isBypassing()) return false;
-        return target.getUserRank() >= user.getUserRank();
+        return target.getActiveProfile().getUserRank() >= user.getActiveProfile().getUserRank();
     }
 
 }
