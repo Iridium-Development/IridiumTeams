@@ -39,7 +39,8 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
 
         int nextRank = targetUser.getActiveProfile().getUserRank() + 1;
 
-        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || (nextRank >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.PROMOTE)) {
+        if (!DoesRankExist(nextRank, iridiumTeams) || IsHigherRank(targetUser, user) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.PROMOTE)) {
+
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotPromoteUser.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
@@ -70,6 +71,18 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
     @Override
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+    private boolean DoesRankExist(int rank, IridiumTeams<T, U> iridiumTeams) {
+        if (rank < 1) return false;
+        return iridiumTeams.getUserRanks().containsKey(rank);
+    }
+
+    private boolean IsHigherRank(U target, U user) {
+        if (target.getUserRank() == Rank.OWNER.getId()) return true;
+        if (user.getUserRank() == Rank.OWNER.getId()) return false;
+        if (user.isBypassing()) return false;
+        return target.getUserRank() + 1 >= user.getUserRank();
     }
 
 }

@@ -41,7 +41,7 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
 
         int nextRank = targetUser.getActiveProfile().getUserRank() - 1;
 
-        if (!iridiumTeams.getUserRanks().containsKey(nextRank) || nextRank < 1 || (targetUser.getActiveProfile().getUserRank() >= user.getActiveProfile().getUserRank() && user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
+        if (!DoesRankExist(nextRank, iridiumTeams) || IsHigherRank(targetUser, user) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DEMOTE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDemoteUser
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -74,6 +74,18 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+    private boolean DoesRankExist(int rank, IridiumTeams<T, U> iridiumTeams) {
+        if (rank < 1) return false;
+        return iridiumTeams.getUserRanks().containsKey(rank);
+    }
+
+    private boolean IsHigherRank(U target, U user) {
+        if (target.getUserRank() == Rank.OWNER.getId()) return true;
+        if (user.getUserRank() == Rank.OWNER.getId()) return false;
+        if (user.isBypassing()) return false;
+        return target.getUserRank() >= user.getUserRank();
     }
 
 }

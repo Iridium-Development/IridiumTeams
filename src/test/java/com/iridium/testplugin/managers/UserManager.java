@@ -58,4 +58,8 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
         profiles.add(profile);
         return profile;
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
 }

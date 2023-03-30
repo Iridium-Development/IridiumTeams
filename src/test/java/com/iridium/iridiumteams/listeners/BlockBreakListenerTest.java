@@ -51,6 +51,15 @@ class BlockBreakListenerTest {
     }
 
     @Test
+    public void onBlockBreakNotCancelled__IsTrusted() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, true).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTrust(team).build();
+        TeamManager.teamViaLocation = Optional.of(team);
+
+        assertFalse(playerMock.simulateBlockBreak(playerMock.getLocation().getBlock()).isCancelled());
+    }
+
+    @Test
     public void onBlockBreakCancelled__NoPermissions() {
         TestTeam team = new TeamBuilder().withPermission(1, PermissionType.BLOCK_BREAK, false).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();

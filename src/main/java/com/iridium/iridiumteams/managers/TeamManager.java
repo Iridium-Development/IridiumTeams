@@ -74,7 +74,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         }
     }
 
-    public abstract List<U> getTeamMembers(T team);
+    public List<U> getTeamMembers(T team) {
+        return iridiumTeams.getUserManager().getUsers().stream()
+                .filter(user -> user.getTeamID() == team.getId())
+                .collect(Collectors.toList());
+    }
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @Nullable String name);
 
@@ -91,11 +95,15 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void setTeamPermission(T team, int rank, String permission, boolean allowed);
 
     public boolean getTeamPermission(T team, U user, String permission) {
-        return user.isBypassing() || getTeamPermission(team, getUserRank(team, user), permission);
+        if (user.isBypassing()) return true;
+        if (getTeamTrust(team, user).isPresent()) {
+            if (getTeamPermission(team, 1, permission)) return true;
+        }
+        return getTeamPermission(team, getUserRank(team, user), permission);
     }
 
     public boolean getTeamPermission(T team, U user, PermissionType permissionType) {
-        return getTeamPermission(team, user, permissionType.getPermissionKey()) || user.isBypassing();
+        return getTeamPermission(team, user, permissionType.getPermissionKey());
     }
 
     public boolean getTeamPermission(Location location, U user, String permission) {
@@ -109,6 +117,14 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract void createTeamInvite(T team, U user, U invitee);
 
     public abstract void deleteTeamInvite(TeamInvite teamInvite);
+
+    public abstract Optional<TeamTrust> getTeamTrust(T team, U user);
+
+    public abstract List<TeamTrust> getTeamTrusts(T team);
+
+    public abstract void createTeamTrust(T team, U user, U invitee);
+
+    public abstract void deleteTeamTrust(TeamTrust teamTrust);
 
     public abstract TeamBank getTeamBank(T team, String bankItem);
 

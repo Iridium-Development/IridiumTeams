@@ -21,6 +21,9 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public InviteCommand<T, U> inviteCommand;
     public UnInviteCommand<T, U> unInviteCommand;
     public InvitesCommand<T, U> invitesCommand;
+    public TrustCommand<T, U> trustCommand;
+    public UnTrustCommand<T, U> unTrustCommand;
+    public TrustsCommand<T, U> trustsCommand;
     public KickCommand<T, U> kickCommand;
     public LeaveCommand<T, U> leaveCommand;
     public DeleteCommand<T, U> deleteCommand;
@@ -69,6 +72,9 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         inviteCommand = new InviteCommand<>(Collections.singletonList("invite"), "Invite a player to your " + team, "%prefix% &7/" + commandBase + " invite <player>", "");
         unInviteCommand = new UnInviteCommand<>(Collections.singletonList("uninvite"), "Revoke a player's invitation to your " + team, "%prefix% &7/" + commandBase + " uninvite <player>", "");
         invitesCommand = new InvitesCommand<>(Collections.singletonList("invites"), "View all active invites to your " + team, "%prefix% &7/" + commandBase + " invites", "");
+        trustCommand = new TrustCommand<>(Collections.singletonList("trust"), "Trust a player in your " + team, "%prefix% &7/" + commandBase + " trust <player>", "");
+        unTrustCommand = new UnTrustCommand<>(Collections.singletonList("untrust"), "Revoke a player's trust in your " + team, "%prefix% &7/" + commandBase + " untrust <player>", "");
+        trustsCommand = new TrustsCommand<>(Collections.singletonList("trusts"), "View all active trusted members for your " + team, "%prefix% &7/" + commandBase + " trusts", "");
         kickCommand = new KickCommand<>(Collections.singletonList("kick"), "Kick a player from your " + team, "%prefix% &7/" + commandBase + " kick <player>", "");
         leaveCommand = new LeaveCommand<>(Collections.singletonList("leave"), "Leave your current " + team, "%prefix% &7/" + commandBase + " leave", "");
         deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete (player)", "", permissionBase + ".delete.others");

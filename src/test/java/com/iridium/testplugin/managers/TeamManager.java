@@ -26,6 +26,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public static List<TeamPermission> teamPermissions;
     public static List<TeamSetting> teamSettings;
     public static List<TeamInvite> teamInvites;
+    public static List<TeamTrust> teamTrusts;
     public static List<TeamSpawners> teamSpawners;
     public static List<TeamBlock> teamBlocks;
     public static List<TeamWarp> teamWarps;
@@ -42,6 +43,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         teamPermissions = new ArrayList<>();
         teamSettings = new ArrayList<>();
         teamInvites = new ArrayList<>();
+        teamTrusts = new ArrayList<>();
         teamViaLocation = Optional.empty();
         teamBank = new HashMap<>();
         teamEnhancements = new HashMap<>();
@@ -87,11 +89,6 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public List<TestTeam> getTeams() {
         return teams;
-    }
-
-    @Override
-    public List<User> getTeamMembers(TestTeam team) {
-        return UserManager.users.stream().filter(user -> UserManager.profiles.stream().filter(profile->profile.getUuid().equals(user.getUuid())).anyMatch(profile->profile.getTeamID() == team.getId())).collect(Collectors.toList());
     }
 
     @Override
@@ -154,6 +151,31 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public void deleteTeamInvite(TeamInvite teamInvite) {
         teamInvites.remove(teamInvite);
+    }
+
+    @Override
+    public Optional<TeamTrust> getTeamTrust(TestTeam team, User user) {
+        return teamTrusts.stream()
+                .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
+                .filter(teamInvite -> teamInvite.getUser() == user.getUuid())
+                .findFirst();
+    }
+
+    @Override
+    public List<TeamTrust> getTeamTrusts(TestTeam team) {
+        return teamTrusts.stream()
+                .filter(teamInvite -> teamInvite.getTeamID() == team.getId())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createTeamTrust(TestTeam team, User user, User invitee) {
+        teamTrusts.add(new TeamTrust(team, user.getUuid(), invitee.getUuid()));
+    }
+
+    @Override
+    public void deleteTeamTrust(TeamTrust teamTrust) {
+        teamTrusts.remove(teamTrust);
     }
 
     @Override
