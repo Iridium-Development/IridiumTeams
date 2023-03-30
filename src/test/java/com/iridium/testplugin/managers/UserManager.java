@@ -34,4 +34,9 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
     public Optional<User> getUserByUUID(@NotNull UUID uuid) {
         return users.stream().filter(user -> user.getUuid() == uuid).findFirst();
     }
+
+    @Override
+    public List<User> getUsers() {
+        return users;
+    }
 }
