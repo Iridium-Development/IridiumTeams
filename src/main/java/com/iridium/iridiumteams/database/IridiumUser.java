@@ -4,7 +4,9 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.enhancements.*;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -29,6 +31,12 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
     private int teamID;
     @DatabaseField(columnName = "user_rank", canBeNull = false)
     private int userRank;
+
+    // userProfiles which may be implemented in the future
+    @DatabaseField(columnName = "user_profile")
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private int userProfile;
 
     @DatabaseField(columnName = "join_time")
     private LocalDateTime joinTime;
