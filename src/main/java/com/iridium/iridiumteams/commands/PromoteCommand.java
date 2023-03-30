@@ -32,19 +32,20 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
         OfflinePlayer targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
 
-        if (targetUser.getTeamID() != team.getId()) {
+        if (targetUser.getActiveProfile().getTeamID() != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
 
-        int nextRank = targetUser.getUserRank() + 1;
+        int nextRank = targetUser.getActiveProfile().getUserRank() + 1;
 
         if (!DoesRankExist(nextRank, iridiumTeams) || IsHigherRank(targetUser, user) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.PROMOTE)) {
+
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotPromoteUser.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
 
-        targetUser.setUserRank(nextRank);
+        targetUser.getActiveProfile().setUserRank(nextRank);
 
         for (U member : iridiumTeams.getTeamManager().getTeamMembers(team)) {
             Player teamMember = Bukkit.getPlayer(member.getUuid());

@@ -47,7 +47,7 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
+        if (user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDeleteTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -61,7 +61,7 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
         player.openInventory(new ConfirmationGUI<>(() -> {
             iridiumTeams.getTeamManager().deleteTeam(team, user);
             for (U member : iridiumTeams.getTeamManager().getTeamMembers(team)) {
-                member.setTeamID(0);
+                member.getActiveProfile().setTeamID(0);
                 Player teamMember = member.getPlayer();
                 if (teamMember != null) {
                     teamMember.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDeleted

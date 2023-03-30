@@ -1,5 +1,6 @@
 package com.iridium.testplugin.managers;
 
+import com.iridium.iridiumteams.database.IridiumUserProfile;
 import com.iridium.iridiumteams.managers.IridiumUserManager;
 import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
@@ -13,9 +14,11 @@ import java.util.UUID;
 
 public class UserManager implements IridiumUserManager<TestTeam, User> {
     public static List<User> users;
+    public static List<IridiumUserProfile<TestTeam>> profiles;
 
     public UserManager() {
         users = new ArrayList<>();
+        profiles = new ArrayList<>();
     }
 
     @Override
@@ -27,6 +30,10 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
             Optional<String> name = Optional.ofNullable(offlinePlayer.getName());
             User user = new User(offlinePlayer.getUniqueId(), name.orElse(""));
             users.add(user);
+            IridiumUserProfile<TestTeam> profile = new IridiumUserProfile<>(profiles.size() + 1, user.getUuid(),
+                    "default");
+            profiles.add(profile);
+            user.setActiveProfile(profile);
             return user;
         }
     }
@@ -36,6 +43,22 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
     }
 
     @Override
+    public Optional<IridiumUserProfile<TestTeam>> getUserProfile(int id) {
+        return profiles.stream().filter(profile -> profile.getId() == id).findAny();
+    }
+
+    @Override
+    public List<IridiumUserProfile<TestTeam>> getUserProfiles(User user) {
+        return profiles.stream().filter(profile -> profile.getUuid().equals(user.getUuid())).toList();
+    }
+
+    @Override
+    public IridiumUserProfile<TestTeam> createUserProfile(User user, String name) {
+        IridiumUserProfile<TestTeam> profile = new IridiumUserProfile<>(profiles.size() + 1, user.getUuid(), name);
+        profiles.add(profile);
+        return profile;
+    }
+
     public List<User> getUsers() {
         return users;
     }

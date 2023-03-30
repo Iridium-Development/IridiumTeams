@@ -21,7 +21,7 @@ public class PlayerChatListener<T extends Team, U extends IridiumUser<T>> implem
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
-        Optional<T> yourTeam = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+        Optional<T> yourTeam = iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID());
         Optional<ChatType> chatType = iridiumTeams.getChatTypes().stream()
                 .filter(type -> type.getAliases().stream().anyMatch(s -> s.equalsIgnoreCase(user.getChatType())))
                 .findFirst();

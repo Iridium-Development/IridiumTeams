@@ -30,7 +30,7 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        if (iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).isPresent()) {
+        if (iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID()).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().alreadyHaveTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -60,7 +60,7 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             return;
         }
 
-        user.setTeam(team.get());
+        user.getActiveProfile().setTeam(team.get());
         teamInvite.ifPresent(invite -> iridiumTeams.getTeamManager().deleteTeamInvite(invite));
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().joinedTeam

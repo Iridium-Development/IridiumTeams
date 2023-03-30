@@ -116,8 +116,8 @@ class TransferCommandTest {
         ConfirmationGUI<?, ?> confirmationGUI = (ConfirmationGUI<?, ?>) playerMock.getOpenInventory().getTopInventory().getHolder();
         confirmationGUI.onInventoryClick(new InventoryClickEvent(playerMock.getOpenInventory(), InventoryType.SlotType.CONTAINER, TestPlugin.getInstance().getInventories().confirmationGUI.yes.slot, ClickType.LEFT, InventoryAction.UNKNOWN));
 
-        assertEquals(3, TestPlugin.getInstance().getUserManager().getUser(playerMock).getUserRank());
-        assertEquals(Rank.OWNER.getId(), TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getUserRank());
+        assertEquals(3, TestPlugin.getInstance().getUserManager().getUser(playerMock).getActiveProfile().getUserRank());
+        assertEquals(Rank.OWNER.getId(), TestPlugin.getInstance().getUserManager().getUser(otherPlayer).getActiveProfile().getUserRank());
         playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().ownershipTransferred
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%old_owner%", playerMock.getName())

@@ -74,6 +74,6 @@ class LeaveCommandTest {
         ));
         otherPlayer.assertNoMoreSaid();
 
-        assertEquals(user.getTeamID(), 0);
+        assertEquals(user.getActiveProfile().getTeamID(), 0);
     }
 }

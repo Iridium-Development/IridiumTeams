@@ -27,7 +27,7 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return;
         }
-        if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
+        if (user.getActiveProfile().getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().mustBeOwnerToTransfer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -41,7 +41,7 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
             return;
         }
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
-        if (targetUser.getTeamID() != team.getId()) {
+        if (targetUser.getActiveProfile().getTeamID() != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -55,10 +55,10 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
         }
 
         player.openInventory(new ConfirmationGUI<>(() -> {
-            targetUser.setUserRank(Rank.OWNER.getId());
+            targetUser.getActiveProfile().setUserRank(Rank.OWNER.getId());
             iridiumTeams.getTeamManager().getTeamMembers(team).forEach(user1 -> {
-                if (user1.getUserRank() == Rank.OWNER.getId() && user1 != targetUser) {
-                    user1.setUserRank(iridiumTeams.getUserRanks().keySet().stream().max(Integer::compareTo).orElse(1));
+                if (user1.getActiveProfile().getUserRank() == Rank.OWNER.getId() && user1 != targetUser) {
+                    user1.getActiveProfile().setUserRank(iridiumTeams.getUserRanks().keySet().stream().max(Integer::compareTo).orElse(1));
                 }
                 Player p = user1.getPlayer();
                 if (p != null) {

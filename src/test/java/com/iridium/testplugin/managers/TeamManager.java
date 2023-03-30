@@ -74,7 +74,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     public Optional<TestTeam> getTeamViaNameOrPlayer(String name) {
         if (name == null || name.equals("")) return Optional.empty();
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(name);
-        Optional<TestTeam> team = getTeamViaID(TestPlugin.getInstance().getUserManager().getUser(targetPlayer).getTeamID());
+        Optional<TestTeam> team = getTeamViaID(TestPlugin.getInstance().getUserManager().getUser(targetPlayer).getActiveProfile().getTeamID());
         if (team.isEmpty()) {
             return getTeamViaName(name);
         }
@@ -96,7 +96,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         TestTeam testTeam = new TestTeam(name);
         User user = TestPlugin.getInstance().getUserManager().getUser(owner);
 
-        user.setTeam(testTeam);
+        user.getActiveProfile().setTeam(testTeam);
         teams.add(testTeam);
         return CompletableFuture.completedFuture(testTeam);
     }

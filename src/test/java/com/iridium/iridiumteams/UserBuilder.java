@@ -45,12 +45,12 @@ public class UserBuilder {
     }
 
     public UserBuilder withTeam(TestTeam testTeam) {
-        user.setTeam(testTeam);
+        user.getActiveProfile().setTeam(testTeam);
         return this;
     }
 
     public UserBuilder withRank(int rank) {
-        user.setUserRank(rank);
+        user.getActiveProfile().setUserRank(rank);
         return this;
     }
 

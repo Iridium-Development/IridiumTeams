@@ -106,7 +106,7 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
     private double getBankBalance(Player player, String bankItem) {
         U user = iridiumTeams.getUserManager().getUser(player);
-        return iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID())
+        return iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID())
                 .map(team -> iridiumTeams.getTeamManager().getTeamBank(team, bankItem))
                 .map(TeamBank::getNumber)
                 .orElse(0.0);
@@ -114,7 +114,7 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
     private void setBankBalance(Player player, String bankItem, double amount) {
         U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID());
         if (!team.isPresent()) return;
         iridiumTeams.getTeamManager().getTeamBank(team.get(), bankItem).setNumber(amount);
     }

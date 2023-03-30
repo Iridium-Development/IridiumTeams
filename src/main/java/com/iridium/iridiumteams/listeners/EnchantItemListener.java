@@ -19,7 +19,7 @@ public class EnchantItemListener<T extends Team, U extends IridiumUser<T>> imple
     public void monitorItemEnchant(EnchantItemEvent event) {
         U user = iridiumTeams.getUserManager().getUser(event.getEnchanter());
         XMaterial material = XMaterial.matchXMaterial(event.getItem().getType());
-        iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
+        iridiumTeams.getTeamManager().getTeamViaID(user.getActiveProfile().getTeamID()).ifPresent(team -> {
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getEnchanter().getLocation().getWorld().getEnvironment(), "ENCHANT", material.name(), 1);
         });
 

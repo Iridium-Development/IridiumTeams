@@ -62,7 +62,7 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
 
         switch (event.getClick()) {
             case LEFT:
-                if (user.getUserRank() != 1) {
+                if (user.getActiveProfile().getUserRank() != 1) {
                     iridiumTeams.getCommands().demoteCommand.execute(event.getWhoClicked(), new String[]{user.getName()}, iridiumTeams);
                 } else {
                     iridiumTeams.getCommands().kickCommand.execute(event.getWhoClicked(), new String[]{user.getName()}, iridiumTeams);

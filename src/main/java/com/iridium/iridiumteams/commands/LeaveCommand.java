@@ -21,7 +21,7 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
     public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
 
-        if(user.getUserRank()== Rank.OWNER.getId()){
+        if(user.getActiveProfile().getUserRank()== Rank.OWNER.getId()){
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().ownerCannotLeave
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -44,7 +44,7 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
             }
         });
 
-        user.setTeam(null);
+        user.getActiveProfile().setTeam(null);
     }
 
 }
