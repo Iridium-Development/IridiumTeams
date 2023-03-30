@@ -7,7 +7,7 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.managers.TeamManager;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
