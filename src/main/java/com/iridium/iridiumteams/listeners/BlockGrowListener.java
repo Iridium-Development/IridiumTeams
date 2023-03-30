@@ -1,7 +1,6 @@
 package com.iridium.iridiumteams.listeners;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
-import com.iridium.iridiumcore.dependencies.xseries.particles.XParticle;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -34,7 +33,7 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
                 if (teamEnhancement.isActive(farmingEnhancement.type) && data != null) {
                     Ageable ageable = (Ageable) event.getNewState().getBlockData();
                     ageable.setAge(Math.min(ageable.getAge() + data.farmingModifier, ageable.getMaximumAge()));
-                    event.getNewState().getBlock().setBlockData(ageable);
+                    event.getNewState().setBlockData(ageable);
                     event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.BONE_MEAL_USE, 0);
                 }
 
