@@ -6,9 +6,9 @@ import java.util.Map;
 
 @NoArgsConstructor
 public class FarmingEnhancementData extends EnhancementData {
-    public double farmingModifier;
+    public int farmingModifier;
 
-    public FarmingEnhancementData(int minLevel, int money, Map<String, Double> bankCosts, double farmingModifier) {
+    public FarmingEnhancementData(int minLevel, int money, Map<String, Double> bankCosts, int farmingModifier) {
         super(minLevel, money, bankCosts);
         this.farmingModifier = farmingModifier;
     }
