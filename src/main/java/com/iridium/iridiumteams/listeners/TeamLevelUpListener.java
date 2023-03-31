@@ -39,6 +39,8 @@ public class TeamLevelUpListener<T extends Team, U extends IridiumUser<T>> imple
                 }
             }
             if (reward != null) {
+                reward.item.lore = StringUtils.processMultiplePlaceholders(reward.item.lore, iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(event.getTeam()));
+                reward.item.displayName = StringUtils.processMultiplePlaceholders(reward.item.displayName, iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(event.getTeam()));
                 iridiumTeams.getTeamManager().addTeamReward(new TeamReward(event.getTeam(), reward));
             }
         }
