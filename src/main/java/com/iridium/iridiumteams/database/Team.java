@@ -46,7 +46,7 @@ public abstract class Team extends DatabaseObject {
     }
 
     public int getLevel() {
-        return (int) Math.max(1, Math.floor(Math.cbrt(experience)));
+        return (int) Math.floor(Math.pow(experience/10.00, 0.95) + 1);
     }
 
     public abstract double getValue();
