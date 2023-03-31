@@ -10,7 +10,7 @@ public class InventoryCloseListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onInventoryClose(InventoryCloseEvent event) {
         if (event.getInventory().getHolder() != null && event.getInventory().getHolder() instanceof ClosableGUI) {
-                ((ClosableGUI) event.getInventory().getHolder()).onInventoryClose(event);
+            ((ClosableGUI) event.getInventory().getHolder()).onInventoryClose(event);
         }
     }
 }
