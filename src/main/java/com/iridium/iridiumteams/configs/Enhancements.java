@@ -181,22 +181,6 @@ public class Enhancements {
                         .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.JUMP))
                         .build()
                 ))
-                .put("regeneration", new Enhancement<>(
-                        true, EnhancementType.UPGRADE, new Item(XMaterial.GOLDEN_APPLE, 16, 1, color + "&lRegen Booster", Arrays.asList(
-                        "&7Gain a Regeneration Potion Effect.",
-                        "",
-                        color + "&lInformation:",
-                        color + "&l * &7Time Remaining: " + color + "%timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
-                        color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Booster Cost: $%cost%",
-                        "",
-                        color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
-                )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
-                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.REGENERATION))
-                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.REGENERATION))
-                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.REGENERATION))
-                        .build()
-                ))
                 .build();
     }
 }
