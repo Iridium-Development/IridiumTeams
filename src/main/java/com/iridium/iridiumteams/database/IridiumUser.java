@@ -47,6 +47,11 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
         return Bukkit.getServer().getPlayer(uuid);
     }
 
+    public void setUuid(@NotNull UUID uuid) {
+        this.uuid = uuid;
+        setChanged(true);
+    }
+
     public void setName(@NotNull String name) {
         this.name = name;
         setChanged(true);
