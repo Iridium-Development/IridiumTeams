@@ -182,6 +182,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new EntitySpawnListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new FurnaceSmeltListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         Bukkit.getPluginManager().registerEvents(new LeavesDecayListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCraftListener<>(this), this);
@@ -266,7 +267,6 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
 
     public void initializeEnhancements() {
         for (Map.Entry<String, Enhancement<PotionEnhancementData>> enhancement : getEnhancements().potionEnhancements.entrySet()) {
-            if (!enhancement.getValue().enabled) continue;
             addEnhancement(enhancement.getKey(), enhancement.getValue());
         }
         addEnhancement("farming", getEnhancements().farmingEnhancement);
@@ -301,6 +301,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void addEnhancement(String key, Enhancement<?> enhancement) {
+        if (!enhancement.enabled) return;
         enhancementList.put(key, enhancement);
     }
 
@@ -308,11 +309,11 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         sortingTypes.add(sortingType);
     }
 
-    public void addBstats(int pluginId){
+    public void addBstats(int pluginId) {
         new Metrics(this, pluginId);
     }
 
-    public void startUpdateChecker(int pluginId){
+    public void startUpdateChecker(int pluginId) {
         UpdateChecker.init(this, pluginId)
                 .checkEveryXHours(24)
                 .setDownloadLink(pluginId)

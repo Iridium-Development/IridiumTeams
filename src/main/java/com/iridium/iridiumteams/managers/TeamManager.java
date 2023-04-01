@@ -1,5 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
+import com.iridium.iridiumcore.dependencies.paperlib.PaperLib;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.*;
@@ -344,6 +345,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public boolean teleport(Player player, Location location, T team) {
         player.setFallDistance(0);
+        PaperLib.teleportAsync(player, location);
         player.teleport(location);
         return true;
     }

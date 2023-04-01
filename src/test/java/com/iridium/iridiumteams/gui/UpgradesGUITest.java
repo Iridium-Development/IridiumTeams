@@ -33,7 +33,7 @@ class UpgradesGUITest {
             .put(13, Material.END_PORTAL_FRAME)
             .put(14, Material.FEATHER)
             .put(15, Material.LIGHT_GRAY_STAINED_GLASS_PANE)
-            .put(16, Material.GOLDEN_APPLE)
+            .put(16, Material.LIGHT_GRAY_STAINED_GLASS_PANE)
             .put(17, Material.LIGHT_GRAY_STAINED_GLASS_PANE)
             .build();
 

@@ -32,7 +32,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 return;
             }
             iridiumTeams.getTeamManager().createTeam(player, null).thenAccept(team -> {
-                user.getActiveProfile().setUserRank(Rank.OWNER.getId());
+                if (team == null) return;
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
@@ -62,6 +62,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return;
         }
         iridiumTeams.getTeamManager().createTeam(player, teamName).thenAccept(team -> {
+            if (team == null) return;
             user.getActiveProfile().setUserRank(Rank.OWNER.getId());
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

@@ -17,6 +17,7 @@ public class Configuration {
     public NumberFormatter numberFormatter;
     public boolean createRequiresName;
     public boolean preventTntGriefing;
+    public boolean patreonMessage;
     public int minTeamNameLength;
     public int maxTeamNameLength;
 
@@ -55,6 +56,7 @@ public class Configuration {
         this.numberFormatter = new NumberFormatter();
         this.createRequiresName = true;
         this.preventTntGriefing = true;
+        this.patreonMessage = true;
         this.minTeamNameLength = 3;
         this.maxTeamNameLength = 20;
         this.recalculateInterval = 5;
