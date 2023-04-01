@@ -32,6 +32,8 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
 
     @DatabaseField(columnName = "join_time")
     private LocalDateTime joinTime;
+    @DatabaseField(columnName = "active_profile", canBeNull = false)
+    private @NotNull UUID activeProfile = UUID.randomUUID();
 
     private boolean bypassing;
     private boolean flying;
