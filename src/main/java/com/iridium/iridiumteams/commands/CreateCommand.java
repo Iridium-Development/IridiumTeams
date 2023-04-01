@@ -33,6 +33,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
             }
             iridiumTeams.getTeamManager().createTeam(player, null).thenAccept(team -> {
                 if (team == null) return;
+                user.getActiveProfile().setUserRank(Rank.OWNER.getId());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
