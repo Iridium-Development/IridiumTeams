@@ -1,26 +1,19 @@
 package com.iridium.iridiumteams.database;
 
-import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.enhancements.*;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.UUID;
 
 @Getter
 @DatabaseTable(tableName = "users_profile")
 public class IridiumUserProfile<T extends Team> extends DatabaseObject {
 
-    @DatabaseField(columnName = "id", canBeNull = false, generatedId = true)
-    private int id;
+    @DatabaseField(columnName = "id", canBeNull = false, id = true)
+    private UUID id;
 
     @DatabaseField(columnName = "user_uuid", canBeNull = false)
     private @NotNull UUID uuid;
@@ -39,15 +32,8 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
     @DatabaseField(columnName = "create_time")
     private LocalDateTime createTime;
 
-
     public IridiumUserProfile(@NotNull UUID uuid, @NotNull String name) {
-        this.uuid = uuid;
-        this.name = name;
-        this.createTime = LocalDateTime.now();
-    }
-
-    public IridiumUserProfile(int id, @NotNull UUID uuid, @NotNull String name) {
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.uuid = uuid;
         this.name = name;
         this.createTime = LocalDateTime.now();

@@ -16,7 +16,7 @@ public interface IridiumUserManager<T extends Team, U extends IridiumUser<T>> {
 
     Optional<U> getUserByUUID(@NotNull UUID uuid);
 
-    Optional<IridiumUserProfile<T>> getUserProfile(int id);
+    Optional<IridiumUserProfile<T>> getUserProfile(UUID id);
 
     List<IridiumUserProfile<T>> getUserProfiles(U user);
     

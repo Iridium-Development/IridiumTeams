@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.listeners;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
+import com.iridium.iridiumteams.database.IridiumUserProfile;
 import com.iridium.iridiumteams.database.Team;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
@@ -24,6 +25,11 @@ public class PlayerJoinListener<T extends Team, U extends IridiumUser<T>> implem
 
         // Update the internal username in case of name change
         user.setName(event.getPlayer().getName());
+
+        if(iridiumTeams.getUserManager().getUserProfiles(user).isEmpty()){
+            IridiumUserProfile<T> profile = iridiumTeams.getUserManager().createUserProfile(user, "Profile #1");
+            user.setActiveProfile(profile);
+        }
 
 
         if (player.isOp() && iridiumTeams.getConfiguration().patreonMessage) {

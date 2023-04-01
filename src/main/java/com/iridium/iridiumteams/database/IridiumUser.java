@@ -25,7 +25,7 @@ public abstract class IridiumUser<T extends Team> extends DatabaseObject {
     private @NotNull String name;
 
     @DatabaseField(columnName = "active_profile")
-    protected int activeProfileId = 0;
+    protected UUID activeProfileId;
 
     private BukkitTask bukkitTask;
 

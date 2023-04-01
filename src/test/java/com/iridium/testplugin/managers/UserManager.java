@@ -14,11 +14,11 @@ import java.util.UUID;
 
 public class UserManager implements IridiumUserManager<TestTeam, User> {
     public static List<User> users;
-    public static List<IridiumUserProfile<TestTeam>> profiles;
+    public static List<IridiumUserProfile<TestTeam>> userProfiles;
 
     public UserManager() {
         users = new ArrayList<>();
-        profiles = new ArrayList<>();
+        userProfiles = new ArrayList<>();
     }
 
     @Override
@@ -30,10 +30,6 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
             Optional<String> name = Optional.ofNullable(offlinePlayer.getName());
             User user = new User(offlinePlayer.getUniqueId(), name.orElse(""));
             users.add(user);
-            IridiumUserProfile<TestTeam> profile = new IridiumUserProfile<>(profiles.size() + 1, user.getUuid(),
-                    "default");
-            profiles.add(profile);
-            user.setActiveProfile(profile);
             return user;
         }
     }
@@ -43,19 +39,19 @@ public class UserManager implements IridiumUserManager<TestTeam, User> {
     }
 
     @Override
-    public Optional<IridiumUserProfile<TestTeam>> getUserProfile(int id) {
-        return profiles.stream().filter(profile -> profile.getId() == id).findAny();
+    public Optional<IridiumUserProfile<TestTeam>> getUserProfile(UUID id) {
+        return userProfiles.stream().filter(profile -> profile.getId() == id).findAny();
     }
 
     @Override
     public List<IridiumUserProfile<TestTeam>> getUserProfiles(User user) {
-        return profiles.stream().filter(profile -> profile.getUuid().equals(user.getUuid())).toList();
+        return userProfiles.stream().filter(profile -> profile.getUuid().equals(user.getUuid())).toList();
     }
 
     @Override
     public IridiumUserProfile<TestTeam> createUserProfile(User user, String name) {
-        IridiumUserProfile<TestTeam> profile = new IridiumUserProfile<>(profiles.size() + 1, user.getUuid(), name);
-        profiles.add(profile);
+        IridiumUserProfile<TestTeam> profile = new IridiumUserProfile<>(user.getUuid(), name);
+        userProfiles.add(profile);
         return profile;
     }
 
