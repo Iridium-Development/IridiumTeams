@@ -26,7 +26,7 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
     @DatabaseField(columnName = "user_rank", canBeNull = false)
     private int userRank;
 
-    @DatabaseField(columnName = "create_time")
+    @DatabaseField(columnName = "join_time")
     private LocalDateTime joinTime;
 
     @DatabaseField(columnName = "create_time")
@@ -40,11 +40,6 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
     }
 
     public IridiumUserProfile() {
-    }
-
-    public void setUuid(@NotNull UUID uuid) {
-        this.uuid = uuid;
-        setChanged(true);
     }
 
     public void setName(@NotNull String name) {
@@ -66,6 +61,7 @@ public class IridiumUserProfile<T extends Team> extends DatabaseObject {
         this.teamID = t == null ? 0 : t.getId();
         this.joinTime = LocalDateTime.now();
         userRank = 1;
+        setChanged(true);
     }
 
 }
