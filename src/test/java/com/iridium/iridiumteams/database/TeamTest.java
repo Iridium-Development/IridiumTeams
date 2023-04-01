@@ -32,22 +32,22 @@ class TeamTest {
     @Test
     public void setExperience_GivesReward_WhenLevelUp() {
         TestTeam testTeam = new TeamBuilder().build();
-        testTeam.setExperience(8);
+        testTeam.setExperience(10);
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamRewards(testTeam).size());
     }
     @Test
     public void setExperience_DoesntGiveSameRewardTwice() {
         TestTeam testTeam = new TeamBuilder().build();
-        testTeam.setExperience(8);
+        testTeam.setExperience(10);
         testTeam.setExperience(0);
-        testTeam.setExperience(8);
+        testTeam.setExperience(10);
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamRewards(testTeam).size());
     }
     @Test
     public void setExperience_DoesntGiveReward_OfSameLevel() {
         TestTeam testTeam = new TeamBuilder().build();
-        testTeam.setExperience(8);
-        testTeam.setExperience(9);
+        testTeam.setExperience(10);
+        testTeam.setExperience(11);
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamRewards(testTeam).size());
     }
 
