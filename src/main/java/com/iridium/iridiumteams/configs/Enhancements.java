@@ -138,9 +138,8 @@ public class Enhancements {
                         "&7Gain a Haste Potion Effect.",
                         "",
                         color + "&lInformation:",
-                        color + "&l * &7Time Remaining: " + color + "%timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                         color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Booster Cost: $%cost%",
+                        color + "&l * &7Upgrade Cost: $%cost%",
                         "",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
@@ -154,9 +153,8 @@ public class Enhancements {
                         "&7Gain a Speed Potion Effect.",
                         "",
                         color + "&lInformation:",
-                        color + "&l * &7Time Remaining: " + color + "%timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                         color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Booster Cost: $%cost%",
+                        color + "&l * &7Upgrade Cost: $%cost%",
                         "",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
@@ -170,9 +168,8 @@ public class Enhancements {
                         "&7Gain a Jump Boost Potion Effect.",
                         "",
                         color + "&lInformation:",
-                        color + "&l * &7Time Remaining: " + color + "%timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                         color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Booster Cost: $%cost%",
+                        color + "&l * &7Upgrade Cost: $%cost%",
                         "",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
