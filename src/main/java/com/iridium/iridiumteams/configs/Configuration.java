@@ -12,6 +12,7 @@ import java.util.*;
 
 public class Configuration {
     public String prefix;
+    public boolean updateChecks;
 
     public String dateTimeFormat;
     public NumberFormatter numberFormatter;
@@ -52,6 +53,7 @@ public class Configuration {
 
     public Configuration(String color, String team, String pluginName) {
         this.prefix = color + "&l" + pluginName + " &8»";
+        this.updateChecks = true;
         this.dateTimeFormat = "EEEE, MMMM dd HH:mm:ss";
         this.numberFormatter = new NumberFormatter();
         this.createRequiresName = true;
