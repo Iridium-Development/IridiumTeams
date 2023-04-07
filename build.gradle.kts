@@ -62,9 +62,10 @@ tasks {
         archiveClassifier.set("")
 
         // Remove unnecessary files from the jar
-        minimize {
-            exclude(dependency("com.github.cryptomorin:XSeries:*"))
-        }
+        // > sh0inx: you are the source of my misery, you have been banished to the comments until further notice
+        //minimize {
+        //    exclude(dependency("com.github.cryptomorin:XSeries:*"))
+        //}
     }
 
     // Set UTF-8 as the encoding
