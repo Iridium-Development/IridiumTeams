@@ -314,10 +314,12 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void startUpdateChecker(int pluginId) {
-        UpdateChecker.init(this, pluginId)
-                .checkEveryXHours(24)
-                .setDownloadLink(pluginId)
-                .setColoredConsoleOutput(true)
-                .checkNow();
+        if (getConfiguration().updateChecks) {
+            UpdateChecker.init(this, pluginId)
+                    .checkEveryXHours(24)
+                    .setDownloadLink(pluginId)
+                    .setColoredConsoleOutput(true)
+                    .checkNow();
+        }
     }
 }
