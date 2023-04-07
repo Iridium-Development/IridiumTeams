@@ -25,7 +25,7 @@ dependencies {
     implementation("org.jetbrains:annotations:24.0.1")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.7.2")
+    implementation("com.iridium:IridiumCore:1.7.3")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.26")
@@ -62,7 +62,9 @@ tasks {
         archiveClassifier.set("")
 
         // Remove unnecessary files from the jar
-        minimize()
+        minimize {
+            exclude(dependency("com.github.cryptomorin:XSeries:*"))
+        }
     }
 
     // Set UTF-8 as the encoding
