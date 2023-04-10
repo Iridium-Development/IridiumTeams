@@ -34,7 +34,7 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
         for (Block block : event.getBlocks()) {
             int[] offset = offsets.get(event.getDirection());
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]));
-            if (team.map(T::getId).orElse(currentTeam) != currentTeam) {
+            if (team.map(T::getId).orElse(0) != currentTeam) {
                 event.setCancelled(true);
                 return;
             }
@@ -46,7 +46,7 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
         int currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).map(T::getId).orElse(0);
         for (Block block : event.getBlocks()) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation());
-            if (team.map(T::getId).orElse(currentTeam) != currentTeam) {
+            if (team.map(T::getId).orElse(0) != currentTeam) {
                 event.setCancelled(true);
                 return;
             }
