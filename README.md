@@ -12,7 +12,7 @@ This isn't a traditional, standalone plugin, you don't install it on your server
 
 ### Compiling
 
-Clone the repo, and run the [build.gradle.tks](https://github.com/Iridium-Development/IridiumTeams/blob/master/build.gradle.kts) script.
+Clone the repo, and run the [build.gradle.kts](https://github.com/Iridium-Development/IridiumTeams/blob/master/build.gradle.kts) script.
 
 If you need to take a look, here is the [Nexus](https://nexus.iridiumdevelopment.net/#browse/browse:maven-public:com%2Firidium%2FIridiumTeams) repo.
 
