@@ -98,6 +98,26 @@ class ShopManagerTest {
     }
 
     @Test
+    public void ShopManager__Sell__StackWhenYouDontHaveAStack() {
+        PlayerMock playerMock = new UserBuilder(serverMock).build();
+        playerMock.getInventory().addItem(new ItemStack(Material.DIRT, 32));
+
+        TestPlugin.getInstance().getShopManager().sell(playerMock, dirtItem, 64);
+
+        playerMock.assertSoundHeard(Sound.ENTITY_PLAYER_LEVELUP);
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().successfullySold
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%amount%", "32")
+                .replace("%item%", StringUtils.color(dirtItem.name))
+                .replace("%vault_reward%", "60.0")
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(0, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.DIRT));
+        assertEquals(60, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+    }
+
+    @Test
     public void ShopManager__Sell__NoneInInventory() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 10000);

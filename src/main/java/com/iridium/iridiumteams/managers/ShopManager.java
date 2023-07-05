@@ -79,7 +79,6 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public void sell(Player player, Shop.ShopItem shopItem, int amount) {
-        double moneyReward = calculateCost(amount, shopItem.defaultAmount, shopItem.sellCost.money);
         int inventoryAmount = InventoryUtils.getAmount(player.getInventory(), shopItem.type);
         if (inventoryAmount == 0) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchItem
@@ -88,8 +87,8 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
             iridiumTeams.getShop().failSound.play(player);
             return;
         }
-
         int soldAmount = Math.min(inventoryAmount, amount);
+        double moneyReward = calculateCost(soldAmount, shopItem.defaultAmount, shopItem.sellCost.money);
 
         InventoryUtils.removeAmount(player.getInventory(), shopItem.type, soldAmount);
 
@@ -97,7 +96,7 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().successfullySold
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                .replace("%amount%", String.valueOf(amount))
+                .replace("%amount%", String.valueOf(soldAmount))
                 .replace("%item%", StringUtils.color(shopItem.name))
                 .replace("%vault_reward%", String.valueOf(moneyReward))
         ));
