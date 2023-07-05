@@ -35,7 +35,7 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
                 event.setCancelled(true);
             }
         }else{
-            iridiumTeams.getTeamManager().handleBlockEventOutsideTerritory(event, player);
+            iridiumTeams.getTeamManager().handleBlockPlaceOutsideTerritory(event);
         }
     }
 

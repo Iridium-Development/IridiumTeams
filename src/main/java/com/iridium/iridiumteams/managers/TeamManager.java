@@ -20,7 +20,9 @@ import org.bukkit.Location;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -346,7 +348,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return true;
     }
 
-    public void handleBlockEventOutsideTerritory(BlockEvent blockEvent, Player player){
+    public void handleBlockBreakOutsideTerritory(BlockBreakEvent blockEvent){
+        // By default do nothing
+    }
+
+    public void handleBlockPlaceOutsideTerritory(BlockPlaceEvent blockEvent){
         // By default do nothing
     }
 
