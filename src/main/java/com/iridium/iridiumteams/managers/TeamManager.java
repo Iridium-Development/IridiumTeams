@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -343,6 +344,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         PaperLib.teleportAsync(player, location);
         player.teleport(location);
         return true;
+    }
+
+    public void handleBlockEventOutsideTerritory(BlockEvent blockEvent, Player player){
+        // By default do nothing
     }
 
     public enum SortType {
