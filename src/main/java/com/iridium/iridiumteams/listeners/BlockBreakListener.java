@@ -34,6 +34,12 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
                 ));
                 event.setCancelled(true);
             }
+            if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.SPAWNERS) && event.getBlock().getState() instanceof CreatureSpawner) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotBreakBlocks
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
+                event.setCancelled(true);
+            }
         }else{
             iridiumTeams.getTeamManager().handleBlockBreakOutsideTerritory(event);
         }
