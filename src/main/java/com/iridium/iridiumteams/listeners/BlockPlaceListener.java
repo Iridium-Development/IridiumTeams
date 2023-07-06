@@ -34,7 +34,7 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
                 ));
                 event.setCancelled(true);
             }
-        }else{
+        } else {
             iridiumTeams.getTeamManager().handleBlockPlaceOutsideTerritory(event);
         }
     }
@@ -45,6 +45,8 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
         XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "PLACE", material.name(), 1);
+        });
+        iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);
             teamBlock.setAmount(teamBlock.getAmount() + 1);
 
