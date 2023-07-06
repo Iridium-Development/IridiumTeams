@@ -35,18 +35,8 @@ public abstract class Team extends DatabaseObject {
     @DatabaseField(columnName = "max_experience")
     private int maxExperience;
 
-    public void setExperience(int experience) {
-        int currentLevel = getLevel();
-        this.experience = Math.max(0, experience);
-        int newLevel = getLevel();
-        if (newLevel != currentLevel) {
-            Bukkit.getPluginManager().callEvent(new TeamLevelUpEvent<>(this, newLevel));
-        }
-        this.maxExperience = Math.max(maxExperience, experience);
-    }
-
     public int getLevel() {
-        return (int) Math.floor(Math.pow(experience/10.00, 0.95) + 1);
+        return (int) Math.floor(Math.pow(experience / 10.00, 0.95) + 1);
     }
 
     public abstract double getValue();
@@ -73,6 +63,17 @@ public abstract class Team extends DatabaseObject {
 
     public void setHome(Location home) {
         this.home = home;
+        setChanged(true);
+    }
+
+    public void setExperience(int experience) {
+        int currentLevel = getLevel();
+        this.experience = Math.max(0, experience);
+        int newLevel = getLevel();
+        if (newLevel != currentLevel) {
+            Bukkit.getPluginManager().callEvent(new TeamLevelUpEvent<>(this, newLevel));
+        }
+        this.maxExperience = Math.max(maxExperience, experience);
         setChanged(true);
     }
 }
