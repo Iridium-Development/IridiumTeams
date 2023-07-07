@@ -26,8 +26,7 @@ public class ShopCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         if(arguments.length == 0){
             player.openInventory(new ShopOverviewGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
         }else{
-            String[] commandArguments = Arrays.copyOfRange(arguments, 0, arguments.length);
-            Optional<String> categoryName = getCategoryName(String.join(" ", commandArguments), iridiumTeams);
+            Optional<String> categoryName = getCategoryName(String.join(" ", arguments), iridiumTeams);
 
             if (!categoryName.isPresent()) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noShopCategory
