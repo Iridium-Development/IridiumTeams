@@ -14,7 +14,7 @@ import org.bukkit.event.block.LeavesDecayEvent;
 public class LeavesDecayListener<T extends Team, U extends IridiumUser<T>> implements Listener {
     private final IridiumTeams<T, U> iridiumTeams;
 
-    @EventHandler//(ignoreCancelled = true)
+    @EventHandler
     public void onLeavesDecay(LeavesDecayEvent event) {
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.LEAF_DECAY.getSettingKey());
