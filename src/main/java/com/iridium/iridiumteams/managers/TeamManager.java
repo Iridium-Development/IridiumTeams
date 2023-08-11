@@ -224,9 +224,13 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract TeamMissionData getTeamMissionData(TeamMission teamMission, int missionIndex);
 
+    public abstract List<TeamMissionData> getTeamMissionData(TeamMission teamMission);
+
     public abstract void deleteTeamMission(TeamMission teamMission);
 
-    public abstract void deleteTeamMissionData(TeamMission teamMission);
+    public void resetTeamMissionData(TeamMission teamMission) {
+        getTeamMissionData(teamMission).forEach(teamMissionData -> teamMissionData.setProgress(0));
+    }
 
     public List<String> getTeamMission(T team, MissionType missionType) {
         // Get list of current missions
@@ -348,11 +352,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         return true;
     }
 
-    public void handleBlockBreakOutsideTerritory(BlockBreakEvent blockEvent){
+    public void handleBlockBreakOutsideTerritory(BlockBreakEvent blockEvent) {
         // By default do nothing
     }
 
-    public void handleBlockPlaceOutsideTerritory(BlockPlaceEvent blockEvent){
+    public void handleBlockPlaceOutsideTerritory(BlockPlaceEvent blockEvent) {
         // By default do nothing
     }
 

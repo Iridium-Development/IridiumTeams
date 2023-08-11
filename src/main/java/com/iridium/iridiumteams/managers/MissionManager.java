@@ -113,7 +113,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
                 // Next Mission Level
                 if (entry.getValue().getMissionData().containsKey(level + 1)) {
                     teamMission.get().setMissionLevel(level + 1);
-                    iridiumTeams.getTeamManager().deleteTeamMissionData(teamMission.get());
+                    iridiumTeams.getTeamManager().resetTeamMissionData(teamMission.get());
                 }
             }
         }
