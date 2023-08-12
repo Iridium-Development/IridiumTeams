@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
 import com.iridium.iridiumteams.gui.UpgradesGUI;
@@ -33,6 +34,13 @@ public class UpgradesCommand<T extends Team, U extends IridiumUser<T>> extends C
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
         if (enhancement == null || enhancement.type != EnhancementType.UPGRADE) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchUpgrade
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return;
+        }
+        TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, booster);
+        if(enhancement.levels.get(teamEnhancement.getLevel() + 1) == null){
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().maxUpgradeLevelReached
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return;

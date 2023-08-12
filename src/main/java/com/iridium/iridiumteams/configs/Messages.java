@@ -109,6 +109,7 @@ public class Messages {
     public String flightNotActive;
     public String noSuchBooster;
     public String noSuchUpgrade;
+    public String maxUpgradeLevelReached;
     public String notHighEnoughLevel;
     public String notEnoughMoney;
     public String notEnoughBankItem;
@@ -251,6 +252,7 @@ public class Messages {
         flightNotActive = "%prefix% &7The flight booster is not currently active.";
         noSuchBooster = "%prefix% &7No booster by that name exists.";
         noSuchUpgrade = "%prefix% &7No Upgrade by that name exists.";
+        maxUpgradeLevelReached = "%prefix% &7Maximum upgrade level reached.";
         notHighEnoughLevel = "%prefix% &7You need to be atleast level %level% in your " + team + ".";
         notEnoughMoney = "%prefix% &7You dont have enough money to purchase this.";
         notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your " + team + " Bank.";
