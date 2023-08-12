@@ -19,24 +19,15 @@ public class PotionBrewListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorPotionBrew(BrewEvent event) {
-        Bukkit.getScheduler().runTask(iridiumTeams, () -> {
-            iridiumTeams.getLogger().info("Brew Event called");
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-                iridiumTeams.getLogger().info(team.getName());
-                for (int i = 0; i < 3; i++) {
-                    ItemStack itemStack = event.getContents().getItem(i);
-                    if (itemStack != null) {
-                        iridiumTeams.getLogger().info(itemStack.getType().name());
-                    }
-                    if (itemStack != null && itemStack.getItemMeta() instanceof PotionMeta) {
-                        PotionMeta potionMeta = (PotionMeta) itemStack.getItemMeta();
-                        iridiumTeams.getLogger().info(potionMeta.getBasePotionData().getType() + ":" + (potionMeta.getBasePotionData().isUpgraded() ? 2 : 1));
-
-                        iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "BREW", potionMeta.getBasePotionData().getType() + ":" + (potionMeta.getBasePotionData().isUpgraded() ? 2 : 1), 1);
-                    }
+        Bukkit.getScheduler().runTask(iridiumTeams, () -> iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+            for (int i = 0; i < 3; i++) {
+                ItemStack itemStack = event.getContents().getItem(i);
+                if (itemStack != null && itemStack.getItemMeta() instanceof PotionMeta) {
+                    PotionMeta potionMeta = (PotionMeta) itemStack.getItemMeta();
+                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "BREW", potionMeta.getBasePotionData().getType() + ":" + (potionMeta.getBasePotionData().isUpgraded() ? 2 : 1), 1);
                 }
-            });
-        });
+            }
+        }));
     }
 
 }
