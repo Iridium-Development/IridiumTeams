@@ -23,9 +23,7 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockGrow(BlockGrowEvent event) {
         XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
-        iridiumTeams.getLogger().info("BlockGrowEvent called " + material.name());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            iridiumTeams.getLogger().info(team.getName());
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
 
             if (event.getNewState().getBlockData() instanceof Ageable) {
