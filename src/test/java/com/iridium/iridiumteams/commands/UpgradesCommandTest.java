@@ -97,6 +97,24 @@ class UpgradesCommandTest {
     }
 
     @Test
+    public void executeUpgradesCommand__Buy__MaxLevel() {
+        TestTeam testTeam = new TeamBuilder().withLevel(50).withEnhancement("haste", 3).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 100000);
+
+        serverMock.dispatchCommand(playerMock, "test upgrades buy haste");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().maxUpgradeLevelReached
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%booster%", "farming")
+        ));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(100000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+        assertEquals(3, TestPlugin.getInstance().getTeamManager().getTeamEnhancement(testTeam, "haste").getLevel());
+    }
+
+    @Test
     public void executeUpgradesCommand__Buy__Success() {
         TestTeam testTeam = new TeamBuilder().withLevel(5).build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();

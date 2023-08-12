@@ -204,7 +204,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
             teamEnhancement.setLevel(enhancementUpdateEvent.getNextLevel());
         }
-        teamEnhancement.setExpirationTime(LocalDateTime.now().plusHours(1));
+        if (teamEnhancement.getExpirationTime().isBefore(LocalDateTime.now())) {
+            teamEnhancement.setExpirationTime(LocalDateTime.now().plusHours(1));
+        } else {
+            teamEnhancement.setExpirationTime(teamEnhancement.getExpirationTime().plusHours(1));
+        }
         return true;
     }
 
