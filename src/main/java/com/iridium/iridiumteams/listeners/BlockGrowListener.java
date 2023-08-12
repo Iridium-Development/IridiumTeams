@@ -24,10 +24,13 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
     public void monitorBlockGrow(BlockGrowEvent event) {
         XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
-
             if (event.getNewState().getBlockData() instanceof Ageable) {
                 Ageable ageable = (Ageable) event.getNewState().getBlockData();
+
+                if (ageable.getAge() >= ageable.getMaximumAge()) {
+                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+                }
+
                 Enhancement<FarmingEnhancementData> farmingEnhancement = iridiumTeams.getEnhancements().farmingEnhancement;
                 TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "farming");
                 FarmingEnhancementData data = farmingEnhancement.levels.get(teamEnhancement.getLevel());
@@ -37,6 +40,8 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
                     event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.BONE_MEAL_USE, 0);
                 }
 
+            } else {
+                iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
             }
         });
 
