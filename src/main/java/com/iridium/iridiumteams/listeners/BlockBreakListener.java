@@ -50,7 +50,7 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
         U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
         XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "PLACE", material.name(), 1);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "MINE", material.name(), 1);
         });
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);

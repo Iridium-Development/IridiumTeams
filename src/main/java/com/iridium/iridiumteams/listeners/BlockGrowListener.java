@@ -22,21 +22,26 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockGrow(BlockGrowEvent event) {
-        XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
+        XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+            if (event.getNewState().getBlockData() instanceof Ageable) {
+                Ageable ageable = (Ageable) event.getNewState().getBlockData();
 
-            if (event.getNewState().getBlock().getBlockData() instanceof Ageable) {
+                if (ageable.getAge() >= ageable.getMaximumAge()) {
+                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+                }
+
                 Enhancement<FarmingEnhancementData> farmingEnhancement = iridiumTeams.getEnhancements().farmingEnhancement;
                 TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, "farming");
                 FarmingEnhancementData data = farmingEnhancement.levels.get(teamEnhancement.getLevel());
                 if (teamEnhancement.isActive(farmingEnhancement.type) && data != null) {
-                    Ageable ageable = (Ageable) event.getNewState().getBlockData();
                     ageable.setAge(Math.min(ageable.getAge() + data.farmingModifier, ageable.getMaximumAge()));
                     event.getNewState().setBlockData(ageable);
                     event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.BONE_MEAL_USE, 0);
                 }
 
+            } else {
+                iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
             }
         });
 
