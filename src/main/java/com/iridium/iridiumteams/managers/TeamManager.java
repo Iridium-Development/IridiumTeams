@@ -197,7 +197,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
         if (enhancement.levels.containsKey(teamEnhancement.getLevel() + 1)) {
             U user = iridiumTeams.getUserManager().getUser(player);
-            EnhancementUpdateEvent<T, U> enhancementUpdateEvent = new EnhancementUpdateEvent<>(team, user, teamEnhancement.getLevel() + 1, booster);
+            EnhancementUpdateEvent<U> enhancementUpdateEvent = new EnhancementUpdateEvent<>(team, user, teamEnhancement.getLevel() + 1, booster);
 
             Bukkit.getPluginManager().callEvent(enhancementUpdateEvent);
             if (enhancementUpdateEvent.isCancelled()) return false;

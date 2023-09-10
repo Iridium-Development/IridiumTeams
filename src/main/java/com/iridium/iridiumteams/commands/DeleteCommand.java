@@ -3,10 +3,13 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.api.TeamDisbandEvent;
+import com.iridium.iridiumteams.api.TeamPreDisbandEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
 import lombok.NoArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -47,18 +50,23 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDeleteTeam
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-            ));
-            return;
+        if (user.isBypassing() || user.getUserRank() == Rank.OWNER.getId()) {
+            TeamPreDisbandEvent<U> preDisbandEvent = new TeamPreDisbandEvent<>(team, user);
+            Bukkit.getPluginManager().callEvent(preDisbandEvent);
+            if (!preDisbandEvent.isCancelled()) {
+                deleteTeam(user, team, iridiumTeams, false);
+                return;
+            }
         }
-        deleteTeam(user, team, iridiumTeams, false);
+        player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotDeleteTeam
+                .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+        ));
     }
 
     private void deleteTeam(U user, T team, IridiumTeams<T, U> iridiumTeams, boolean admin) {
         Player player = user.getPlayer();
         player.openInventory(new ConfirmationGUI<>(() -> {
+            Bukkit.getPluginManager().callEvent(new TeamDisbandEvent(team));
             iridiumTeams.getTeamManager().deleteTeam(team, user);
             for (U member : iridiumTeams.getTeamManager().getTeamMembers(team)) {
                 member.setTeamID(0);

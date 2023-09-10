@@ -71,7 +71,7 @@ public abstract class Team extends DatabaseObject {
         this.experience = Math.max(0, experience);
         int newLevel = getLevel();
         if (newLevel != currentLevel) {
-            Bukkit.getPluginManager().callEvent(new TeamLevelUpEvent<>(this, newLevel));
+            Bukkit.getPluginManager().callEvent(new TeamLevelUpEvent(this, newLevel));
         }
         this.maxExperience = Math.max(maxExperience, experience);
         setChanged(true);

@@ -8,5 +8,5 @@ import lombok.Getter;
 public enum Rank {
     VISITOR(-1),
     OWNER(-2);
-    private int id;
+    private final int id;
 }
