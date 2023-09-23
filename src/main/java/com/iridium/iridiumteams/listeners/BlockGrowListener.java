@@ -15,21 +15,24 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockGrowEvent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 @AllArgsConstructor
 public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> implements Listener {
     private final IridiumTeams<T, U> iridiumTeams;
+    private final List<XMaterial> ageIgnoreList = Arrays.asList(XMaterial.SUGAR_CANE, XMaterial.CACTUS, XMaterial.BAMBOO, XMaterial.CAVE_VINES);
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockGrow(BlockGrowEvent event) {
         XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            iridiumTeams.getLogger().info(material.name());
             if (event.getNewState().getBlockData() instanceof Ageable) {
                 Ageable ageable = (Ageable) event.getNewState().getBlockData();
-                iridiumTeams.getLogger().info("ageable " + ageable.getAge() + "/" + ageable.getMaximumAge());
 
-                if (ageable.getAge() >= ageable.getMaximumAge()) {
+                if (ageable.getAge() >= ageable.getMaximumAge() || ageIgnoreList.contains(material)) {
                     iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
                 }
 
