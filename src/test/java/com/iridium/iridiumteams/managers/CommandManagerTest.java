@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class CommandManagerTest {
 
@@ -110,6 +111,28 @@ class CommandManagerTest {
 
         playerMock.assertNoMoreSaid();
         assertTrue(TestCommand.hasCalled);
+    }
+
+    @Test
+    public void CommandManager__Cooldown() {
+        // Lets change the message so it doesnt include the exact timings to avoid flakey tests
+        TestPlugin.getInstance().getMessages().activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait";
+
+        PlayerMock playerMock = new UserBuilder(serverMock).withPermission("iridiumteams.test").withTeam(new TeamBuilder().build()).build();
+
+        serverMock.dispatchCommand(playerMock, "test test");
+
+        playerMock.assertNoMoreSaid();
+        assertTrue(TestCommand.hasCalled);
+
+        TestCommand.hasCalled = false;
+
+        serverMock.dispatchCommand(playerMock, "test test");
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().activeCooldown
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertFalse(TestCommand.hasCalled);
     }
 
     @Test

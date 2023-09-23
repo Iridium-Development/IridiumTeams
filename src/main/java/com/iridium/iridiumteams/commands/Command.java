@@ -83,6 +83,13 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
         return commandSender.hasPermission(permission) || permission.equalsIgnoreCase("");
     }
 
+    public boolean isOnCooldown(CommandSender commandSender, IridiumTeams<T, U> iridiumTeams) {
+        if (!(commandSender instanceof Player)) return false;
+        Player player = (Player) commandSender;
+        U user = iridiumTeams.getUserManager().getUser(player);
+        return getCooldownProvider().isOnCooldown(commandSender) && !user.isBypassing();
+    }
+
     public List<String> onTabComplete(CommandSender commandSender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         if (commandSender instanceof Player) {
             U user = iridiumTeams.getUserManager().getUser((OfflinePlayer) commandSender);
