@@ -86,7 +86,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @Nullable String name);
 
-    public abstract void deleteTeam(T team, U user);
+    public abstract boolean deleteTeam(T team, U user);
 
     public int getUserRank(T team, U user) {
         if (user.getTeamID() == team.getId()) return user.getUserRank();

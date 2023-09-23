@@ -59,7 +59,7 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
     private void deleteTeam(U user, T team, IridiumTeams<T, U> iridiumTeams, boolean admin) {
         Player player = user.getPlayer();
         player.openInventory(new ConfirmationGUI<>(() -> {
-            iridiumTeams.getTeamManager().deleteTeam(team, user);
+            if (!iridiumTeams.getTeamManager().deleteTeam(team, user)) return;
             for (U member : iridiumTeams.getTeamManager().getTeamMembers(team)) {
                 member.setTeamID(0);
                 Player teamMember = member.getPlayer();
