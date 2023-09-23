@@ -12,14 +12,15 @@ import java.util.List;
 
 @NoArgsConstructor
 public class TrustsCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public TrustsCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public TrustsCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         player.openInventory(new TrustsGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return true;
     }
 
 }

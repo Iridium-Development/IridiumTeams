@@ -15,20 +15,20 @@ import java.util.List;
 
 @NoArgsConstructor
 public class UpgradesCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public UpgradesCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public UpgradesCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             player.openInventory(new UpgradesGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
-            return;
+            return true;
         }
         if (args.length != 2 || !args[0].equalsIgnoreCase("buy")) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         String booster = args[1];
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
@@ -36,14 +36,14 @@ public class UpgradesCommand<T extends Team, U extends IridiumUser<T>> extends C
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchUpgrade
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, booster);
         if(enhancement.levels.get(teamEnhancement.getLevel() + 1) == null){
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().maxUpgradeLevelReached
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         boolean success = iridiumTeams.getTeamManager().UpdateEnhancement(team, booster, player);
         if (success) {
@@ -52,5 +52,6 @@ public class UpgradesCommand<T extends Team, U extends IridiumUser<T>> extends C
                     .replace("%upgrade%", booster)
             ));
         }
+        return success;
     }
 }

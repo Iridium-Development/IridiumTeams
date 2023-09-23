@@ -138,6 +138,7 @@ public class Messages {
     public String cannotAfford;
     public String cannotVisit;
     public String teamLevelUp;
+    public String activeCooldown;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -281,5 +282,6 @@ public class Messages {
         cannotAfford = "%prefix% &7You cannot afford this.";
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
         teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
+        activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait %hours% hour(s), %minutes% minute(s), %seconds% second(s)!";
     }
 }

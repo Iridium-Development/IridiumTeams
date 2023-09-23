@@ -16,22 +16,22 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class DeleteWarpCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public DeleteWarpCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public DeleteWarpCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1 && args.length != 2) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.MANAGE_WARPS)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotManageWarps
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
 
         Optional<TeamWarp> teamWarp = iridiumTeams.getTeamManager().getTeamWarp(team, args[0]);
@@ -39,7 +39,7 @@ public class DeleteWarpCommand<T extends Team, U extends IridiumUser<T>> extends
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().unknownWarp
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
 
         iridiumTeams.getTeamManager().deleteWarp(teamWarp.get());
@@ -50,7 +50,7 @@ public class DeleteWarpCommand<T extends Team, U extends IridiumUser<T>> extends
                         .replace("%name%", teamWarp.get().getName())
                 ))
         );
-
+        return true;
     }
 
     @Override

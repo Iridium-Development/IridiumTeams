@@ -17,17 +17,17 @@ import java.util.Optional;
 public class DescriptionCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public String adminPermission;
 
-    public DescriptionCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
-        super(args, description, syntax, permission);
+    public DescriptionCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
+        super(args, description, syntax, permission, cooldownInSeconds);
         this.adminPermission = adminPermission;
     }
 
     @Override
-    public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(args[0]);
         if (team.isPresent() && player.hasPermission(adminPermission)) {
@@ -38,21 +38,22 @@ public class DescriptionCommand<T extends Team, U extends IridiumUser<T>> extend
                     .replace("%name%", team.get().getName())
                     .replace("%description%", description)
             ));
-            return;
+            return true;
         }
-        super.execute(user, args, iridiumTeams);
+        return super.execute(user, args, iridiumTeams);
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.DESCRIPTION)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeDescription
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         changeDescription(team, String.join(" ", arguments), player, iridiumTeams);
+        return true;
     }
 
     private void changeDescription(T team, String description, Player player, IridiumTeams<T, U> iridiumTeams) {

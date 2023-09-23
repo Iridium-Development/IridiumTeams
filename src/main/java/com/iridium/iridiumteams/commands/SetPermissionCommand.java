@@ -13,19 +13,20 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
 @NoArgsConstructor
 
 public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public SetPermissionCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public SetPermissionCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 2 && (args.length != 3 || !args[2].equalsIgnoreCase("true") && !args[2].equalsIgnoreCase("false"))) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         Optional<String> permission = iridiumTeams.getPermissionList().keySet().stream()
                 .filter(s -> s.equalsIgnoreCase(args[0]))
@@ -34,7 +35,7 @@ public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> exte
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidPermission
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         Optional<Integer> rank = iridiumTeams.getUserRanks().entrySet().stream()
                 .filter(r -> r.getValue().name.equalsIgnoreCase(args[1]))
@@ -44,14 +45,14 @@ public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> exte
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidUserRank
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         boolean allowed = args.length == 2 ? !iridiumTeams.getTeamManager().getTeamPermission(team, rank.get(), permission.get()) : args[2].equalsIgnoreCase("true");
         if ((user.getUserRank() <= rank.get() && user.getUserRank() != Rank.OWNER.getId()) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.CHANGE_PERMISSIONS) || rank.get() == Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangePermissions
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         iridiumTeams.getTeamManager().setTeamPermission(team, rank.get(), permission.get(), allowed);
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().permissionSet
@@ -61,6 +62,7 @@ public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> exte
                 .replace("%allowed%", String.valueOf(allowed))
         ));
 
+        return true;
     }
 
     @Override

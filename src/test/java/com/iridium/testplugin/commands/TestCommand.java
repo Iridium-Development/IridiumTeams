@@ -14,13 +14,14 @@ public class TestCommand extends Command<TestTeam, User> {
     public static boolean hasCalled;
 
     public TestCommand() {
-        super(List.of("test"), "Description", "/test test", "iridiumteams.test");
+        super(List.of("test"), "Description", "/test test", "iridiumteams.test", 5);
         hasCalled = false;
     }
 
     @Override
-    public void execute(User user, TestTeam team, String[] arguments, IridiumTeams<TestTeam, User> iridiumTeams) {
+    public boolean execute(User user, TestTeam team, String[] arguments, IridiumTeams<TestTeam, User> iridiumTeams) {
         hasCalled = true;
+        return true;
     }
 
     @Override

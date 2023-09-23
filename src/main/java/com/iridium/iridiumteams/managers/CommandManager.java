@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams.managers;
 
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumcore.utils.TimeUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.commands.Command;
 import com.iridium.iridiumteams.database.IridiumUser;
@@ -12,6 +13,7 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -107,7 +109,19 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
                 return false;
             }
 
-            command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);
+            if (command.isOnCooldown(commandSender, iridiumTeams)) {
+                Duration remainingTime = command.getCooldownProvider().getRemainingTime(commandSender);
+                String formattedTime = TimeUtils.formatDuration(iridiumTeams.getMessages().activeCooldown, remainingTime);
+
+                commandSender.sendMessage(StringUtils.color(formattedTime
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
+                return false;
+            }
+
+            if (command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams)) {
+                command.getCooldownProvider().applyCooldown(commandSender);
+            }
             return true;
         }
 
