@@ -24,7 +24,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
     public final @NotNull String syntax;
     public final @NotNull String permission;
     public final long cooldownInSeconds;
-    public final boolean enabled = true;
+    public final boolean enabled;
     @JsonIgnore
     private CooldownProvider<CommandSender> cooldownProvider;
 
@@ -34,6 +34,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
         this.syntax = "";
         this.permission = "";
         this.cooldownInSeconds = 0;
+        this.enabled = true;
     }
 
     public Command(@NotNull List<String> aliases, @NotNull String description, @NotNull String syntax, @NotNull String permission, long cooldownInSeconds) {
@@ -42,6 +43,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
         this.syntax = syntax;
         this.permission = permission;
         this.cooldownInSeconds = cooldownInSeconds;
+        this.enabled = true;
     }
 
 

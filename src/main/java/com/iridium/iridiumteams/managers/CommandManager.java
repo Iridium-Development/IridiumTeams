@@ -85,10 +85,9 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
     }
 
     public void registerCommand(Command<T, U> command) {
-        if (command.enabled) {
-            int index = Collections.binarySearch(commands, command, Comparator.comparing(cmd -> cmd.aliases.get(0)));
-            commands.add(index < 0 ? -(index + 1) : index, command);
-        }
+        if (!command.enabled) return;
+        int index = Collections.binarySearch(commands, command, Comparator.comparing(cmd -> cmd.aliases.get(0)));
+        commands.add(index < 0 ? -(index + 1) : index, command);
     }
 
     @Override
