@@ -16,9 +16,10 @@ public class MembersCommand<T extends Team, U extends IridiumUser<T>> extends Co
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         player.openInventory(new MembersGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return true;
     }
 
 }

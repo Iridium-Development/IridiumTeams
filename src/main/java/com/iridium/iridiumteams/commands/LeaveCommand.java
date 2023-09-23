@@ -18,14 +18,14 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
 
-        if(user.getUserRank()== Rank.OWNER.getId()){
+        if (user.getUserRank() == Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().ownerCannotLeave
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().leftTeam
@@ -45,6 +45,7 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
         });
 
         user.setTeam(null);
+        return true;
     }
 
 }

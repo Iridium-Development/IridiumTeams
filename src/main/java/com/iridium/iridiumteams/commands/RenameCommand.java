@@ -23,11 +23,11 @@ public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Com
     }
 
     @Override
-    public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(args[0]);
         if (team.isPresent() && player.hasPermission(adminPermission)) {
@@ -38,22 +38,23 @@ public class RenameCommand<T extends Team, U extends IridiumUser<T>> extends Com
                         .replace("%name%", team.get().getName())
                         .replace("%player%", args[0])
                 ));
+                return true;
             }
-            return;
+            return false;
         }
-        super.execute(user, args, iridiumTeams);
+        return super.execute(user, args, iridiumTeams);
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.RENAME)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeName
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
-        changeName(team, String.join(" ", arguments), player, iridiumTeams);
+        return changeName(team, String.join(" ", arguments), player, iridiumTeams);
     }
 
     private boolean changeName(T team, String name, Player player, IridiumTeams<T, U> iridiumTeams) {

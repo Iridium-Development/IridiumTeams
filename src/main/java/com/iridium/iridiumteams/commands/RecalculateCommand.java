@@ -18,12 +18,12 @@ public class RecalculateCommand<T extends Team, U extends IridiumUser<T>> extend
     }
 
     @Override
-    public void execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         if (iridiumTeams.isRecalculating()) {
             sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().calculationAlreadyInProcess
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
             );
-            return;
+            return false;
         }
 
         int interval = iridiumTeams.getConfiguration().forceRecalculateInterval;
@@ -41,6 +41,7 @@ public class RecalculateCommand<T extends Team, U extends IridiumUser<T>> extend
             ));
         }
         iridiumTeams.setRecalculating(true);
+        return true;
     }
 
 }

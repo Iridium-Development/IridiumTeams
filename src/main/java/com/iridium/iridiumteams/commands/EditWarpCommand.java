@@ -23,30 +23,30 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length < 2) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.MANAGE_WARPS)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotManageWarps
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         Optional<TeamWarp> teamWarp = iridiumTeams.getTeamManager().getTeamWarp(team, args[0]);
         if (!teamWarp.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().unknownWarp
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         switch (args[1]) {
             case "icon":
                 if (args.length != 3) {
                     player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-                    return;
+                    return false;
                 }
 
                 Optional<XMaterial> xMaterial = XMaterial.matchXMaterial(args[2]);
@@ -54,17 +54,17 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchMaterial
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
-                    return;
+                    return false;
                 }
                 teamWarp.get().setIcon(xMaterial.get());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpIconSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return true;
             case "description":
                 if (args.length < 3) {
                     player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-                    return;
+                    return false;
                 }
 
                 String description = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
@@ -72,9 +72,10 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpDescriptionSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return true;
             default:
                 player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                return false;
         }
     }
 

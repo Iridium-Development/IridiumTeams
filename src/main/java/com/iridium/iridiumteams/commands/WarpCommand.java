@@ -19,25 +19,25 @@ public class WarpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1 && args.length != 2) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         Optional<TeamWarp> teamWarp = iridiumTeams.getTeamManager().getTeamWarp(team, args[0]);
         if (!teamWarp.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().unknownWarp
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         if (teamWarp.get().getPassword() != null) {
             if (args.length != 2 || !teamWarp.get().getPassword().equals(args[1])) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().incorrectPassword
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
         }
         
@@ -47,6 +47,8 @@ public class WarpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                     .replace("%name%", teamWarp.get().getName())
             ));
         }
+
+        return true;
     }
 
     @Override

@@ -21,17 +21,17 @@ public class UnInviteCommand<T extends Team, U extends IridiumUser<T>> extends C
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         U offlinePlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
         Optional<TeamInvite> teamInvite = iridiumTeams.getTeamManager().getTeamInvite(team, offlinePlayer);
         if (!teamInvite.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noActiveInvite.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         iridiumTeams.getTeamManager().deleteTeamInvite(teamInvite.get());
@@ -39,6 +39,8 @@ public class UnInviteCommand<T extends Team, U extends IridiumUser<T>> extends C
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", offlinePlayer.getName())
         ));
+        
+        return true;
     }
 
     @Override

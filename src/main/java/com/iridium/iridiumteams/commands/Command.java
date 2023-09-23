@@ -54,28 +54,28 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
     }
 
 
-    public void execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().mustBeAPlayer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
             );
-            return;
+            return false;
         }
-        execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) sender), arguments, iridiumTeams);
+        return execute(iridiumTeams.getUserManager().getUser((OfflinePlayer) sender), arguments, iridiumTeams);
     }
 
-    public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
         if (!team.isPresent()) {
             user.getPlayer().sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
             );
-            return;
+            return false;
         }
-        execute(user, team.get(), arguments, iridiumTeams);
+        return execute(user, team.get(), arguments, iridiumTeams);
     }
 
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         throw new NotImplementedException();
     }
 

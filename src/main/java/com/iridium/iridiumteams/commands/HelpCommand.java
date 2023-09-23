@@ -23,7 +23,7 @@ public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     }
 
     @Override
-    public void execute(CommandSender sender, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(CommandSender sender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         List<Command<T, U>> availableCommands = iridiumTeams.getCommandManager().getCommands().stream()
                 .filter(command -> sender.hasPermission(command.permission) || command.permission.isEmpty())
                 .collect(Collectors.toList());
@@ -75,7 +75,7 @@ public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         if (sender instanceof Player) {
             ((Player) sender).spigot().sendMessage(previousButton, footerText, nextButton);
         }
-
+        return true;
     }
 
     @Override

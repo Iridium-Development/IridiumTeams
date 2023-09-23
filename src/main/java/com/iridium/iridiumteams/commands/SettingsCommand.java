@@ -27,17 +27,17 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             player.openInventory(new SettingsGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
-            return;
+            return true;
         } else if (args.length == 2) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.SETTINGS)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotChangeSettings
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             String settingKey = args[0];
             for (Map.Entry<String, Setting> setting : iridiumTeams.getSettingsList().entrySet()) {
@@ -48,7 +48,7 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidSettingValue
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
-                    return;
+                    return false;
                 }
 
                 TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
@@ -60,14 +60,15 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
                 ));
 
                 Bukkit.getPluginManager().callEvent(new SettingUpdateEvent<>(team, user, setting.getKey(), value.get()));
-                return;
+                return true;
             }
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidSetting
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+        return false;
     }
 
     @Override

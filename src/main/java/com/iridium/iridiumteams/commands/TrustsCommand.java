@@ -17,9 +17,10 @@ public class TrustsCommand<T extends Team, U extends IridiumUser<T>> extends Com
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         player.openInventory(new TrustsGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return true;
     }
 
 }

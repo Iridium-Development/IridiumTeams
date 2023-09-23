@@ -22,11 +22,11 @@ public class ChatCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         Optional<ChatType> chatType = iridiumTeams.getChatTypes().stream()
                 .filter(type -> type.getAliases().stream().anyMatch(s -> s.equalsIgnoreCase(args[0])))
@@ -36,7 +36,7 @@ public class ChatCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%type%", args[0]))
             );
-            return;
+            return false;
         }
 
         String chat = WordUtils.capitalizeFully(chatType.get().getAliases().stream().max(Comparator.comparing(String::length)).orElse(args[0]));
@@ -45,6 +45,7 @@ public class ChatCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%type%", chat))
         );
+        return true;
     }
 
     @Override

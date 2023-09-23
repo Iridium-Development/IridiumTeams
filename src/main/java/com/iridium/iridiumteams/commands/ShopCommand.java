@@ -21,27 +21,29 @@ public class ShopCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     }
 
     @Override
-    public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        if(arguments.length == 0){
+        if (arguments.length == 0) {
             player.openInventory(new ShopOverviewGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
-        }else{
-            Optional<String> categoryName = getCategoryName(String.join(" ", arguments), iridiumTeams);
-
-            if (!categoryName.isPresent()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noShopCategory
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return;
-            }
-
-            player.openInventory(new ShopCategoryGUI<>(categoryName.get(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            return true;
         }
+
+        Optional<String> categoryName = getCategoryName(String.join(" ", arguments), iridiumTeams);
+
+        if (!categoryName.isPresent()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noShopCategory
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
+        }
+
+        player.openInventory(new ShopCategoryGUI<>(categoryName.get(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return true;
     }
 
-    private Optional<String> getCategoryName(String name, IridiumTeams<T, U> iridiumTeams){
-        for(String category : iridiumTeams.getShop().categories.keySet()){
-            if(category.equalsIgnoreCase(name)){
+    private Optional<String> getCategoryName(String name, IridiumTeams<T, U> iridiumTeams) {
+        for (String category : iridiumTeams.getShop().categories.keySet()) {
+            if (category.equalsIgnoreCase(name)) {
                 return Optional.of(category);
             }
         }

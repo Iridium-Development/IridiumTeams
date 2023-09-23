@@ -18,14 +18,14 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
 
         boolean flight = !user.isFlying();
         if (args.length == 1) {
             if (!args[0].equalsIgnoreCase("enable") && !args[0].equalsIgnoreCase("disable") && !args[0].equalsIgnoreCase("on") && !args[0].equalsIgnoreCase("off")) {
                 player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-                return;
+                return false;
             }
 
             flight = args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("on");
@@ -33,7 +33,7 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
 
         if (!canFly(player, iridiumTeams)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().flightNotActive.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         user.setFlying(flight);
@@ -45,6 +45,7 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
         } else {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().flightDisabled.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
         }
+        return true;
     }
 
     @Override

@@ -19,8 +19,9 @@ public class TestCommand extends Command<TestTeam, User> {
     }
 
     @Override
-    public void execute(User user, TestTeam team, String[] arguments, IridiumTeams<TestTeam, User> iridiumTeams) {
+    public boolean execute(User user, TestTeam team, String[] arguments, IridiumTeams<TestTeam, User> iridiumTeams) {
         hasCalled = true;
+        return true;
     }
 
     @Override

@@ -22,19 +22,20 @@ public class PermissionsCommand<T extends Team, U extends IridiumUser<T>> extend
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             player.openInventory(new RanksGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
-            return;
+            return false;
         }
         String rank = args[0];
         for (Map.Entry<Integer, UserRank> userRank : iridiumTeams.getUserRanks().entrySet()) {
             if (!userRank.getValue().name.equalsIgnoreCase(rank)) continue;
             player.openInventory(new PermissionsGUI<>(team, userRank.getKey(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
-            return;
+            return true;
         }
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidUserRank.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+        return false;
     }
 
     @Override

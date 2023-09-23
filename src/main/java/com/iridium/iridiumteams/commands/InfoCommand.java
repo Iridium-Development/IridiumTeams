@@ -21,7 +21,7 @@ public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     }
 
     @Override
-    public void execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             Optional<T> userTeam = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
@@ -29,19 +29,20 @@ public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             sendTeamInfo(player, userTeam.get(), iridiumTeams);
-            return;
+            return true;
         }
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(String.join(" ", args));
         if (!team.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         sendTeamInfo(player, team.get(), iridiumTeams);
+        return true;
     }
 
     public void sendTeamInfo(Player player, T team, IridiumTeams<T, U> iridiumTeams) {

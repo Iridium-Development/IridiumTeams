@@ -22,17 +22,17 @@ public class UnTrustCommand<T extends Team, U extends IridiumUser<T>> extends Co
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         U offlinePlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
         Optional<TeamTrust> teamTrust = iridiumTeams.getTeamManager().getTeamTrust(team, offlinePlayer);
         if (!teamTrust.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noActiveTrust.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         iridiumTeams.getTeamManager().deleteTeamTrust(teamTrust.get());
@@ -40,6 +40,8 @@ public class UnTrustCommand<T extends Team, U extends IridiumUser<T>> extends Co
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", offlinePlayer.getName())
         ));
+
+        return true;
     }
 
     @Override

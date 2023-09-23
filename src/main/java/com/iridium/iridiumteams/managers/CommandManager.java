@@ -119,8 +119,9 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
                 return false;
             }
 
-            command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);
-            command.getCooldownProvider().applyCooldown(commandSender);
+            if (command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams)) {
+                command.getCooldownProvider().applyCooldown(commandSender);
+            }
             return true;
         }
 
