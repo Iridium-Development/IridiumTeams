@@ -20,11 +20,12 @@ public class EntityChangeBlockListener<T extends Team, U extends IridiumUser<T>>
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityChangeBlock(EntityChangeBlockEvent event) {
+        iridiumTeams.getLogger().info(event.getEntityType().name());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.ENTITY_GRIEF.getSettingKey());
 
             if (teamSetting.getValue().equalsIgnoreCase("Disabled")
-                && (event.getEntityType() != EntityType.FALLING_BLOCK)) {
+                    && (event.getEntityType() != EntityType.FALLING_BLOCK)) {
                 event.setCancelled(true);
             }
         });
