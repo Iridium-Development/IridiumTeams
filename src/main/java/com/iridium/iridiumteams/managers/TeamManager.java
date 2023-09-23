@@ -288,6 +288,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                 teamBank.setNumber(teamBank.getNumber() + entry.getValue());
             }
         });
+        reward.commands.forEach(command ->
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()))
+        );
     }
 
     public void sendTeamTime(Player player) {
