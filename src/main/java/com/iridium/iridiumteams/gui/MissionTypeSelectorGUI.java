@@ -60,19 +60,19 @@ public class MissionTypeSelectorGUI<T extends Team, U extends IridiumUser<T>> ex
         MissionTypeSelectorInventoryConfig missionTypeSelectorInventoryConfig = iridiumTeams.getInventories().missionTypeSelectorGUI;
 
         if (event.getSlot() == missionTypeSelectorInventoryConfig.daily.item.slot && missionTypeSelectorInventoryConfig.daily.enabled) {
-            iridiumTeams.getCommands().missionsCommand.execute(event.getWhoClicked(), new String[]{"Daily"}, iridiumTeams);
+            iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().missionsCommand, new String[]{"Daily"});
         }
 
         if (event.getSlot() == missionTypeSelectorInventoryConfig.weekly.item.slot && missionTypeSelectorInventoryConfig.weekly.enabled) {
-            iridiumTeams.getCommands().missionsCommand.execute(event.getWhoClicked(), new String[]{"Weekly"}, iridiumTeams);
+            iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().missionsCommand, new String[]{"Weekly"});
         }
 
         if (event.getSlot() == missionTypeSelectorInventoryConfig.infinite.item.slot && missionTypeSelectorInventoryConfig.infinite.enabled) {
-            iridiumTeams.getCommands().missionsCommand.execute(event.getWhoClicked(), new String[]{"Infinite"}, iridiumTeams);
+            iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().missionsCommand, new String[]{"Infinite"});
         }
 
         if (event.getSlot() == missionTypeSelectorInventoryConfig.once.item.slot && missionTypeSelectorInventoryConfig.once.enabled) {
-            iridiumTeams.getCommands().missionsCommand.execute(event.getWhoClicked(), new String[]{"Once"}, iridiumTeams);
+            iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().missionsCommand, new String[]{"Once"});
         }
     }
 }

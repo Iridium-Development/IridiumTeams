@@ -102,31 +102,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
             // We don't want to execute other commands or ones that are disabled
             if (!command.aliases.contains(args[0])) continue;
 
-            if (!command.hasPermission(commandSender, iridiumTeams)) {
-                commandSender.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return false;
-            }
-
-
-            iridiumTeams.getLogger().info(command.getCooldownProvider().getRemainingTime(commandSender).toString() + " - " + command.cooldownInSeconds);
-
-            if (command.isOnCooldown(commandSender, iridiumTeams)) {
-                Duration remainingTime = command.getCooldownProvider().getRemainingTime(commandSender);
-                String formattedTime = TimeUtils.formatDuration(iridiumTeams.getMessages().activeCooldown, remainingTime);
-
-                commandSender.sendMessage(StringUtils.color(formattedTime
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return false;
-            }
-
-            if (command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams)) {
-                iridiumTeams.getLogger().info("Applying cooldown");
-                command.getCooldownProvider().applyCooldown(commandSender);
-            }
-            return true;
+            return executeCommand(commandSender, command, Arrays.copyOfRange(args, 1, args.length));
         }
 
         // Unknown command message
@@ -134,6 +110,30 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
         ));
         return false;
+    }
+
+    public boolean executeCommand(CommandSender commandSender, Command<T, U> command, String[] args) {
+        if (!command.hasPermission(commandSender, iridiumTeams)) {
+            commandSender.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
+        }
+
+        if (command.isOnCooldown(commandSender, iridiumTeams)) {
+            Duration remainingTime = command.getCooldownProvider().getRemainingTime(commandSender);
+            String formattedTime = TimeUtils.formatDuration(iridiumTeams.getMessages().activeCooldown, remainingTime);
+
+            commandSender.sendMessage(StringUtils.color(formattedTime
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
+        }
+
+        if (command.execute(commandSender, args, iridiumTeams)) {
+            command.getCooldownProvider().applyCooldown(commandSender);
+        }
+        return true;
     }
 
     public abstract void noArgsDefault(@NotNull CommandSender commandSender);

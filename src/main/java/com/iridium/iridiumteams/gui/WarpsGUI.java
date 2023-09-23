@@ -74,10 +74,10 @@ public class WarpsGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI 
             TeamWarp teamWarp = teamWarps.get(entrySet.getKey() - 1);
             switch (event.getClick()) {
                 case LEFT:
-                    iridiumTeams.getCommands().warpCommand.execute(event.getWhoClicked(), new String[]{teamWarp.getName()}, iridiumTeams);
+                    iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().warpCommand, new String[]{teamWarp.getName()});
                     return;
                 case RIGHT:
-                    iridiumTeams.getCommands().deleteWarpCommand.execute(event.getWhoClicked(), new String[]{teamWarp.getName()}, iridiumTeams);
+                    iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().deleteWarpCommand, new String[]{teamWarp.getName()});
             }
         }
     }
