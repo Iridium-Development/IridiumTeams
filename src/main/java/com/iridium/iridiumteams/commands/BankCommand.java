@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public String adminPermission;
 
-    public BankCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
-        super(args, description, syntax, permission);
+    public BankCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
+        super(args, description, syntax, permission, cooldownInSeconds);
         this.adminPermission = adminPermission;
     }
 
     @Override
-    public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (arguments.length == 4) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
@@ -36,7 +36,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             Optional<BankItem> bankItem = iridiumTeams.getBankItemList().stream()
                     .filter(item -> item.getName().equalsIgnoreCase(arguments[2]))
@@ -48,19 +48,19 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             if (!player.hasPermission(adminPermission)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             if (!bankItem.isPresent()) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchBankItem
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             TeamBank teamBank = iridiumTeams.getTeamManager().getTeamBank(team.get(), bankItem.get().getName());
             switch (arguments[0].toLowerCase()) {
@@ -99,21 +99,22 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
             }
-            return;
+            return true;
         }
         if (arguments.length != 0) {
             player.sendMessage(StringUtils.color(syntax
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
-        super.execute(user, arguments, iridiumTeams);
+        return super.execute(user, arguments, iridiumTeams);
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         player.openInventory(new BankGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return false;
     }
 
     @Override

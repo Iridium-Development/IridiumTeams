@@ -14,20 +14,20 @@ import java.util.List;
 
 @NoArgsConstructor
 public class BoostersCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public BoostersCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public BoostersCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
             player.openInventory(new BoostersGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
-            return;
+            return false;
         }
         if (args.length != 2 || !args[0].equalsIgnoreCase("buy")) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         String booster = args[1];
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
@@ -35,7 +35,7 @@ public class BoostersCommand<T extends Team, U extends IridiumUser<T>> extends C
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchBooster
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         boolean success = iridiumTeams.getTeamManager().UpdateEnhancement(team, booster, player);
         if (success) {
@@ -44,6 +44,7 @@ public class BoostersCommand<T extends Team, U extends IridiumUser<T>> extends C
                     .replace("%booster%", booster)
             ));
         }
+        return success;
     }
 
 }

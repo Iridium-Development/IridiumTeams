@@ -17,41 +17,41 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public KickCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public KickCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.KICK)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKick
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         U kickedPlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
         if (team.getId() != kickedPlayer.getTeamID()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         if (kickedPlayer.getPlayer().getUniqueId() == player.getUniqueId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickYourself
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         if (kickedPlayer.getUserRank() >= user.getUserRank() && !user.isBypassing() && user.getUserRank() != Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickHigherRank
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         kickedPlayer.setTeam(null);
         kickedPlayer.getPlayer().sendMessage(StringUtils.color(iridiumTeams.getMessages().youHaveBeenKicked
@@ -65,6 +65,7 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                         .replace("%kicker%", player.getName())
                 ))
         );
+        return true;
     }
 
     @Override

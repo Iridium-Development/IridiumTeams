@@ -16,42 +16,42 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public TransferCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public TransferCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         if (user.getUserRank() != Rank.OWNER.getId() && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().mustBeOwnerToTransfer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         Player targetPlayer = Bukkit.getServer().getPlayer(args[0]);
         if (targetPlayer == null) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notAPlayer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         U targetUser = iridiumTeams.getUserManager().getUser(targetPlayer);
         if (targetUser.getTeamID() != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         if (targetPlayer.getUniqueId().equals(player.getUniqueId()) && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotTransferToYourself
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
 
         player.openInventory(new ConfirmationGUI<>(() -> {
@@ -69,7 +69,9 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
                     ));
                 }
             });
+            getCooldownProvider().applyCooldown(player);
         }, iridiumTeams).getInventory());
+        return false;
     }
 
     @Override

@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public String adminPermission;
 
-    public ExperienceCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
-        super(args, description, syntax, permission);
+    public ExperienceCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
+        super(args, description, syntax, permission, cooldownInSeconds);
         this.adminPermission = adminPermission;
     }
 
     @Override
-    public void execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (arguments.length == 3) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
@@ -34,7 +34,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             int amount;
             try {
@@ -43,13 +43,13 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             if (!player.hasPermission(adminPermission)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
-                return;
+                return false;
             }
             switch (arguments[0].toLowerCase()) {
                 case "give":
@@ -60,7 +60,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                     ));
 
                     team.get().setExperience(team.get().getExperience() + amount);
-                    break;
+                    return true;
                 case "remove":
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().removedExperience
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
@@ -69,7 +69,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                     ));
 
                     team.get().setExperience(team.get().getExperience() - amount);
-                    break;
+                    return true;
                 case "set":
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().setExperience
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
@@ -78,27 +78,28 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                     ));
 
                     team.get().setExperience(amount);
-                    break;
+                    return true;
                 default:
                     player.sendMessage(StringUtils.color(syntax
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
+                    return false;
             }
-            return;
         }
         if (arguments.length != 0) {
             player.sendMessage(StringUtils.color(syntax
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
-        iridiumTeams.getCommands().infoCommand.execute(user, arguments, iridiumTeams);
+        return iridiumTeams.getCommands().infoCommand.execute(user, arguments, iridiumTeams);
     }
 
     @Override
-    public void execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         player.openInventory(new BankGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return true;
     }
 
     @Override

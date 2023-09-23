@@ -17,16 +17,16 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public PromoteCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public PromoteCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         OfflinePlayer targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
@@ -34,14 +34,14 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
 
         if (targetUser.getTeamID() != team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         int nextRank = targetUser.getUserRank() + 1;
 
         if (!DoesRankExist(nextRank, iridiumTeams) || IsHigherRank(targetUser, user) || !iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.PROMOTE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotPromoteUser.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         targetUser.setUserRank(nextRank);
@@ -65,6 +65,7 @@ public class PromoteCommand<T extends Team, U extends IridiumUser<T>> extends Co
                 }
             }
         }
+        return true;
     }
 
     @Override

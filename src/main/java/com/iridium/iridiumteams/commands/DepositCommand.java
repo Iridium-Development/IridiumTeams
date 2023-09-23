@@ -18,21 +18,21 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public DepositCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public DepositCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 2) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         Optional<BankItem> bankItem = iridiumTeams.getBankItemList().stream().filter(item -> item.getName().equalsIgnoreCase(args[0])).findFirst();
         if (!bankItem.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchBankItem.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
 
         try {
@@ -44,8 +44,10 @@ public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Co
                     .replace("%amount%", String.valueOf(bankResponse.getAmount()))
                     .replace("%type%", bankItem.get().getName())
             ));
+            return true;
         } catch (NumberFormatException exception) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            return false;
         }
     }
 

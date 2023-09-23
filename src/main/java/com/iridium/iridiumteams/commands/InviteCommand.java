@@ -15,42 +15,42 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class InviteCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public InviteCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public InviteCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length != 1) {
             player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
-            return;
+            return false;
         }
         if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.INVITE)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotInvite
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         Player invitee = Bukkit.getServer().getPlayer(args[0]);
         if (invitee == null) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notAPlayer
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         U offlinePlayerUser = iridiumTeams.getUserManager().getUser(invitee);
         if (offlinePlayerUser.getTeamID() == team.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userAlreadyInTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
         if (iridiumTeams.getTeamManager().getTeamInvite(team, offlinePlayerUser).isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().inviteAlreadyPresent
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
 
         iridiumTeams.getTeamManager().createTeamInvite(team, offlinePlayerUser, user);
@@ -62,6 +62,7 @@ public class InviteCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", player.getName())
         ));
+        return true;
     }
 
     @Override

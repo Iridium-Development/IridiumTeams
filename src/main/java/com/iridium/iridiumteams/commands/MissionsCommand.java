@@ -16,12 +16,12 @@ import java.util.List;
 
 @NoArgsConstructor
 public class MissionsCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public MissionsCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public MissionsCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         MissionTypeSelectorInventoryConfig missionTypeSelectorInventoryConfig = iridiumTeams.getInventories().missionTypeSelectorGUI;
         if (args.length == 1) {
@@ -32,31 +32,32 @@ public class MissionsCommand<T extends Team, U extends IridiumUser<T>> extends C
                     } else {
                         player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     }
-                    return;
+                    return true;
                 case "weekly":
                     if (missionTypeSelectorInventoryConfig.weekly.enabled) {
                         player.openInventory(new MissionGUI<>(team, MissionType.WEEKLY, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     } else {
                         player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     }
-                    return;
+                    return true;
                 case "infinite":
                     if (missionTypeSelectorInventoryConfig.infinite.enabled) {
                         player.openInventory(new MissionGUI<>(team, MissionType.INFINITE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     } else {
                         player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     }
-                    return;
+                    return true;
                 case "once":
                     if (missionTypeSelectorInventoryConfig.once.enabled) {
                         player.openInventory(new MissionGUI<>(team, MissionType.ONCE, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     } else {
                         player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     }
-                    return;
+                    return true;
             }
         }
         player.openInventory(new MissionTypeSelectorGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        return true;
     }
 
     @Override

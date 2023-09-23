@@ -13,19 +13,19 @@ import java.util.List;
 
 @NoArgsConstructor
 public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public LeaveCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public LeaveCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
-    public void execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
+    public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
 
-        if(user.getUserRank()== Rank.OWNER.getId()){
+        if (user.getUserRank() == Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().ownerCannotLeave
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
-            return;
+            return false;
         }
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().leftTeam
@@ -45,6 +45,7 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
         });
 
         user.setTeam(null);
+        return true;
     }
 
 }
