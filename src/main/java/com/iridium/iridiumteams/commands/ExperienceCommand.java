@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public String adminPermission;
 
-    public ExperienceCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
-        super(args, description, syntax, permission);
+    public ExperienceCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
+        super(args, description, syntax, permission, cooldownInSeconds);
         this.adminPermission = adminPermission;
     }
 

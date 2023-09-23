@@ -13,8 +13,8 @@ import java.util.List;
 
 @NoArgsConstructor
 public class RecalculateCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public RecalculateCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public RecalculateCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override

@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
     public String adminPermission;
 
-    public BankCommand(List<String> args, String description, String syntax, String permission, String adminPermission) {
-        super(args, description, syntax, permission);
+    public BankCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
+        super(args, description, syntax, permission, cooldownInSeconds);
         this.adminPermission = adminPermission;
     }
 

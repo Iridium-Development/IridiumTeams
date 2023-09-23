@@ -11,8 +11,8 @@ import java.util.List;
 
 @NoArgsConstructor
 public class RewardsCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public RewardsCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public RewardsCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override

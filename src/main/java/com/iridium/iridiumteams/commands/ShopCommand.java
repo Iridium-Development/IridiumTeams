@@ -16,8 +16,8 @@ import java.util.Optional;
 @NoArgsConstructor
 public class ShopCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
-    public ShopCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public ShopCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override

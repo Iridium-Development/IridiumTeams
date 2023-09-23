@@ -1,34 +1,56 @@
 package com.iridium.iridiumteams.commands;
 
+import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
+import com.iridium.iridiumcore.CooldownProvider;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import lombok.AllArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 public class Command<T extends Team, U extends IridiumUser<T>> {
 
     public final @NotNull List<String> aliases;
     public final @NotNull String description;
     public final @NotNull String syntax;
     public final @NotNull String permission;
+    public final long cooldownInSeconds;
     public final boolean enabled = true;
+    @JsonIgnore
+    private CooldownProvider<CommandSender> cooldownProvider;
 
     public Command() {
         this.aliases = Collections.emptyList();
         this.description = "";
         this.syntax = "";
         this.permission = "";
+        this.cooldownInSeconds = 0;
+    }
+
+    public Command(@NotNull List<String> aliases, @NotNull String description, @NotNull String syntax, @NotNull String permission, long cooldownInSeconds) {
+        this.aliases = aliases;
+        this.description = description;
+        this.syntax = syntax;
+        this.permission = permission;
+        this.cooldownInSeconds = cooldownInSeconds;
+    }
+
+
+    public CooldownProvider<CommandSender> getCooldownProvider() {
+        if (cooldownProvider == null) {
+            this.cooldownProvider = new CooldownProvider<>(Duration.ofSeconds(cooldownInSeconds));
+        }
+
+        return cooldownProvider;
     }
 
 

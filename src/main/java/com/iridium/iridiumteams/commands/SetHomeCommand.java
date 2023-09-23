@@ -13,8 +13,8 @@ import java.util.Objects;
 @NoArgsConstructor
 
 public class SetHomeCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public SetHomeCommand(List<String> args, String description, String syntax, String permission) {
-        super(args, description, syntax, permission);
+    public SetHomeCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+        super(args, description, syntax, permission, cooldownInSeconds);
     }
 
     @Override
