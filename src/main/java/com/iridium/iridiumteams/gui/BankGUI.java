@@ -59,16 +59,16 @@ public class BankGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
 
         switch (event.getClick()) {
             case LEFT:
-                iridiumTeams.getCommands().withdrawCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())}, iridiumTeams);
+                iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().withdrawCommand, new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())});
                 break;
             case RIGHT:
-                iridiumTeams.getCommands().depositCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())}, iridiumTeams);
+                iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().depositCommand, new String[]{bankItem.get().getName(), String.valueOf(bankItem.get().getDefaultAmount())});
                 break;
             case SHIFT_LEFT:
-                iridiumTeams.getCommands().withdrawCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)}, iridiumTeams);
+                iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().withdrawCommand, new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)});
                 break;
             case SHIFT_RIGHT:
-                iridiumTeams.getCommands().depositCommand.execute(event.getWhoClicked(), new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)}, iridiumTeams);
+                iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().depositCommand, new String[]{bankItem.get().getName(), String.valueOf(Double.MAX_VALUE)});
                 break;
         }
 

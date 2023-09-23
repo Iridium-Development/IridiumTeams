@@ -75,6 +75,6 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
 
         if (!boosters.containsKey(event.getSlot())) return;
         String booster = boosters.get(event.getSlot());
-        iridiumTeams.getCommands().boostersCommand.execute(event.getWhoClicked(), new String[]{"buy", booster}, iridiumTeams);
+        iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().boostersCommand, new String[]{"buy", booster});
     }
 }

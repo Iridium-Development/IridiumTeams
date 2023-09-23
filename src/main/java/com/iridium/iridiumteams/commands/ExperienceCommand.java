@@ -92,7 +92,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
             ));
             return false;
         }
-        return iridiumTeams.getCommands().infoCommand.execute(user, arguments, iridiumTeams);
+        return iridiumTeams.getCommandManager().executeCommand(user.getPlayer(), iridiumTeams.getCommands().infoCommand, arguments);
     }
 
     @Override

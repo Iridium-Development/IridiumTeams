@@ -73,6 +73,6 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
         if (teamTrust == null) return;
 
         String username = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getUser()).map(U::getName).orElse("N/A");
-        iridiumTeams.getCommands().unTrustCommand.execute(event.getWhoClicked(), new String[]{username}, iridiumTeams);
+        iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().unTrustCommand, new String[]{username});
     }
 }

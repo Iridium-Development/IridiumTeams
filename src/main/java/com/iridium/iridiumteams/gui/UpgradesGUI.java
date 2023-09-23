@@ -75,6 +75,6 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
 
         if (!upgrades.containsKey(event.getSlot())) return;
         String upgrade = upgrades.get(event.getSlot());
-        iridiumTeams.getCommands().upgradesCommand.execute(event.getWhoClicked(), new String[]{"buy", upgrade}, iridiumTeams);
+        iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().upgradesCommand, new String[]{"buy", upgrade});
     }
 }

@@ -84,7 +84,7 @@ public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> extends Ba
             if (permission.getValue().getItem().slot != event.getSlot()) continue;
             if (permission.getValue().getPage() != page) continue;
 
-            iridiumTeams.getCommands().setPermissionCommand.execute(event.getWhoClicked(), new String[]{permission.getKey(), iridiumTeams.getUserRanks().get(rank).name}, iridiumTeams);
+            iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().setPermissionCommand, new String[]{permission.getKey(), iridiumTeams.getUserRanks().get(rank).name});
             return;
         }
     }
