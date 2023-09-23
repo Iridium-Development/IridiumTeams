@@ -24,8 +24,10 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
     public void monitorBlockGrow(BlockGrowEvent event) {
         XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+            iridiumTeams.getLogger().info(material.name());
             if (event.getNewState().getBlockData() instanceof Ageable) {
                 Ageable ageable = (Ageable) event.getNewState().getBlockData();
+                iridiumTeams.getLogger().info("ageable " + ageable.getAge() + "/" + ageable.getMaximumAge());
 
                 if (ageable.getAge() >= ageable.getMaximumAge()) {
                     iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);

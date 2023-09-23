@@ -49,6 +49,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
      * @param amount      The amount we are incrementing by
      */
     public void handleMissionUpdate(T team, World.Environment environment, String missionType, String identifier, int amount) {
+        iridiumTeams.getLogger().info("Handling update for " + missionType + ":" + identifier);
         generateMissionData(team);
         incrementMission(team, missionType + ":" + identifier, amount);
         incrementMission(team, missionType + ":ANY", amount);
