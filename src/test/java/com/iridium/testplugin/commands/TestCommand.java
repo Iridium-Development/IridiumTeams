@@ -14,7 +14,7 @@ public class TestCommand extends Command<TestTeam, User> {
     public static boolean hasCalled;
 
     public TestCommand() {
-        super(List.of("test"), "Description", "/test test", "iridiumteams.test");
+        super(List.of("test"), "Description", "/test test", "iridiumteams.test", 0);
         hasCalled = false;
     }
 
