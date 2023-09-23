@@ -109,6 +109,9 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
                 return false;
             }
 
+
+            iridiumTeams.getLogger().info(command.getCooldownProvider().getRemainingTime(commandSender).toString() + " - " + command.cooldownInSeconds);
+
             if (command.isOnCooldown(commandSender, iridiumTeams)) {
                 Duration remainingTime = command.getCooldownProvider().getRemainingTime(commandSender);
                 String formattedTime = TimeUtils.formatDuration(iridiumTeams.getMessages().activeCooldown, remainingTime);
@@ -120,6 +123,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
             }
 
             if (command.execute(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams)) {
+                iridiumTeams.getLogger().info("Applying cooldown");
                 command.getCooldownProvider().applyCooldown(commandSender);
             }
             return true;
