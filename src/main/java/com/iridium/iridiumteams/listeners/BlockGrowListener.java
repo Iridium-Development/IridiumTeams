@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockGrowEvent;
+import org.bukkit.event.block.BlockSpreadEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,12 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
             }
         });
 
+    }
+
+    // Some stuff like bamboo growing comes under this for some reason
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void monitorBlockSpread(BlockSpreadEvent event) {
+        monitorBlockGrow(event);
     }
 
 }
