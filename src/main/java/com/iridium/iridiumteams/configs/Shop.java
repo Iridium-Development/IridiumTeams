@@ -765,6 +765,17 @@ public class Shop {
             this.buyCost = buyCost;
             this.sellCost = sellCost;
         }
+
+        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, int page, Cost buyCost, Cost sellCost) {
+            this.name = name;
+            this.type = type;
+            this.lore = Collections.emptyList();
+            this.defaultAmount = defaultAmount;
+            this.slot = slot;
+            this.page = page;
+            this.buyCost = buyCost;
+            this.sellCost = sellCost;
+        }
     }
 
     @AllArgsConstructor
