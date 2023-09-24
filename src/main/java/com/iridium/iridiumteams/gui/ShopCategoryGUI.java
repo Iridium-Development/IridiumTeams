@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams.gui;
 
 import com.iridium.iridiumcore.gui.BackGUI;
+import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
@@ -24,12 +25,15 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
     @Getter
     private final String categoryName;
     private final Shop.ShopCategory shopCategory;
+    @Getter
+    private int page;
 
-    public ShopCategoryGUI(String categoryName, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public ShopCategoryGUI(String categoryName, Inventory previousInventory, int page, IridiumTeams<T, U> iridiumTeams) {
         super(iridiumTeams.getInventories().shopCategoryGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
         this.categoryName = categoryName;
         this.shopCategory = iridiumTeams.getShop().categories.get(categoryName);
+        this.page = page;
     }
 
     @NotNull
@@ -49,7 +53,9 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
             iridiumTeams.getLogger().warning("Shop Category " + categoryName + " Is not configured with any items!");
             return;
         }
+
         for (Shop.ShopItem shopItem : iridiumTeams.getShop().items.get(categoryName)) {
+            if (shopItem.page != this.page) continue;
             ItemStack itemStack = shopItem.type.parseItem();
             ItemMeta itemMeta = itemStack.getItemMeta();
 
@@ -60,9 +66,12 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
             itemStack.setItemMeta(itemMeta);
             inventory.setItem(shopItem.slot, itemStack);
         }
+
+        inventory.setItem(inventory.getSize() - 3, ItemStackUtils.makeItem(this.iridiumTeams.getInventories().nextPage));
+        inventory.setItem(inventory.getSize() - 7, ItemStackUtils.makeItem(this.iridiumTeams.getInventories().previousPage));
     }
 
-    private List<Placeholder> getShopLorePlaceholders(Shop.ShopItem item){
+    private List<Placeholder> getShopLorePlaceholders(Shop.ShopItem item) {
         List<Placeholder> placeholders = new ArrayList<>(Arrays.asList(
                 new Placeholder("amount", iridiumTeams.getShopManager().formatPrice(item.defaultAmount)),
                 new Placeholder("vault_cost", iridiumTeams.getShopManager().formatPrice(item.buyCost.money)),
@@ -101,8 +110,22 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
     @Override
     public void onInventoryClick(InventoryClickEvent event) {
         super.onInventoryClick(event);
+
+        if (event.getSlot() == event.getInventory().getSize() - 3 && doesNextPageExist()) {
+            this.page++;
+            addContent(event.getInventory());
+            return;
+        }
+
+        if (event.getSlot() == event.getInventory().getSize() - 7 && doesPreviousPageExist()) {
+            this.page--;
+            addContent(event.getInventory());
+            return;
+        }
+
         Optional<Shop.ShopItem> shopItem = iridiumTeams.getShop().items.get(categoryName).stream()
                 .filter(item -> item.slot == event.getSlot())
+                .filter(item -> item.page == this.page)
                 .findAny();
 
         if (!shopItem.isPresent()) {
@@ -118,5 +141,13 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
         } else {
             iridiumTeams.getShop().failSound.play(player);
         }
+    }
+
+    private boolean doesNextPageExist() {
+        return iridiumTeams.getShop().items.get(categoryName).stream().anyMatch(item -> item.page == this.page + 1);
+    }
+
+    private boolean doesPreviousPageExist() {
+        return iridiumTeams.getShop().items.get(categoryName).stream().anyMatch(item -> item.page == this.page - 1);
     }
 }
