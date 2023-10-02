@@ -15,6 +15,7 @@ import com.iridium.testplugin.TestTeam;
 import com.iridium.testplugin.User;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.junit.jupiter.api.AfterEach;
@@ -245,4 +246,29 @@ class ShopCategoryGUITest {
         assertEquals(10000, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
     }
 
+    @Test
+    public void ShopCategoryGUI_ShouldBuyItem_OnShiftLeftClick() {
+        TestTeam testTeam = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
+        TestPlugin.getInstance().getEconomy().depositPlayer(playerMock, 10000);
+        ShopCategoryGUI<TestTeam, User> shopCategoryGUI = new ShopCategoryGUI<>("Miscellaneous", null, 1,
+                TestPlugin.getInstance());
+
+        playerMock.openInventory(shopCategoryGUI.getInventory());
+        InventoryClickEvent inventoryClickEvent = playerMock.simulateInventoryClick(playerMock.getOpenInventory(),
+                ClickType.SHIFT_LEFT, 12);
+
+        assertTrue(inventoryClickEvent.isCancelled());
+        playerMock.assertSoundHeard(Sound.ENTITY_PLAYER_LEVELUP);
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().successfullyBought
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+                .replace("%amount%", "16")
+                .replace("%item%", StringUtils.color("&9&lBucket"))
+                .replace("%vault_cost%", "1600")));
+        playerMock.assertNoMoreSaid();
+
+        assertEquals(16, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.BUCKET));
+        assertEquals(0, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.DIAMOND));
+        assertEquals(8400, TestPlugin.getInstance().getEconomy().getBalance(playerMock));
+    }
 }
