@@ -264,7 +264,7 @@ class ShopCategoryGUITest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
                 .replace("%amount%", "16")
                 .replace("%item%", StringUtils.color("&9&lBucket"))
-                .replace("%vault_cost%", "1600")));
+                .replace("%vault_cost%", "1.6K")));
         playerMock.assertNoMoreSaid();
 
         assertEquals(16, InventoryUtils.getAmount(playerMock.getInventory(), XMaterial.BUCKET));
