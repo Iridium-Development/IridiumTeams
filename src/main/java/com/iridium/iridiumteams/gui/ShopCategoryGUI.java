@@ -133,7 +133,7 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
         }
 
         Player player = (Player) event.getWhoClicked();
-        int amount = event.isShiftClick() ? 64 : shopItem.get().defaultAmount;
+        int amount = event.isShiftClick() ? shopItem.get().type.parseItem().getMaxStackSize() : shopItem.get().defaultAmount;
         if (event.isLeftClick() && shopItem.get().buyCost.canPurchase()) {
             iridiumTeams.getShopManager().buy(player, shopItem.get(), amount);
         } else if (event.isRightClick() && shopItem.get().sellCost.canPurchase()) {
