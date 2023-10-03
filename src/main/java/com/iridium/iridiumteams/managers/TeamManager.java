@@ -188,13 +188,6 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
             }
         }
 
-        iridiumTeams.getEconomy().withdrawPlayer(player, enhancementData.money);
-
-        for (Map.Entry<String, Double> bankCost : enhancementData.bankCosts.entrySet()) {
-            TeamBank teamBank = getTeamBank(team, bankCost.getKey());
-            teamBank.setNumber(teamBank.getNumber() - bankCost.getValue());
-        }
-
         if (enhancement.levels.containsKey(teamEnhancement.getLevel() + 1)) {
             U user = iridiumTeams.getUserManager().getUser(player);
             EnhancementUpdateEvent<T, U> enhancementUpdateEvent = new EnhancementUpdateEvent<>(team, user, teamEnhancement.getLevel() + 1, booster);
@@ -204,6 +197,14 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
             teamEnhancement.setLevel(enhancementUpdateEvent.getNextLevel());
         }
+
+        iridiumTeams.getEconomy().withdrawPlayer(player, enhancementData.money);
+
+        for (Map.Entry<String, Double> bankCost : enhancementData.bankCosts.entrySet()) {
+            TeamBank teamBank = getTeamBank(team, bankCost.getKey());
+            teamBank.setNumber(teamBank.getNumber() - bankCost.getValue());
+        }
+
         if (teamEnhancement.getExpirationTime().isBefore(LocalDateTime.now())) {
             teamEnhancement.setExpirationTime(LocalDateTime.now().plusHours(1));
         } else {
