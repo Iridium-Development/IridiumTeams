@@ -26,6 +26,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -323,5 +326,32 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
                     .setColoredConsoleOutput(true)
                     .checkNow();
         }
+    }
+
+    public void backupConfigs(String backupFolderName) {
+
+        getLogger().info("Attempting to create backup of configuration files...");
+
+        File pluginFolder = new File(getDataFolder().getPath());
+        File backupFolder = new File(pluginFolder.getPath() + File.separator + backupFolderName);
+        if (!backupFolder.exists()) backupFolder.mkdir();
+
+        File[] configFiles = pluginFolder.listFiles((dir, name) -> name.endsWith(".yml") || name.endsWith(".db"));
+
+        if(configFiles == null) {
+            getLogger().info("No files found.");
+            return;
+        }
+
+        for (File configFile : configFiles) {
+            File backupFile = new File(backupFolder, configFile.getName());
+
+            try {
+                Files.copy(configFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException exception) {
+                getLogger().warning("Could not copy " + configFile.getName() + " to " + backupFile.getAbsolutePath());
+            }
+        }
+        getLogger().info("Backup successful, check " + backupFolder.getPath() + ".");
     }
 }
