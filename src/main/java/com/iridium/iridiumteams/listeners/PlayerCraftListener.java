@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -37,8 +38,15 @@ public class PlayerCraftListener<T extends Team, U extends IridiumUser<T>> imple
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getWhoClicked().getLocation().getWorld().getEnvironment(), "CRAFT", material.name(), amount);
         });
-
-
     }
 
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerCraft(PrepareItemCraftEvent event) {
+
+        for (ItemStack item : event.getInventory().getMatrix()) {
+            if (iridiumTeams.getTeamManager().isBankItem(item)) {
+                event.getInventory().setResult(null);
+            }
+        }
+    }
 }

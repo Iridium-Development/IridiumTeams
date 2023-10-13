@@ -27,6 +27,7 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
+
         if (team.isPresent()) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BLOCK_PLACE)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotPlaceBlocks
@@ -35,6 +36,9 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
                 event.setCancelled(true);
             }
         } else {
+            if (iridiumTeams.getTeamManager().isBankItem(event.getItemInHand())) {
+                event.setCancelled(true);
+            }
             iridiumTeams.getTeamManager().handleBlockPlaceOutsideTerritory(event);
         }
     }
