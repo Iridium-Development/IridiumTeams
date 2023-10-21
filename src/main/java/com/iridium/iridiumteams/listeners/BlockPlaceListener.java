@@ -24,9 +24,15 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (iridiumTeams.getTeamManager().isBankItem(event.getItemInHand())) {
+            event.setCancelled(true);
+            return;
+        }
+
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
+
         if (team.isPresent()) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BLOCK_PLACE)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotPlaceBlocks
