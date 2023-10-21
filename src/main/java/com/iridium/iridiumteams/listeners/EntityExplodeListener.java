@@ -27,8 +27,9 @@ public class EntityExplodeListener<T extends Team, U extends IridiumUser<T>> imp
         Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getEntity().getLocation());
 
         if (currentTeam.isPresent()) {
-            TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.TNT_DAMAGE.getSettingKey());
-            if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
+            boolean isTnTDisabled = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.TNT_DAMAGE.getSettingKey()).getValue().equalsIgnoreCase("Disabled");
+            boolean isEntityGriefDisabled = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.ENTITY_GRIEF.getSettingKey()).getValue().equalsIgnoreCase("Disabled");
+            if (isTnTDisabled || isEntityGriefDisabled) {
                 event.setCancelled(true);
                 return;
             }
