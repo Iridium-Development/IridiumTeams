@@ -1,5 +1,7 @@
 package com.iridium.iridiumteams.managers;
 
+import com.iridium.iridiumcore.dependencies.nbtapi.NBTItem;
+import com.iridium.iridiumcore.dependencies.nbtapi.NBTType;
 import com.iridium.iridiumcore.dependencies.paperlib.PaperLib;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
@@ -21,8 +23,8 @@ import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -365,6 +367,13 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public void handleBlockPlaceOutsideTerritory(BlockPlaceEvent blockEvent) {
         // By default do nothing
+    }
+
+    public boolean isBankItem(ItemStack item) {
+        if(item == null) {
+            return false;
+        }
+        return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase() , NBTType.NBTTagCompound);
     }
 
     public enum SortType {
