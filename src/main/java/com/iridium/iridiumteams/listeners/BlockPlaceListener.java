@@ -24,6 +24,11 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (iridiumTeams.getTeamManager().isBankItem(event.getItemInHand())) {
+            event.setCancelled(true);
+            return;
+        }
+
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
@@ -36,9 +41,6 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
                 event.setCancelled(true);
             }
         } else {
-            if (iridiumTeams.getTeamManager().isBankItem(event.getItemInHand())) {
-                event.setCancelled(true);
-            }
             iridiumTeams.getTeamManager().handleBlockPlaceOutsideTerritory(event);
         }
     }

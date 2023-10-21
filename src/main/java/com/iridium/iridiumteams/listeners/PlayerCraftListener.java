@@ -23,7 +23,6 @@ public class PlayerCraftListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorPlayerCraft(CraftItemEvent event) {
-
         int amount = event.isShiftClick() ? Arrays.stream(event.getInventory().getMatrix())
                 .filter(Objects::nonNull)
                 .map(ItemStack::getAmount)
@@ -42,10 +41,10 @@ public class PlayerCraftListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerCraft(PrepareItemCraftEvent event) {
-
         for (ItemStack item : event.getInventory().getMatrix()) {
             if (iridiumTeams.getTeamManager().isBankItem(item)) {
                 event.getInventory().setResult(null);
+                return;
             }
         }
     }
