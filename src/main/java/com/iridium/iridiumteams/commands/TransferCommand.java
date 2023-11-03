@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.api.TeamTransferEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
@@ -68,8 +69,12 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
                             .replace("%new_owner%", targetUser.getName())
                     ));
                 }
+
             });
+
             getCooldownProvider().applyCooldown(player);
+
+            Bukkit.getPluginManager().callEvent(new TeamTransferEvent<>(team, user, targetUser));
         }, iridiumTeams).getInventory());
         return false;
     }

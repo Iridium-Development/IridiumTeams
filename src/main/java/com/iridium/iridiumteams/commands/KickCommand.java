@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.api.TeamKickEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.NoArgsConstructor;
@@ -65,6 +66,7 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                         .replace("%kicker%", player.getName())
                 ))
         );
+        Bukkit.getPluginManager().callEvent(new TeamKickEvent<>(team, kickedPlayer, user));
         return true;
     }
 
