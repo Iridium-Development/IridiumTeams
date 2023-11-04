@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> extends IridiumCore {
-
+    
     private final Map<Integer, UserRank> userRanks = new HashMap<>();
     private final Map<String, Permission> permissionList = new HashMap<>();
     private final Map<String, Setting> settingsList = new HashMap<>();
@@ -164,40 +164,74 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void registerListeners() {
-        Bukkit.getPluginManager().registerEvents(new BlockBreakListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockBurnListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockExplodeListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockFertilizeListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockFormListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockFromToListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockGrowListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockPistonListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockSpreadListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EnchantItemListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityChangeBlockListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDeathListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityExplodeListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityInteractListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntitySpawnListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new FurnaceSmeltListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
-        Bukkit.getPluginManager().registerEvents(new LeavesDecayListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerChatListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerCraftListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerExpChangeListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerFishListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PotionBrewListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new StructureGrowListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new TeamLevelUpListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new SettingUpdateListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageListener<>(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerBucketListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockBreak"))
+            Bukkit.getPluginManager().registerEvents(new BlockBreakListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockBurn"))
+            Bukkit.getPluginManager().registerEvents(new BlockBurnListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockExplode"))
+            Bukkit.getPluginManager().registerEvents(new BlockExplodeListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockFertilize"))
+            Bukkit.getPluginManager().registerEvents(new BlockFertilizeListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockForm"))
+            Bukkit.getPluginManager().registerEvents(new BlockFormListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockFromTo"))
+            Bukkit.getPluginManager().registerEvents(new BlockFromToListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockGrow"))
+            Bukkit.getPluginManager().registerEvents(new BlockGrowListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockPiston"))
+            Bukkit.getPluginManager().registerEvents(new BlockPistonListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockPlace"))
+            Bukkit.getPluginManager().registerEvents(new BlockPlaceListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("blockSpread"))
+            Bukkit.getPluginManager().registerEvents(new BlockSpreadListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("enchantItem"))
+            Bukkit.getPluginManager().registerEvents(new EnchantItemListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("entityChangeBlock"))
+            Bukkit.getPluginManager().registerEvents(new EntityChangeBlockListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("entityDeath"))
+            Bukkit.getPluginManager().registerEvents(new EntityDeathListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("entityExplode"))
+            Bukkit.getPluginManager().registerEvents(new EntityExplodeListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("entityInteract"))
+            Bukkit.getPluginManager().registerEvents(new EntityInteractListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("entitySpawn"))
+            Bukkit.getPluginManager().registerEvents(new EntitySpawnListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("furnaceSmelt"))
+            Bukkit.getPluginManager().registerEvents(new FurnaceSmeltListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("inventoryClick"))
+            Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        if (getConfiguration().enabledListeners.get("inventoryClose"))
+            Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
+        if (getConfiguration().enabledListeners.get("leavesDecay"))
+            Bukkit.getPluginManager().registerEvents(new LeavesDecayListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerChat"))
+            Bukkit.getPluginManager().registerEvents(new PlayerChatListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerCraft"))
+            Bukkit.getPluginManager().registerEvents(new PlayerCraftListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerExpChange"))
+            Bukkit.getPluginManager().registerEvents(new PlayerExpChangeListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerFish"))
+            Bukkit.getPluginManager().registerEvents(new PlayerFishListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerJoin"))
+            Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerMove"))
+            Bukkit.getPluginManager().registerEvents(new PlayerMoveListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerTeleport"))
+            Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("potionBrew"))
+            Bukkit.getPluginManager().registerEvents(new PotionBrewListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("spawnerSpawn"))
+            Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("structureGrow"))
+            Bukkit.getPluginManager().registerEvents(new StructureGrowListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("teamLevelUp"))
+            Bukkit.getPluginManager().registerEvents(new TeamLevelUpListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("settingUpdate"))
+            Bukkit.getPluginManager().registerEvents(new SettingUpdateListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("entityDamage"))
+            Bukkit.getPluginManager().registerEvents(new EntityDamageListener<>(this), this);
+        if (getConfiguration().enabledListeners.get("playerBucket"))
+            Bukkit.getPluginManager().registerEvents(new PlayerBucketListener<>(this), this);
     }
 
     public void saveData() {

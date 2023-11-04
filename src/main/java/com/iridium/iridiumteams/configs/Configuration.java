@@ -13,7 +13,6 @@ import java.util.*;
 public class Configuration {
     public String prefix;
     public boolean updateChecks;
-
     public String dateTimeFormat;
     public NumberFormatter numberFormatter;
     public boolean createRequiresName;
@@ -46,6 +45,7 @@ public class Configuration {
      * 5 will give the reward to levels 5 10 15 20 25 ect since they are divisible by 5
      */
     public Map<Integer, Reward> levelRewards;
+    public Map<String, Boolean> enabledListeners;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -68,6 +68,7 @@ public class Configuration {
                 .put(2, new UserRank("Moderator", new Item(XMaterial.IRON_AXE, 13, 1, "&5&lModerator", Collections.emptyList())))
                 .put(3, new UserRank("CoOwner", new Item(XMaterial.GOLDEN_AXE, 14, 1, "&2&lCoOwner", Collections.emptyList())))
                 .build();
+
         this.visitor = new UserRank("Visitor", new Item(XMaterial.WOODEN_AXE, 11, 1, "&7&lVisitor", Collections.emptyList()));
         this.owner = new UserRank("Owner", new Item(XMaterial.DIAMOND_AXE, 15, 1, "&c&lOwner", Collections.emptyList()));
         this.teamInfoTitle = "&8[ " + color + "&l%" + team.toLowerCase() + "_name% &8]";
@@ -93,6 +94,7 @@ public class Configuration {
                 .put(8, 33)
                 .put(9, 34)
                 .build();
+
         this.teamWarpSlots = ImmutableMap.<Integer, Integer>builder()
                 .put(1, 9)
                 .put(2, 11)
@@ -102,20 +104,56 @@ public class Configuration {
                 .build();
 
         this.levelRewards = ImmutableMap.<Integer, Reward>builder()
-                .put(1, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %"+team.toLowerCase()+"_level% Reward", Arrays.asList(
-                        "&7"+team+" Level %"+team.toLowerCase()+"_level% Rewards:",
+                .put(1, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %" + team.toLowerCase() + "_level% Reward", Arrays.asList(
+                        "&7" + team + " Level %" + team.toLowerCase() + "_level% Rewards:",
                         "&b&l* &b200 Money",
                         "",
                         "&b&l[!] &bLeft click to redeem"
                 )), Collections.emptyList(), 0, new HashMap<>(), 200, 0, XSound.ENTITY_PLAYER_LEVELUP))
 
-                .put(5, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %"+team.toLowerCase()+"_level% Reward", Arrays.asList(
-                        "&7"+team+" Level %"+team.toLowerCase()+"_level% Rewards:",
+                .put(5, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %" + team.toLowerCase() + "_level% Reward", Arrays.asList(
+                        "&7" + team + " Level %" + team.toLowerCase() + "_level% Rewards:",
                         "&b&l* &b2000 Money",
                         "",
                         "&b&l[!] &bLeft click to redeem"
                 )), Collections.emptyList(), 0, new HashMap<>(), 2000, 0, XSound.ENTITY_PLAYER_LEVELUP))
                 .build();
 
+        this.enabledListeners = ImmutableMap.<String, Boolean>builder()
+                .put("blockBreak", true)
+                .put("blockBurn", true)
+                .put("blockExplode", true)
+                .put("blockFertilize", true)
+                .put("blockForm", true)
+                .put("blockFromTo", true)
+                .put("blockGrow", true)
+                .put("blockPiston", true)
+                .put("blockPlace", true)
+                .put("blockSpread", true)
+                .put("enchantItem", true)
+                .put("entityChangeBlock", true)
+                .put("entityDamage", true)
+                .put("entityDeath", true)
+                .put("entityExplode", true)
+                .put("entityInteract", true)
+                .put("entitySpawn", true)
+                .put("furnaceSmelt", true)
+                .put("inventoryClick", true)
+                .put("inventoryClose", true)
+                .put("leavesDecay", true)
+                .put("playerBucket", true)
+                .put("playerChat", true)
+                .put("playerCraft", true)
+                .put("playerExpChange", true)
+                .put("playerFish", true)
+                .put("playerJoin", true)
+                .put("playerMove", true)
+                .put("playerTeleport", true)
+                .put("potionBrew", true)
+                .put("settingUpdate", true)
+                .put("spawnerSpawn", true)
+                .put("structureGrow", true)
+                .put("teamLevelUp", true)
+                .build();
     }
 }
