@@ -19,6 +19,7 @@ import com.iridium.iridiumteams.sorting.ValueTeamSort;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -370,7 +371,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public boolean isBankItem(ItemStack item) {
-        if(item == null) {
+        if(item == null || item.getType() == Material.AIR) {
             return false;
         }
         return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase() , NBTType.NBTTagCompound);
