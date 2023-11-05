@@ -23,7 +23,7 @@ public class PlayerFishListener<T extends Team, U extends IridiumUser<T>> implem
         U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
 
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, caughtEntity.getLocation().getWorld().getEnvironment(), "FISH", ((Item) caughtEntity).getItemStack().getType().name(), 1);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, caughtEntity.getLocation().getWorld(), "FISH", ((Item) caughtEntity).getItemStack().getType().name(), 1);
         });
 
     }

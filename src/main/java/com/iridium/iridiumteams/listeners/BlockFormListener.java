@@ -17,6 +17,7 @@ public class BlockFormListener<T extends Team, U extends IridiumUser<T>> impleme
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockForm(BlockFormEvent event) {
+
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.ICE_FORM.getSettingKey());
             if (teamSetting.getValue().equalsIgnoreCase("Disabled") && (event.getNewState().getType() == Material.ICE || event.getNewState().getType() == Material.SNOW)) {

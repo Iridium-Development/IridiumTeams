@@ -20,6 +20,7 @@ public class BlockExplodeListener<T extends Team, U extends IridiumUser<T>> impl
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockExplode(BlockExplodeEvent event) {
+
         if (!iridiumTeams.getConfiguration().preventTntGriefing) return;
         Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
 

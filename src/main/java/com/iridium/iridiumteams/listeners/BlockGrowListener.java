@@ -34,7 +34,7 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
                 Ageable ageable = (Ageable) event.getNewState().getBlockData();
 
                 if (ageable.getAge() >= ageable.getMaximumAge() || ageIgnoreList.contains(material)) {
-                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "GROW", material.name(), 1);
                 }
 
                 Enhancement<FarmingEnhancementData> farmingEnhancement = iridiumTeams.getEnhancements().farmingEnhancement;
@@ -47,7 +47,7 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
                 }
 
             } else {
-                iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+                iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "GROW", material.name(), 1);
             }
         });
 

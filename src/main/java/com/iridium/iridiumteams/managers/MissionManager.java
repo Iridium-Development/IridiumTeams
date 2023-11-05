@@ -43,22 +43,26 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
      * Determines the missions to be checked
      *
      * @param team        The team
-     * @param environment The environment we are in
+     * @param missionWorld       The world we are in
      * @param missionType The mission type e.g. BREAK
      * @param identifier  The mission identifier e.g. COBBLESTONE
      * @param amount      The amount we are incrementing by
      */
-    public void handleMissionUpdate(T team, World.Environment environment, String missionType, String identifier, int amount) {
+    public void handleMissionUpdate(T team, World missionWorld, String missionType, String identifier, int amount) {
+
+        if (iridiumTeams.getConfiguration().whitelistedWorlds.stream().noneMatch(world -> missionWorld.getName().equalsIgnoreCase(world))
+        && !iridiumTeams.getConfiguration().whitelistedWorlds.isEmpty()) return;
+
         generateMissionData(team);
         incrementMission(team, missionType + ":" + identifier, amount);
         incrementMission(team, missionType + ":ANY", amount);
-        incrementMission(team, environment.name() + ":" + missionType + ":" + identifier, amount);
-        incrementMission(team, environment.name() + ":" + missionType + ":ANY", amount);
+        incrementMission(team, missionWorld.getEnvironment().name() + ":" + missionType + ":" + identifier, amount);
+        incrementMission(team, missionWorld.getEnvironment().name() + ":" + missionType + ":ANY", amount);
 
         for (Map.Entry<String, List<String>> itemList : iridiumTeams.getMissions().customMaterialLists.entrySet()) {
             if (itemList.getValue().contains(identifier)) {
                 incrementMission(team, missionType + ":" + itemList.getKey(), amount);
-                incrementMission(team, environment.name() + ":" + missionType + ":" + itemList.getKey(), amount);
+                incrementMission(team, missionWorld.getEnvironment().name() + ":" + missionType + ":" + itemList.getKey(), amount);
             }
         }
     }

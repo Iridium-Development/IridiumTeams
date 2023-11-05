@@ -21,7 +21,7 @@ public class EntityDeathListener<T extends Team, U extends IridiumUser<T>> imple
         if(killer==null)return;
         U user = iridiumTeams.getUserManager().getUser(killer);
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, killer.getLocation().getWorld().getEnvironment(), "KILL", event.getEntityType().name(), 1);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, killer.getLocation().getWorld(), "KILL", event.getEntityType().name(), 1);
         });
 
     }
