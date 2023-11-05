@@ -12,11 +12,13 @@ import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MissionManagerTest {
 
@@ -38,9 +40,11 @@ class MissionManagerTest {
         TestTeam testTeam = new TeamBuilder().build();
         TestPlugin.getInstance().getMissions().missions.get("mine_oak").getMissionData().get(1).getMissionDependencies().add(new MissionData.MissionDependency("test", 1));
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        World world = serverMock.createWorld(new WorldCreator("world"));
+        assertTrue(TestPlugin.getInstance().getConfiguration().whitelistedWorlds.contains("world"));
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
 
-        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, World.Environment.NORMAL, "MINE", "OAK_LOG", 1);
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
 
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
     }
@@ -49,8 +53,10 @@ class MissionManagerTest {
     public void handleMissionUpdate__IncrementsValues() {
         TestTeam testTeam = new TeamBuilder().build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        World world = serverMock.createWorld(new WorldCreator("world"));
+        assertTrue(TestPlugin.getInstance().getConfiguration().whitelistedWorlds.contains("world"));
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
-        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, World.Environment.NORMAL, "MINE", "OAK_LOG", 1);
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
     }
 
@@ -59,8 +65,10 @@ class MissionManagerTest {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        World world = serverMock.createWorld(new WorldCreator("world"));
+        assertTrue(TestPlugin.getInstance().getConfiguration().whitelistedWorlds.contains("world"));
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
-        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, World.Environment.NORMAL, "MINE", "OAK_LOG", 100);
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 100);
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
         assertEquals(2, teamMission.getMissionLevel());
         playerMock.assertSoundHeard(Sound.ENTITY_PLAYER_LEVELUP);
@@ -82,8 +90,10 @@ class MissionManagerTest {
         TestTeam testTeam = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        World world = serverMock.createWorld(new WorldCreator("world"));
+        assertTrue(TestPlugin.getInstance().getConfiguration().whitelistedWorlds.contains("world"));
         TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).setProgress(10);
-        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, World.Environment.NORMAL, "MINE", "OAK_LOG", 100);
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 100);
         assertEquals(10, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
         playerMock.assertNoMoreSaid();
     }

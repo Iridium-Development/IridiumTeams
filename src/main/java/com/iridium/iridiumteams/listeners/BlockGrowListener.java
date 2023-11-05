@@ -28,26 +28,13 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockGrow(BlockGrowEvent event) {
-
-        boolean setCancelled = true;
-        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
-            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
-                setCancelled = false;
-                break;
-            }
-        }
-
-        if(setCancelled) {
-            return;
-        }
-
         XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             if (event.getNewState().getBlockData() instanceof Ageable) {
                 Ageable ageable = (Ageable) event.getNewState().getBlockData();
 
                 if (ageable.getAge() >= ageable.getMaximumAge() || ageIgnoreList.contains(material)) {
-                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+                    iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "GROW", material.name(), 1);
                 }
 
                 Enhancement<FarmingEnhancementData> farmingEnhancement = iridiumTeams.getEnhancements().farmingEnhancement;
@@ -60,7 +47,7 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
                 }
 
             } else {
-                iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "GROW", material.name(), 1);
+                iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "GROW", material.name(), 1);
             }
         });
 

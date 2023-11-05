@@ -17,18 +17,6 @@ public class BlockBurnListener<T extends Team, U extends IridiumUser<T>> impleme
     @EventHandler(ignoreCancelled = true)
     public void onBlockBurn(BlockBurnEvent event) {
 
-        boolean setCancelled = true;
-        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
-            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
-                setCancelled = false;
-                break;
-            }
-        }
-
-        if(setCancelled) {
-            return;
-        }
-
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.FIRE_SPREAD.getSettingKey());
             if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {

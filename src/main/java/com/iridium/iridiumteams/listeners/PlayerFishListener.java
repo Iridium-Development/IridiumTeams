@@ -18,25 +18,12 @@ public class PlayerFishListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorPlayerFish(PlayerFishEvent event) {
-
-        boolean setCancelled = true;
-        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
-            if(event.getPlayer().getWorld().getName().equalsIgnoreCase(world)) {
-                setCancelled = false;
-                break;
-            }
-        }
-
-        if(setCancelled) {
-            return;
-        }
-
         Entity caughtEntity = event.getCaught();
         if (caughtEntity == null || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
         U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
 
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, caughtEntity.getLocation().getWorld().getEnvironment(), "FISH", ((Item) caughtEntity).getItemStack().getType().name(), 1);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, caughtEntity.getLocation().getWorld(), "FISH", ((Item) caughtEntity).getItemStack().getType().name(), 1);
         });
 
     }

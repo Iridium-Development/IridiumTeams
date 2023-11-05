@@ -118,6 +118,6 @@ public class Configuration {
                 )), Collections.emptyList(), 0, new HashMap<>(), 2000, 0, XSound.ENTITY_PLAYER_LEVELUP))
                 .build();
 
-        this.whitelistedWorlds = Arrays.asList();
+        this.whitelistedWorlds = Arrays.asList("world");
     }
 }

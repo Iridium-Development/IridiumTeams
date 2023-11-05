@@ -30,19 +30,6 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-
-        boolean setCancelled = true;
-        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
-            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
-                setCancelled = false;
-                break;
-            }
-        }
-
-        if(setCancelled) {
-            return;
-        }
-
         int currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).map(T::getId).orElse(0);
         for (Block block : event.getBlocks()) {
             int[] offset = offsets.get(event.getDirection());
@@ -56,19 +43,6 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-
-        boolean setCancelled = true;
-        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
-            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
-                setCancelled = false;
-                break;
-            }
-        }
-
-        if(setCancelled) {
-            return;
-        }
-
         int currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).map(T::getId).orElse(0);
         for (Block block : event.getBlocks()) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation());

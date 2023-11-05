@@ -17,23 +17,10 @@ public class EnchantItemListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorItemEnchant(EnchantItemEvent event) {
-
-        boolean setCancelled = true;
-        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
-            if(event.getEnchanter().getWorld().getName().equalsIgnoreCase(world)) {
-                setCancelled = false;
-                break;
-            }
-        }
-
-        if(setCancelled) {
-            return;
-        }
-
         U user = iridiumTeams.getUserManager().getUser(event.getEnchanter());
         XMaterial material = XMaterial.matchXMaterial(event.getItem().getType());
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getEnchanter().getLocation().getWorld().getEnvironment(), "ENCHANT", material.name(), 1);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getEnchanter().getLocation().getWorld(), "ENCHANT", material.name(), 1);
         });
 
     }
