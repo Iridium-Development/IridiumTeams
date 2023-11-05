@@ -18,6 +18,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,7 +44,7 @@ class MissionManagerTest {
         TestPlugin.getInstance().getMissions().missions.get("mine_oak").getMissionData().get(1).getMissionDependencies().add(new MissionData.MissionDependency("test", 1));
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
         World world = serverMock.createWorld(new WorldCreator("world"));
-        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = Arrays.asList("world");
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = List.of("world");
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
 
         TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
@@ -55,7 +57,7 @@ class MissionManagerTest {
         TestTeam testTeam = new TeamBuilder().build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
         World world = serverMock.createWorld(new WorldCreator("world"));
-        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = Arrays.asList("world");
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = List.of("world");
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
         TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
         assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
@@ -67,7 +69,7 @@ class MissionManagerTest {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
         World world = serverMock.createWorld(new WorldCreator("world"));
-        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = Arrays.asList("world");
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = List.of("world");
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
         TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 100);
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
@@ -92,7 +94,7 @@ class MissionManagerTest {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
         World world = serverMock.createWorld(new WorldCreator("world"));
-        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = Arrays.asList("world");
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = List.of("world");
         TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).setProgress(10);
         TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 100);
         assertEquals(10, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
@@ -104,8 +106,28 @@ class MissionManagerTest {
         TestTeam testTeam = new TeamBuilder().build();
         TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
         World world = serverMock.createWorld(new WorldCreator("world"));
-        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = Arrays.asList("differentWorld");
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = List.of("differentWorld");
         TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
         assertEquals(0, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
+    }
+
+    @Test
+    public void handleMissionUpdate_ShouldIncrementValue_WhenWhitelistedWorldIsEmpty() {
+        TestTeam testTeam = new TeamBuilder().build();
+        TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        World world = serverMock.createWorld(new WorldCreator("world"));
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = Collections.emptyList();
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
+    }
+
+    @Test
+    public void handleMissionUpdate_ShouldIncrementValue_WhenMissionIsInWhitelistedWorld() {
+        TestTeam testTeam = new TeamBuilder().build();
+        TeamMission teamMission = TestPlugin.getInstance().getTeamManager().getTeamMission(testTeam, "mine_oak");
+        World world = serverMock.createWorld(new WorldCreator("world"));
+        TestPlugin.getInstance().getConfiguration().whitelistedWorlds = List.of("world");
+        TestPlugin.getInstance().getMissionManager().handleMissionUpdate(testTeam, world, "MINE", "OAK_LOG", 1);
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamMissionData(teamMission, 0).getProgress());
     }
 }
