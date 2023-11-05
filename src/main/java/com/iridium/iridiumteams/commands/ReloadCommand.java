@@ -18,6 +18,8 @@ public class ReloadCommand<T extends Team, U extends IridiumUser<T>> extends Com
     @Override
     public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         iridiumTeams.loadConfigs();
+        iridiumTeams.unRegisterListeners();
+        iridiumTeams.registerListeners();
         sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().reloaded.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
         return true;
     }

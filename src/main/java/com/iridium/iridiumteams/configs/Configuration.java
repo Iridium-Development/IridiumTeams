@@ -7,6 +7,8 @@ import com.iridium.iridiumcore.dependencies.xseries.XSound;
 import com.iridium.iridiumcore.utils.NumberFormatter;
 import com.iridium.iridiumteams.Reward;
 import com.iridium.iridiumteams.UserRank;
+import com.iridium.iridiumteams.listeners.BlockBreakListener;
+import org.bukkit.plugin.RegisteredListener;
 
 import java.util.*;
 
@@ -45,7 +47,7 @@ public class Configuration {
      * 5 will give the reward to levels 5 10 15 20 25 ect since they are divisible by 5
      */
     public Map<Integer, Reward> levelRewards;
-    public Map<String, Boolean> enabledListeners;
+    public List<String> disabledListeners;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -119,41 +121,6 @@ public class Configuration {
                 )), Collections.emptyList(), 0, new HashMap<>(), 2000, 0, XSound.ENTITY_PLAYER_LEVELUP))
                 .build();
 
-        this.enabledListeners = ImmutableMap.<String, Boolean>builder()
-                .put("blockBreak", true)
-                .put("blockBurn", true)
-                .put("blockExplode", true)
-                .put("blockFertilize", true)
-                .put("blockForm", true)
-                .put("blockFromTo", true)
-                .put("blockGrow", true)
-                .put("blockPiston", true)
-                .put("blockPlace", true)
-                .put("blockSpread", true)
-                .put("enchantItem", true)
-                .put("entityChangeBlock", true)
-                .put("entityDamage", true)
-                .put("entityDeath", true)
-                .put("entityExplode", true)
-                .put("entityInteract", true)
-                .put("entitySpawn", true)
-                .put("furnaceSmelt", true)
-                .put("inventoryClick", true)
-                .put("inventoryClose", true)
-                .put("leavesDecay", true)
-                .put("playerBucket", true)
-                .put("playerChat", true)
-                .put("playerCraft", true)
-                .put("playerExpChange", true)
-                .put("playerFish", true)
-                .put("playerJoin", true)
-                .put("playerMove", true)
-                .put("playerTeleport", true)
-                .put("potionBrew", true)
-                .put("settingUpdate", true)
-                .put("spawnerSpawn", true)
-                .put("structureGrow", true)
-                .put("teamLevelUp", true)
-                .build();
+        this.disabledListeners = Arrays.asList();
     }
 }
