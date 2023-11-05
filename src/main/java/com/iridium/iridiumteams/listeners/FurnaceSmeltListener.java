@@ -20,7 +20,7 @@ public class FurnaceSmeltListener<T extends Team, U extends IridiumUser<T>> impl
         XMaterial material = XMaterial.matchXMaterial(event.getSource().getType());
 
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld().getEnvironment(), "SMELT", material.name(), 1);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "SMELT", material.name(), 1);
         });
 
     }

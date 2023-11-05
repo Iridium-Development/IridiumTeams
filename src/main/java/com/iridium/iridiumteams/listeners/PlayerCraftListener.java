@@ -35,7 +35,7 @@ public class PlayerCraftListener<T extends Team, U extends IridiumUser<T>> imple
         XMaterial material = XMaterial.matchXMaterial(event.getRecipe().getResult().getType());
 
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
-            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getWhoClicked().getLocation().getWorld().getEnvironment(), "CRAFT", material.name(), amount);
+            iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getWhoClicked().getLocation().getWorld(), "CRAFT", material.name(), amount);
         });
     }
 
