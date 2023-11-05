@@ -46,6 +46,7 @@ public class Configuration {
      * 5 will give the reward to levels 5 10 15 20 25 ect since they are divisible by 5
      */
     public Map<Integer, Reward> levelRewards;
+    public List<String> whitelistedWorlds;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -117,5 +118,6 @@ public class Configuration {
                 )), Collections.emptyList(), 0, new HashMap<>(), 2000, 0, XSound.ENTITY_PLAYER_LEVELUP))
                 .build();
 
+        this.whitelistedWorlds = Arrays.asList();
     }
 }

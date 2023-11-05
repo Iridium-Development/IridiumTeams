@@ -47,6 +47,19 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockPlace(BlockPlaceEvent event) {
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         U user = iridiumTeams.getUserManager().getUser(event.getPlayer());
         XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {

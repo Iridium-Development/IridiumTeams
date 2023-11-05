@@ -32,6 +32,19 @@ public class PlayerBucketListener<T extends Team, U extends IridiumUser<T>> impl
 
     public void onBucketEvent(PlayerBucketEvent event) {
         Player player = event.getPlayer();
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(player.getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
         if (team.isPresent()) {

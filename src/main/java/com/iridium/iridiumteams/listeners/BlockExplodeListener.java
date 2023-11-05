@@ -20,6 +20,19 @@ public class BlockExplodeListener<T extends Team, U extends IridiumUser<T>> impl
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockExplode(BlockExplodeEvent event) {
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         if (!iridiumTeams.getConfiguration().preventTntGriefing) return;
         Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
 

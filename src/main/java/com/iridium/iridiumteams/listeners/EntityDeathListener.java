@@ -17,6 +17,19 @@ public class EntityDeathListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorEntityDeath(EntityDeathEvent event) {
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getEntity().getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         Player killer = event.getEntity().getKiller();
         if(killer==null)return;
         U user = iridiumTeams.getUserManager().getUser(killer);

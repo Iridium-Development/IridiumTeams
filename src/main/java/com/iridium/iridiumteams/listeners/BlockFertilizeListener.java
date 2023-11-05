@@ -22,6 +22,19 @@ public class BlockFertilizeListener<T extends Team, U extends IridiumUser<T>> im
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockFertilize(BlockFertilizeEvent event) {
         Player player = event.getPlayer();
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(player.getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         Optional<T> currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
         int currentTeamId = currentTeam.map(T::getId).orElse(0);
 

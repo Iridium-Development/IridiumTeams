@@ -29,6 +29,18 @@ public class EntityInteractListener<T extends Team, U extends IridiumUser<T>> im
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityInteract(EntityInteractEvent event) {
+
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getEntity().getWorld().getName().equalsIgnoreCase(world)) {
+                event.setCancelled(false);
+                break;
+            } else event.setCancelled(true);
+        }
+
+        if(event.isCancelled()) {
+            return;
+        }
+
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
             if (teamSetting.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getBlock().getType()) == XMaterial.FARMLAND)) {

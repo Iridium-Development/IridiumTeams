@@ -28,6 +28,19 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorBlockGrow(BlockGrowEvent event) {
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         XMaterial material = XMaterial.matchXMaterial(event.getNewState().getType());
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             if (event.getNewState().getBlockData() instanceof Ageable) {

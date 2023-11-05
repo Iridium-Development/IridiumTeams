@@ -17,6 +17,19 @@ public class FurnaceSmeltListener<T extends Team, U extends IridiumUser<T>> impl
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorFurnaceSmelt(FurnaceSmeltEvent event) {
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         XMaterial material = XMaterial.matchXMaterial(event.getSource().getType());
 
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {

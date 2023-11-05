@@ -19,6 +19,19 @@ public class PotionBrewListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void monitorPotionBrew(BrewEvent event) {
+
+        boolean setCancelled = true;
+        for(String world : iridiumTeams.getConfiguration().whitelistedWorlds) {
+            if(event.getBlock().getWorld().getName().equalsIgnoreCase(world)) {
+                setCancelled = false;
+                break;
+            }
+        }
+
+        if(setCancelled) {
+            return;
+        }
+
         Bukkit.getScheduler().runTask(iridiumTeams, () -> iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             for (int i = 0; i < 3; i++) {
                 ItemStack itemStack = event.getContents().getItem(i);
