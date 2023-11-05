@@ -50,7 +50,8 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
      */
     public void handleMissionUpdate(T team, World missionWorld, String missionType, String identifier, int amount) {
 
-        if (iridiumTeams.getConfiguration().whitelistedWorlds.stream().noneMatch(world -> missionWorld.getName().equalsIgnoreCase(world))) return;
+        if (iridiumTeams.getConfiguration().whitelistedWorlds.stream().noneMatch(world -> missionWorld.getName().equalsIgnoreCase(world))
+        && !iridiumTeams.getConfiguration().whitelistedWorlds.isEmpty()) return;
 
         generateMissionData(team);
         incrementMission(team, missionType + ":" + identifier, amount);
