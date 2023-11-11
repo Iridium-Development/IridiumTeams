@@ -3,6 +3,8 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
+import com.iridium.iridiumteams.api.TeamLeaveEvent;
+import com.iridium.iridiumteams.api.TeamTransferEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.NoArgsConstructor;
@@ -43,8 +45,8 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
                 ));
             }
         });
-
         user.setTeam(null);
+        Bukkit.getPluginManager().callEvent(new TeamLeaveEvent<>(team, user));
         return true;
     }
 

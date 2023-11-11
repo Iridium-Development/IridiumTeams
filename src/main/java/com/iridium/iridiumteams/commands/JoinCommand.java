@@ -3,6 +3,7 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.SettingType;
+import com.iridium.iridiumteams.api.TeamJoinEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
@@ -78,6 +79,8 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                         ));
                     }
                 });
+
+        Bukkit.getPluginManager().callEvent(new TeamJoinEvent<>(team.get(), user));
         return true;
     }
 
