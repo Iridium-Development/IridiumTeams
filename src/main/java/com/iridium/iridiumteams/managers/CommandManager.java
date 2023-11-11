@@ -143,7 +143,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
             for (Command<T, U> command : commands) {
                 for (String alias : command.aliases) {
                     if (!alias.toLowerCase().startsWith(args[0].toLowerCase())) continue;
-                    if (commandSender.hasPermission(command.permission) || command.permission.equalsIgnoreCase("")) {
+                    if (command.hasPermission(commandSender, iridiumTeams)) {
                         result.add(alias);
                     }
                 }
@@ -153,7 +153,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
 
         for (Command<T, U> command : commands) {
             if (!command.aliases.contains(args[0].toLowerCase())) continue;
-            if (commandSender.hasPermission(command.permission) || command.permission.equalsIgnoreCase("")) {
+            if (command.hasPermission(commandSender, iridiumTeams)) {
                 return command.onTabComplete(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);
             }
         }
