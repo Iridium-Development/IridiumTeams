@@ -56,6 +56,12 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
             String nextLevel = nextData == null ? "N/A" : String.valueOf(teamEnhancement.getLevel() + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
+
+            String bankCosts = "";
+            for(Double bankCost : nextData.bankCosts.values()) {
+                bankCosts = nextData == null ? "N/A" : bankCosts + " " + bankCost;
+            }
+
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
@@ -63,7 +69,8 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
                     new Placeholder("timeremaining_seconds", String.valueOf(seconds)),
                     new Placeholder("current_level", String.valueOf(teamEnhancement.getLevel())),
                     new Placeholder("next_level", nextLevel),
-                    new Placeholder("cost", cost)
+                    new Placeholder("cost", cost),
+                    new Placeholder("bankCosts", bankCosts)
             ));
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
