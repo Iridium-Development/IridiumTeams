@@ -47,7 +47,7 @@ public class Configuration {
      */
     public Map<Integer, Reward> levelRewards;
     public List<String> whitelistedWorlds;
-
+    public double purgeInactiveAfter;
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
     }
@@ -119,5 +119,6 @@ public class Configuration {
                 .build();
 
         this.whitelistedWorlds = Collections.emptyList();
+        this.purgeInactiveAfter = 0.0;
     }
 }

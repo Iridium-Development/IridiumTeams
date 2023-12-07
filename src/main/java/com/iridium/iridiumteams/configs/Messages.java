@@ -139,6 +139,9 @@ public class Messages {
     public String cannotVisit;
     public String teamLevelUp;
     public String activeCooldown;
+    public String purgeInactive;
+    public String cannotPurge;
+    public String purgeComplete;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -283,5 +286,8 @@ public class Messages {
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
         teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
         activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait %hours% hour(s), %minutes% minute(s), %seconds% second(s)!";
+        purgeInactive = "%prefix% &7Purging based on inactivity is currently disabled.";
+        cannotPurge = "%prefix% &7You cannot purge that team.";
+        purgeComplete = "%prefix% &7Successfully purged %amount% team(s).";
     }
 }
