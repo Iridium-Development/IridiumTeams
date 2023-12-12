@@ -12,6 +12,7 @@ import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -57,10 +58,12 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             String nextLevel = nextData == null ? "N/A" : String.valueOf(teamEnhancement.getLevel() + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
 
-            String bankCosts = "";
-            for(Double bankCost : nextData.bankCosts.values()) {
-                bankCosts = nextData == null ? "N/A" : bankCosts + " " + bankCost;
+            StringBuilder bankCostsStringBulder = new StringBuilder();
+            for (Map.Entry<String, Double> bankCost : nextData.bankCosts.entrySet()) {
+                bankCostsStringBulder.append(WordUtils.capitalizeFully(bankCost.getKey().toLowerCase())).append(": ").append(bankCost.getValue().toString()).append("\n");
             }
+
+            String bankCosts = String.valueOf(bankCostsStringBulder);
 
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
