@@ -79,7 +79,7 @@ public class EntityInteractListener<T extends Team, U extends IridiumUser<T>> im
     }
 
     private boolean isDoor(XMaterial material) {
-        return material.name().toLowerCase().contains("_door") || material.name().toLowerCase().contains("fence_gate");
+        return material.name().toLowerCase().contains("_door") || material.name().toLowerCase().contains("fence_gate") || material.name().toLowerCase().contains("trapdoor");
     }
 
 }
