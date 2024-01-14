@@ -8,11 +8,13 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -34,14 +36,15 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             ));
             return false;
         }
-        U kickedPlayer = iridiumTeams.getUserManager().getUser(Bukkit.getServer().getOfflinePlayer(args[0]));
+        OfflinePlayer offlinePlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
+        U kickedPlayer = iridiumTeams.getUserManager().getUser(offlinePlayer);
         if (team.getId() != kickedPlayer.getTeamID()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().userNotInYourTeam
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return false;
         }
-        if (kickedPlayer.getPlayer().getUniqueId() == player.getUniqueId()) {
+        if (offlinePlayer.getUniqueId() == player.getUniqueId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickYourself
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
@@ -54,10 +57,10 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             return false;
         }
         kickedPlayer.setTeam(null);
-        kickedPlayer.getPlayer().sendMessage(StringUtils.color(iridiumTeams.getMessages().youHaveBeenKicked
+        Optional.ofNullable(kickedPlayer.getPlayer()).ifPresent(player1 -> player1.sendMessage(StringUtils.color(iridiumTeams.getMessages().youHaveBeenKicked
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", player.getName())
-        ));
+        )));
         iridiumTeams.getTeamManager().getTeamMembers(team).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(player1 ->
                 player1.sendMessage(StringUtils.color(iridiumTeams.getMessages().playerKicked
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
