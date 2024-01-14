@@ -37,7 +37,7 @@ dependencies {
     }
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
-    implementation("org.bstats:bstats-bukkit:3.0.1")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.26")
