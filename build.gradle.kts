@@ -28,7 +28,7 @@ dependencies {
     implementation("com.iridium:IridiumCore:1.8.1")
 
     // Other dependencies that are not required or already available at runtime
-    compileOnly("org.projectlombok:lombok:1.18.26")
+    compileOnly("org.projectlombok:lombok:1.18.30")
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.5")
@@ -40,11 +40,11 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Enable lombok annotation processing
-    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
 
     // Test dependencies
-    testImplementation(platform("org.junit:junit-bom:5.7.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation(platform("org.junit:junit-bom:5.10.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.26.0")
     testImplementation("com.github.MilkBowl:VaultAPI:1.7")
 }
