@@ -24,6 +24,7 @@ public class TeamLevelUpListener<T extends Team, U extends IridiumUser<T>> imple
     public void onTeamLevelUp(TeamLevelUpEvent<T, U> event) {
         for (U member : iridiumTeams.getTeamManager().getTeamMembers(event.getTeam())) {
             Player player = member.getPlayer();
+            if(player == null) return;
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamLevelUp
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%level%", String.valueOf(event.getTeam().getLevel()))

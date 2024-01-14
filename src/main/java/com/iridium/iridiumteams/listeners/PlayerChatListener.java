@@ -29,6 +29,7 @@ public class PlayerChatListener<T extends Team, U extends IridiumUser<T>> implem
         List<Player> players = chatType.get().getPlayerChat().getPlayers(event.getPlayer().getPlayer());
         if (players == null) return;
         for (Player player : players) {
+            if(player == null) return;
             player.sendMessage(StringUtils.color(StringUtils.processMultiplePlaceholders(iridiumTeams.getMessages().chatFormat, iridiumTeams.getTeamChatPlaceholderBuilder().getPlaceholders(event, player))));
         }
         event.getRecipients().clear();
