@@ -47,7 +47,7 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
             return;
         }
 
-        if (!toTeam.map(T::getId).orElse(-1).equals(fromTeam.map(T::getId).orElse(-1))) {
+        if (!toTeam.map(T::getId).orElse(-99999).equals(fromTeam.map(T::getId).orElse(-99999))) {
             iridiumTeams.getTeamManager().sendTeamTitle(player, toTeam.get());
         }
     }
