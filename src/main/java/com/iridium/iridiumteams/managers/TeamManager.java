@@ -157,6 +157,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract TeamEnhancement getTeamEnhancement(T team, String enhancement);
 
+    public abstract List<TeamLog> getTeamLogs(T team);
+
+    public abstract void addTeamLog(Player player, String action, Location location, String type);
+
     public boolean UpdateEnhancement(T team, String booster, Player player) {
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
         TeamEnhancement teamEnhancement = getTeamEnhancement(team, booster);

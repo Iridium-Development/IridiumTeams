@@ -231,6 +231,16 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public List<TeamLog> getTeamLogs(TestTeam team) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void addTeamLog(Player player, String action, Location location, String type) {
+
+    }
+
+    @Override
     public CompletableFuture<Void> recalculateTeam(TestTeam team) {
         return CompletableFuture.runAsync(() -> {
         });
