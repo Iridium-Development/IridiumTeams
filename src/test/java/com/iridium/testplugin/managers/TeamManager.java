@@ -236,7 +236,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public void addTeamLog(Player player, String action, Location location, String type) {
+    public void addTeamLog(TeamLog teamLog) {
 
     }
 
