@@ -12,6 +12,7 @@ import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -56,6 +57,14 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
             String nextLevel = nextData == null ? "N/A" : String.valueOf(teamEnhancement.getLevel() + 1);
             String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
+
+            StringBuilder bankCostsStringBulder = new StringBuilder();
+            for (Map.Entry<String, Double> bankCost : nextData.bankCosts.entrySet()) {
+                bankCostsStringBulder.append(WordUtils.capitalizeFully(bankCost.getKey().toLowerCase())).append(": ").append(bankCost.getValue().toString()).append("\n");
+            }
+
+            String bankCosts = String.valueOf(bankCostsStringBulder);
+
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
@@ -63,7 +72,8 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
                     new Placeholder("timeremaining_seconds", String.valueOf(seconds)),
                     new Placeholder("current_level", String.valueOf(teamEnhancement.getLevel())),
                     new Placeholder("next_level", nextLevel),
-                    new Placeholder("cost", cost)
+                    new Placeholder("cost", cost),
+                    new Placeholder("bankCosts", bankCosts)
             ));
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
