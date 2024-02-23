@@ -42,6 +42,7 @@ public class SettingsGUI<T extends Team, U extends IridiumUser<T>> extends BackG
 
         for (Map.Entry<String, Setting> setting : iridiumTeams.getSettingsList().entrySet()) {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
+            if (teamSetting == null) continue;
             inventory.setItem(setting.getValue().getItem().slot, ItemStackUtils.makeItem(setting.getValue().getItem(), Collections.singletonList(
                     new Placeholder("value", teamSetting.getValue())
             )));
@@ -56,6 +57,7 @@ public class SettingsGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             if (setting.getValue().getItem().slot != event.getSlot()) continue;
 
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
+            if (teamSetting == null) continue;
             int currentIndex = setting.getValue().getValues().indexOf(teamSetting.getValue());
             String newValue = setting.getValue().getValues().get(setting.getValue().getValues().size() > currentIndex + 1 ? currentIndex + 1 : 0);
             iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().settingsCommand, new String[]{setting.getValue().getDisplayName(), newValue});
