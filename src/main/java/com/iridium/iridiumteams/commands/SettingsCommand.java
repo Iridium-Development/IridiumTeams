@@ -42,16 +42,16 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
             String settingKey = args[0];
             for (Map.Entry<String, Setting> setting : iridiumTeams.getSettingsList().entrySet()) {
                 if (!setting.getValue().getDisplayName().equalsIgnoreCase(settingKey)) continue;
+                TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
                 Optional<String> value = setting.getValue().getValues().stream().filter(s -> s.equalsIgnoreCase(args[1])).findFirst();
 
-                if (!value.isPresent()) {
+                if (!value.isPresent() || teamSetting == null) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidSettingValue
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
                     return false;
                 }
 
-                TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
                 teamSetting.setValue(value.get());
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().settingSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

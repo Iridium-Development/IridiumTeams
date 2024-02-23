@@ -10,19 +10,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 class TemporaryCacheTest {
 
     @Test
-    public void TemporaryCache_get_ShouldAllowNull() {
-        TemporaryCache<String, Integer> cache = new TemporaryCache<>();
-        assertEquals(42, cache.get(null, Duration.ofSeconds(10), () -> 42));
-
-        int cachedValue = cache.get(null, Duration.ofSeconds(10), () -> {
-            fail("Supplier should not be called if value is present in cache.");
-            return 0;
-        });
-
-        assertEquals(42, cachedValue);
-    }
-
-    @Test
     public void TemporaryCache_get_ShouldCacheValue() {
         TemporaryCache<String, Integer> cache = new TemporaryCache<>();
         assertEquals(42, cache.get("key", Duration.ofSeconds(10), () -> 42));

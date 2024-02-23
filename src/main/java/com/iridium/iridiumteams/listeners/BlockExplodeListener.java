@@ -26,6 +26,7 @@ public class BlockExplodeListener<T extends Team, U extends IridiumUser<T>> impl
 
         if (currentTeam.isPresent()) {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(currentTeam.get(), SettingType.TNT_DAMAGE.getSettingKey());
+            if (teamSetting == null) return;
             if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
                 event.setCancelled(true);
                 return;
