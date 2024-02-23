@@ -58,6 +58,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public boolean canVisit(Player player, T team) {
         TeamSetting teamSetting = getTeamSetting(team, SettingType.TEAM_VISITING.getSettingKey());
+        if (teamSetting == null) return true;
         U user = iridiumTeams.getUserManager().getUser(player);
         return user.isBypassing() || user.getTeamID() == team.getId() || teamSetting.getValue().equalsIgnoreCase("Enabled");
     }
@@ -66,7 +67,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public List<T> getTeams(TeamSorting<T> sortType, boolean excludePrivate) {
         return sortType.getSortedTeams(iridiumTeams).stream()
-                .filter(team -> !excludePrivate || getTeamSetting(team, SettingType.VALUE_VISIBILITY.getSettingKey()).getValue().equalsIgnoreCase("Public"))
+                .filter(team -> {
+                    TeamSetting teamSetting = getTeamSetting(team, SettingType.VALUE_VISIBILITY.getSettingKey());
+                    return !excludePrivate || (teamSetting == null || teamSetting.getValue().equalsIgnoreCase("Public"));
+                })
                 .collect(Collectors.toList());
     }
 
@@ -139,7 +143,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract TeamBlock getTeamBlock(T team, XMaterial xMaterial);
 
-    public abstract TeamSetting getTeamSetting(T team, String setting);
+    public abstract @Nullable TeamSetting getTeamSetting(T team, String setting);
 
     public double getTeamValue(T team) {
         double value = 0;
@@ -299,6 +303,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public void sendTeamTime(Player player) {
         getTeamViaPlayerLocation(player).ifPresent(team -> {
             TeamSetting teamSetting = getTeamSetting(team, SettingType.TIME.getSettingKey());
+            if (teamSetting == null) return;
             switch (teamSetting.getValue().toLowerCase()) {
                 case "sunrise":
                     setPlayerTime(player, 0, false);
@@ -330,6 +335,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public void sendTeamWeather(Player player) {
         getTeamViaPlayerLocation(player).ifPresent(team -> {
             TeamSetting teamSetting = getTeamSetting(team, SettingType.WEATHER.getSettingKey());
+            if (teamSetting == null) return;
             switch (teamSetting.getValue().toLowerCase()) {
                 case "sunny":
                     setPlayerWeather(player, WeatherType.CLEAR);
@@ -371,10 +377,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public boolean isBankItem(ItemStack item) {
-        if(item == null || item.getType() == Material.AIR) {
+        if (item == null || item.getType() == Material.AIR) {
             return false;
         }
-        return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase() , NBTType.NBTTagCompound);
+        return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
     }
 
     public enum SortType {

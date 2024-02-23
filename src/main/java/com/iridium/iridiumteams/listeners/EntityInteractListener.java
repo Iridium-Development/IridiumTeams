@@ -31,6 +31,7 @@ public class EntityInteractListener<T extends Team, U extends IridiumUser<T>> im
     public void onEntityInteract(EntityInteractEvent event) {
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
+            if (teamSetting == null) return;
             if (teamSetting.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getBlock().getType()) == XMaterial.FARMLAND)) {
                 event.setCancelled(true);
             }
@@ -67,6 +68,7 @@ public class EntityInteractListener<T extends Team, U extends IridiumUser<T>> im
 
             if (event.getAction() == Action.PHYSICAL) {
                 TeamSetting cropTrampleTeamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.CROP_TRAMPLE.getSettingKey());
+                if (cropTrampleTeamSetting == null) return;
                 if (cropTrampleTeamSetting.getValue().equalsIgnoreCase("Disabled") && (XMaterial.matchXMaterial(event.getClickedBlock().getType()) == XMaterial.FARMLAND)) {
                     event.setCancelled(true);
                 }
