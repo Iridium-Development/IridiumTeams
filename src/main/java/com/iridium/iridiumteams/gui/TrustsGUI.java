@@ -44,7 +44,7 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
     @NotNull
     @Override
     public Inventory getInventory() {
-        NoItemGUI noItemGUI = iridiumTeams.getInventories().invitesGUI;
+        NoItemGUI noItemGUI = iridiumTeams.getInventories().trustsGUI;
         Inventory inventory = Bukkit.createInventory(this, getSize(), StringUtils.color(noItemGUI.title));
         addContent(inventory);
         return inventory;
@@ -60,9 +60,9 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
         Optional<U> user = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getUser());
         Optional<U> truster = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getTruster());
         List<Placeholder> placeholderList = new ArrayList<>(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
-        placeholderList.add(new Placeholder("invite_time", teamTrust.getTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat))));
+        placeholderList.add(new Placeholder("trusted_time", teamTrust.getTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat))));
         placeholderList.add(new Placeholder("truster", truster.map(U::getName).orElse("N/A")));
-        return ItemStackUtils.makeItem(iridiumTeams.getInventories().invitesGUI.item, placeholderList);
+        return ItemStackUtils.makeItem(iridiumTeams.getInventories().trustsGUI.item, placeholderList);
     }
 
     @Override
