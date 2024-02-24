@@ -105,6 +105,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract MissionManager<T, U> getMissionManager();
 
     public abstract ShopManager<T, U> getShopManager();
+    public abstract SupportManager<T, U> getSupportManager();
 
     public abstract Configuration getConfiguration();
 
