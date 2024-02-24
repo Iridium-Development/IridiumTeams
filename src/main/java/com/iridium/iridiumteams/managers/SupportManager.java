@@ -44,4 +44,9 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
         if (supportedPluginEnabled("WildStacker"))
             spawnerSupport.add(new WildStackerSpawnerSupport(iridiumTeams));
     }
+
+    public void registerSupport() {
+        registerBlockStackerSupport();
+        registerSpawnerSupport();
+    }
 }
