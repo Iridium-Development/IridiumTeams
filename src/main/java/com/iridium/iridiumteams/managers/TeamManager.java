@@ -13,9 +13,7 @@ import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
-import com.iridium.iridiumteams.sorting.ExperienceTeamSort;
 import com.iridium.iridiumteams.sorting.TeamSorting;
-import com.iridium.iridiumteams.sorting.ValueTeamSort;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -29,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -36,6 +35,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
+    private final TemporaryCache<TeamSorting<T>, List<T>> teamTopCache = new TemporaryCache<>();
     private final IridiumTeams<T, U> iridiumTeams;
 
     public TeamManager(IridiumTeams<T, U> iridiumTeams) {
@@ -66,20 +66,20 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract List<T> getTeams();
 
     public List<T> getTeams(TeamSorting<T> sortType, boolean excludePrivate) {
-        return sortType.getSortedTeams(iridiumTeams).stream()
+        return teamTopCache.get(sortType, Duration.ofSeconds(10), () -> sortType.getSortedTeams(iridiumTeams).stream()
                 .filter(team -> {
                     TeamSetting teamSetting = getTeamSetting(team, SettingType.VALUE_VISIBILITY.getSettingKey());
                     return !excludePrivate || (teamSetting == null || teamSetting.getValue().equalsIgnoreCase("Public"));
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     public List<T> getTeams(SortType sortType, boolean excludePrivate) {
         switch (sortType) {
             case Value:
-                return getTeams(new ValueTeamSort<>(), excludePrivate);
+                return getTeams(iridiumTeams.getTop().valueTeamSort, excludePrivate);
             case Experience:
-                return getTeams(new ExperienceTeamSort<>(), excludePrivate);
+                return getTeams(iridiumTeams.getTop().experienceTeamSort, excludePrivate);
             default:
                 return getTeams();
         }
