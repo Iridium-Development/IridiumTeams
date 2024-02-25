@@ -1,4 +1,4 @@
-package com.iridium.iridiumteams.support.spawners;
+package com.iridium.iridiumteams.support;
 
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.entity.EntityType;

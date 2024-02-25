@@ -1,4 +1,4 @@
-package com.iridium.iridiumteams.support.stackers;
+package com.iridium.iridiumteams.support;
 
 import com.bgsoftware.wildstacker.api.WildStackerAPI;
 import com.bgsoftware.wildstacker.api.objects.StackedBarrel;
@@ -7,7 +7,6 @@ import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.support.spawners.SpawnerSupport;
 import org.bukkit.entity.EntityType;
 
 public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T>, SpawnerSupport<T> {

@@ -3,11 +3,12 @@ package com.iridium.iridiumteams.managers;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.support.spawners.SpawnerMetaSupport;
-import com.iridium.iridiumteams.support.spawners.SpawnerSupport;
-import com.iridium.iridiumteams.support.stackers.StackerSupport;
-import com.iridium.iridiumteams.support.stackers.RoseStackerSupport;
-import com.iridium.iridiumteams.support.stackers.WildStackerSupport;
+import com.iridium.iridiumteams.support.SpawnerMetaSupport;
+import com.iridium.iridiumteams.support.SpawnerSupport;
+import com.iridium.iridiumteams.support.StackerSupport;
+import com.iridium.iridiumteams.support.RoseStackerSupport;
+import com.iridium.iridiumteams.support.WildStackerSupport;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
         this.iridiumTeams = iridiumTeams;
     }
 
-    @lombok.Getter
+    @Getter
     private List<StackerSupport> stackerSupport = new ArrayList<>();
-    @lombok.Getter
+    @Getter
     private List<SpawnerSupport> spawnerSupport = new ArrayList<>();
 
     public boolean supportedPluginEnabled(String pluginName) {

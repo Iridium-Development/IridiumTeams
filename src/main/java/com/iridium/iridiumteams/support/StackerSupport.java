@@ -1,4 +1,4 @@
-package com.iridium.iridiumteams.support.stackers;
+package com.iridium.iridiumteams.support;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.database.Team;

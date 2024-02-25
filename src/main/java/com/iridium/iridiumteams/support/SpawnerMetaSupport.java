@@ -1,4 +1,4 @@
-package com.iridium.iridiumteams.support.spawners;
+package com.iridium.iridiumteams.support;
 
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
@@ -18,7 +18,6 @@ public class SpawnerMetaSupport<T extends Team, U extends IridiumUser<T>> implem
     public SpawnerMetaSupport(IridiumTeams<T, U> iridiumTeams) {
         this.iridiumTeams = iridiumTeams;
     }
-
 
     @Override
     public int getExtraSpawners(T team, EntityType entityType) {
