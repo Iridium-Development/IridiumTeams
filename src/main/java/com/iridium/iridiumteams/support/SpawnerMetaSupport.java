@@ -10,6 +10,7 @@ import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SpawnerMetaSupport<T extends Team, U extends IridiumUser<T>> implements SpawnerSupport<T> {
 
@@ -22,17 +23,17 @@ public class SpawnerMetaSupport<T extends Team, U extends IridiumUser<T>> implem
     @Override
     public int getExtraSpawners(T team, EntityType entityType) {
 
-        List<ILocations> locations = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
         for(U player : iridiumTeams.getTeamManager().getTeamMembers(team)) {
-            locations.add(SpawnerMeta.instance().getAPI().getLocations(player.getPlayer()));
+            SpawnerMeta.instance().getAPI().getLocations(player.getPlayer()).load();
+            locations.addAll(SpawnerMeta.instance().getAPI().getLocations(player.getPlayer()).all());
         }
 
         int spawners = 0;
-        for(ILocations location : locations) {
-            location.load();
-            if (!iridiumTeams.getTeamManager().isInTeam(team, (Location) location)) continue;
-            if (SpawnerMeta.instance().getAPI().getSpawner(((Location) location).getBlock()).getType().entity() != entityType) continue;
-            spawners += SpawnerMeta.instance().getAPI().getSpawner(((Location) location).getBlock()).getStack() - 1;
+        for(Location location : locations) {
+            if (!iridiumTeams.getTeamManager().isInTeam(team, location)) continue;
+            if (SpawnerMeta.instance().getAPI().getSpawner((location).getBlock()).getType().entity() != entityType) continue;
+            spawners += SpawnerMeta.instance().getAPI().getSpawner((location).getBlock()).getStack() - 1;
         }
 
         return spawners;
