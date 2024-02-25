@@ -10,7 +10,7 @@ import dev.rosewood.rosestacker.stack.StackedBlock;
 import dev.rosewood.rosestacker.stack.StackedSpawner;
 import org.bukkit.entity.EntityType;
 
-public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport, SpawnerSupport {
+public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T>, SpawnerSupport<T> {
 
     private final IridiumTeams<T, U> iridiumTeams;
 
@@ -19,12 +19,12 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int getExtraBlocks(Team team, XMaterial material) {
+    public int getExtraBlocks(T team, XMaterial material) {
 
         int stackedBlocks = 0;
 
         for (StackedBlock stackedBlock : RoseStackerAPI.getInstance().getStackedBlocks().values()) {
-            if (!iridiumTeams.getTeamManager().isInTeam((T)team, stackedBlock.getLocation())) continue;
+            if (!iridiumTeams.getTeamManager().isInTeam(team, stackedBlock.getLocation())) continue;
             if (material != XMaterial.matchXMaterial(stackedBlock.getBlock().getType())) continue;
             stackedBlocks += (stackedBlock.getStackSize() - 1);
         }
@@ -33,11 +33,11 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int getExtraSpawners(Team team, EntityType entityType) {
+    public int getExtraSpawners(T team, EntityType entityType) {
 
         int stackedSpawners = 0;
         for (StackedSpawner stackedSpawner : RoseStackerAPI.getInstance().getStackedSpawners().values()) {
-            if (!iridiumTeams.getTeamManager().isInTeam((T) team, stackedSpawner.getLocation())) continue;
+            if (!iridiumTeams.getTeamManager().isInTeam(team, stackedSpawner.getLocation())) continue;
             if (stackedSpawner.getSpawner().getSpawnedType() != entityType) continue;
             stackedSpawners += (stackedSpawner.getStackSize() - 1);
         }

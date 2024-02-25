@@ -10,7 +10,7 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.support.spawners.SpawnerSupport;
 import org.bukkit.entity.EntityType;
 
-public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport, SpawnerSupport {
+public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T>, SpawnerSupport<T> {
 
     private final IridiumTeams<T, U> iridiumTeams;
 
@@ -19,11 +19,11 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int getExtraBlocks(Team team, XMaterial material) {
+    public int getExtraBlocks(T team, XMaterial material) {
 
         int stackedBlocks = 0;
         for (StackedBarrel stackedBarrel : WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrels()) {
-            if (!iridiumTeams.getTeamManager().isInTeam((T) team, stackedBarrel.getLocation())) continue;
+            if (!iridiumTeams.getTeamManager().isInTeam(team, stackedBarrel.getLocation())) continue;
             if (material != XMaterial.matchXMaterial(stackedBarrel.getType())) continue;
 
             if (material == XMaterial.matchXMaterial(stackedBarrel.getType())) {
@@ -35,11 +35,11 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int getExtraSpawners(Team team, EntityType entityType) {
+    public int getExtraSpawners(T team, EntityType entityType) {
 
         int stackedSpawners = 0;
         for (StackedSpawner stackedSpawner : WildStackerAPI.getWildStacker().getSystemManager().getStackedSpawners()) {
-            if (!iridiumTeams.getTeamManager().isInTeam((T) team, stackedSpawner.getLocation())) continue;
+            if (!iridiumTeams.getTeamManager().isInTeam(team, stackedSpawner.getLocation())) continue;
             if (stackedSpawner.getSpawnedType() != entityType) continue;
             stackedSpawners += stackedSpawner.getStackAmount();
         }
