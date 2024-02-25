@@ -4,10 +4,13 @@ import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.support.spawners.SpawnerSupport;
 import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import dev.rosewood.rosestacker.stack.StackedBlock;
+import dev.rosewood.rosestacker.stack.StackedSpawner;
+import org.bukkit.entity.EntityType;
 
-public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport {
+public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport, SpawnerSupport {
 
     private final IridiumTeams<T, U> iridiumTeams;
 
@@ -27,5 +30,18 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
         }
 
         return stackedBlocks;
+    }
+
+    @Override
+    public int getExtraSpawners(Team team, EntityType entityType) {
+
+        int stackedSpawners = 0;
+        for (StackedSpawner stackedSpawner : RoseStackerAPI.getInstance().getStackedSpawners().values()) {
+            if (!iridiumTeams.getTeamManager().isInTeam((T) team, stackedSpawner.getLocation())) continue;
+            if (stackedSpawner.getSpawner().getSpawnedType() != entityType) continue;
+            stackedSpawners += (stackedSpawner.getStackSize() - 1);
+        }
+
+        return stackedSpawners;
     }
 }

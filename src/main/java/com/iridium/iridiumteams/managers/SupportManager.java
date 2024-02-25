@@ -40,9 +40,9 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
 
     private void registerSpawnerSupport() {
         if (supportedPluginEnabled("RoseStacker"))
-            spawnerSupport.add(new RoseStackerSpawnerSupport(iridiumTeams));
+            spawnerSupport.add(new RoseStackerSupport(iridiumTeams));
         if (supportedPluginEnabled("WildStacker"))
-            spawnerSupport.add(new WildStackerSpawnerSupport(iridiumTeams));
+            spawnerSupport.add(new WildStackerSupport(iridiumTeams));
     }
 
     public void registerSupport() {
