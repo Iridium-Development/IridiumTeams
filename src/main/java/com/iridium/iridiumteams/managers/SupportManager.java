@@ -3,12 +3,11 @@ package com.iridium.iridiumteams.managers;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.support.spawners.SpawnerMetaSupport;
 import com.iridium.iridiumteams.support.spawners.SpawnerSupport;
 import com.iridium.iridiumteams.support.stackers.StackerSupport;
 import com.iridium.iridiumteams.support.stackers.RoseStackerSupport;
-import com.iridium.iridiumteams.support.spawners.RoseStackerSpawnerSupport;
 import com.iridium.iridiumteams.support.stackers.WildStackerSupport;
-import com.iridium.iridiumteams.support.spawners.WildStackerSpawnerSupport;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -43,6 +42,8 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
             spawnerSupport.add(new RoseStackerSupport(iridiumTeams));
         if (supportedPluginEnabled("WildStacker"))
             spawnerSupport.add(new WildStackerSupport(iridiumTeams));
+        if(supportedPluginEnabled("SpawnerMeta"))
+            spawnerSupport.add(new SpawnerMetaSupport(iridiumTeams));
     }
 
     public void registerSupport() {
