@@ -18,6 +18,7 @@ repositories {
     maven("https://jitpack.io")
     maven("https://repo.rosewooddev.io/repository/public/")
     maven("https://repo.bg-software.com/repository/api/")
+    maven("https://repo.craftaro.com/repository/minecraft-plugins")
     mavenCentral()
 }
 
@@ -36,6 +37,7 @@ dependencies {
     compileOnly("dev.rosewood:rosestacker:1.5.17")
     compileOnly("com.bgsoftware:WildStackerAPI:2023.3")
     compileOnly("com.github.OfficialRell:SpawnerMeta:22.5")
+    compileOnly("com.craftaro:UltimateStacker-API:1.0.0-20230630.204752-1")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
     implementation("org.bstats:bstats-bukkit:3.0.2")

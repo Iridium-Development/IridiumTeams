@@ -4,13 +4,11 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import mc.rellox.spawnermeta.SpawnerMeta;
-import mc.rellox.spawnermeta.api.configuration.ILocations;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class SpawnerMetaSupport<T extends Team, U extends IridiumUser<T>> implements SpawnerSupport<T> {
 

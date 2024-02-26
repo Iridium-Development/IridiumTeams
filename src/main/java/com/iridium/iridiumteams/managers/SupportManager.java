@@ -3,11 +3,7 @@ package com.iridium.iridiumteams.managers;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.support.SpawnerMetaSupport;
-import com.iridium.iridiumteams.support.SpawnerSupport;
-import com.iridium.iridiumteams.support.StackerSupport;
-import com.iridium.iridiumteams.support.RoseStackerSupport;
-import com.iridium.iridiumteams.support.WildStackerSupport;
+import com.iridium.iridiumteams.support.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 
@@ -32,10 +28,13 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     private void registerBlockStackerSupport() {
+
         if (supportedPluginEnabled("RoseStacker"))
             stackerSupport.add(new RoseStackerSupport(iridiumTeams));
         if (supportedPluginEnabled("WildStacker"))
             stackerSupport.add(new WildStackerSupport(iridiumTeams));
+        if(supportedPluginEnabled("UltimateStacker"))
+            stackerSupport.add(new UltimateStackerSupport(iridiumTeams));
     }
 
     private void registerSpawnerSupport() {
@@ -45,6 +44,8 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
             spawnerSupport.add(new WildStackerSupport(iridiumTeams));
         if(supportedPluginEnabled("SpawnerMeta"))
             spawnerSupport.add(new SpawnerMetaSupport(iridiumTeams));
+        if(supportedPluginEnabled("UltimateStacker"))
+            spawnerSupport.add(new UltimateStackerSupport(iridiumTeams));
     }
 
     public void registerSupport() {
