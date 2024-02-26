@@ -1,4 +1,4 @@
-package com.iridium.iridiumteams.support;
+/**package com.iridium.iridiumteams.support;
 
 import com.craftaro.ultimatestacker.api.stack.block.BlockStack;
 import com.craftaro.ultimatestacker.api.stack.spawner.SpawnerStack;
@@ -22,6 +22,10 @@ public class UltimateStackerSupport <T extends Team, U extends IridiumUser<T>> i
 
         int stackedBlocks = 0;
 
+        >> the issue is that BlockStack & SpawnerStack extend Data from com.craftaro.core.database.Data
+        >> and the API either does not include this class or shades it incorrectly
+        >> meaning we can't use it
+
         for (BlockStack blockStack : UltimateStackerApi.getBlockStackManager().getStacks()) {
             if (!iridiumTeams.getTeamManager().isInTeam(team, blockStack.getLocation())) continue;
             if (material != XMaterial.matchXMaterial(blockStack.getLocation().getBlock().getType())) continue;
@@ -43,4 +47,4 @@ public class UltimateStackerSupport <T extends Team, U extends IridiumUser<T>> i
 
         return stackedSpawners;
     }
-}
+}*/

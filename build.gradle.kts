@@ -37,7 +37,7 @@ dependencies {
     compileOnly("dev.rosewood:rosestacker:1.5.17")
     compileOnly("com.bgsoftware:WildStackerAPI:2023.3")
     compileOnly("com.github.OfficialRell:SpawnerMeta:22.5")
-    compileOnly("com.craftaro:UltimateStacker-API:1.0.0-20230630.204752-1")
+    compileOnly("com.craftaro:UltimateStacker-API:1.0.0-20240226.111459-20")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
     implementation("org.bstats:bstats-bukkit:3.0.2")

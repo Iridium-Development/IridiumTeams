@@ -33,8 +33,10 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
             stackerSupport.add(new RoseStackerSupport(iridiumTeams));
         if (supportedPluginEnabled("WildStacker"))
             stackerSupport.add(new WildStackerSupport(iridiumTeams));
-        if(supportedPluginEnabled("UltimateStacker"))
-            stackerSupport.add(new UltimateStackerSupport(iridiumTeams));
+
+        //>> see UltimateStackerSupport
+        //if(supportedPluginEnabled("UltimateStacker"))
+        //    stackerSupport.add(new UltimateStackerSupport(iridiumTeams));
     }
 
     private void registerSpawnerSupport() {
@@ -44,8 +46,10 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
             spawnerSupport.add(new WildStackerSupport(iridiumTeams));
         if(supportedPluginEnabled("SpawnerMeta"))
             spawnerSupport.add(new SpawnerMetaSupport(iridiumTeams));
-        if(supportedPluginEnabled("UltimateStacker"))
-            spawnerSupport.add(new UltimateStackerSupport(iridiumTeams));
+
+        //>> see UltimateStackerSupport
+        //if(supportedPluginEnabled("UltimateStacker"))
+        //    spawnerSupport.add(new UltimateStackerSupport(iridiumTeams));
     }
 
     public void registerSupport() {
