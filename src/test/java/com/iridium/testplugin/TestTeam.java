@@ -19,6 +19,9 @@ public class TestTeam extends Team {
 
     @Override
     public int getLevel() {
+
+        if(!TestPlugin.getInstance().getConfiguration().enableLeveling) return 1;
+
         if (!TestPlugin.getInstance().getConfiguration().isLevelExponential) {
             if (TestPlugin.getInstance().getConfiguration().flatExpRequirement != 0)
                 return Math.abs(getExperience() / TestPlugin.getInstance().getConfiguration().flatExpRequirement);

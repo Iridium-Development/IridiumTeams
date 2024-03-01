@@ -24,6 +24,7 @@ public class Configuration {
 
     public int recalculateInterval;
     public int forceRecalculateInterval;
+    public boolean enableLeveling;
     public boolean giveLevelRewards;
     public boolean isLevelExponential;
     public int flatExpRequirement;
@@ -68,6 +69,7 @@ public class Configuration {
         this.maxTeamNameLength = 20;
         this.recalculateInterval = 5;
         this.forceRecalculateInterval = 1;
+        this.enableLeveling = true;
         this.giveLevelRewards = true;
         this.isLevelExponential = true;
         this.flatExpRequirement = 10;
