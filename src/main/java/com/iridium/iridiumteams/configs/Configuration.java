@@ -24,6 +24,10 @@ public class Configuration {
 
     public int recalculateInterval;
     public int forceRecalculateInterval;
+    public boolean giveLevelRewards;
+    public boolean isLevelExponential;
+    public int flatExpRequirement;
+    public double curvedExpModifier;
     public Map<Integer, UserRank> userRanks;
     public UserRank visitor;
     public UserRank owner;
@@ -64,6 +68,10 @@ public class Configuration {
         this.maxTeamNameLength = 20;
         this.recalculateInterval = 5;
         this.forceRecalculateInterval = 1;
+        this.giveLevelRewards = true;
+        this.isLevelExponential = true;
+        this.flatExpRequirement = 10;
+        this.curvedExpModifier = 0.95;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()
                 .put(1, new UserRank("Member", new Item(XMaterial.STONE_AXE, 12, 1, "&9&lMember", Collections.emptyList())))
                 .put(2, new UserRank("Moderator", new Item(XMaterial.IRON_AXE, 13, 1, "&5&lModerator", Collections.emptyList())))

@@ -18,6 +18,24 @@ public class TestTeam extends Team {
     }
 
     @Override
+    public int getLevel() {
+        if (!TestPlugin.getInstance().getConfiguration().isLevelExponential) {
+            if (TestPlugin.getInstance().getConfiguration().flatExpRequirement != 0)
+                return getExperience() / TestPlugin.getInstance().getConfiguration().flatExpRequirement;
+
+            return getExperience();
+        }
+
+        if (TestPlugin.getInstance().getConfiguration().flatExpRequirement != 0) {
+            return (int) Math.floor(Math.pow(
+                    getExperience() / (double) TestPlugin.getInstance().getConfiguration().flatExpRequirement,
+                    TestPlugin.getInstance().getConfiguration().curvedExpModifier) + 1);
+        }
+
+        return (int) Math.floor(Math.pow(getExperience(), TestPlugin.getInstance().getConfiguration().curvedExpModifier) + 1);
+    }
+
+    @Override
     public double getValue() {
         return TestPlugin.getInstance().getTeamManager().getTeamValue(this);
     }
