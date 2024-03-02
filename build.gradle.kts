@@ -1,11 +1,11 @@
 plugins {
     java
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "com.iridium"
-version = "2.4.0"
+version = "2.4.1"
 description = "IridiumTeams"
 
 repositories {
@@ -24,7 +24,7 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.8.6")
+    implementation("com.iridium:IridiumCore:1.8.7")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.30")
@@ -56,12 +56,6 @@ tasks {
 
         // Remove the archive classifier suffix
         archiveClassifier.set("")
-
-        // Remove unnecessary files from the jar
-        // > sh0inx: you are the source of my misery, you have been banished to the comments until further notice
-        //minimize {
-        //    exclude(dependency("com.github.cryptomorin:XSeries:*"))
-        //}
     }
 
     // Set UTF-8 as the encoding
@@ -91,13 +85,6 @@ tasks {
     compileTestJava {
         sourceCompatibility = JavaVersion.VERSION_17.toString()
         targetCompatibility = JavaVersion.VERSION_17.toString()
-    }
-}
-
-// Set the Java version and vendor
-java {
-    toolchain {
-        vendor.set(JvmVendorSpec.ADOPTOPENJDK)
     }
 }
 
