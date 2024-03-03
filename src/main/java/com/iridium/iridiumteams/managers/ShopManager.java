@@ -29,8 +29,6 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
     public void buy(Player player, Shop.ShopItem shopItem, int amount) {
         if (!canPurchase(player, shopItem, amount)) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotAfford
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             iridiumTeams.getShop().failSound.play(player);
             return;
         }
@@ -145,7 +143,14 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
             if (getBankBalance(player, bankItem) < cost) return false;
         }
 
-        return moneyCost == 0 || economy != null && economy.getBalance(player) >= moneyCost;
+        if(!(moneyCost == 0 || economy != null && economy.getBalance(player) >= moneyCost)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotAfford
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
+        }
+
+        return true;
     }
 
     private void purchase(Player player, Shop.ShopItem shopItem, int amount) {
