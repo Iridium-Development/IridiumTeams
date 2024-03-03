@@ -56,15 +56,22 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int currentLevel = teamEnhancement.isActive(enhancementEntry.getValue().type) ? teamEnhancement.getLevel() : 0;
             String nextLevel = nextData == null ? "N/A" : String.valueOf(currentLevel + 1);
             String cost = nextData == null ? currentData == null ? "N/A" : String.valueOf(currentData.money) : String.valueOf(nextData.money);
+            String minLevel = nextData == null ? "N/A" : String.valueOf(nextData.minLevel);
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
                     new Placeholder("timeremaining_minutes", String.valueOf(minutes)),
                     new Placeholder("timeremaining_seconds", String.valueOf(seconds)),
                     new Placeholder("current_level", String.valueOf(currentLevel)),
+                    new Placeholder("minLevel", minLevel),
                     new Placeholder("next_level", nextLevel),
-                    new Placeholder("cost", cost)
+                    new Placeholder("vault_cost", cost)
             ));
+
+            for (Map.Entry<String, Double> bankItem : nextData.bankCosts.entrySet()) {
+                placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+            }
+
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
     }
@@ -76,5 +83,12 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
         if (!boosters.containsKey(event.getSlot())) return;
         String booster = boosters.get(event.getSlot());
         iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().boostersCommand, new String[]{"buy", booster});
+    }
+
+    public String formatPrice(double value) {
+        if (iridiumTeams.getShop().abbreviatePrices) {
+            return iridiumTeams.getConfiguration().numberFormatter.format(value);
+        }
+        return String.valueOf(value);
     }
 }

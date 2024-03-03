@@ -19,6 +19,7 @@ public class Shop {
     public String sellRewardLore;
     public String notPurchasableLore;
     public String notSellableLore;
+    public String levelRequirementLore;
     public boolean abbreviatePrices;
     public boolean dropItemWhenFull;
     public XSound failSound;
@@ -802,6 +803,7 @@ public class Shop {
         sellRewardLore = "&cSelling Reward: $%vault_reward%";
         notPurchasableLore = "&cThis item cannot be purchased!";
         notSellableLore = "&cThis item cannot be sold!";
+        levelRequirementLore = "&9[!] &7Must be level %minLevel% to purchase";
 
         abbreviatePrices = true;
         dropItemWhenFull = false;
