@@ -90,8 +90,8 @@ public class Configuration {
                 color + "Offline Members (%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
         );
         this.levelInfo = Arrays.asList(
-                color + "Level: %7" + team.toLowerCase() + "_level%",
-                color + "Experience: %7" + team.toLowerCase() + "_experience% / %" + team.toLowerCase() + "_experienceForNextLevel% (need %" + team.toLowerCase() + "_experienceToLevelUp% more)"
+                color + "Level: &7%" + team.toLowerCase() + "_level%",
+                color + "Experience: &7%" + team.toLowerCase() + "_experience% / %" + team.toLowerCase() + "_experienceForNextLevel% (need %" + team.toLowerCase() + "_experienceToLevelUp% more)"
         );
 
         this.noneChatAlias = Arrays.asList("n", "none");

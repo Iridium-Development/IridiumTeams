@@ -130,9 +130,10 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
                 return false;
             }
 
-            if(shopItem.minLevel < team.get().getLevel()) {
+            if(team.get().getLevel() < shopItem.minLevel) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notHighEnoughLevel
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                        .replace("%level%", String.valueOf(shopItem.minLevel))));
                 return false;
             }
         }

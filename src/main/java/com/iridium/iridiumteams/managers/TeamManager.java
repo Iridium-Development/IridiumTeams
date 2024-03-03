@@ -172,7 +172,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public int getTeamExperienceForNextLevel(T team) {
-        return getExperienceForLevel(getTeamLevel(team.getExperience()) + 1) - team.getExperience();
+        return getExperienceForLevel(team.getLevel() + 1) - team.getExperience();
     }
 
     public double getTeamValue(T team) {
