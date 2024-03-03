@@ -48,7 +48,8 @@ public class Shop {
                                 1,
                                 10,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lDirt Block",
@@ -56,7 +57,8 @@ public class Shop {
                                 10,
                                 11,
                                 new Cost(50, new HashMap<>()),
-                                new Cost(5, new HashMap<>())
+                                new Cost(5, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lGravel",
@@ -64,7 +66,8 @@ public class Shop {
                                 10,
                                 12,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lGranite",
@@ -72,7 +75,8 @@ public class Shop {
                                 10,
                                 13,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lDiorite",
@@ -80,7 +84,8 @@ public class Shop {
                                 10,
                                 14,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lAndesite",
@@ -88,7 +93,8 @@ public class Shop {
                                 10,
                                 15,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lOak Log",
@@ -96,7 +102,8 @@ public class Shop {
                                 16,
                                 16,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lSpruce Log",
@@ -104,7 +111,8 @@ public class Shop {
                                 16,
                                 19,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lBirch Log",
@@ -112,7 +120,8 @@ public class Shop {
                                 16,
                                 20,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lJungle Log",
@@ -120,7 +129,8 @@ public class Shop {
                                 16,
                                 21,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lAcacia Log",
@@ -128,7 +138,8 @@ public class Shop {
                                 16,
                                 22,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lDark Oak Log",
@@ -136,7 +147,8 @@ public class Shop {
                                 16,
                                 23,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lSnow Block",
@@ -144,7 +156,8 @@ public class Shop {
                                 16,
                                 24,
                                 new Cost(200, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lIce",
@@ -152,7 +165,8 @@ public class Shop {
                                 8,
                                 25,
                                 new Cost(300, new HashMap<>()),
-                                new Cost(20, new HashMap<>())
+                                new Cost(20, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lPacked Ice",
@@ -160,7 +174,8 @@ public class Shop {
                                 8,
                                 28,
                                 new Cost(300, new HashMap<>()),
-                                new Cost(20, new HashMap<>())
+                                new Cost(20, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lSponge",
@@ -168,7 +183,8 @@ public class Shop {
                                 4,
                                 29,
                                 new Cost(1000, new HashMap<>()),
-                                new Cost(200, new HashMap<>())
+                                new Cost(200, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lSand",
@@ -176,7 +192,8 @@ public class Shop {
                                 8,
                                 30,
                                 new Cost(100, new HashMap<>()),
-                                new Cost(20, new HashMap<>())
+                                new Cost(20, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lSandstone",
@@ -184,7 +201,8 @@ public class Shop {
                                 16,
                                 31,
                                 new Cost(80, new HashMap<>()),
-                                new Cost(5, new HashMap<>())
+                                new Cost(5, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lClay Ball",
@@ -192,7 +210,8 @@ public class Shop {
                                 32,
                                 32,
                                 new Cost(70, new HashMap<>()),
-                                new Cost(10, new HashMap<>())
+                                new Cost(10, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lObsidian",
@@ -200,7 +219,8 @@ public class Shop {
                                 4,
                                 33,
                                 new Cost(250, new HashMap<>()),
-                                new Cost(25, new HashMap<>())
+                                new Cost(25, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lGlowstone",
@@ -208,7 +228,8 @@ public class Shop {
                                 8,
                                 34,
                                 new Cost(125, new HashMap<>()),
-                                new Cost(15, new HashMap<>())
+                                new Cost(15, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lEnd Stone",
@@ -216,7 +237,8 @@ public class Shop {
                                 4,
                                 39,
                                 new Cost(250, new HashMap<>()),
-                                new Cost(25, new HashMap<>())
+                                new Cost(25, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lPrismarine",
@@ -224,7 +246,8 @@ public class Shop {
                                 16,
                                 40,
                                 new Cost(200, new HashMap<>()),
-                                new Cost(20, new HashMap<>())
+                                new Cost(20, new HashMap<>()),
+                                1
                         ),
                         new ShopItem(
                                 color + "&lWool",
@@ -232,7 +255,8 @@ public class Shop {
                                 8,
                                 41,
                                 new Cost(50, new HashMap<>()),
-                                new Cost(5, new HashMap<>())
+                                new Cost(5, new HashMap<>()),
+                                1
                         )
                 ))
                 .put("Food", Arrays.asList(
@@ -242,7 +266,8 @@ public class Shop {
                                         10,
                                         11,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lEnchanted Golden Apple",
@@ -250,7 +275,8 @@ public class Shop {
                                         3,
                                         12,
                                         new Cost(1000, new HashMap<>()),
-                                        new Cost(100, new HashMap<>())
+                                        new Cost(100, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCarrot",
@@ -258,7 +284,8 @@ public class Shop {
                                         10,
                                         13,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(25, new HashMap<>())
+                                        new Cost(25, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lBaked Potato",
@@ -266,7 +293,8 @@ public class Shop {
                                         10,
                                         14,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lBread",
@@ -274,7 +302,8 @@ public class Shop {
                                         10,
                                         15,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(30, new HashMap<>())
+                                        new Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCookie",
@@ -282,7 +311,8 @@ public class Shop {
                                         5,
                                         20,
                                         new Cost(130, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCooked Porkchop",
@@ -290,7 +320,8 @@ public class Shop {
                                         10,
                                         21,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCooked Beef",
@@ -298,7 +329,8 @@ public class Shop {
                                         10,
                                         22,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCooked Mutton",
@@ -306,7 +338,8 @@ public class Shop {
                                         10,
                                         23,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(20, new HashMap<>())
+                                        new Cost(20, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCooked Rabbit",
@@ -314,7 +347,8 @@ public class Shop {
                                         10,
                                         24,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(25, new HashMap<>())
+                                        new Cost(25, new HashMap<>()),
+                                        1
                                 )
                         )
                 )
@@ -325,7 +359,8 @@ public class Shop {
                                         16,
                                         11,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lRedstone",
@@ -333,7 +368,8 @@ public class Shop {
                                         16,
                                         12,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(7, new HashMap<>())
+                                        new Cost(7, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lLapis Lazuli",
@@ -341,7 +377,8 @@ public class Shop {
                                         16,
                                         13,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lIron Ingot",
@@ -349,7 +386,8 @@ public class Shop {
                                         8,
                                         14,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(20, new HashMap<>())
+                                        new Cost(20, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lGold Ingot",
@@ -357,7 +395,8 @@ public class Shop {
                                         8,
                                         15,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(20, new HashMap<>())
+                                        new Cost(20, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lDiamond",
@@ -365,7 +404,8 @@ public class Shop {
                                         8,
                                         21,
                                         new Cost(1000, new HashMap<>()),
-                                        new Cost(100, new HashMap<>())
+                                        new Cost(100, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lEmerald",
@@ -373,7 +413,8 @@ public class Shop {
                                         8,
                                         22,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lQuartz",
@@ -381,7 +422,8 @@ public class Shop {
                                         64,
                                         23,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 )
                         )
                 )
@@ -392,7 +434,8 @@ public class Shop {
                                         16,
                                         10,
                                         new Cost(130, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lPumpkin Seeds",
@@ -400,7 +443,8 @@ public class Shop {
                                         16,
                                         11,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lMelon Seeds",
@@ -408,7 +452,8 @@ public class Shop {
                                         16,
                                         12,
                                         new Cost(250, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lNether Wart",
@@ -416,7 +461,8 @@ public class Shop {
                                         4,
                                         13,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lSugar Cane",
@@ -424,7 +470,8 @@ public class Shop {
                                         16,
                                         14,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lWheat",
@@ -432,7 +479,8 @@ public class Shop {
                                         16,
                                         15,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lPumpkin",
@@ -440,7 +488,8 @@ public class Shop {
                                         16,
                                         16,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lMelon Slice",
@@ -448,7 +497,8 @@ public class Shop {
                                         16,
                                         19,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lCactus",
@@ -456,7 +506,8 @@ public class Shop {
                                         8,
                                         20,
                                         new Cost(80, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lOak Sapling",
@@ -464,7 +515,8 @@ public class Shop {
                                         4,
                                         21,
                                         new Cost(20, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lSpruce Sapling",
@@ -472,7 +524,8 @@ public class Shop {
                                         4,
                                         22,
                                         new Cost(20, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lBirch Sapling",
@@ -480,7 +533,8 @@ public class Shop {
                                         4,
                                         23,
                                         new Cost(20, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lJungle Sapling",
@@ -488,7 +542,8 @@ public class Shop {
                                         4,
                                         24,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(4, new HashMap<>())
+                                        new Cost(4, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lAcacia Sapling",
@@ -496,7 +551,8 @@ public class Shop {
                                         4,
                                         25,
                                         new Cost(20, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lDark Oak Sapling",
@@ -504,7 +560,8 @@ public class Shop {
                                         4,
                                         30,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(4, new HashMap<>())
+                                        new Cost(4, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lBrown Mushroom",
@@ -512,7 +569,8 @@ public class Shop {
                                         8,
                                         31,
                                         new Cost(60, new HashMap<>()),
-                                        new Cost(6, new HashMap<>())
+                                        new Cost(6, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lRed Mushroom",
@@ -520,7 +578,8 @@ public class Shop {
                                         8,
                                         32,
                                         new Cost(60, new HashMap<>()),
-                                        new Cost(6, new HashMap<>())
+                                        new Cost(6, new HashMap<>()),
+                                        1
                                 )
                         )
                 )
@@ -531,7 +590,8 @@ public class Shop {
                                         16,
                                         10,
                                         new Cost(20, new HashMap<>()),
-                                        new Cost(2, new HashMap<>())
+                                        new Cost(2, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lBone",
@@ -539,7 +599,8 @@ public class Shop {
                                         16,
                                         11,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(3, new HashMap<>())
+                                        new Cost(3, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lGunpowder",
@@ -547,7 +608,8 @@ public class Shop {
                                         16,
                                         12,
                                         new Cost(30, new HashMap<>()),
-                                        new Cost(3, new HashMap<>())
+                                        new Cost(3, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lString",
@@ -555,7 +617,8 @@ public class Shop {
                                         16,
                                         13,
                                         new Cost(80, new HashMap<>()),
-                                        new Cost(3, new HashMap<>())
+                                        new Cost(3, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lArrow",
@@ -563,7 +626,8 @@ public class Shop {
                                         16,
                                         14,
                                         new Cost(75, new HashMap<>()),
-                                        new Cost(4, new HashMap<>())
+                                        new Cost(4, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lSpider Eye",
@@ -571,7 +635,8 @@ public class Shop {
                                         16,
                                         15,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lEnder Pearl",
@@ -579,7 +644,8 @@ public class Shop {
                                         3,
                                         16,
                                         new Cost(75, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lSlime Ball",
@@ -587,7 +653,8 @@ public class Shop {
                                         16,
                                         19,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lPrismarine Crystals",
@@ -595,7 +662,8 @@ public class Shop {
                                         16,
                                         20,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lPrismarine Shard",
@@ -603,7 +671,8 @@ public class Shop {
                                         16,
                                         21,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lBlaze Rod",
@@ -611,7 +680,8 @@ public class Shop {
                                         4,
                                         22,
                                         new Cost(250, new HashMap<>()),
-                                        new Cost(20, new HashMap<>())
+                                        new Cost(20, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lMagma Cream",
@@ -619,7 +689,8 @@ public class Shop {
                                         4,
                                         23,
                                         new Cost(150, new HashMap<>()),
-                                        new Cost(15, new HashMap<>())
+                                        new Cost(15, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lGhast Tear",
@@ -627,7 +698,8 @@ public class Shop {
                                         4,
                                         24,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(30, new HashMap<>())
+                                        new Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lLeather",
@@ -635,7 +707,8 @@ public class Shop {
                                         8,
                                         25,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lRabbit Foot",
@@ -643,7 +716,8 @@ public class Shop {
                                         4,
                                         30,
                                         new Cost(250, new HashMap<>()),
-                                        new Cost(30, new HashMap<>())
+                                        new Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lInk Sack",
@@ -651,7 +725,8 @@ public class Shop {
                                         8,
                                         31,
                                         new Cost(50, new HashMap<>()),
-                                        new Cost(5, new HashMap<>())
+                                        new Cost(5, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lFeather",
@@ -659,7 +734,8 @@ public class Shop {
                                         16,
                                         32,
                                         new Cost(30, new HashMap<>()),
-                                        new Cost(3, new HashMap<>())
+                                        new Cost(3, new HashMap<>()),
+                                        1
                                 )
                         )
                 )
@@ -670,7 +746,8 @@ public class Shop {
                                         1,
                                         12,
                                         new Cost(100, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lWater Bucket",
@@ -678,7 +755,8 @@ public class Shop {
                                         1,
                                         13,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(10, new HashMap<>())
+                                        new Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lLava Bucket",
@@ -686,7 +764,8 @@ public class Shop {
                                         1,
                                         14,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(20, new HashMap<>())
+                                        new Cost(20, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lName Tag",
@@ -694,7 +773,8 @@ public class Shop {
                                         1,
                                         21,
                                         new Cost(200, new HashMap<>()),
-                                        new Cost(30, new HashMap<>())
+                                        new Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lSaddle",
@@ -702,7 +782,8 @@ public class Shop {
                                         1,
                                         22,
                                         new Cost(300, new HashMap<>()),
-                                        new Cost(30, new HashMap<>())
+                                        new Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new ShopItem(
                                         color + "&lEnd Portal Frame",
@@ -710,7 +791,8 @@ public class Shop {
                                         1,
                                         23,
                                         new Cost(5000, new HashMap<>()),
-                                        new Cost(0, new HashMap<>())
+                                        new Cost(0, new HashMap<>()),
+                                        1
                                 )
                         )
                 )
@@ -739,7 +821,6 @@ public class Shop {
     public static class ShopCategory {
         public Item item;
         public int inventorySize;
-
     }
 
     @NoArgsConstructor
@@ -754,8 +835,9 @@ public class Shop {
         public int page;
         public Cost buyCost;
         public Cost sellCost;
+        public int minLevel;
 
-        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, Cost buyCost, Cost sellCost) {
+        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, Cost buyCost, Cost sellCost, int minLevel) {
             this.name = name;
             this.type = type;
             this.lore = Collections.emptyList();
@@ -764,9 +846,10 @@ public class Shop {
             this.page = 1;
             this.buyCost = buyCost;
             this.sellCost = sellCost;
+            this.minLevel = minLevel;
         }
 
-        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, int page, Cost buyCost, Cost sellCost) {
+        public ShopItem(String name, XMaterial type, int defaultAmount, int slot, int page, Cost buyCost, Cost sellCost, int minLevel) {
             this.name = name;
             this.type = type;
             this.lore = Collections.emptyList();
@@ -775,6 +858,7 @@ public class Shop {
             this.page = page;
             this.buyCost = buyCost;
             this.sellCost = sellCost;
+            this.minLevel = minLevel;
         }
     }
 

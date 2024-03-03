@@ -145,6 +145,36 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract @Nullable TeamSetting getTeamSetting(T team, String setting);
 
+    public int getTeamLevel(int experience) {
+        if(experience == 0) return 1;
+        if(!iridiumTeams.getConfiguration().enableLeveling) return 1;
+
+        int flatExpRequirement = iridiumTeams.getConfiguration().flatExpRequirement;
+        double curvedExpModifier = iridiumTeams.getConfiguration().curvedExpModifier;
+
+        // if flatExpRequirement = 0, set experience per level up to 1 (because dividing by 0 is a no-no)
+        // if curvedExpModifer = 0, set modifier to 1 (because value ^ 1 = value, and value ^ 0 = 1)
+
+        if(flatExpRequirement == 0) flatExpRequirement = 1;
+        if(curvedExpModifier == 0) curvedExpModifier = 1;
+
+        return (int) Math.floor(Math.pow(experience / (double) Math.abs(flatExpRequirement), Math.abs(curvedExpModifier)) + 1);
+    }
+
+    public int getExperienceForLevel(int level) {
+        int flatExpRequirement = iridiumTeams.getConfiguration().flatExpRequirement;
+        double curvedExpModifier = iridiumTeams.getConfiguration().curvedExpModifier;
+
+        if(flatExpRequirement == 0) flatExpRequirement = 1;
+        if(curvedExpModifier == 0) curvedExpModifier = 1;
+
+        return (int) Math.floor(Math.abs(flatExpRequirement) * Math.pow(10, Math.log10(level - 1) / Math.abs(curvedExpModifier)));
+    }
+
+    public int getTeamExperienceForNextLevel(T team) {
+        return getExperienceForLevel(getTeamLevel(team.getExperience()) + 1) - team.getExperience();
+    }
+
     public double getTeamValue(T team) {
         double value = 0;
 

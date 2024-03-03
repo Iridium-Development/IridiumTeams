@@ -26,7 +26,6 @@ public class Configuration {
     public int forceRecalculateInterval;
     public boolean enableLeveling;
     public boolean giveLevelRewards;
-    public boolean isLevelExponential;
     public int flatExpRequirement;
     public double curvedExpModifier;
     public Map<Integer, UserRank> userRanks;
@@ -35,6 +34,7 @@ public class Configuration {
     public String teamInfoTitle;
     public String teamInfoTitleFiller;
     public List<String> teamInfo;
+    public List<String> levelInfo;
     public List<String> noneChatAlias;
     public List<String> teamChatAlias;
     public Map<Integer, Integer> teamTopSlots;
@@ -71,7 +71,6 @@ public class Configuration {
         this.forceRecalculateInterval = 1;
         this.enableLeveling = true;
         this.giveLevelRewards = true;
-        this.isLevelExponential = true;
         this.flatExpRequirement = 10;
         this.curvedExpModifier = 0.95;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()
@@ -89,6 +88,10 @@ public class Configuration {
                 color + "Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
                 color + "Online Members (%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
                 color + "Offline Members (%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
+        );
+        this.levelInfo = Arrays.asList(
+                color + "Level: %7" + team.toLowerCase() + "_level%",
+                color + "Experience: %7" + team.toLowerCase() + "_experience% / %" + team.toLowerCase() + "_experienceForNextLevel% (need %" + team.toLowerCase() + "_experienceToLevelUp% more)"
         );
 
         this.noneChatAlias = Arrays.asList("n", "none");

@@ -119,6 +119,24 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     private boolean canPurchase(Player player, Shop.ShopItem shopItem, int amount) {
+
+        if(shopItem.minLevel != 1) {
+            U user = iridiumTeams.getUserManager().getUser(player);
+            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+
+            if(!team.isPresent()) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                return false;
+            }
+
+            if(shopItem.minLevel < team.get().getLevel()) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notHighEnoughLevel
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                return false;
+            }
+        }
+
         double moneyCost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.money);
         Economy economy = iridiumTeams.getEconomy();
         for (String bankItem : shopItem.buyCost.bankItems.keySet()) {

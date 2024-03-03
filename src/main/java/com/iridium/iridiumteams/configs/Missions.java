@@ -54,7 +54,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("GROW:SUGAR_CANE:10", "GROW:WHEAT:10", "GROW:CARROTS:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFarmer Reward",
+                        ), Arrays.asList("GROW:SUGAR_CANE:10", "GROW:WHEAT:10", "GROW:CARROTS:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFarmer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -84,7 +84,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("KILL:ZOMBIE:10", "KILL:SKELETON:10", "KILL:CREEPER:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lHunter Reward",
+                        ), Arrays.asList("KILL:ZOMBIE:10", "KILL:SKELETON:10", "KILL:CREEPER:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lHunter Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -112,7 +112,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Collections.singletonList("CRAFT:BREAD:64"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBaker Reward",
+                        ), Collections.singletonList("CRAFT:BREAD:64"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBaker Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -142,7 +142,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("MINE:IRON_ORE:15", "MINE:COAL_ORE:30", "MINE:DIAMOND_ORE:1"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lMiner Reward",
+                        ), Arrays.asList("MINE:IRON_ORE:15", "MINE:COAL_ORE:30", "MINE:DIAMOND_ORE:1"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lMiner Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -170,7 +170,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Collections.singletonList("FISH:ANY:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFisherman Reward",
+                        ), Collections.singletonList("FISH:ANY:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFisherman Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -198,7 +198,7 @@ public class Missions {
                                         color + "&l* &7$1000",
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
-                                )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
+                                )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -227,7 +227,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("BREW:SPEED:2:3", "BREW:STRENGTH:2:3"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Arrays.asList("BREW:SPEED:2:3", "BREW:STRENGTH:2:3"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -253,7 +253,7 @@ public class Missions {
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
                                 )
-                        ), Collections.singletonList("MINE:LOGS:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Collections.singletonList("MINE:LOGS:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -277,7 +277,7 @@ public class Missions {
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
                                 )
-                        ), Collections.singletonList("MINE:LOGS:100"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Collections.singletonList("MINE:LOGS:100"), 1,  new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -301,7 +301,7 @@ public class Missions {
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
                                 )
-                        ), Collections.singletonList("MINE:LOGS:1000"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Collections.singletonList("MINE:LOGS:1000"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
