@@ -68,8 +68,10 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
                     new Placeholder("vault_cost", cost)
             ));
 
-            for (Map.Entry<String, Double> bankItem : nextData.bankCosts.entrySet()) {
-                placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+            if(nextData != null) {
+                for (Map.Entry<String, Double> bankItem : nextData.bankCosts.entrySet()) {
+                    placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+                }
             }
 
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
