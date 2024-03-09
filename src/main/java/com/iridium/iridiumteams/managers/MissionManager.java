@@ -42,16 +42,17 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
     /**
      * Determines the missions to be checked
      *
-     * @param team        The team
-     * @param missionWorld       The world we are in
-     * @param missionType The mission type e.g. BREAK
-     * @param identifier  The mission identifier e.g. COBBLESTONE
-     * @param amount      The amount we are incrementing by
+     * @param team         The team
+     * @param missionWorld The world we are in
+     * @param missionType  The mission type e.g. BREAK
+     * @param identifier   The mission identifier e.g. COBBLESTONE
+     * @param amount       The amount we are incrementing by
      */
     public void handleMissionUpdate(T team, World missionWorld, String missionType, String identifier, int amount) {
 
-        if (iridiumTeams.getConfiguration().whitelistedWorlds.stream().noneMatch(world -> missionWorld.getName().equalsIgnoreCase(world))
-        && !iridiumTeams.getConfiguration().whitelistedWorlds.isEmpty()) return;
+        if (iridiumTeams.getConfiguration().whitelistedWorlds.stream().noneMatch(world -> missionWorld.getName().equalsIgnoreCase(world)) && !iridiumTeams.getConfiguration().whitelistedWorlds.isEmpty()) {
+            return;
+        }
 
         generateMissionData(team);
         incrementMission(team, missionType + ":" + identifier, amount);
@@ -164,10 +165,10 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
         return true;
     }
 
-    private void generateMissionData(T team) {
+    public void generateMissionData(T team) {
         // Generate mission data by opening all missionGUI's
-        new MissionGUI<T, U>(team, MissionType.ONCE, null, iridiumTeams).getInventory();
-        new MissionGUI<T, U>(team, MissionType.DAILY, null, iridiumTeams).getInventory();
-        new MissionGUI<T, U>(team, MissionType.WEEKLY, null, iridiumTeams).getInventory();
+        new MissionGUI<>(team, MissionType.ONCE, null, iridiumTeams).getInventory();
+        new MissionGUI<>(team, MissionType.DAILY, null, iridiumTeams).getInventory();
+        new MissionGUI<>(team, MissionType.WEEKLY, null, iridiumTeams).getInventory();
     }
 }
