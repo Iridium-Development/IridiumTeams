@@ -19,6 +19,7 @@ repositories {
     maven("https://repo.rosewooddev.io/repository/public/")
     maven("https://repo.bg-software.com/repository/api/")
     maven("https://repo.craftaro.com/repository/minecraft-plugins")
+    maven("https://moyskleytech.com/debian/m2")
     mavenCentral()
 }
 
@@ -36,8 +37,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.5")
     compileOnly("dev.rosewood:rosestacker:1.5.17")
     compileOnly("com.bgsoftware:WildStackerAPI:2023.3")
-    compileOnly("com.github.OfficialRell:SpawnerMeta:22.5")
-    compileOnly("com.craftaro:UltimateStacker-API:1.0.0-20240226.111459-20")
+    compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
     implementation("org.bstats:bstats-bukkit:3.0.2")
