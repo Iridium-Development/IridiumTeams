@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 
 public class SupportManager<T extends Team, U extends IridiumUser<T>> {
 
@@ -22,9 +23,9 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     @Getter
-    private List<StackerSupport> stackerSupport = new ArrayList<>();
+    private HashSet<StackerSupport> stackerSupport = new HashSet<>();
     @Getter
-    private List<SpawnerSupport> spawnerSupport = new ArrayList<>();
+    private HashSet<SpawnerSupport> spawnerSupport = new HashSet<>();
     @Getter
     private HashSet<String> providerList = new HashSet<>();
 
@@ -33,29 +34,28 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     private void registerBlockStackerSupport() {
-        if (supportedPluginEnabled("RoseStacker")) {
-            stackerSupport.add(new RoseStackerSupport(iridiumTeams));
-        }
-        if (supportedPluginEnabled("WildStacker")) {
-            stackerSupport.add(new WildStackerSupport(iridiumTeams));
-        }
-        if(supportedPluginEnabled("ObsidianStacker")) {
-            stackerSupport.add(new ObsidianStackerSupport(iridiumTeams));
-        }
+        if (supportedPluginEnabled("RoseStacker"))
+            stackerSupport.add(new RoseStackerSupport<>(iridiumTeams));
+
+        if (supportedPluginEnabled("WildStacker"))
+            stackerSupport.add(new WildStackerSupport<>(iridiumTeams));
+
+        if(supportedPluginEnabled("ObsidianStacker"))
+            stackerSupport.add(new ObsidianStackerSupport<>(iridiumTeams));
     }
 
     private void registerSpawnerSupport() {
-        if (supportedPluginEnabled("RoseStacker")) {
-            spawnerSupport.add(new RoseStackerSupport(iridiumTeams));
-        }
-        if (supportedPluginEnabled("WildStacker")) {
-            spawnerSupport.add(new WildStackerSupport(iridiumTeams));
-        }
+        if (supportedPluginEnabled("RoseStacker"))
+            spawnerSupport.add(new RoseStackerSupport<>(iridiumTeams));
+
+        if (supportedPluginEnabled("WildStacker"))
+            spawnerSupport.add(new WildStackerSupport<>(iridiumTeams));
     }
 
     public void registerSupport() {
         registerBlockStackerSupport();
         registerSpawnerSupport();
+
         stackerSupport.forEach(provider -> providerList.add(provider.supportProvider()));
         spawnerSupport.forEach(provider -> providerList.add(provider.supportProvider()));
     }

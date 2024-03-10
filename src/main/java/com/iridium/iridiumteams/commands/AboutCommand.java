@@ -29,7 +29,7 @@ public class AboutCommand<T extends Team, U extends IridiumUser<T>> extends Comm
 
         HashSet<String> providerList = iridiumTeams.getSupportManager().getProviderList();
         if(!providerList.isEmpty())
-            sender.sendMessage(StringUtils.color("&7Detected Plugins Supported: " + iridiumTeams.getCommandManager().getColor() + String.join(", " + providerList)));
+            sender.sendMessage(StringUtils.color("&7Detected Plugins Supported: " + iridiumTeams.getCommandManager().getColor() + String.join(", ", providerList)));
 
         return true;
     }
