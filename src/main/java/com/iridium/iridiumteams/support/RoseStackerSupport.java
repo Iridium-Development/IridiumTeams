@@ -4,11 +4,13 @@ import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+
 import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import dev.rosewood.rosestacker.stack.StackedBlock;
 import dev.rosewood.rosestacker.stack.StackedSpawner;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 
 import java.util.*;
@@ -52,12 +54,22 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
         return stackedBlocks;
     }
 
-    private List<StackedSpawner> getStackedSpawners(List<Block> blocks) {
+    private List<StackedSpawner> getStackedSpawners(List<CreatureSpawner> spawners) {
         List<StackedSpawner> stackedSpawners = new ArrayList<>(Collections.emptyList());
-        for(Block block : blocks) {
-            stackedSpawners.add(getStackedSpawner(block));
+        for(CreatureSpawner spawner : spawners) {
+            stackedSpawners.add(getStackedSpawner(spawner.getBlock()));
         }
         return stackedSpawners;
+    }
+
+    @Override
+    public int spawnerStackAmount(CreatureSpawner spawner) {
+        return getStackedSpawner(spawner.getBlock()).getStackSize();
+    }
+
+    @Override
+    public int spawnerSpawnAmount(CreatureSpawner spawner) {
+        return spawnerStackAmount(spawner) * RoseStackerAPI.getInstance().getStackedSpawner(spawner.getBlock()).getSpawner().getSpawnCount();
     }
 
     @Override
@@ -74,10 +86,10 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int getExtraSpawners(T team, EntityType entityType, List<Block> blocks) {
+    public int getExtraSpawners(T team, EntityType entityType, List<CreatureSpawner> spawners) {
 
         int stackedSpawners = 0;
-        for (StackedSpawner stackedSpawner : getStackedSpawners(blocks)) {
+        for (StackedSpawner stackedSpawner : getStackedSpawners(spawners)) {
             if (!iridiumTeams.getTeamManager().isInTeam(team, stackedSpawner.getLocation())) continue;
             if (stackedSpawner.getSpawner().getSpawnedType() != entityType) continue;
             stackedSpawners += (stackedSpawner.getStackSize() - 1);

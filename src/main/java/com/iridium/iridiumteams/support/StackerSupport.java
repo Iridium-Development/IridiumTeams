@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.support;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.database.Team;
+
 import org.bukkit.block.Block;
 
 import java.util.List;
