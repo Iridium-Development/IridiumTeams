@@ -9,11 +9,14 @@ import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import dev.rosewood.rosestacker.stack.StackedBlock;
 import dev.rosewood.rosestacker.stack.StackedSpawner;
 
+import org.bukkit.Chunk;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T>, SpawnerSupport<T> {
 
@@ -63,6 +66,11 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
+    public int stackerStackAmount(Block block) {
+        return getStackedBlock(block).getStackSize();
+    }
+
+    @Override
     public int spawnerStackAmount(CreatureSpawner spawner) {
         return getStackedSpawner(spawner.getBlock()).getStackSize();
     }
@@ -70,6 +78,16 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     @Override
     public int spawnerSpawnAmount(CreatureSpawner spawner) {
         return spawnerStackAmount(spawner) * RoseStackerAPI.getInstance().getStackedSpawner(spawner.getBlock()).getSpawner().getSpawnCount();
+    }
+
+    @Override
+    public List<Block> getBlocksStacked(Chunk chunk) {
+        return RoseStackerAPI.getInstance().getStackedBlocks(Collections.singletonList(chunk)).stream().map(StackedBlock::getBlock).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CreatureSpawner> getSpawnersStacked(Chunk chunk) {
+        return RoseStackerAPI.getInstance().getStackedSpawners(Collections.singletonList(chunk)).stream().map(StackedSpawner::getSpawner).collect(Collectors.toList());
     }
 
     @Override

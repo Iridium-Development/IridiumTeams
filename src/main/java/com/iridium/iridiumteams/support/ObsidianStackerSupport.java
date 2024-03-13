@@ -8,9 +8,11 @@ import com.iridium.iridiumteams.database.Team;
 import com.moyskleytech.obsidianstacker.api.StackerAPI;
 import com.moyskleytech.obsidianstacker.api.Stack;
 
+import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ObsidianStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T> {
 
@@ -41,6 +43,16 @@ public class ObsidianStackerSupport<T extends Team, U extends IridiumUser<T>> im
             stackedBlocks.add(getStackedBlock(block));
         }
         return stackedBlocks;
+    }
+
+    @Override
+    public int stackerStackAmount(Block block) {
+        return getStackedBlock(block).getCount();
+    }
+
+    @Override
+    public List<Block> getBlocksStacked(Chunk chunk) {
+        return StackerAPI.getInstance().getStacks(chunk).join().stream().map(stack -> stack.getEntity().getLocation().getBlock()).collect(Collectors.toList());
     }
 
     @Override

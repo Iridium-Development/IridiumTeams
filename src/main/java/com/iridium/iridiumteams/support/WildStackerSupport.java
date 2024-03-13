@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.support;
 
 import com.bgsoftware.wildstacker.api.WildStackerAPI;
 import com.bgsoftware.wildstacker.api.objects.StackedBarrel;
+import com.bgsoftware.wildstacker.api.objects.StackedObject;
 import com.bgsoftware.wildstacker.api.objects.StackedSpawner;
 
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
@@ -9,7 +10,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 
-import dev.rosewood.rosestacker.api.RoseStackerAPI;
+import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
@@ -17,6 +18,7 @@ import org.bukkit.entity.EntityType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T>, SpawnerSupport<T> {
 
@@ -66,6 +68,11 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
+    public int stackerStackAmount(Block block) {
+        return WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrel(block).getStackAmount();
+    }
+
+    @Override
     public int spawnerStackAmount(CreatureSpawner spawner) {
         return getStackedSpawner(spawner.getBlock()).getStackAmount();
     }
@@ -73,6 +80,16 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     @Override
     public int spawnerSpawnAmount(CreatureSpawner spawner) {
         return spawnerStackAmount(spawner) * WildStackerAPI.getWildStacker().getSystemManager().getStackedSpawner(spawner).getSpawner().getSpawnCount();
+    }
+
+    @Override
+    public List<Block> getBlocksStacked(Chunk chunk) {
+        return WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrels(chunk).stream().map(StackedBarrel::getBlock).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CreatureSpawner> getSpawnersStacked(Chunk chunk) {
+        return WildStackerAPI.getWildStacker().getSystemManager().getStackedSpawners(chunk).stream().map(StackedSpawner::getSpawner).collect(Collectors.toList());
     }
 
     @Override
