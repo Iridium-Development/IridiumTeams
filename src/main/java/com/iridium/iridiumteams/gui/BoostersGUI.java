@@ -54,8 +54,8 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int minutes = Math.max((int) ((teamEnhancement.getRemainingTime() % 3600) / 60), 0);
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
             int currentLevel = teamEnhancement.isActive(enhancementEntry.getValue().type) ? teamEnhancement.getLevel() : 0;
-            String nextLevel = nextData == null ? "N/A" : String.valueOf(currentLevel + 1);
-            String cost = nextData == null ? currentData == null ? "N/A" : String.valueOf(currentData.money) : String.valueOf(nextData.money);
+            String nextLevel = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(currentLevel + 1);
+            String cost = nextData == null ? currentData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(currentData.money) : String.valueOf(nextData.money);
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),

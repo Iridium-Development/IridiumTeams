@@ -139,6 +139,21 @@ public class Messages {
     public String cannotVisit;
     public String teamLevelUp;
     public String activeCooldown;
+    public String nullPlaceholder;
+    public String enabledPlaceholder;
+    public String disabledPlaceholder;
+    public String privatePlaceholder;
+    public String publicPlaceholder;
+    public String serverPlaceholder;
+    public String sunnyPlaceholder;
+    public String rainingPlaceholder;
+    public String sunrisePlaceholder;
+    public String dayPlaceholder;
+    public String morningPlaceholder;
+    public String noonPlaceholder;
+    public String sunsetPlaceholder;
+    public String nightPlaceholder;
+    public String midnightPlaceholder;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -283,5 +298,20 @@ public class Messages {
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
         teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
         activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait %hours% hour(s), %minutes% minute(s), %seconds% second(s)!";
+        nullPlaceholder = "N/A";
+        enabledPlaceholder = "Enabled";
+        disabledPlaceholder = "Disabled";
+        privatePlaceholder = "Private";
+        publicPlaceholder = "Public";
+        serverPlaceholder = "Server";
+        sunnyPlaceholder = "Sunny";
+        rainingPlaceholder = "Raining";
+        sunrisePlaceholder = "Sunrise";
+        dayPlaceholder = "Day";
+        morningPlaceholder = "Morning";
+        noonPlaceholder = "Noon";
+        sunsetPlaceholder = "Sunset";
+        nightPlaceholder = "Night";
+        midnightPlaceholder = "Midnight";
     }
 }

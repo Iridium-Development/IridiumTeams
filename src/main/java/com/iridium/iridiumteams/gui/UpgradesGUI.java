@@ -54,8 +54,8 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int seconds = Math.max((int) (teamEnhancement.getRemainingTime() % 60), 0);
             int minutes = Math.max((int) ((teamEnhancement.getRemainingTime() % 3600) / 60), 0);
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
-            String nextLevel = nextData == null ? "N/A" : String.valueOf(teamEnhancement.getLevel() + 1);
-            String cost = nextData == null ? "N/A" : String.valueOf(nextData.money);
+            String nextLevel = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(teamEnhancement.getLevel() + 1);
+            String cost = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(nextData.money);
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
