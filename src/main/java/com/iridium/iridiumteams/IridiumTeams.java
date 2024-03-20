@@ -105,6 +105,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract MissionManager<T, U> getMissionManager();
 
     public abstract ShopManager<T, U> getShopManager();
+    public abstract SupportManager<T, U> getSupportManager();
 
     public abstract Configuration getConfiguration();
 
@@ -140,6 +141,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
             public void run() {
                 counter++;
                 int interval = recalculating ? getConfiguration().forceRecalculateInterval : getConfiguration().recalculateInterval;
+
                 if (counter % interval == 0) {
                     if (locked) return;
                     if (!teams.hasNext()) {
@@ -156,7 +158,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
                     } else {
                         getTeamManager().getTeamViaID(teams.next()).ifPresent(team -> {
                             locked = true;
-                            getTeamManager().recalculateTeam(team).thenRun(() -> locked = false);
+                            getTeamManager().recalculateTeam(team).whenComplete((result, exception) -> locked = false);
                         });
                     }
                 }

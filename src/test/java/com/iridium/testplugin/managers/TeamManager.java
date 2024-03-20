@@ -92,6 +92,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public boolean isInTeam(TestTeam team, Location location) {
+        return true;
+    }
+
+    @Override
     public CompletableFuture<TestTeam> createTeam(@NotNull Player owner, @Nullable String name) {
         TestTeam testTeam = new TestTeam(name);
         User user = TestPlugin.getInstance().getUserManager().getUser(owner);

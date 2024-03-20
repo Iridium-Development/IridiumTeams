@@ -6,11 +6,15 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.SpawnerEnhancementData;
+import com.iridium.iridiumteams.support.SpawnerSupport;
+import com.iridium.iridiumteams.support.StackerSupport;
 import lombok.AllArgsConstructor;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
+
+import java.util.HashSet;
 
 @AllArgsConstructor
 public class SpawnerSpawnListener<T extends Team, U extends IridiumUser<T>> implements Listener {
@@ -27,7 +31,25 @@ public class SpawnerSpawnListener<T extends Team, U extends IridiumUser<T>> impl
             if (!teamEnhancement.isActive(spawnerEnhancement.type)) return;
             if (data == null) return;
 
-            spawner.setSpawnCount(data.spawnCount);
+            HashSet<SpawnerSupport> spawnerSupportList = iridiumTeams.getSupportManager().getSpawnerSupport();
+
+            if (spawnerSupportList.isEmpty()) {
+                if (iridiumTeams.getConfiguration().multiplicativeSpawners)
+                    spawner.setSpawnCount(spawner.getSpawnCount() * data.spawnCount);
+                else spawner.setSpawnCount(data.spawnCount);
+            }
+
+            else {
+                for(SpawnerSupport spawnerSupport : spawnerSupportList) {
+                    if (!spawnerSupport.isStackedSpawner(spawner.getBlock())) continue;
+                    if (iridiumTeams.getConfiguration().multiplicativeSpawners) {
+                        spawner.setSpawnCount(spawnerSupport.spawnerSpawnAmount(spawner) * data.spawnCount);
+                        continue;
+                    }
+                    spawner.setSpawnCount(spawnerSupport.spawnerStackAmount(spawner) * data.spawnCount);
+                }
+            }
+
             spawner.update(true);
         });
     }
