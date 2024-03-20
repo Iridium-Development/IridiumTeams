@@ -29,7 +29,7 @@ dependencies {
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.32")
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("me.clip:placeholderapi:2.11.5")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
@@ -42,7 +42,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.85.2")
-    testImplementation("com.github.MilkBowl:VaultAPI:1.7")
+    testImplementation("com.github.MilkBowl:VaultAPI:1.7.1")
 }
 
 tasks {
