@@ -29,8 +29,6 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
     public void buy(Player player, Shop.ShopItem shopItem, int amount) {
         if (!canPurchase(player, shopItem, amount)) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotAfford
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             iridiumTeams.getShop().failSound.play(player);
             return;
         }
@@ -119,6 +117,25 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     private boolean canPurchase(Player player, Shop.ShopItem shopItem, int amount) {
+
+        if(shopItem.minLevel != 1) {
+            U user = iridiumTeams.getUserManager().getUser(player);
+            Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+
+            if(!team.isPresent()) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+                return false;
+            }
+
+            if(team.get().getLevel() < shopItem.minLevel) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notHighEnoughLevel
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                        .replace("%level%", String.valueOf(shopItem.minLevel))));
+                return false;
+            }
+        }
+
         double moneyCost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.money);
         Economy economy = iridiumTeams.getEconomy();
         for (String bankItem : shopItem.buyCost.bankItems.keySet()) {
@@ -126,7 +143,14 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
             if (getBankBalance(player, bankItem) < cost) return false;
         }
 
-        return moneyCost == 0 || economy != null && economy.getBalance(player) >= moneyCost;
+        if(!(moneyCost == 0 || economy != null && economy.getBalance(player) >= moneyCost)) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotAfford
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+            ));
+            return false;
+        }
+
+        return true;
     }
 
     private void purchase(Player player, Shop.ShopItem shopItem, int amount) {

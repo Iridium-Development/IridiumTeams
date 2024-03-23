@@ -35,9 +35,7 @@ public abstract class Team extends DatabaseObject {
     @DatabaseField(columnName = "max_experience")
     private int maxExperience;
 
-    public int getLevel() {
-        return (int) Math.floor(Math.pow(experience / 10.00, 0.95) + 1);
-    }
+    public abstract int getLevel();
 
     public abstract double getValue();
 
