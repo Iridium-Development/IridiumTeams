@@ -51,14 +51,11 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 return false;
             }
 
-            if(sender instanceof Player) {
-                Player player = ((Player) sender).getPlayer();
-                if (!player.hasPermission(adminPermission)) {
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
-                            .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                    ));
-                    return false;
-                }
+            if (!sender.hasPermission(adminPermission)) {
+                sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                ));
+                return false;
             }
 
             if (!bankItem.isPresent()) {
