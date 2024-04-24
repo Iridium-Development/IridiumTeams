@@ -28,7 +28,6 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
 
     @Override
     public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-
         if (arguments.length == 3) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
             if (!team.isPresent()) {

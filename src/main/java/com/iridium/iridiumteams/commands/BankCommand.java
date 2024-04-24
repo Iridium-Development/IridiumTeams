@@ -29,7 +29,6 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
     @Override
     public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-
         if (arguments.length == 4) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
             if (!team.isPresent()) {
