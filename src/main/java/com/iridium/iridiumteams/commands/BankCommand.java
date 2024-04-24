@@ -28,12 +28,12 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     }
 
     @Override
-    public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-        Player player = user.getPlayer();
+    public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+
         if (arguments.length == 4) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
             if (!team.isPresent()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
+                sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 return false;
@@ -45,19 +45,24 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             try {
                 amount = Double.parseDouble(arguments[3]);
             } catch (NumberFormatException exception) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber
+                sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 return false;
             }
-            if (!player.hasPermission(adminPermission)) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return false;
+
+            if(sender instanceof Player) {
+                Player player = ((Player) sender).getPlayer();
+                if (!player.hasPermission(adminPermission)) {
+                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
+                            .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                    ));
+                    return false;
+                }
             }
+
             if (!bankItem.isPresent()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchBankItem
+                sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().noSuchBankItem
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 return false;
@@ -67,7 +72,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 case "give":
                     teamBank.setNumber(teamBank.getNumber() + amount);
 
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().gaveBank
+                    sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().gaveBank
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
@@ -77,7 +82,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 case "remove":
                     teamBank.setNumber(teamBank.getNumber() - amount);
 
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().removedBank
+                    sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().removedBank
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
@@ -87,7 +92,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 case "set":
                     teamBank.setNumber(amount);
 
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().setBank
+                    sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().setBank
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
@@ -95,19 +100,19 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                     ));
                     break;
                 default:
-                    player.sendMessage(StringUtils.color(syntax
+                    sender.sendMessage(StringUtils.color(syntax
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
             }
             return true;
         }
         if (arguments.length != 0) {
-            player.sendMessage(StringUtils.color(syntax
+            sender.sendMessage(StringUtils.color(syntax
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return false;
         }
-        return super.execute(user, arguments, iridiumTeams);
+        return super.execute(sender, arguments, iridiumTeams);
     }
 
     @Override

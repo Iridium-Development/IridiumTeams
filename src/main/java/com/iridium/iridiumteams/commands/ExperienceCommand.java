@@ -8,6 +8,7 @@ import com.iridium.iridiumteams.gui.BankGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -26,12 +27,12 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
     }
 
     @Override
-    public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-        Player player = user.getPlayer();
+    public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
+
         if (arguments.length == 3) {
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(arguments[1]);
             if (!team.isPresent()) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
+                sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 return false;
@@ -40,20 +41,25 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
             try {
                 amount = Integer.parseInt(arguments[2]);
             } catch (NumberFormatException exception) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber
+                sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 return false;
             }
-            if (!player.hasPermission(adminPermission)) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
-                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                ));
-                return false;
+
+            if (sender instanceof Player) {
+                Player player = ((Player) sender).getPlayer();
+                if (!player.hasPermission(adminPermission)) {
+                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().noPermission
+                            .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
+                    ));
+                    return false;
+                }
             }
+
             switch (arguments[0].toLowerCase()) {
                 case "give":
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().gaveExperience
+                    sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().gaveExperience
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(amount))
@@ -62,7 +68,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                     team.get().setExperience(team.get().getExperience() + amount);
                     return true;
                 case "remove":
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().removedExperience
+                    sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().removedExperience
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(Math.min(amount, team.get().getExperience())))
@@ -71,7 +77,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                     team.get().setExperience(team.get().getExperience() - amount);
                     return true;
                 case "set":
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().setExperience
+                    sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().setExperience
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%player%", arguments[1])
                             .replace("%amount%", String.valueOf(Math.max(amount, 0)))
@@ -80,19 +86,20 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
                     team.get().setExperience(amount);
                     return true;
                 default:
-                    player.sendMessage(StringUtils.color(syntax
+                    sender.sendMessage(StringUtils.color(syntax
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     ));
                     return false;
             }
         }
         if (arguments.length != 0) {
-            player.sendMessage(StringUtils.color(syntax
+            sender.sendMessage(StringUtils.color(syntax
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return false;
         }
-        return iridiumTeams.getCommandManager().executeCommand(user.getPlayer(), iridiumTeams.getCommands().infoCommand, arguments);
+
+        return iridiumTeams.getCommandManager().executeCommand(sender, iridiumTeams.getCommands().infoCommand, arguments);
     }
 
     @Override
