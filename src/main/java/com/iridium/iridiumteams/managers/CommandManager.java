@@ -82,6 +82,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(iridiumTeams.getCommands().experienceCommand);
         registerCommand(iridiumTeams.getCommands().shopCommand);
         registerCommand(iridiumTeams.getCommands().settingsCommand);
+        registerCommand(iridiumTeams.getCommands().blockValueCommand);
     }
 
     public void registerCommand(Command<T, U> command) {

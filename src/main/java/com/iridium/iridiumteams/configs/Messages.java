@@ -139,6 +139,9 @@ public class Messages {
     public String cannotVisit;
     public String teamLevelUp;
     public String activeCooldown;
+    public String teamIsPrivate;
+    public String  blockName;
+    public String spawnerName;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -283,5 +286,8 @@ public class Messages {
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
         teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
         activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait %hours% hour(s), %minutes% minute(s), %seconds% second(s)!";
+        teamIsPrivate = "%prefix% &7That " + team + " has chosen not to be publicly viewable, you cannot do that.";
+        blockName = "Blocks";
+        spawnerName = "Spawners";
     }
 }
