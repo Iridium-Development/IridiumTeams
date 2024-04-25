@@ -10,7 +10,6 @@ public class BlockValuesTypeSelectorInventoryConfig extends NoItemGUI {
     public BlockTypeItem blocks;
     public BlockTypeItem spawners;
 
-
     public BlockValuesTypeSelectorInventoryConfig(int size, String title, Background background, BlockTypeItem blocks, BlockTypeItem spawners) {
         this.size = size;
         this.title = title;

@@ -47,11 +47,11 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
     @Override
     public Inventory getInventory() {
         int maxPages = getPageObjects().size() / (getSize() - 9);
-        if(getPageObjects().size() % (getSize() - 9) > 0) maxPages++;
+        if (getPageObjects().size() % (getSize() - 9) > 0) maxPages++;
 
         String guiTitle = "";
-        if(blockValueType == BlockValueType.BLOCK) guiTitle = iridiumTeams.getMessages().blockName;
-        if(blockValueType == BlockValueType.SPAWNER) guiTitle = iridiumTeams.getMessages().spawnerName;
+        if (blockValueType == BlockValueType.BLOCK) guiTitle = iridiumTeams.getMessages().blockName;
+        if (blockValueType == BlockValueType.SPAWNER) guiTitle = iridiumTeams.getMessages().spawnerName;
 
         NoItemGUI noItemGUI = iridiumTeams.getInventories().blockValueGUI;
         Inventory inventory = Bukkit.createInventory(this, getSize(), StringUtils.color(noItemGUI.title
@@ -67,38 +67,36 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
     public void addContent(Inventory inventory) {
         super.addContent(inventory);
 
-        if(blockValueType == BlockValueType.BLOCK) {
+        if (blockValueType == BlockValueType.BLOCK) {
             for (Map.Entry<XMaterial, BlockValues.ValuableBlock> entry : iridiumTeams.getBlockValues().blockValues.entrySet().stream().filter(entry -> entry.getValue().page == getPage()).collect(Collectors.toList())) {
 
                 List<String> lore = new ArrayList<>();
-                lore.add(iridiumTeams.getBlockValues().valueLore.replace("%block_value%", String.valueOf(entry.getValue().value)));
+                lore.add(iridiumTeams.getBlockValues().valueLore
+                        .replace("%block_value%", String.valueOf(entry.getValue().value))
+                );
                 lore.add(iridiumTeams.getBlockValues().teamValueLore
-                        .replace("%total_blocks%", String.valueOf(
-                                iridiumTeams.getTeamManager().getTeamBlock(team, entry.getKey()).getAmount()))
-                        .replace("%total_block_value%", String.valueOf(
-                                iridiumTeams.getTeamManager().getTeamBlock(team, entry.getKey()).getAmount() * entry.getValue().value
-                        )));
+                        .replace("%total_blocks%", String.valueOf(iridiumTeams.getTeamManager().getTeamBlock(team, entry.getKey()).getAmount()))
+                        .replace("%total_block_value%", String.valueOf(iridiumTeams.getTeamManager().getTeamBlock(team, entry.getKey()).getAmount() * entry.getValue().value))
+                );
 
                 inventory.setItem(entry.getValue().slot, ItemStackUtils.makeItem(entry.getKey(), 1, entry.getValue().name, lore));
             }
         }
 
-        if(blockValueType == BlockValueType.SPAWNER) {
+        if (blockValueType == BlockValueType.SPAWNER) {
             for (Map.Entry<EntityType, BlockValues.ValuableBlock> entry : iridiumTeams.getBlockValues().spawnerValues.entrySet().stream().filter(entry -> entry.getValue().page == getPage()).collect(Collectors.toList())) {
 
                 List<String> lore = new ArrayList<>();
-                lore.add(iridiumTeams.getBlockValues().valueLore.replace("%block_value%", String.valueOf(entry.getValue().value)));
+                lore.add(iridiumTeams.getBlockValues().valueLore
+                        .replace("%block_value%", String.valueOf(entry.getValue().value))
+                );
                 lore.add(iridiumTeams.getBlockValues().teamValueLore
-                        .replace("%total_blocks%", String.valueOf(
-                                iridiumTeams.getTeamManager().getTeamSpawners(team, entry.getKey()).getAmount()))
-                        .replace("%total_block_value%", String.valueOf(
-                                iridiumTeams.getTeamManager().getTeamSpawners(team, entry.getKey()).getAmount() * entry.getValue().value
-                        )));
+                        .replace("%total_blocks%", String.valueOf(iridiumTeams.getTeamManager().getTeamSpawners(team, entry.getKey()).getAmount()))
+                        .replace("%total_block_value%", String.valueOf(iridiumTeams.getTeamManager().getTeamSpawners(team, entry.getKey()).getAmount() * entry.getValue().value))
+                );
 
                 String itemName = entry.getKey().name().toUpperCase() + "_SPAWN_EGG";
-                Optional<XMaterial> material = XMaterial.matchXMaterial(itemName);
-                if(!material.isPresent()) material = XMaterial.matchXMaterial("SPAWNER");
-                XMaterial item = material.get();
+                XMaterial item = XMaterial.matchXMaterial(itemName).orElse(XMaterial.SPAWNER);
 
                 inventory.setItem(entry.getValue().slot, ItemStackUtils.makeItem(item, 1, entry.getValue().name, lore));
             }
@@ -107,7 +105,7 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
 
     @Override
     public Collection<BlockValues.ValuableBlock> getPageObjects() {
-        if(blockValueType == BlockValueType.BLOCK) return iridiumTeams.getBlockValues().blockValues.values();
+        if (blockValueType == BlockValueType.BLOCK) return iridiumTeams.getBlockValues().blockValues.values();
         else return iridiumTeams.getBlockValues().spawnerValues.values();
     }
 
@@ -117,8 +115,7 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
     }
 
     public enum BlockValueType {
-        BLOCK,
-        SPAWNER;
+        BLOCK, SPAWNER;
 
         public static BlockValueType getType(String type) {
             return Arrays.stream(BlockValueType.values()).filter(blockValueType -> blockValueType.name().equalsIgnoreCase(type)).findFirst().orElse(null);

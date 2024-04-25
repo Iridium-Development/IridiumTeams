@@ -37,7 +37,7 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
         BlockValuesTypeSelectorInventoryConfig blockValuesTypeSelectorInventoryConfig = iridiumTeams.getInventories().blockValuesTypeSelectorGUI;
 
         String teamArg;
-        if(args.length > 1) {
+        if (args.length > 1) {
             teamArg = args[1];
         } else {
             teamArg = player.getName();
@@ -45,39 +45,36 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
 
         team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(teamArg);
 
-        if(!team.isPresent() && args.length > 1) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+        if (!team.isPresent() && args.length > 1) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
         }
 
-        if(!team.isPresent()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+        if (!team.isPresent()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().dontHaveTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
         }
 
         TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team.get(), SettingType.VALUE_VISIBILITY.getSettingKey());
-        if(teamSetting.getValue().equalsIgnoreCase("Private") && !iridiumTeams.getTeamManager().getTeamMembers(team.get()).contains(user) && !user.isBypassing()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamIsPrivate
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+        if (teamSetting.getValue().equalsIgnoreCase("Private") && !iridiumTeams.getTeamManager().getTeamMembers(team.get()).contains(user) && !user.isBypassing()) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamIsPrivate.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
         }
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             player.openInventory(new BlockValuesTypeSelectorGUI<>(teamArg, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
             return true;
         }
 
-        switch(args[0]) {
-            case("blocks"): {
+        switch (args[0]) {
+            case ("blocks"): {
                 if (blockValuesTypeSelectorInventoryConfig.blocks.enabled) {
                     player.openInventory(new BlockValueGUI<>(team.get(), BlockValueGUI.BlockValueType.BLOCK, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     return true;
                 }
             }
-            case("spawners"): {
-                if(blockValuesTypeSelectorInventoryConfig.spawners.enabled) {
+            case ("spawners"): {
+                if (blockValuesTypeSelectorInventoryConfig.spawners.enabled) {
                     player.openInventory(new BlockValueGUI<>(team.get(), BlockValueGUI.BlockValueType.SPAWNER, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     return true;
                 }
