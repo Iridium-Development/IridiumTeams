@@ -56,6 +56,12 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
         }
 
         TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team.get(), SettingType.VALUE_VISIBILITY.getSettingKey());
+
+        if (teamSetting == null) {
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().invalidPermission.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            return false;
+        }
+
         if (teamSetting.getValue().equalsIgnoreCase("Private") && !iridiumTeams.getTeamManager().getTeamMembers(team.get()).contains(user) && !user.isBypassing()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamIsPrivate.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
