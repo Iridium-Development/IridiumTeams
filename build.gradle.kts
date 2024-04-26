@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.4.1"
+version = "2.4.2"
 description = "IridiumTeams"
 
 repositories {
@@ -24,10 +24,10 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.8.8")
+    implementation("com.iridium:IridiumCore:1.8.9")
 
     // Other dependencies that are not required or already available at runtime
-    compileOnly("org.projectlombok:lombok:1.18.30")
+    compileOnly("org.projectlombok:lombok:1.18.32")
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.5")
@@ -36,7 +36,7 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Enable lombok annotation processing
-    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
 
     // Test dependencies
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
