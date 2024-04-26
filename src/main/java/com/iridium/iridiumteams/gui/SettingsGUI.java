@@ -43,8 +43,69 @@ public class SettingsGUI<T extends Team, U extends IridiumUser<T>> extends BackG
         for (Map.Entry<String, Setting> setting : iridiumTeams.getSettingsList().entrySet()) {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, setting.getKey());
             if (teamSetting == null) continue;
+
+            String teamSettingDisplay = teamSetting.getValue();
+            switch(teamSetting.getValue()) {
+                case "Enabled": {
+                    teamSettingDisplay = iridiumTeams.getMessages().enabledPlaceholder;
+                    break;
+                }
+                case "Disabled": {
+                    teamSettingDisplay = iridiumTeams.getMessages().disabledPlaceholder;
+                    break;
+                }
+                case "Private": {
+                    teamSettingDisplay = iridiumTeams.getMessages().privatePlaceholder;
+                    break;
+                }
+                case "Public": {
+                    teamSettingDisplay = iridiumTeams.getMessages().publicPlaceholder;
+                    break;
+                }
+                case "Server": {
+                    teamSettingDisplay = iridiumTeams.getMessages().serverPlaceholder;
+                    break;
+                }
+                case "Sunny": {
+                    teamSettingDisplay = iridiumTeams.getMessages().sunnyPlaceholder;
+                    break;
+                }
+                case "Raining": {
+                    teamSettingDisplay = iridiumTeams.getMessages().rainingPlaceholder;
+                    break;
+                }
+                case "Sunrise": {
+                    teamSettingDisplay = iridiumTeams.getMessages().sunrisePlaceholder;
+                    break;
+                }
+                case "Day": {
+                    teamSettingDisplay = iridiumTeams.getMessages().dayPlaceholder;
+                    break;
+                }
+                case "Morning": {
+                    teamSettingDisplay = iridiumTeams.getMessages().morningPlaceholder;
+                    break;
+                }
+                case "Noon": {
+                    teamSettingDisplay = iridiumTeams.getMessages().noonPlaceholder;
+                    break;
+                }
+                case "Sunset": {
+                    teamSettingDisplay = iridiumTeams.getMessages().sunsetPlaceholder;
+                    break;
+                }
+                case "Night": {
+                    teamSettingDisplay = iridiumTeams.getMessages().nightPlaceholder;
+                    break;
+                }
+                case "Midnight": {
+                    teamSettingDisplay = iridiumTeams.getMessages().midnightPlaceholder;
+                    break;
+                }
+            }
+
             inventory.setItem(setting.getValue().getItem().slot, ItemStackUtils.makeItem(setting.getValue().getItem(), Collections.singletonList(
-                    new Placeholder("value", teamSetting.getValue())
+                    new Placeholder("value", teamSettingDisplay)
             )));
         }
     }

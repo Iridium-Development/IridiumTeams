@@ -61,7 +61,7 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
         Optional<U> truster = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getTruster());
         List<Placeholder> placeholderList = new ArrayList<>(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(user));
         placeholderList.add(new Placeholder("trusted_time", teamTrust.getTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat))));
-        placeholderList.add(new Placeholder("truster", truster.map(U::getName).orElse("N/A")));
+        placeholderList.add(new Placeholder("truster", truster.map(U::getName).orElse(iridiumTeams.getMessages().nullPlaceholder)));
         return ItemStackUtils.makeItem(iridiumTeams.getInventories().trustsGUI.item, placeholderList);
     }
 
@@ -72,7 +72,7 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
         TeamTrust teamTrust = getItem(event.getSlot());
         if (teamTrust == null) return;
 
-        String username = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getUser()).map(U::getName).orElse("N/A");
+        String username = iridiumTeams.getUserManager().getUserByUUID(teamTrust.getUser()).map(U::getName).orElse(iridiumTeams.getMessages().nullPlaceholder);
         iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().unTrustCommand, new String[]{username});
     }
 }
