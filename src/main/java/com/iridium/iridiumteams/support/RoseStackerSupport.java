@@ -10,7 +10,6 @@ import dev.rosewood.rosestacker.stack.StackedBlock;
 import dev.rosewood.rosestacker.stack.StackedSpawner;
 
 import org.bukkit.Chunk;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
@@ -66,18 +65,18 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int stackerStackAmount(Block block) {
+    public int getStackAmount(Block block) {
         return getStackedBlock(block).getStackSize();
     }
 
     @Override
-    public int spawnerStackAmount(CreatureSpawner spawner) {
+    public int getStackAmount(CreatureSpawner spawner) {
         return getStackedSpawner(spawner.getBlock()).getStackSize();
     }
 
     @Override
-    public int spawnerSpawnAmount(CreatureSpawner spawner) {
-        return spawnerStackAmount(spawner) * RoseStackerAPI.getInstance().getStackedSpawner(spawner.getBlock()).getSpawner().getSpawnCount();
+    public int getSpawnAmount(CreatureSpawner spawner) {
+        return getStackAmount(spawner) * RoseStackerAPI.getInstance().getStackedSpawner(spawner.getBlock()).getSpawner().getSpawnCount();
     }
 
     @Override

@@ -18,7 +18,7 @@ repositories {
     maven("https://jitpack.io")
     maven("https://repo.rosewooddev.io/repository/public/")
     maven("https://repo.bg-software.com/repository/api/")
-    maven("https://repo.craftaro.com/repository/minecraft-plugins")
+    maven("https://repo.essentialsx.net/releases/")
     maven("https://moyskleytech.com/debian/m2")
     mavenCentral()
 }
@@ -38,6 +38,7 @@ dependencies {
     compileOnly("dev.rosewood:rosestacker:1.5.17")
     compileOnly("com.bgsoftware:WildStackerAPI:2023.3")
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
+    compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
     implementation("org.bstats:bstats-bukkit:3.0.2")

@@ -12,6 +12,6 @@ public interface StackerSupport<T extends Team> {
     int getExtraBlocks(T team, XMaterial material, List<Block> blocks);
     List<Block> getBlocksStacked(Chunk chunk);
     boolean isStackedBlock(Block block);
-    int stackerStackAmount(Block block);
+    int getStackAmount(Block block);
     String supportProvider();
 }

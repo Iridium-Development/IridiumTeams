@@ -13,7 +13,7 @@ public interface SpawnerSupport<T extends Team> {
     int getExtraSpawners(T team, EntityType entityType, List<CreatureSpawner> spawners);
     List<CreatureSpawner> getSpawnersStacked(Chunk chunk);
     boolean isStackedSpawner(Block block);
-    int spawnerStackAmount(CreatureSpawner spawner);
-    int spawnerSpawnAmount(CreatureSpawner spawner);
+    int getStackAmount(CreatureSpawner spawner);
+    int getSpawnAmount(CreatureSpawner spawner);
     String supportProvider();
 }

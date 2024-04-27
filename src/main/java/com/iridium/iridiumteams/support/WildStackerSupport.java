@@ -68,18 +68,18 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public int stackerStackAmount(Block block) {
+    public int getStackAmount(Block block) {
         return WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrel(block).getStackAmount();
     }
 
     @Override
-    public int spawnerStackAmount(CreatureSpawner spawner) {
+    public int getStackAmount(CreatureSpawner spawner) {
         return getStackedSpawner(spawner.getBlock()).getStackAmount();
     }
 
     @Override
-    public int spawnerSpawnAmount(CreatureSpawner spawner) {
-        return spawnerStackAmount(spawner) * WildStackerAPI.getWildStacker().getSystemManager().getStackedSpawner(spawner).getSpawner().getSpawnCount();
+    public int getSpawnAmount(CreatureSpawner spawner) {
+        return getStackAmount(spawner) * WildStackerAPI.getWildStacker().getSystemManager().getStackedSpawner(spawner).getSpawner().getSpawnCount();
     }
 
     @Override

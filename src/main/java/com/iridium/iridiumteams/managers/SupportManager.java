@@ -4,15 +4,11 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.support.*;
-import dev.rosewood.rosestacker.RoseStacker;
-import dev.rosewood.rosestacker.api.RoseStackerAPI;
+
 import lombok.Getter;
 import org.bukkit.Bukkit;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Stack;
 
 public class SupportManager<T extends Team, U extends IridiumUser<T>> {
 
@@ -26,6 +22,8 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
     private HashSet<StackerSupport> stackerSupport = new HashSet<>();
     @Getter
     private HashSet<SpawnerSupport> spawnerSupport = new HashSet<>();
+    @Getter
+    private HashSet<SpawnSupport> spawnSupport = new HashSet<>();
     @Getter
     private HashSet<String> providerList = new HashSet<>();
 
@@ -52,11 +50,18 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
             spawnerSupport.add(new WildStackerSupport<>(iridiumTeams));
     }
 
+    private void registerSpawnSupport() {
+        if (supportedPluginEnabled("EssentialsXSpawn"))
+            spawnSupport.add(new EssentialsXSpawnSupport<>(iridiumTeams));
+    }
+
     public void registerSupport() {
         registerBlockStackerSupport();
         registerSpawnerSupport();
+        registerSpawnSupport();
 
         stackerSupport.forEach(provider -> providerList.add(provider.supportProvider()));
         spawnerSupport.forEach(provider -> providerList.add(provider.supportProvider()));
+        spawnSupport.forEach(provider -> providerList.add(provider.supportProvider()));
     }
 }

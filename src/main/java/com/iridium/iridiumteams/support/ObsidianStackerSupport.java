@@ -46,7 +46,7 @@ public class ObsidianStackerSupport<T extends Team, U extends IridiumUser<T>> im
     }
 
     @Override
-    public int stackerStackAmount(Block block) {
+    public int getStackAmount(Block block) {
         return getStackedBlock(block).getCount();
     }
 
