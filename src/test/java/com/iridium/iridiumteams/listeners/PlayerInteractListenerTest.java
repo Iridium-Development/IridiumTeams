@@ -48,15 +48,17 @@ class PlayerInteractListenerTest {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
         TeamManager.teamViaLocation = Optional.of(team);
         CreatureSpawnerMock spawnerMock = new CreatureSpawnerMock();
+        BlockMock blockMock = new BlockMock(Material.SPAWNER);
+        blockMock.setState(spawnerMock);
 
 
         PlayerInteractEvent playerInteractEvent = new PlayerInteractEvent(
                 playerMock,
                 Action.RIGHT_CLICK_BLOCK,
                 new ItemStack(Material.PIG_SPAWN_EGG),
-                spawnerMock.getBlock(),
+                blockMock,
                 BlockFace.EAST
-                );
+        );
 
         serverMock.getPluginManager().callEvent(playerInteractEvent);
 

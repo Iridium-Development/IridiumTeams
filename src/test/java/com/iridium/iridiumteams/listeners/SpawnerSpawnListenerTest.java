@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.listeners;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
+import be.seeseemelk.mockbukkit.block.state.BlockStateMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
@@ -13,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
@@ -77,9 +79,17 @@ class SpawnerSpawnListenerTest {
 }
 
 //TODO move to mockbukkit
-class CreatureSpawnerMock implements CreatureSpawner{
+class CreatureSpawnerMock extends BlockStateMock implements CreatureSpawner {
 
     int spawnCount = 4;
+
+    public CreatureSpawnerMock(){
+        this(Material.SPAWNER);
+    }
+
+    public CreatureSpawnerMock(@NotNull Material material) {
+        super(material);
+    }
 
     @Override
     public @NotNull EntityType getSpawnedType() {
@@ -89,6 +99,11 @@ class CreatureSpawnerMock implements CreatureSpawner{
     @Override
     public void setSpawnedType(@NotNull EntityType creatureType) {
 
+    }
+
+    @Override
+    public @NotNull BlockState getSnapshot() {
+        return this;
     }
 
     @Override
