@@ -155,6 +155,9 @@ public class Messages {
     public String nightPlaceholder;
     public String midnightPlaceholder;
     public String cannotInteract;
+    public String teamIsPrivate;
+    public String  blockName;
+    public String spawnerName;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -315,5 +318,8 @@ public class Messages {
         nightPlaceholder = "Night";
         midnightPlaceholder = "Midnight";
         cannotInteract = "%prefix% &7You cannot interact with that.";
+        teamIsPrivate = "%prefix% &7That " + team + " has chosen not to be publicly viewable, you cannot do that.";
+        blockName = "Blocks";
+        spawnerName = "Spawners";
     }
 }
