@@ -90,8 +90,11 @@ import java.util.List;
                         EntityType newEntityType = getEntityType(itemStack);
                         if(newEntityType == EntityType.UNKNOWN) newEntityType = creatureSpawner.getSpawnedType();
 
-                        TeamSpawners teamSpawners = iridiumTeams.getTeamManager().getTeamSpawners(team, creatureSpawner.getSpawnedType());
-                        teamSpawners.setAmount(Math.max(0, teamSpawners.getAmount() - 1));
+                        TeamSpawners teamSpawners;
+                        if(creatureSpawner.getSpawnedEntity() != null) {
+                            teamSpawners = iridiumTeams.getTeamManager().getTeamSpawners(team, creatureSpawner.getSpawnedType());
+                            teamSpawners.setAmount(Math.max(0, teamSpawners.getAmount() - 1));
+                        }
 
                         teamSpawners = iridiumTeams.getTeamManager().getTeamSpawners(team, newEntityType);
                         teamSpawners.setAmount(teamSpawners.getAmount() + 1);
