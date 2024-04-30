@@ -269,7 +269,7 @@ public class Messages {
         noSuchBooster = "%prefix% &7No booster by that name exists.";
         noSuchUpgrade = "%prefix% &7No Upgrade by that name exists.";
         maxUpgradeLevelReached = "%prefix% &7Maximum upgrade level reached.";
-        notHighEnoughLevel = "%prefix% &7You need to be atleast level %level% in your " + team + ".";
+        notHighEnoughLevel = "%prefix% &7You need to be at least level %level% in your " + team + ".";
         notEnoughMoney = "%prefix% &7You dont have enough money to purchase this.";
         notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your " + team + " Bank.";
         purchasedBooster = "%prefix% &7You have purchased a %booster% booster";

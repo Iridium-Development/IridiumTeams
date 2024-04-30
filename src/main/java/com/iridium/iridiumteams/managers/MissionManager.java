@@ -81,6 +81,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
             boolean completedBefore = true;
             int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(1);
             MissionData missionData = entry.getValue().getMissionData().get(level);
+            if(team.getLevel() < missionData.getMinLevel()) continue;
             if (!dependenciesComplete(team, missionData.getMissionDependencies(), teamMissions)) continue;
 
             List<String> missions = missionData.getMissions();
