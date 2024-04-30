@@ -9,14 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class EssentialsXSpawnSupport<T extends Team, U extends IridiumUser<T>> implements SpawnSupport {
+public class EssentialsSpawnSupport<T extends Team, U extends IridiumUser<T>> implements SpawnSupport {
 
     private final IridiumTeams<T, U> iridiumTeams;
 
     EssentialsSpawn essentialsSpawn = (EssentialsSpawn) Bukkit.getPluginManager().getPlugin("EssentialsSpawn");
     Essentials essentials = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
 
-    public EssentialsXSpawnSupport(IridiumTeams<T, U> iridiumTeams) {
+    public EssentialsSpawnSupport(IridiumTeams<T, U> iridiumTeams) {
         this.iridiumTeams = iridiumTeams;
     }
 

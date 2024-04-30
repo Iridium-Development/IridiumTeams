@@ -19,7 +19,6 @@ import lombok.Setter;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -239,6 +238,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addPermission(PermissionType.SPAWNERS.getPermissionKey(), getPermissions().spawners);
         addPermission(PermissionType.SETTINGS.getPermissionKey(), getPermissions().settings);
         addPermission(PermissionType.MANAGE_WARPS.getPermissionKey(), getPermissions().manageWarps);
+        addPermission(PermissionType.INTERACT.getPermissionKey(), getPermissions().interact);
     }
 
     public void initializeSettings() {

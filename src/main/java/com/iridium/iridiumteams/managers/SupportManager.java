@@ -51,8 +51,8 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     private void registerSpawnSupport() {
-        if (supportedPluginEnabled("EssentialsXSpawn"))
-            spawnSupport.add(new EssentialsXSpawnSupport<>(iridiumTeams));
+        if (supportedPluginEnabled("EssentialsSpawn"))
+            spawnSupport.add(new EssentialsSpawnSupport<>(iridiumTeams));
     }
 
     public void registerSupport() {
