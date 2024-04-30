@@ -154,6 +154,7 @@ public class Messages {
     public String sunsetPlaceholder;
     public String nightPlaceholder;
     public String midnightPlaceholder;
+    public String cannotInteract;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -212,7 +213,7 @@ public class Messages {
         userPromotedPlayer = "%prefix% &7%promoter% has promoted %player% to %rank%.";
         demotedPlayer = "%prefix% &7You have demoted %player% to %rank%.";
         userDemotedPlayer = "%prefix% &7%demoter% has demoted %player% to %rank%.";
-        userAlreadyInTeam = "%prefix% &7That user is already a member of your " + team + "";
+        userAlreadyInTeam = "%prefix% &7That user is already a member of your " + team + ".";
         inviteAlreadyPresent = "%prefix% &7There is already an active invite for that user.";
         teamInviteSent = "%prefix% &7You have sent a " + team + " invite to %player%.";
         teamInviteReceived = "%prefix% &7You have received a " + team + " invite from %player%.";
@@ -280,7 +281,7 @@ public class Messages {
         createdWarp = "%prefix% &7Created warp %name%.";
         deletedWarp = "%prefix% &7%player% has deleted the warp %name%.";
         warpAlreadyExists = "%prefix% &7A warp with that name already exists.";
-        warpLimitReached = "%prefix% &7" + team + " Warp limit has been reached.";
+        warpLimitReached = "%prefix% &7" + team + " Warp limit has be   en reached.";
         memberLimitReached = "%prefix% &7" + team + " Member limit has been reached.";
         unknownWarp = "%prefix% &7No warp exists by that name.";
         incorrectPassword = "%prefix% &7Incorrect password.";
@@ -313,5 +314,6 @@ public class Messages {
         sunsetPlaceholder = "Sunset";
         nightPlaceholder = "Night";
         midnightPlaceholder = "Midnight";
+        cannotInteract = "%prefix% &7You cannot interact with that.";
     }
 }
