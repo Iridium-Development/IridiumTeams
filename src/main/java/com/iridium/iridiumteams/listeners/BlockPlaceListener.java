@@ -58,6 +58,9 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
 
             if (event.getBlock().getState() instanceof CreatureSpawner) {
                 CreatureSpawner creatureSpawner = (CreatureSpawner) event.getBlock().getState();
+
+                if(creatureSpawner.getSpawnedType() == null) return;
+
                 TeamSpawners teamSpawners = iridiumTeams.getTeamManager().getTeamSpawners(team, creatureSpawner.getSpawnedType());
                 teamSpawners.setAmount(teamSpawners.getAmount() + 1);
             }
