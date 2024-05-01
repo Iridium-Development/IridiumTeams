@@ -281,7 +281,7 @@ public class Messages {
         createdWarp = "%prefix% &7Created warp %name%.";
         deletedWarp = "%prefix% &7%player% has deleted the warp %name%.";
         warpAlreadyExists = "%prefix% &7A warp with that name already exists.";
-        warpLimitReached = "%prefix% &7" + team + " Warp limit has be   en reached.";
+        warpLimitReached = "%prefix% &7" + team + " Warp limit has been reached.";
         memberLimitReached = "%prefix% &7" + team + " Member limit has been reached.";
         unknownWarp = "%prefix% &7No warp exists by that name.";
         incorrectPassword = "%prefix% &7Incorrect password.";
