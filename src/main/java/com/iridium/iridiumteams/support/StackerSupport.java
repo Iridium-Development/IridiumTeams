@@ -7,10 +7,12 @@ import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public interface StackerSupport<T extends Team> {
     int getExtraBlocks(T team, XMaterial material, List<Block> blocks);
-    List<Block> getBlocksStacked(Chunk chunk);
+    Map<XMaterial, Integer> getBlocksStacked(Chunk chunk, T team);
     boolean isStackedBlock(Block block);
     int getStackAmount(Block block);
     String supportProvider();

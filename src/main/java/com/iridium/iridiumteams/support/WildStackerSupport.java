@@ -15,9 +15,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T>, SpawnerSupport<T> {
@@ -83,8 +81,15 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public List<Block> getBlocksStacked(Chunk chunk) {
-        return WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrels(chunk).stream().map(StackedBarrel::getBlock).collect(Collectors.toList());
+    public Map<XMaterial, Integer> getBlocksStacked(Chunk chunk, T team) {
+        HashMap<XMaterial, Integer> hashMap = new HashMap();
+
+        WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrels(chunk).forEach(stackedBarrel -> {
+            XMaterial xMaterial = XMaterial.matchXMaterial(stackedBarrel.getType());
+            hashMap.put(xMaterial, hashMap.getOrDefault(xMaterial, 0) + stackedBarrel.getStackAmount());
+        });
+
+        return hashMap;
     }
 
     @Override

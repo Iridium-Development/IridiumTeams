@@ -8,6 +8,7 @@ import com.iridium.iridiumteams.database.Team;
 import com.moyskleytech.obsidianstacker.api.StackerAPI;
 import com.moyskleytech.obsidianstacker.api.Stack;
 
+import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 
@@ -51,8 +52,10 @@ public class ObsidianStackerSupport<T extends Team, U extends IridiumUser<T>> im
     }
 
     @Override
-    public List<Block> getBlocksStacked(Chunk chunk) {
-        return StackerAPI.getInstance().getStacks(chunk).join().stream().map(stack -> stack.getEntity().getLocation().getBlock()).collect(Collectors.toList());
+    public Map<XMaterial, Integer> getBlocksStacked(Chunk chunk, T team) {
+        HashMap<XMaterial, Integer> hashMap = new HashMap();
+
+        return hashMap;
     }
 
     @Override
