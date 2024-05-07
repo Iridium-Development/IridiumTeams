@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class EssentialsSpawnSupport<T extends Team, U extends IridiumUser<T>> implements SpawnSupport {
+public class EssentialsSpawnSupport<T extends Team, U extends IridiumUser<T>> implements SpawnSupport<T> {
 
     private final IridiumTeams<T, U> iridiumTeams;
 

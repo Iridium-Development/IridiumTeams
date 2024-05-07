@@ -19,11 +19,11 @@ public class SupportManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     @Getter
-    private HashSet<StackerSupport> stackerSupport = new HashSet<>();
+    private HashSet<StackerSupport<T>> stackerSupport = new HashSet<>();
     @Getter
-    private HashSet<SpawnerSupport> spawnerSupport = new HashSet<>();
+    private HashSet<SpawnerSupport<T>> spawnerSupport = new HashSet<>();
     @Getter
-    private HashSet<SpawnSupport> spawnSupport = new HashSet<>();
+    private HashSet<SpawnSupport<T>> spawnSupport = new HashSet<>();
     @Getter
     private HashSet<String> providerList = new HashSet<>();
 
