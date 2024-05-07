@@ -85,6 +85,8 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
         HashMap<XMaterial, Integer> hashMap = new HashMap();
 
         RoseStackerAPI.getInstance().getStackedBlocks(Collections.singletonList(chunk)).forEach(stackedBlock -> {
+            if(iridiumTeams.getTeamManager().isInTeam(team, stackedBlock.getLocation()))return;
+
             XMaterial xMaterial = XMaterial.matchXMaterial(stackedBlock.getStackSettings().getType());
             hashMap.put(xMaterial, hashMap.getOrDefault(xMaterial, 0) + stackedBlock.getStackSize());
         });
