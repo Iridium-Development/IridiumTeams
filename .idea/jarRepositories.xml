@@ -66,5 +66,20 @@
       <option name="name" value="maven3" />
       <option name="url" value="https://repo.papermc.io/repository/maven-public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven9" />
+      <option name="name" value="maven9" />
+      <option name="url" value="https://repo.bg-software.com/repository/api/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven10" />
+      <option name="name" value="maven10" />
+      <option name="url" value="https://repo.essentialsx.net/releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven11" />
+      <option name="name" value="maven11" />
+      <option name="url" value="https://moyskleytech.com/debian/m2" />
+    </remote-repository>
   </component>
 </project>

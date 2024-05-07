@@ -1,5 +1,6 @@
 package com.iridium.iridiumteams.support;
 
+import com.bgsoftware.wildstacker.api.WildStackerAPI;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
@@ -80,8 +81,17 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     }
 
     @Override
-    public List<Block> getBlocksStacked(Chunk chunk) {
-        return RoseStackerAPI.getInstance().getStackedBlocks(Collections.singletonList(chunk)).stream().map(StackedBlock::getBlock).collect(Collectors.toList());
+    public Map<XMaterial, Integer> getBlocksStacked(Chunk chunk, T team) {
+        HashMap<XMaterial, Integer> hashMap = new HashMap();
+
+        RoseStackerAPI.getInstance().getStackedBlocks(Collections.singletonList(chunk)).forEach(stackedBlock -> {
+            if(iridiumTeams.getTeamManager().isInTeam(team, stackedBlock.getLocation()))return;
+
+            XMaterial xMaterial = XMaterial.matchXMaterial(stackedBlock.getStackSettings().getType());
+            hashMap.put(xMaterial, hashMap.getOrDefault(xMaterial, 0) + stackedBlock.getStackSize());
+        });
+
+        return hashMap;
     }
 
     @Override
