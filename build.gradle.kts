@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.4.2"
+version = "2.4.4"
 description = "IridiumTeams"
 
 repositories {
@@ -16,6 +16,10 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://hub.jeff-media.com/nexus/repository/jeff-media-public/")
     maven("https://jitpack.io")
+    maven("https://repo.rosewooddev.io/repository/public/")
+    maven("https://repo.bg-software.com/repository/api/")
+    maven("https://repo.essentialsx.net/releases/")
+    maven("https://moyskleytech.com/debian/m2")
     mavenCentral()
 }
 
@@ -24,13 +28,17 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.9.0")
+    implementation("com.iridium:IridiumCore:1.9.5")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.32")
-    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.5")
+    compileOnly("dev.rosewood:rosestacker:1.5.21")
+    compileOnly("com.bgsoftware:WildStackerAPI:2023.3")
+    compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
+    compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
     implementation("org.bstats:bstats-bukkit:3.0.2")

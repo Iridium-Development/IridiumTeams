@@ -69,7 +69,7 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
         TeamInvite teamInvite = getItem(event.getSlot());
         if (teamInvite == null) return;
 
-        String username = iridiumTeams.getUserManager().getUserByUUID(teamInvite.getUser()).map(U::getName).orElse("N/A");
+        String username = iridiumTeams.getUserManager().getUserByUUID(teamInvite.getUser()).map(U::getName).orElse(iridiumTeams.getMessages().nullPlaceholder);
         iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().unInviteCommand, new String[]{username});
     }
 }

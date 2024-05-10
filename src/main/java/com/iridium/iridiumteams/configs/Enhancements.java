@@ -52,9 +52,9 @@ public class Enhancements {
                 "",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, SpawnerEnhancementData>()
-                .put(1, new SpawnerEnhancementData(5, 10000, new HashMap<>(), 6))
-                .put(2, new SpawnerEnhancementData(10, 10000, new HashMap<>(), 8))
-                .put(3, new SpawnerEnhancementData(15, 10000, new HashMap<>(), 10))
+                .put(1, new SpawnerEnhancementData(5, 10000, new HashMap<>(), 6, 0))
+                .put(2, new SpawnerEnhancementData(10, 10000, new HashMap<>(), 8, 0))
+                .put(3, new SpawnerEnhancementData(15, 10000, new HashMap<>(), 10, 0))
                 .build());
 
         experienceEnhancement = new Enhancement<>(true, EnhancementType.BOOSTER, new Item(XMaterial.EXPERIENCE_BOTTLE, 14, 1, color + "&lExperience Booster", Arrays.asList(

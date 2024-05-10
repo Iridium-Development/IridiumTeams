@@ -19,7 +19,6 @@ import lombok.Setter;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -105,6 +104,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract MissionManager<T, U> getMissionManager();
 
     public abstract ShopManager<T, U> getShopManager();
+    public abstract SupportManager<T, U> getSupportManager();
 
     public abstract Configuration getConfiguration();
 
@@ -140,6 +140,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
             public void run() {
                 counter++;
                 int interval = recalculating ? getConfiguration().forceRecalculateInterval : getConfiguration().recalculateInterval;
+
                 if (counter % interval == 0) {
                     if (locked) return;
                     if (!teams.hasNext()) {
@@ -156,7 +157,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
                     } else {
                         getTeamManager().getTeamViaID(teams.next()).ifPresent(team -> {
                             locked = true;
-                            getTeamManager().recalculateTeam(team).thenRun(() -> locked = false);
+                            getTeamManager().recalculateTeam(team).whenComplete((result, exception) -> locked = false);
                         });
                     }
                 }
@@ -192,6 +193,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PotionBrewListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new SpawnerSpawnListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new StructureGrowListener<>(this), this);
@@ -236,6 +238,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         addPermission(PermissionType.SPAWNERS.getPermissionKey(), getPermissions().spawners);
         addPermission(PermissionType.SETTINGS.getPermissionKey(), getPermissions().settings);
         addPermission(PermissionType.MANAGE_WARPS.getPermissionKey(), getPermissions().manageWarps);
+        addPermission(PermissionType.INTERACT.getPermissionKey(), getPermissions().interact);
     }
 
     public void initializeSettings() {
