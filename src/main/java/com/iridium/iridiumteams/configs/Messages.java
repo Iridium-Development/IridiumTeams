@@ -139,6 +139,22 @@ public class Messages {
     public String cannotVisit;
     public String teamLevelUp;
     public String activeCooldown;
+    public String nullPlaceholder;
+    public String enabledPlaceholder;
+    public String disabledPlaceholder;
+    public String privatePlaceholder;
+    public String publicPlaceholder;
+    public String serverPlaceholder;
+    public String sunnyPlaceholder;
+    public String rainingPlaceholder;
+    public String sunrisePlaceholder;
+    public String dayPlaceholder;
+    public String morningPlaceholder;
+    public String noonPlaceholder;
+    public String sunsetPlaceholder;
+    public String nightPlaceholder;
+    public String midnightPlaceholder;
+    public String cannotInteract;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -197,7 +213,7 @@ public class Messages {
         userPromotedPlayer = "%prefix% &7%promoter% has promoted %player% to %rank%.";
         demotedPlayer = "%prefix% &7You have demoted %player% to %rank%.";
         userDemotedPlayer = "%prefix% &7%demoter% has demoted %player% to %rank%.";
-        userAlreadyInTeam = "%prefix% &7That user is already a member of your " + team + "";
+        userAlreadyInTeam = "%prefix% &7That user is already a member of your " + team + ".";
         inviteAlreadyPresent = "%prefix% &7There is already an active invite for that user.";
         teamInviteSent = "%prefix% &7You have sent a " + team + " invite to %player%.";
         teamInviteReceived = "%prefix% &7You have received a " + team + " invite from %player%.";
@@ -283,5 +299,21 @@ public class Messages {
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
         teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
         activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait %hours% hour(s), %minutes% minute(s), %seconds% second(s)!";
+        nullPlaceholder = "N/A";
+        enabledPlaceholder = "Enabled";
+        disabledPlaceholder = "Disabled";
+        privatePlaceholder = "Private";
+        publicPlaceholder = "Public";
+        serverPlaceholder = "Server";
+        sunnyPlaceholder = "Sunny";
+        rainingPlaceholder = "Raining";
+        sunrisePlaceholder = "Sunrise";
+        dayPlaceholder = "Day";
+        morningPlaceholder = "Morning";
+        noonPlaceholder = "Noon";
+        sunsetPlaceholder = "Sunset";
+        nightPlaceholder = "Night";
+        midnightPlaceholder = "Midnight";
+        cannotInteract = "%prefix% &7You cannot interact with that.";
     }
 }

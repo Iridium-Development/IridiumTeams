@@ -28,18 +28,21 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
         U user = iridiumTeams.getUserManager().getUser(player);
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
         if (team.isPresent()) {
-            if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BLOCK_BREAK)) {
+
+            if (!(event.getBlock().getState() instanceof CreatureSpawner) && !iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BLOCK_BREAK)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotBreakBlocks
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 event.setCancelled(true);
             }
-            if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.SPAWNERS) && event.getBlock().getState() instanceof CreatureSpawner) {
-                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotBreakBlocks
+
+            if (event.getBlock().getState() instanceof CreatureSpawner && !iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.SPAWNERS)) {
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotBreakSpawners
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 event.setCancelled(true);
             }
+
         } else {
             iridiumTeams.getTeamManager().handleBlockBreakOutsideTerritory(event);
         }

@@ -34,13 +34,19 @@ public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             sendTeamInfo(player, userTeam.get(), iridiumTeams);
             return true;
         }
+
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(String.join(" ", args));
+        if(args[0].equals("location")) {
+            team = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
+        }
+
         if (!team.isPresent()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             return false;
         }
+
         sendTeamInfo(player, team.get(), iridiumTeams);
         return true;
     }

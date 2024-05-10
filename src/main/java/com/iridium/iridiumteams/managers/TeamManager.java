@@ -15,10 +15,7 @@ import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import com.iridium.iridiumteams.utils.PlayerUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.WeatherType;
+import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -90,6 +87,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                 .filter(user -> user.getTeamID() == team.getId())
                 .collect(Collectors.toList());
     }
+
+    public abstract boolean isInTeam(T team, Location location);
 
     public abstract CompletableFuture<T> createTeam(@NotNull Player owner, @Nullable String name);
 

@@ -49,6 +49,7 @@ class PermissionsGUITest {
             .put(31, Material.SPAWNER)
             .put(32, Material.GUNPOWDER)
             .put(33, Material.END_PORTAL_FRAME)
+            .put(40, Material.OAK_SIGN)
             //Next and Back Button
             .put(51, Material.LIME_STAINED_GLASS_PANE)
             .put(47, Material.RED_STAINED_GLASS_PANE)
