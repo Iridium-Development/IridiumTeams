@@ -52,7 +52,6 @@ public class Configuration {
      */
     public Map<Integer, Reward> levelRewards;
     public List<String> whitelistedWorlds;
-    public boolean multiplicativeSpawners;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -133,6 +132,5 @@ public class Configuration {
                 .build();
 
         this.whitelistedWorlds = Collections.emptyList();
-        this.multiplicativeSpawners = false;
     }
 }
