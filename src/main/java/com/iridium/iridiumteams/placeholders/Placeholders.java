@@ -25,29 +25,56 @@ public class Placeholders<T extends Team, U extends IridiumUser<T>> {
 
     public List<Placeholder> getPlaceholders(@Nullable Player player) {
         U user = player == null ? null : iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = user == null ? Optional.empty() : iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
-        Optional<T> current = user == null ? Optional.empty() : iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
-        List<T> topValue = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Value, true);
-        List<T> topExperience = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Experience, true);
+        Optional<T> team = user == null ? Optional.empty()
+                : iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
+        Optional<T> current = user == null ? Optional.empty()
+                : iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
+        // List<T> topValue =
+        // iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Value, true);
+        // List<T> topExperience =
+        // iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Experience,
+        // true);
 
+        
         List<Placeholder> placeholders = new ArrayList<>();
 
         placeholders.addAll(iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(team));
         placeholders.addAll(iridiumTeams.getUserPlaceholderBuilder().getPlaceholders(Optional.ofNullable(user)));
         for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(current)) {
-            placeholders.add(new Placeholder("current_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
+            placeholders.add(
+                    new Placeholder("current_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
         }
 
-        for (int i = 1; i <= 20; i++) {
-            Optional<T> value = topValue.size() >= i ? Optional.of(topValue.get(i - 1)) : Optional.empty();
-            Optional<T> experience = topExperience.size() >= i ? Optional.of(topExperience.get(i - 1)) : Optional.empty();
-            for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(value)) {
-                placeholders.add(new Placeholder("top_value_" + i + "_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
-            }
-            for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(experience)) {
-                placeholders.add(new Placeholder("top_experience_" + i + "_" + formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
-            }
+        for (Placeholder placeholder : iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(Optional.empty())) {
+            final String formattedKey = formatPlaceholderKey(placeholder.getKey());
+
+            placeholders.add(new Placeholder("top_value_#_" + formatPlaceholderKey(placeholder.getKey()), (Integer i) -> {
+                List<T> topValue = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Value, true);
+                Optional<T> selectedTeam = Optional.of(topValue.get(i.getIntValue() - 1));
+                return iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(selectedTeam).stream().filter(p->p.getKey().equals(formattedKey)).findFirst().map(p->p.getValue()).orElse(null);
+            }));
+            placeholders.add(new Placeholder("top_experience_#_" + formatPlaceholderKey(placeholder.getKey()), (Integer i) -> {
+                List<T> topExperience = iridiumTeams.getTeamManager().getTeams(TeamManager.SortType.Experience, true);
+                Optional<T> selectedTeam = Optional.of(topExperience.get(i.getIntValue() - 1));
+                return iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(selectedTeam).stream().filter(p->p.getKey().equals(formattedKey)).findFirst().map(p->p.getValue()).orElse(null);
+            }));
         }
+        // for (int i = 1; i <= 20; i++) {
+        // Optional<T> value = topValue.size() >= i ? Optional.of(topValue.get(i - 1)) :
+        // Optional.empty();
+        // Optional<T> experience = topExperience.size() >= i ?
+        // Optional.of(topExperience.get(i - 1)) : Optional.empty();
+        // for (Placeholder placeholder :
+        // iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(value)) {
+        // placeholders.add(new Placeholder("top_value_" + i + "_" +
+        // formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
+        // }
+        // for (Placeholder placeholder :
+        // iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(experience)) {
+        // placeholders.add(new Placeholder("top_experience_" + i + "_" +
+        // formatPlaceholderKey(placeholder.getKey()), placeholder.getValue()));
+        // }
+        // }
 
         return placeholders;
     }
