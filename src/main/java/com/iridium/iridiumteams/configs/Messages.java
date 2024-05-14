@@ -6,6 +6,7 @@ public class Messages {
     public String mustBeAPlayer;
     public String notAPlayer;
     public String unknownCommand;
+    public String topCommandHeader;
     public String helpCommandHeader;
     public String helpCommandFiller;
     public String helpCommandMessage;
@@ -155,6 +156,11 @@ public class Messages {
     public String nightPlaceholder;
     public String midnightPlaceholder;
     public String cannotInteract;
+    public String topValue;
+    public String topExperience;
+    public String topFirstColor;
+    public String topSecondColor;
+    public String topThirdColor;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -166,6 +172,7 @@ public class Messages {
         mustBeAPlayer = "%prefix% &7You must be a player to execute this command.";
         notAPlayer = "%prefix% &7That player doesn't exist.";
         unknownCommand = "%prefix% &7Unknown Command, Try /" + command + " help.";
+        topCommandHeader = "&8[" + color + "&l" + pluginName + "&r" + color + " Leaderboard - &l&a%sortType%&8]";
         helpCommandHeader = "&8[" + color + "&l" + pluginName + " Help&8]";
         helpCommandFiller = "&8&m ";
         helpCommandMessage = color + "/" + command + " %command%&r: &7%description%";
@@ -315,5 +322,10 @@ public class Messages {
         nightPlaceholder = "Night";
         midnightPlaceholder = "Midnight";
         cannotInteract = "%prefix% &7You cannot interact with that.";
+        topValue = "Value";
+        topExperience = "Experience";
+        topFirstColor = "&e&l";
+        topSecondColor = "&l";
+        topThirdColor = "&6";
     }
 }
