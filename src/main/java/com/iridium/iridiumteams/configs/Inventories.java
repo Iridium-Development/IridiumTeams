@@ -39,6 +39,8 @@ public class Inventories {
     public ConfirmationInventoryConfig confirmationGUI;
     public Item nextPage;
     public Item previousPage;
+    public NoItemGUI blockValueGUI;
+    public BlockValuesTypeSelectorInventoryConfig blockValuesTypeSelectorGUI;
 
     public Inventories() {
         this("Team", "&c");
@@ -117,5 +119,12 @@ public class Inventories {
 
         nextPage = new Item(XMaterial.LIME_STAINED_GLASS_PANE, 1, "&a&lNext Page", Collections.emptyList());
         previousPage = new Item(XMaterial.RED_STAINED_GLASS_PANE, 1, color + "&lPrevious Page", Collections.emptyList());
+
+        blockValueGUI = new NoItemGUI(54, "&7%blockType% - Page %page% of %max_pages%", background2);
+
+        blockValuesTypeSelectorGUI = new BlockValuesTypeSelectorInventoryConfig(27, "&7" + team + " Block Values", background2,
+                new BlockValuesTypeSelectorInventoryConfig.BlockTypeItem(new Item(XMaterial.DIAMOND_BLOCK, 11, 1, color + "&lBlocks", Collections.emptyList()), true),
+                new BlockValuesTypeSelectorInventoryConfig.BlockTypeItem(new Item(XMaterial.SPAWNER, 15, 1, color + "&lSpawners", Collections.emptyList()), true)
+        );
     }
 }

@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.EntityType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class BlockValues {
@@ -33,5 +35,8 @@ public class BlockValues {
         public int page;
         public int slot;
     }
+
+    public String valueLore = "&9Value: &7%block_value%";
+    public String teamValueLore = "&9Team Value: &7%total_block_value% (%total_blocks%)";
 
 }

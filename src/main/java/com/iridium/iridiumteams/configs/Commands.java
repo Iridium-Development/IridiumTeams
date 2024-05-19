@@ -54,6 +54,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public ExperienceCommand<T, U> experienceCommand;
     public ShopCommand<T, U> shopCommand;
     public LevelCommand<T, U> levelCommand;
+    public BlockValueCommand<T, U> blockValueCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -79,7 +80,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         kickCommand = new KickCommand<>(Collections.singletonList("kick"), "Kick a player from your " + team, "%prefix% &7/" + commandBase + " kick <player>", "", 0);
         leaveCommand = new LeaveCommand<>(Collections.singletonList("leave"), "Leave your current " + team, "%prefix% &7/" + commandBase + " leave", "", 0);
         deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete (player)", "", 0, permissionBase + ".delete.others");
-        infoCommand = new InfoCommand<>(Arrays.asList("info", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "", 0);
+        infoCommand = new InfoCommand<>(Arrays.asList("info", "level", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "", 0);
         descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Set your " + team + " description.", "%prefix% &7/" + commandBase + " description (" + team + ") <description>", "", 0, permissionBase + ".description.others");
         renameCommand = new RenameCommand<>(Collections.singletonList("rename"), "Rename your " + team, "%prefix% &7/" + commandBase + " rename (" + team + ") <name>", "", 0, permissionBase + ".rename.others");
         setHomeCommand = new SetHomeCommand<>(Collections.singletonList("sethome"), "Set your " + team + "'s home", "%prefix% &7/" + commandBase + " sethome", "", 0);
@@ -105,6 +106,5 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         rewardsCommand = new RewardsCommand<>(Collections.singletonList("rewards"), "View your " + team + " rewards", "%prefix% &7/" + commandBase + " rewards", "", 0);
         experienceCommand = new ExperienceCommand<>(Collections.singletonList("experience"), "View your " + team + " experience", "%prefix% &7/" + commandBase + " experience <give/set/remove> <player> <amount>", "", 0, permissionBase + ".experience.modify");
         shopCommand = new ShopCommand<>(Collections.singletonList("shop"), "Open the Shop", "%prefix% &7/" + commandBase + " shop", "", 0);
-        levelCommand = new LevelCommand<>(Collections.singletonList("level"), "Check your " + team + " level", "%prefix% &7/" + commandBase + " level", "", 0);
     }
 }
