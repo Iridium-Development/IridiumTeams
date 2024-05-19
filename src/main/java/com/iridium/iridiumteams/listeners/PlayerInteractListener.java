@@ -40,7 +40,7 @@ import java.util.List;
             Player player = event.getPlayer();
             U user = iridiumTeams.getUserManager().getUser(player);
 
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getClickedBlock().getLocation()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getClickedBlock().getLocation()).ifPresent(team -> {
                 if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.OPEN_CONTAINERS.getPermissionKey()) && event.getClickedBlock().getState() instanceof InventoryHolder) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotOpenContainers
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
@@ -108,7 +108,7 @@ import java.util.List;
             Player player = event.getPlayer();
             U user = iridiumTeams.getUserManager().getUser(player);
 
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getBlock().getLocation()).ifPresent(team -> {
                 if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.INTERACT.getPermissionKey())) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotInteract
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
@@ -122,7 +122,7 @@ import java.util.List;
             Player player = event.getPlayer();
             U user = iridiumTeams.getUserManager().getUser(player);
 
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getRightClicked().getLocation()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getRightClicked().getLocation()).ifPresent(team -> {
                 if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.INTERACT.getPermissionKey())) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotInteract
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
