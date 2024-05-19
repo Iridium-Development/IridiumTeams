@@ -56,15 +56,24 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int hours = Math.max((int) (teamEnhancement.getRemainingTime() / 3600), 0);
             String nextLevel = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(teamEnhancement.getLevel() + 1);
             String cost = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(nextData.money);
+            String minLevel = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(nextData.minLevel);
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
                     new Placeholder("timeremaining_minutes", String.valueOf(minutes)),
                     new Placeholder("timeremaining_seconds", String.valueOf(seconds)),
                     new Placeholder("current_level", String.valueOf(teamEnhancement.getLevel())),
+                    new Placeholder("minLevel", minLevel),
                     new Placeholder("next_level", nextLevel),
-                    new Placeholder("cost", cost)
+                    new Placeholder("vault_cost", cost)
             ));
+
+            if(nextData != null) {
+                for (Map.Entry<String, Double> bankItem : nextData.bankCosts.entrySet()) {
+                    placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+                }
+            }
+
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
     }
@@ -76,5 +85,12 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
         if (!upgrades.containsKey(event.getSlot())) return;
         String upgrade = upgrades.get(event.getSlot());
         iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().upgradesCommand, new String[]{"buy", upgrade});
+    }
+
+    public String formatPrice(double value) {
+        if (iridiumTeams.getShop().abbreviatePrices) {
+            return iridiumTeams.getConfiguration().numberFormatter.format(value);
+        }
+        return String.valueOf(value);
     }
 }

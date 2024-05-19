@@ -32,6 +32,7 @@ public class TeamLevelUpListener<T extends Team, U extends IridiumUser<T>> imple
         }
 
         if (event.isFirstTimeAsLevel() && event.getLevel() > 1) {
+            if(!iridiumTeams.getConfiguration().giveLevelRewards) return;
             Reward reward = null;
             List<Map.Entry<Integer, Reward>> entries = iridiumTeams.getConfiguration().levelRewards.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toList());
             for (Map.Entry<Integer, Reward> entry : entries) {
