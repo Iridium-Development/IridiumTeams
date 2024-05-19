@@ -118,7 +118,7 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
 
     private boolean canPurchase(Player player, Shop.ShopItem shopItem, int amount) {
 
-        if(shopItem.minLevel != 1) {
+        if(shopItem.minLevel > 1) {
             U user = iridiumTeams.getUserManager().getUser(player);
             Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID());
 
