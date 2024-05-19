@@ -105,6 +105,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         rewardsCommand = new RewardsCommand<>(Collections.singletonList("rewards"), "View your " + team + " rewards", "%prefix% &7/" + commandBase + " rewards", "", 0);
         experienceCommand = new ExperienceCommand<>(Collections.singletonList("experience"), "View your " + team + " experience", "%prefix% &7/" + commandBase + " experience <give/set/remove> <player> <amount>", "", 0, permissionBase + ".experience.modify");
         shopCommand = new ShopCommand<>(Collections.singletonList("shop"), "Open the Shop", "%prefix% &7/" + commandBase + " shop", "", 0);
-        blockValueCommand = new BlockValueCommand<>(Collections.singletonList("blockvalues"), "View block values","%prefix% &7/" + commandBase + "blockvalues <blocks/spawners> <player>", "", 0);
+        blockValueCommand = new BlockValueCommand<>(Collections.singletonList("blockvalues"), "View block values","%prefix% &7/" + commandBase + "blockvalues <blocks/spawners> (player)", "", 0);
     }
 }
