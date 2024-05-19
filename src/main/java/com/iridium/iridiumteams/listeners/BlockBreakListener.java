@@ -26,7 +26,7 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getBlock().getLocation());
         if (team.isPresent()) {
 
             if (!(event.getBlock().getState() instanceof CreatureSpawner) && !iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BLOCK_BREAK)) {
@@ -55,7 +55,7 @@ public class BlockBreakListener<T extends Team, U extends IridiumUser<T>> implem
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "MINE", material.name(), 1);
         });
-        iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+        iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer(), event.getBlock().getLocation()).ifPresent(team -> {
             TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);
             teamBlock.setAmount(Math.max(0, teamBlock.getAmount() - 1));
 
