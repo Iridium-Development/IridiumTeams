@@ -150,9 +150,9 @@ public class Enhancements {
                         color + "[!] &7Must be level %minLevel% to purchase",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
-                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.FAST_DIGGING))
-                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.FAST_DIGGING))
-                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.FAST_DIGGING))
+                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.HASTE))
+                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.HASTE))
+                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.HASTE))
                         .build()
                 ))
                 .put("speed", new Enhancement<>(
@@ -182,9 +182,9 @@ public class Enhancements {
                         color + "[!] &7Must be level %minLevel% to purchase",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
-                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.JUMP))
-                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.JUMP))
-                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.JUMP))
+                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.JUMP_BOOST))
+                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.JUMP_BOOST))
+                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.JUMP_BOOST))
                         .build()
                 ))
                 .build();

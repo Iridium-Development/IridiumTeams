@@ -43,18 +43,26 @@ public class ClipPlaceholderAPI<T extends Team, U extends IridiumUser<T>> extend
     public String onPlaceholderRequest(Player player, String placeholderKey) {
         List<Placeholder> placeholderList = placeholders.getPlaceholders(player);
 
+        String keyToVerify = formatPlaceholderKey(placeholderKey).replace("[0-9]+", "#");
+
         for (Placeholder placeholder : placeholderList) {
-            if (formatPlaceholderKey(placeholder.getKey()).equalsIgnoreCase(placeholderKey)) return placeholder.getValue();
+            if (placeholder.getKey().equals(keyToVerify)) {
+                if (placeholder.getKey().contains("#")) {
+                    int selectedIsland = Integer.parseInt(placeholderKey.replace("[^0-9]", "")+"0")/ 10;
+                    return placeholder.getValue(selectedIsland);
+                } else
+                    return placeholder.getValue();
+            }
         }
 
         return null;
     }
 
-    public int getPlaceholderCount(){
+    public int getPlaceholderCount() {
         return placeholders.getDefaultPlaceholders().size();
     }
 
-    private String formatPlaceholderKey(String key){
-        return key.replace("%", "");
+    private String formatPlaceholderKey(String placeholderKey) {
+        return placeholderKey.toLowerCase();
     }
 }

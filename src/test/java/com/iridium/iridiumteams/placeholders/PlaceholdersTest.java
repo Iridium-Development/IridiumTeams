@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,16 +49,15 @@ class PlaceholdersTest {
         int playerPlaceholders = TestPlugin.getInstance().getUserPlaceholderBuilder().getPlaceholders(Optional.empty()).size();
         int teamPlaceholders = TestPlugin.getInstance().getUserPlaceholderBuilder().getPlaceholders(Optional.empty()).size();
 
-        assertEquals(playerPlaceholders + (teamPlaceholders * 42), placeholderList.size());
+        assertEquals(playerPlaceholders +teamPlaceholders*4, placeholderList.size());
     }
-
 
     @Test
     public void Placeholders__getPlaceholders__ReturnsPlayerPlaceholders() {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         List<Placeholder> placeholderList = placeholders.getPlaceholders(playerMock);
-        Optional<Placeholder> placeholder = placeholderList.stream().filter(p -> p.getKey().equals("%player_name%")).findFirst();
+        Optional<Placeholder> placeholder = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%player_name%")).findFirst();
 
         assertTrue(placeholder.isPresent());
         assertEquals(playerMock.getName(), placeholder.get().getValue());
@@ -70,7 +71,7 @@ class PlaceholdersTest {
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(testTeam).build();
 
         List<Placeholder> placeholderList = placeholders.getPlaceholders(playerMock);
-        Optional<Placeholder> placeholder = placeholderList.stream().filter(p -> p.getKey().equals("%team_name%")).findFirst();
+        Optional<Placeholder> placeholder = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%team_name%")).findFirst();
 
         assertTrue(placeholder.isPresent());
         assertEquals(testTeam.getName(), placeholder.get().getValue());
@@ -84,7 +85,7 @@ class PlaceholdersTest {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
 
         List<Placeholder> placeholderList = placeholders.getPlaceholders(playerMock);
-        Optional<Placeholder> placeholder = placeholderList.stream().filter(p -> p.getKey().equals("%current_team_name%")).findFirst();
+        Optional<Placeholder> placeholder = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%current_team_name%")).findFirst();
 
         assertTrue(placeholder.isPresent());
         assertEquals(testTeam.getName(), placeholder.get().getValue());
@@ -96,19 +97,19 @@ class PlaceholdersTest {
         TestTeam testTeam = new TeamBuilder("My Team").build();
 
         List<Placeholder> placeholderList = placeholders.getPlaceholders(null);
-        Optional<Placeholder> value1 = placeholderList.stream().filter(p -> p.getKey().equals("%top_value_1_team_name%")).findFirst();
-        Optional<Placeholder> experience1 = placeholderList.stream().filter(p -> p.getKey().equals("%top_experience_1_team_name%")).findFirst();
-        Optional<Placeholder> value2 = placeholderList.stream().filter(p -> p.getKey().equals("%top_value_2_team_name%")).findFirst();
-        Optional<Placeholder> experience2 = placeholderList.stream().filter(p -> p.getKey().equals("%top_experience_2_team_name%")).findFirst();
+        Optional<Placeholder> value1 = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%top_value_#_team_name%")).findFirst();
+        Optional<Placeholder> experience1 = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%top_experience_#_team_name%")).findFirst();
+        Optional<Placeholder> value2 = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%top_value_#_team_name%")).findFirst();
+        Optional<Placeholder> experience2 = placeholderList.stream().filter(p -> p.getFormattedKey().equals("%top_experience_#_team_name%")).findFirst();
 
         assertTrue(value1.isPresent());
         assertTrue(experience1.isPresent());
         assertTrue(value2.isPresent());
         assertTrue(experience2.isPresent());
-        assertEquals(testTeam.getName(), value1.get().getValue());
-        assertEquals(testTeam.getName(), experience1.get().getValue());
-        assertEquals("N/A", value2.get().getValue());
-        assertEquals("N/A", experience2.get().getValue());
+        assertEquals(testTeam.getName(), value1.get().getValue(1));
+        assertEquals(testTeam.getName(), experience1.get().getValue(1));
+        assertEquals("N/A", value2.get().getValue(2));
+        assertEquals("N/A", experience2.get().getValue(2));
     }
 
 }
