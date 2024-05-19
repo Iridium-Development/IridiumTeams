@@ -48,7 +48,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract Optional<T> getTeamViaNameOrPlayer(String name);
 
     public Optional<T> getTeamViaPlayerLocation(Player player) {
-        return getTeamViaLocation(player.getLocation());
+        return getTeamViaPlayerLocation(player, player.getLocation());
+    }
+
+    public Optional<T> getTeamViaPlayerLocation(Player player, Location location) {
+        return getTeamViaLocation(location);
     }
 
     public abstract void sendTeamTitle(Player player, T team);
