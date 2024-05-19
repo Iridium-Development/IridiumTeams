@@ -36,7 +36,7 @@ public class InfoCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         }
 
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(String.join(" ", args));
-        if(args[0].equals("location")) {
+        if(args[0].equals("--get-location")) {
             team = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
         }
 
