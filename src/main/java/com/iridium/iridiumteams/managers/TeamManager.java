@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTItem;
+import com.iridium.iridiumcore.dependencies.nbtapi.NBT;
 import com.iridium.iridiumcore.dependencies.nbtapi.NBTType;
 import com.iridium.iridiumcore.dependencies.paperlib.PaperLib;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
@@ -409,7 +409,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         if (item == null || item.getType() == Material.AIR) {
             return false;
         }
-        return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
+
+        NBT.get(item, readableItemNBT -> {
+            return readableItemNBT.hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
+        });
+
+        return false;
     }
 
     public enum SortType {
