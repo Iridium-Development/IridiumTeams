@@ -42,12 +42,6 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
             return false;
         }
 
-        if(!iridiumTeams.getTeamManager().isInTeam(team, player.getLocation())) {
-            player.sendMessage(iridiumTeams.getMessages().notInTeamLand
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix));
-            return false;
-        }
-
         user.setFlying(flight);
         player.setAllowFlight(flight);
         player.setFlying(flight);
