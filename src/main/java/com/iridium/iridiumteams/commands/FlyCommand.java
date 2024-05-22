@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,8 +14,13 @@ import java.util.List;
 
 @NoArgsConstructor
 public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public FlyCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+
+    @Getter
+    String adminPermission;
+
+    public FlyCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
         super(args, description, syntax, permission, cooldownInSeconds);
+        this.adminPermission = adminPermission;
     }
 
     @Override
@@ -33,6 +39,12 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
 
         if (!canFly(player, iridiumTeams)) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().flightNotActive.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
+            return false;
+        }
+
+        if(!iridiumTeams.getTeamManager().isInTeam(team, player.getLocation())) {
+            player.sendMessage(iridiumTeams.getMessages().notInTeamLand
+                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix));
             return false;
         }
 

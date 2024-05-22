@@ -54,11 +54,19 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
         return Bukkit.getServer().getPlayer(uuid);
     }
 
-    public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
+    public boolean canFly(Optional<T> team, IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
-        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return true;
-        if (isBypassing()) return true;
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(getTeamID());
+
+        // we should be considering if players are allowed to fly natively
+        switch(player.getGameMode()) {
+            case CREATIVE: {}
+            case SPECTATOR: { return true; }
+        }
+
+        if (isBypassing()) return true; // bypass should be checked first, since this is an admin permission
+        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.getAdminPermission())) return true;
+        if (!player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return false;
+
         Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
         return canFly(team.orElse(null), iridiumTeams) || canFly(visitor.orElse(null), iridiumTeams);
     }
