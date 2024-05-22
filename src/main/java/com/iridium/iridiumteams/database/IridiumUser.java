@@ -64,7 +64,7 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
         }
 
         if (isBypassing()) return true; // bypass should be checked first, since this is an admin permission
-        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.getAdminPermission())) return true;
+        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.getFlyAnywherePermission())) return true;
         if (!player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return false;
 
         Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
