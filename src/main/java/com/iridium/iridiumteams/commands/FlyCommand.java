@@ -16,11 +16,11 @@ import java.util.List;
 public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
 
     @Getter
-    String adminPermission;
+    String flyAnywherePermission;
 
-    public FlyCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String adminPermission) {
+    public FlyCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String flyAnywherePermission) {
         super(args, description, syntax, permission, cooldownInSeconds);
-        this.adminPermission = adminPermission;
+        this.flyAnywherePermission = flyAnywherePermission;
     }
 
     @Override
