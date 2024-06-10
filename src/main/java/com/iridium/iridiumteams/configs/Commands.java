@@ -92,7 +92,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         chatCommand = new ChatCommand<>(Arrays.asList("chat", "c"), "Change your " + team + " chat type", "%prefix% &7/" + commandBase + " chat <chattype>", "", 0);
         boostersCommand = new BoostersCommand<>(Collections.singletonList("boosters"), "View your " + team + " Boosters", "%prefix% &7/" + commandBase + " boosters buy <booster>", "", 0);
         upgradesCommand = new UpgradesCommand<>(Collections.singletonList("upgrades"), "View your " + team + " Upgrades", "%prefix% &7/" + commandBase + " upgrades buy <upgrade>", "", 0);
-        flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", permissionBase + ".fly", 0);
+        flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", permissionBase + ".fly", permissionBase + ".fly.anywhere", 0);
         topCommand = new TopCommand<>(Collections.singletonList("top"), "View the top " + team + "'s", "%prefix% &7/" + commandBase + " top", "", 0);
         recalculateCommand = new RecalculateCommand<>(Collections.singletonList("recalculate"), "Recalculate all " + team + "'s value ", "%prefix% &7/" + commandBase + " recalculate", permissionBase + ".recalculate", 0);
         warpsCommand = new WarpsCommand<>(Collections.singletonList("warps"), "View your " + team + "'s warps", "%prefix% &7/" + commandBase + " warps", "", 0);

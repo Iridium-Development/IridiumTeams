@@ -6,6 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -54,20 +55,20 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
         return Bukkit.getServer().getPlayer(uuid);
     }
 
-    public boolean canFly(Optional<T> team, IridiumTeams<T, ?> iridiumTeams) {
+    public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
 
         // we should be considering if players are allowed to fly natively
-        switch(player.getGameMode()) {
-            case CREATIVE: {}
-            case SPECTATOR: { return true; }
-        }
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return true;
 
         if (isBypassing()) return true; // bypass should be checked first, since this is an admin permission
         if (player.hasPermission(iridiumTeams.getCommands().flyCommand.getFlyAnywherePermission())) return true;
-        if (!player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return false;
 
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(getTeamID());
         Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
+        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.permission) && team.isPresent() && team.map(T::getId).orElse(-1).equals(visitor.map(T::getId).orElse(-1))) {
+            return true;
+        }
         return canFly(team.orElse(null), iridiumTeams) || canFly(visitor.orElse(null), iridiumTeams);
     }
 

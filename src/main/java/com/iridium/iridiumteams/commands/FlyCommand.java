@@ -18,7 +18,7 @@ public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Comman
     @Getter
     String flyAnywherePermission;
 
-    public FlyCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds, String flyAnywherePermission) {
+    public FlyCommand(List<String> args, String description, String syntax, String permission, String flyAnywherePermission, long cooldownInSeconds) {
         super(args, description, syntax, permission, cooldownInSeconds);
         this.flyAnywherePermission = flyAnywherePermission;
     }
