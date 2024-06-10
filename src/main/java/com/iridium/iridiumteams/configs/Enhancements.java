@@ -86,7 +86,7 @@ public class Enhancements {
                 .put(2, new FlightEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.MEMBERS_ANYWHERE)))
                 .build());
 
-        membersEnhancement = new Enhancement<>(true, EnhancementType.UPGRADE, new Item(XMaterial.PLAYER_HEAD, 11, 1, color + "&lMember Upgrade", "Peaches_MLG", Arrays.asList(
+        membersEnhancement = new Enhancement<>(true, EnhancementType.UPGRADE, new Item(XMaterial.PLAYER_HEAD, 11, "Peaches_MLG", 1, color + "&lMember Upgrade", Arrays.asList(
                 "&7Need more members? Buy this",
                 "&7upgrade to increase your member count.",
                 "",
