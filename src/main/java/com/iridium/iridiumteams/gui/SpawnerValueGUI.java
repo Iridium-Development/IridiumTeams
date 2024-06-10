@@ -9,28 +9,26 @@ import com.iridium.iridiumteams.configs.BlockValues;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends PagedGUI<BlockValues.ValuableBlock> {
+public class SpawnerValueGUI<T extends Team, U extends IridiumUser<T>> extends PagedGUI<BlockValues.ValuableBlock> {
 
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public BlockValueGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public SpawnerValueGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
-                iridiumTeams.getInventories().blockValueGUI.size,
-                iridiumTeams.getInventories().blockValueGUI.background,
+                iridiumTeams.getInventories().spawnerValueGUI.size,
+                iridiumTeams.getInventories().spawnerValueGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
                 previousInventory,
@@ -46,7 +44,7 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
         int maxPages = getPageObjects().size() / (getSize() - 9);
         if (getPageObjects().size() % (getSize() - 9) > 0) maxPages++;
 
-        NoItemGUI noItemGUI = iridiumTeams.getInventories().blockValueGUI;
+        NoItemGUI noItemGUI = iridiumTeams.getInventories().spawnerValueGUI;
         Inventory inventory = Bukkit.createInventory(this, getSize(), StringUtils.color(noItemGUI.title
                 .replace("%page%", String.valueOf(getPage()))
                 .replace("%max_pages%", String.valueOf(maxPages))
@@ -58,25 +56,27 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
     @Override
     public void addContent(Inventory inventory) {
         super.addContent(inventory);
-
-        for (Map.Entry<XMaterial, BlockValues.ValuableBlock> entry : iridiumTeams.getBlockValues().blockValues.entrySet().stream().filter(entry -> entry.getValue().page == getPage()).collect(Collectors.toList())) {
+        for (Map.Entry<EntityType, BlockValues.ValuableBlock> entry : iridiumTeams.getBlockValues().spawnerValues.entrySet().stream().filter(entry -> entry.getValue().page == getPage()).collect(Collectors.toList())) {
 
             List<String> lore = new ArrayList<>();
             lore.add(iridiumTeams.getBlockValues().valueLore
                     .replace("%block_value%", String.valueOf(entry.getValue().value))
             );
             lore.add(iridiumTeams.getBlockValues().teamValueLore
-                    .replace("%total_blocks%", String.valueOf(iridiumTeams.getTeamManager().getTeamBlock(team, entry.getKey()).getAmount()))
-                    .replace("%total_block_value%", String.valueOf(iridiumTeams.getTeamManager().getTeamBlock(team, entry.getKey()).getAmount() * entry.getValue().value))
+                    .replace("%total_blocks%", String.valueOf(iridiumTeams.getTeamManager().getTeamSpawners(team, entry.getKey()).getAmount()))
+                    .replace("%total_block_value%", String.valueOf(iridiumTeams.getTeamManager().getTeamSpawners(team, entry.getKey()).getAmount() * entry.getValue().value))
             );
 
-            inventory.setItem(entry.getValue().slot, ItemStackUtils.makeItem(entry.getKey(), 1, entry.getValue().name, lore));
+            String itemName = entry.getKey().name().toUpperCase() + "_SPAWN_EGG";
+            XMaterial item = XMaterial.matchXMaterial(itemName).orElse(XMaterial.SPAWNER);
+
+            inventory.setItem(entry.getValue().slot, ItemStackUtils.makeItem(item, 1, entry.getValue().name, lore));
         }
     }
 
     @Override
     public Collection<BlockValues.ValuableBlock> getPageObjects() {
-        return iridiumTeams.getBlockValues().blockValues.values();
+        return iridiumTeams.getBlockValues().spawnerValues.values();
     }
 
     @Override

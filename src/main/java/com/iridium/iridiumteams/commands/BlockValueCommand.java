@@ -10,6 +10,7 @@ import com.iridium.iridiumteams.database.TeamSetting;
 
 import com.iridium.iridiumteams.gui.BlockValueGUI;
 import com.iridium.iridiumteams.gui.BlockValuesTypeSelectorGUI;
+import com.iridium.iridiumteams.gui.SpawnerValueGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -36,10 +37,10 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
 
         BlockValuesTypeSelectorInventoryConfig blockValuesTypeSelectorInventoryConfig = iridiumTeams.getInventories().blockValuesTypeSelectorGUI;
 
-        String teamArg = args.length > 1 ? args[1] : player.getName();
+        String teamArg = args.length > 1 ? args[0] : player.getName();
         team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(teamArg);
 
-        if (!team.isPresent() && args.length > 1) {
+        if (!team.isPresent() && args.length >= 1) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamDoesntExistByName.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
         }
@@ -61,16 +62,16 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
             return true;
         }
 
-        switch (args[0]) {
+        switch (args[args.length - 1]) {
             case ("blocks"): {
                 if (blockValuesTypeSelectorInventoryConfig.blocks.enabled) {
-                    player.openInventory(new BlockValueGUI<>(team.get(), BlockValueGUI.BlockValueType.BLOCK, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    player.openInventory(new BlockValueGUI<>(team.get(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     return true;
                 }
             }
             case ("spawners"): {
                 if (blockValuesTypeSelectorInventoryConfig.spawners.enabled) {
-                    player.openInventory(new BlockValueGUI<>(team.get(), BlockValueGUI.BlockValueType.SPAWNER, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    player.openInventory(new SpawnerValueGUI<>(team.get(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
                     return true;
                 }
             }
