@@ -36,7 +36,7 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
 
         BlockValuesTypeSelectorInventoryConfig blockValuesTypeSelectorInventoryConfig = iridiumTeams.getInventories().blockValuesTypeSelectorGUI;
 
-        String teamArg = args.length > 1 ? args[1] : player.getName()
+        String teamArg = args.length > 1 ? args[1] : player.getName();
         team = iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(teamArg);
 
         if (!team.isPresent() && args.length > 1) {
