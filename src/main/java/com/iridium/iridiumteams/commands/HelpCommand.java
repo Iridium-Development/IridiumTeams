@@ -25,6 +25,7 @@ public class HelpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     @Override
     public boolean execute(CommandSender sender, String[] args, IridiumTeams<T, U> iridiumTeams) {
         List<Command<T, U>> availableCommands = iridiumTeams.getCommandManager().getCommands().stream()
+                .filter(command -> !command.isSuperSecretCommand())
                 .filter(command -> sender.hasPermission(command.permission) || command.permission.isEmpty())
                 .collect(Collectors.toList());
 
