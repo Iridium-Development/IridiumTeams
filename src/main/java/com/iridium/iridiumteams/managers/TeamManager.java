@@ -47,7 +47,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     /**
      * Gets a team via a location, providing a team for cache
-     * @param location The location
+     *
+     * @param location  The location
      * @param teamCache a team for cache, used for if we know the team of a nearby location, and we assume the current location is also in the team (e.g. on a piston event or a BlockFromToEvent)
      * @return The Team the location is in
      */
@@ -56,7 +57,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     /**
      * Gets a team via a location, providing a team for cache
-     * @param location The location
+     *
+     * @param location  The location
      * @param teamCache a team for cache, used for if we know the team of a nearby location, and we assume the current location is also in the team (e.g. on a piston event or a BlockFromToEvent)
      * @return The Team the location is in
      */
@@ -70,8 +72,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     /**
      * Gets a team via a location, providing a team for cache
+     *
      * @param location The location
-     * @param player a player for cache, used for if the player is near the new location, since the player has an internal team cache for the team they are currently on)
+     * @param player   a player for cache, used for if the player is near the new location, since the player has an internal team cache for the team they are currently on)
      * @return The Team the location is in
      */
     public Optional<T> getTeamViaPlayerLocation(Player player, Location location) {
@@ -170,6 +173,35 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract TeamBlock getTeamBlock(T team, XMaterial xMaterial);
 
     public abstract @Nullable TeamSetting getTeamSetting(T team, String setting);
+
+    public int getTeamLevel(int experience) {
+        if (!iridiumTeams.getConfiguration().enableLeveling) return 1;
+
+        int flatExpRequirement = iridiumTeams.getConfiguration().flatExpRequirement;
+        double curvedExpModifier = iridiumTeams.getConfiguration().curvedExpModifier;
+
+        // if flatExpRequirement = 0, set experience per level up to 1 (because dividing by 0 is a no-no)
+        // if curvedExpModifer = 0, set modifier to 1 (because value ^ 1 = value, and value ^ 0 = 1)
+
+        if (flatExpRequirement == 0) flatExpRequirement = 1;
+        if (curvedExpModifier == 0) curvedExpModifier = 1;
+
+        return Math.max(1, (int) Math.floor(Math.pow(experience / (double) Math.abs(flatExpRequirement), Math.abs(curvedExpModifier)) + 1));
+    }
+
+    public int getExperienceForLevel(int level) {
+        int flatExpRequirement = iridiumTeams.getConfiguration().flatExpRequirement;
+        double curvedExpModifier = iridiumTeams.getConfiguration().curvedExpModifier;
+
+        if (flatExpRequirement == 0) flatExpRequirement = 1;
+        if (curvedExpModifier == 0) curvedExpModifier = 1;
+
+        return (int) Math.floor(Math.abs(flatExpRequirement) * Math.pow(10, Math.log10(level - 1) / Math.abs(curvedExpModifier)));
+    }
+
+    public int getTeamExperienceForNextLevel(T team) {
+        return getExperienceForLevel(team.getLevel() + 1) - team.getExperience();
+    }
 
     public double getTeamValue(T team) {
         double value = 0;

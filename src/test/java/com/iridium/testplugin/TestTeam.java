@@ -18,6 +18,11 @@ public class TestTeam extends Team {
     }
 
     @Override
+    public int getLevel() {
+        return TestPlugin.getInstance().getTeamManager().getTeamLevel(this.getExperience());
+    }
+
+    @Override
     public double getValue() {
         return TestPlugin.getInstance().getTeamManager().getTeamValue(this);
     }

@@ -35,7 +35,8 @@ class ShopManagerTest {
                 16,
                 0,
                 new Shop.Cost(200, new HashMap<>()),
-                new Shop.Cost(30, new HashMap<>())
+                new Shop.Cost(30, new HashMap<>()),
+                1
         );
     }
 

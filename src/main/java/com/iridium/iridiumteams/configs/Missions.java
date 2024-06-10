@@ -43,6 +43,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Grow 10 Sugarcane: %progress_1%/10",
                                         color + "&l* &7Grow 10 Wheat: %progress_2%/10",
@@ -54,7 +56,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("GROW:SUGAR_CANE:10", "GROW:WHEAT:10", "GROW:CARROTS:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFarmer Reward",
+                        ), Arrays.asList("GROW:SUGAR_CANE:10", "GROW:WHEAT:10", "GROW:CARROTS:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFarmer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -73,6 +75,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Kill 10 Zombies: %progress_1%/10",
                                         color + "&l* &7Kill 10 Skeletons: %progress_2%/10",
@@ -84,7 +88,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("KILL:ZOMBIE:10", "KILL:SKELETON:10", "KILL:CREEPER:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lHunter Reward",
+                        ), Arrays.asList("KILL:ZOMBIE:10", "KILL:SKELETON:10", "KILL:CREEPER:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lHunter Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -103,6 +107,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Bake 64 Bread: %progress_1%/64",
                                         "",
@@ -112,7 +118,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Collections.singletonList("CRAFT:BREAD:64"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBaker Reward",
+                        ), Collections.singletonList("CRAFT:BREAD:64"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBaker Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -131,6 +137,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Mine 15 Iron Ores: %progress_1%/15",
                                         color + "&l* &7Mine 30 Coal Ores: %progress_2%/30",
@@ -142,7 +150,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("MINE:IRON_ORE:15", "MINE:COAL_ORE:30", "MINE:DIAMOND_ORE:1"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lMiner Reward",
+                        ), Arrays.asList("MINE:IRON_ORE:15", "MINE:COAL_ORE:30", "MINE:DIAMOND_ORE:1"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lMiner Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -161,6 +169,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Catch 10 Fish: %progress_1%/10",
                                         "",
@@ -170,7 +180,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Collections.singletonList("FISH:ANY:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFisherman Reward",
+                        ), Collections.singletonList("FISH:ANY:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lFisherman Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -189,6 +199,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Smelt 30 Iron Ores: %progress_1%/30",
                                         color + "&l* &7Smelt 15 Gold Ores: %progress_2%/15",
@@ -198,7 +210,7 @@ public class Missions {
                                         color + "&l* &7$1000",
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
-                                )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
+                                )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -217,6 +229,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Brew 3 Speed II Potions: %progress_1%/3",
                                         color + "&l* &7Brew 3 Strength II Potions: %progress_2%/3",
@@ -227,7 +241,7 @@ public class Missions {
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
                                 )
-                        ), Arrays.asList("BREW:SPEED:2:3", "BREW:STRENGTH:2:3"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Arrays.asList("BREW:SPEED:2:3", "BREW:STRENGTH:2:3"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -246,6 +260,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Mine 10 logs: %progress_1%/10",
                                         "",
@@ -253,7 +269,7 @@ public class Missions {
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
                                 )
-                        ), Collections.singletonList("MINE:LOGS:10"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Collections.singletonList("MINE:LOGS:10"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -270,6 +286,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Mine 100 logs: %progress_1%/100",
                                         "",
@@ -277,7 +295,7 @@ public class Missions {
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
                                 )
-                        ), Collections.singletonList("MINE:LOGS:100"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Collections.singletonList("MINE:LOGS:100"), 1,  new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
@@ -294,6 +312,8 @@ public class Missions {
                                         "&7Complete Island Missions to gain rewards",
                                         "&7Which can be used to purchase Island Upgrades",
                                         "",
+                                        color + "[!] &7Must be level 1 to complete this mission",
+                                        "",
                                         color + "&lObjectives:",
                                         color + "&l* &7Mine 1000 logs: %progress_1%/1000",
                                         "",
@@ -301,7 +321,7 @@ public class Missions {
                                         color + "&l* &75 Island Crystals",
                                         color + "&l* &7$1000"
                                 )
-                        ), Collections.singletonList("MINE:LOGS:1000"), new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
+                        ), Collections.singletonList("MINE:LOGS:1000"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lPotionBrewer Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
