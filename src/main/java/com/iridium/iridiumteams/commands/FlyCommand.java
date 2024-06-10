@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,8 +14,13 @@ import java.util.List;
 
 @NoArgsConstructor
 public class FlyCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
-    public FlyCommand(List<String> args, String description, String syntax, String permission, long cooldownInSeconds) {
+
+    @Getter
+    String flyAnywherePermission;
+
+    public FlyCommand(List<String> args, String description, String syntax, String permission, String flyAnywherePermission, long cooldownInSeconds) {
         super(args, description, syntax, permission, cooldownInSeconds);
+        this.flyAnywherePermission = flyAnywherePermission;
     }
 
     @Override
