@@ -107,6 +107,7 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
         return Collections.emptyList();
     }
 
+    @JsonIgnore
     public boolean isSuperSecretCommand(){
         return false;
     }
