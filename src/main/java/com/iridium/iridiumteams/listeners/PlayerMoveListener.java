@@ -53,7 +53,7 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
         // we're not an anti-cheat, we don't care otherwise
         U user = iridiumTeams.getUserManager().getUser(player);
         if (iridiumTeams.getEnhancements().flightEnhancement.enabled && user.isFlying()) {
-            if (!user.canFly(iridiumTeams)) {
+            if (!user.canFly(iridiumTeams) && player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) {
                 user.setFlying(false);
                 player.setFlying(false);
                 player.setAllowFlight(false);

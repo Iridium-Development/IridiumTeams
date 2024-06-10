@@ -58,9 +58,6 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
     public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
 
-        // we should be considering if players are allowed to fly natively
-        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return true;
-
         if (isBypassing()) return true; // bypass should be checked first, since this is an admin permission
         if (player.hasPermission(iridiumTeams.getCommands().flyCommand.getFlyAnywherePermission())) return true;
 
