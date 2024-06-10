@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.5.2"
+version = "2.5.3"
 description = "IridiumTeams"
 
 repositories {
