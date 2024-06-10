@@ -36,14 +36,4 @@ class ValueTeamSortTest {
         TestTeam teamC = new TeamBuilder().withBlocks(XMaterial.DIAMOND_BLOCK, 74).build();
         assertEquals(Arrays.asList(teamC, teamA, teamB), new ValueTeamSort<TestTeam>().getSortedTeams(TestPlugin.getInstance()));
     }
-
-    @Test
-    public void getRank() {
-        TestTeam teamA = new TeamBuilder().withBlocks(XMaterial.DIAMOND_BLOCK, 39).build();
-        TestTeam teamB = new TeamBuilder().withBlocks(XMaterial.DIAMOND_BLOCK, 10).build();
-        TestTeam teamC = new TeamBuilder().withBlocks(XMaterial.DIAMOND_BLOCK, 74).build();
-        assertEquals(2, new ValueTeamSort<TestTeam>().getRank(teamA, TestPlugin.getInstance()));
-        assertEquals(3, new ValueTeamSort<TestTeam>().getRank(teamB, TestPlugin.getInstance()));
-        assertEquals(1, new ValueTeamSort<TestTeam>().getRank(teamC, TestPlugin.getInstance()));
-    }
 }

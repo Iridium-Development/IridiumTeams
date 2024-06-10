@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     private final TemporaryCache<TeamSorting<T>, List<T>> teamTopCache = new TemporaryCache<>();
+    private final TemporaryCache<T, Double> teamValueCache = new TemporaryCache<>();
     private final IridiumTeams<T, U> iridiumTeams;
 
     public TeamManager(IridiumTeams<T, U> iridiumTeams) {
@@ -99,6 +100,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                     return !excludePrivate || (teamSetting == null || teamSetting.getValue().equalsIgnoreCase("Public"));
                 })
                 .collect(Collectors.toList()));
+    }
+
+    public int getRank(T team, TeamSorting<T> sortType) {
+        List<T> teams = getTeams(sortType, true);
+        return teams.indexOf(team) + 1;
     }
 
     public List<T> getTeams(SortType sortType, boolean excludePrivate) {
@@ -204,17 +210,19 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public double getTeamValue(T team) {
-        double value = 0;
+        return teamValueCache.get(team, Duration.ofSeconds(1), () -> {
+            double value = 0;
 
-        for (Map.Entry<XMaterial, BlockValues.ValuableBlock> valuableBlock : iridiumTeams.getBlockValues().blockValues.entrySet()) {
-            value += getTeamBlock(team, valuableBlock.getKey()).getAmount() * valuableBlock.getValue().value;
-        }
+            for (Map.Entry<XMaterial, BlockValues.ValuableBlock> valuableBlock : iridiumTeams.getBlockValues().blockValues.entrySet()) {
+                value += getTeamBlock(team, valuableBlock.getKey()).getAmount() * valuableBlock.getValue().value;
+            }
 
-        for (Map.Entry<EntityType, BlockValues.ValuableBlock> valuableSpawner : iridiumTeams.getBlockValues().spawnerValues.entrySet()) {
-            value += getTeamSpawners(team, valuableSpawner.getKey()).getAmount() * valuableSpawner.getValue().value;
-        }
+            for (Map.Entry<EntityType, BlockValues.ValuableBlock> valuableSpawner : iridiumTeams.getBlockValues().spawnerValues.entrySet()) {
+                value += getTeamSpawners(team, valuableSpawner.getKey()).getAmount() * valuableSpawner.getValue().value;
+            }
 
-        return value;
+            return value;
+        });
     }
 
     public abstract TeamEnhancement getTeamEnhancement(T team, String enhancement);

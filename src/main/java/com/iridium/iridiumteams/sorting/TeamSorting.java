@@ -19,9 +19,4 @@ public abstract class TeamSorting<T extends Team> {
 
     public abstract List<T> getSortedTeams(IridiumTeams<T, ?> iridiumTeams);
 
-    public int getRank(T team, IridiumTeams<T, ?> iridiumTeams) {
-        List<T> teams = getSortedTeams(iridiumTeams);
-        return teams.indexOf(team) + 1;
-    }
-
 }
