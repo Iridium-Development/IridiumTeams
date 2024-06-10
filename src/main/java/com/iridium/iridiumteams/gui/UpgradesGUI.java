@@ -65,6 +65,7 @@ public class UpgradesGUI<T extends Team, U extends IridiumUser<T>> extends BackG
                     new Placeholder("current_level", String.valueOf(teamEnhancement.getLevel())),
                     new Placeholder("minLevel", minLevel),
                     new Placeholder("next_level", nextLevel),
+                    new Placeholder("cost", cost),
                     new Placeholder("vault_cost", cost)
             ));
 

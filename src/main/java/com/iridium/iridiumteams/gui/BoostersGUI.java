@@ -65,6 +65,7 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
                     new Placeholder("current_level", String.valueOf(currentLevel)),
                     new Placeholder("minLevel", minLevel),
                     new Placeholder("next_level", nextLevel),
+                    new Placeholder("cost", cost),
                     new Placeholder("vault_cost", cost)
             ));
 
