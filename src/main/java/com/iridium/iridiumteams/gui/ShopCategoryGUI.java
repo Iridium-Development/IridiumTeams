@@ -97,7 +97,7 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
             lore.add(iridiumTeams.getShop().notPurchasableLore);
         }
 
-        if(item.minLevel != 1) {
+        if(item.minLevel > 1) {
             lore.add(iridiumTeams.getShop().levelRequirementLore);
         }
 
