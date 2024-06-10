@@ -186,7 +186,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         if (flatExpRequirement == 0) flatExpRequirement = 1;
         if (curvedExpModifier == 0) curvedExpModifier = 1;
 
-        return Math.min(1, (int) Math.floor(Math.pow(experience / (double) Math.abs(flatExpRequirement), Math.abs(curvedExpModifier)) + 1));
+        return Math.max(1, (int) Math.floor(Math.pow(experience / (double) Math.abs(flatExpRequirement), Math.abs(curvedExpModifier)) + 1));
     }
 
     public int getExperienceForLevel(int level) {
