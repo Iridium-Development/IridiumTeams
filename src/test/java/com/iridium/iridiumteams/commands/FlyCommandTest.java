@@ -53,6 +53,7 @@ class FlyCommandTest {
     public void executeFlyCommand_ShouldNotWork_WhenTheBoosterIsNotActive() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
 
         serverMock.dispatchCommand(playerMock, "test fly");
 
@@ -60,11 +61,32 @@ class FlyCommandTest {
                 .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
         ));
         playerMock.assertNoMoreSaid();
+        assertFalse(user.isFlying());
+        assertFalse(playerMock.isFlying());
+        assertFalse(playerMock.getAllowFlight());
     }
 
     @Test
-    public void executeFlyCommand_ShouldMakePlayerFly_WhenTheyHaveTheOverridePermission() {
+    public void executeFlyCommand_ShouldMakePlayerFly_WhenTheyHaveFlyAnywherePermission() {
         TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withPermission("iridiumteams.fly.anywhere").build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test fly on");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightEnabled
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertTrue(user.isFlying());
+        assertTrue(playerMock.isFlying());
+        assertTrue(playerMock.getAllowFlight());
+    }
+
+    @Test
+    public void executeFlyCommand_ShouldMakePlayerFly_WhenTheyHaveFlyPermissionAndTheyAreInTheirTerritory() {
+        TestTeam team = new TeamBuilder().build();
+        TeamManager.teamViaLocation = Optional.of(team);
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withPermission("iridiumteams.fly").build();
         User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
 
@@ -77,6 +99,23 @@ class FlyCommandTest {
         assertTrue(user.isFlying());
         assertTrue(playerMock.isFlying());
         assertTrue(playerMock.getAllowFlight());
+    }
+
+    @Test
+    public void executeFlyCommand_ShouldNotMakePlayerFly_WhenTheyHaveFlyPermissionAndTheyAreNotInTheirTerritory() {
+        TestTeam team = new TeamBuilder().build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withPermission("iridiumteams.fly").build();
+        User user = TestPlugin.getInstance().getUserManager().getUser(playerMock);
+
+        serverMock.dispatchCommand(playerMock, "test fly on");
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().flightNotActive
+                .replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)
+        ));
+        playerMock.assertNoMoreSaid();
+        assertFalse(user.isFlying());
+        assertFalse(playerMock.isFlying());
+        assertFalse(playerMock.getAllowFlight());
     }
 
     @Test

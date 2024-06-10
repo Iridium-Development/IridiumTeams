@@ -5,10 +5,12 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.4.4"
+version = "2.5.0"
 description = "IridiumTeams"
 
 repositories {
+    mavenCentral()
+    mavenLocal()
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://ci.ender.zone/plugin/repository/everything/")
@@ -20,7 +22,6 @@ repositories {
     maven("https://repo.bg-software.com/repository/api/")
     maven("https://repo.essentialsx.net/releases/")
     maven("https://moyskleytech.com/debian/m2")
-    mavenCentral()
 }
 
 dependencies {
@@ -28,13 +29,13 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.9.5")
+    implementation("com.iridium:IridiumCore:1.2.0")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.32")
     compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
-    compileOnly("me.clip:placeholderapi:2.11.5")
+    compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("dev.rosewood:rosestacker:1.5.21")
     compileOnly("com.bgsoftware:WildStackerAPI:2024.1")
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")

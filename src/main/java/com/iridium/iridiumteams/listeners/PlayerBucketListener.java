@@ -33,7 +33,7 @@ public class PlayerBucketListener<T extends Team, U extends IridiumUser<T>> impl
     public void onBucketEvent(PlayerBucketEvent event) {
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getBlock().getLocation());
         if (team.isPresent()) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BUCKET)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotUseBuckets

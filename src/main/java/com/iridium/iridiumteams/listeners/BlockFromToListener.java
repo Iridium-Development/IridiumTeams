@@ -16,8 +16,8 @@ public class BlockFromToListener<T extends Team, U extends IridiumUser<T>> imple
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockFromTo(BlockFromToEvent event) {
-        int currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).map(T::getId).orElse(0);
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getToBlock().getLocation());
+        int currentTeam = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation(), team).map(T::getId).orElse(0);
         if (team.map(T::getId).orElse(currentTeam) != currentTeam) {
             event.setCancelled(true);
         }
