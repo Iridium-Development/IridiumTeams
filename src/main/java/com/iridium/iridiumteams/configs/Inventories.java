@@ -50,7 +50,7 @@ public class Inventories {
         backButton = new Item(XMaterial.NETHER_STAR, -5, 1, "&c&lBack", Collections.emptyList());
         rewardsGUI = new SingleItemGUI(54, "&7" + team + " Rewards", background1, new Item(XMaterial.SUNFLOWER, 53, 1, color + "&lClaim All!", Collections.emptyList()));
 
-        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
+        membersGUI = new SingleItemGUI(0, "&7" + team + " Members", background1, new Item(XMaterial.PLAYER_HEAD, 0, "%player_name%", 1, color + "&l%player_name%", Arrays.asList(
                 color + "Joined: &7%player_join%",
                 color + "Rank: &7%player_rank%",
                 "",
@@ -58,13 +58,13 @@ public class Inventories {
                 color + "&l[!] &7Left click to demote/kick"
         )));
 
-        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
+        invitesGUI = new SingleItemGUI(0, "&7" + team + " Invites", background1, new Item(XMaterial.PLAYER_HEAD, 0, "%player_name%", 1, color + "&l%player_name%", Arrays.asList(
                 color + "Invited: &7%invite_time%",
                 "",
                 color + "&l[!] &7Left click to uninvite"
         )));
 
-        trustsGUI = new SingleItemGUI(0, "&7" + team + " Trusts", background1, new Item(XMaterial.PLAYER_HEAD, 0, 1, color + "&l%player_name%", "%player_name%", Arrays.asList(
+        trustsGUI = new SingleItemGUI(0, "&7" + team + " Trusts", background1, new Item(XMaterial.PLAYER_HEAD, 0, "%player_name%", 1, color + "&l%player_name%", Arrays.asList(
                 color + "Trusted At: &7%trusted_time%",
                 color + "Trusted By: &7%truster%",
                 "",
@@ -94,7 +94,7 @@ public class Inventories {
                         "&b&l[!] &bLeft Click to Teleport",
                         "&b&l[!] &bRight Click to Delete"
                 )));
-        topGUI = new TopGUIConfig(54, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", "%" + team.toLowerCase() + "_owner%", Arrays.asList(
+        topGUI = new TopGUIConfig(54, "&7Top " + team, background1, new Item(XMaterial.PLAYER_HEAD, 0, "%" + team.toLowerCase() + "_owner%", 1, color + "&l" + team + " Owner: &f%" + team.toLowerCase() + "_owner%", Arrays.asList(
                 "",
                 color + team + " Name: &7%" + team.toLowerCase() + "_name%",
                 color + team + " Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",

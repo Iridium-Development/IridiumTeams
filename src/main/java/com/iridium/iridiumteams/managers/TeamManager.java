@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTItem;
+import com.iridium.iridiumcore.dependencies.nbtapi.NBT;
 import com.iridium.iridiumcore.dependencies.nbtapi.NBTType;
 import com.iridium.iridiumcore.dependencies.paperlib.PaperLib;
 import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
@@ -45,10 +45,37 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract Optional<T> getTeamViaLocation(Location location);
 
+    /**
+     * Gets a team via a location, providing a team for cache
+     * @param location The location
+     * @param teamCache a team for cache, used for if we know the team of a nearby location, and we assume the current location is also in the team (e.g. on a piston event or a BlockFromToEvent)
+     * @return The Team the location is in
+     */
+
+    public abstract Optional<T> getTeamViaLocation(Location location, T teamCache);
+
+    /**
+     * Gets a team via a location, providing a team for cache
+     * @param location The location
+     * @param teamCache a team for cache, used for if we know the team of a nearby location, and we assume the current location is also in the team (e.g. on a piston event or a BlockFromToEvent)
+     * @return The Team the location is in
+     */
+    public abstract Optional<T> getTeamViaLocation(Location location, Optional<T> teamCache);
+
     public abstract Optional<T> getTeamViaNameOrPlayer(String name);
 
     public Optional<T> getTeamViaPlayerLocation(Player player) {
-        return getTeamViaLocation(player.getLocation());
+        return getTeamViaPlayerLocation(player, player.getLocation());
+    }
+
+    /**
+     * Gets a team via a location, providing a team for cache
+     * @param location The location
+     * @param player a player for cache, used for if the player is near the new location, since the player has an internal team cache for the team they are currently on)
+     * @return The Team the location is in
+     */
+    public Optional<T> getTeamViaPlayerLocation(Player player, Location location) {
+        return getTeamViaLocation(location);
     }
 
     public abstract void sendTeamTitle(Player player, T team);
@@ -379,7 +406,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         if (item == null || item.getType() == Material.AIR) {
             return false;
         }
-        return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
+
+        NBT.get(item, readableItemNBT -> {
+            return readableItemNBT.hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
+        });
+
+        return false;
     }
 
     public enum SortType {
