@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.5.5"
+version = "2.5.7"
 description = "IridiumTeams"
 
 repositories {
@@ -29,11 +29,11 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.2.2")
+    implementation("com.iridium:IridiumCore:2.0.5")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.32")
-    compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("dev.rosewood:rosestacker:1.5.21")
