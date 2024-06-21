@@ -71,6 +71,16 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public Optional<TestTeam> getTeamViaLocation(Location location, TestTeam teamCache) {
+        return teamViaLocation;
+    }
+
+    @Override
+    public Optional<TestTeam> getTeamViaLocation(Location location, Optional<TestTeam> teamCache) {
+        return teamViaLocation;
+    }
+
+    @Override
     public Optional<TestTeam> getTeamViaNameOrPlayer(String name) {
         if (name == null || name.equals("")) return Optional.empty();
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(name);
@@ -89,6 +99,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public List<TestTeam> getTeams() {
         return teams;
+    }
+
+    @Override
+    public boolean isInTeam(TestTeam team, Location location) {
+        return true;
     }
 
     @Override

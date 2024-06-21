@@ -33,8 +33,9 @@ public class Enhancements {
                 color + "&lInformation:",
                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours, %timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                 color + "&l * &7Current Level: %current_level%",
-                color + "&l * &7Booster Cost: $%cost%",
+                color + "&l * &7Booster Cost: $%vault_cost%",
                 "",
+                color + "[!] &7Must be level %minLevel% to purchase",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, FarmingEnhancementData>()
                 .put(1, new FarmingEnhancementData(5, 10000, new HashMap<>(), 1))
@@ -48,13 +49,14 @@ public class Enhancements {
                 color + "&lInformation:",
                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours, %timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                 color + "&l * &7Current Level: %current_level%",
-                color + "&l * &7Booster Cost: $%cost%",
+                color + "&l * &7Booster Cost: $%vault_cost%",
                 "",
+                color + "[!] &7Must be level %minLevel% to purchase",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, SpawnerEnhancementData>()
-                .put(1, new SpawnerEnhancementData(5, 10000, new HashMap<>(), 6))
-                .put(2, new SpawnerEnhancementData(10, 10000, new HashMap<>(), 8))
-                .put(3, new SpawnerEnhancementData(15, 10000, new HashMap<>(), 10))
+                .put(1, new SpawnerEnhancementData(5, 10000, new HashMap<>(), 6, 0))
+                .put(2, new SpawnerEnhancementData(10, 10000, new HashMap<>(), 8, 0))
+                .put(3, new SpawnerEnhancementData(15, 10000, new HashMap<>(), 10, 0))
                 .build());
 
         experienceEnhancement = new Enhancement<>(true, EnhancementType.BOOSTER, new Item(XMaterial.EXPERIENCE_BOTTLE, 14, 1, color + "&lExperience Booster", Arrays.asList(
@@ -63,8 +65,9 @@ public class Enhancements {
                 color + "&lInformation:",
                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours, %timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                 color + "&l * &7Current Level: %current_level%",
-                color + "&l * &7Booster Cost: $%cost%",
+                color + "&l * &7Booster Cost: $%vault_cost%",
                 "",
+                color + "[!] &7Must be level %minLevel% to purchase",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, ExperienceEnhancementData>()
                 .put(1, new ExperienceEnhancementData(5, 10000, new HashMap<>(), 1.5))
@@ -78,28 +81,30 @@ public class Enhancements {
                 color + "&lInformation:",
                 color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours, %timeremaining_minutes% minutes and %timeremaining_seconds% seconds",
                 color + "&l * &7Current Level: %current_level%",
-                color + "&l * &7Booster Cost: $%cost%",
+                color + "&l * &7Booster Cost: $%vault_cost%",
                 "",
+                color + "[!] &7Must be level %minLevel% to purchase",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, FlightEnhancementData>()
                 .put(1, new FlightEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.MEMBERS_IN_TERRITORY)))
                 .put(2, new FlightEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.MEMBERS_ANYWHERE)))
                 .build());
 
-        membersEnhancement = new Enhancement<>(true, EnhancementType.UPGRADE, new Item(XMaterial.PLAYER_HEAD, 11, 1, color + "&lMember Upgrade", "Peaches_MLG", Arrays.asList(
+        membersEnhancement = new Enhancement<>(true, EnhancementType.UPGRADE, new Item(XMaterial.PLAYER_HEAD, 11, "Peaches_MLG", 1, color + "&lMember Upgrade", Arrays.asList(
                 "&7Need more members? Buy this",
                 "&7upgrade to increase your member count.",
                 "",
                 color + "&lInformation:",
                 color + "&l * &7Current Level: " + color + "%current_level%",
                 color + "&l * &7Current Members: " + color + "%members% Members",
-                color + "&l * &7Upgrade Cost: " + color + "%cost%",
+                color + "&l * &7Upgrade Cost: " + color + "%vault_cost%",
                 color + "&lLevels:",
                 color + "&l * &7Level 1: " + color + "5 Members",
                 color + "&l * &7Level 2: " + color + "10 Members",
                 color + "&l * &7Level 3: " + color + "15 Members",
                 color + "&l * &7Level 4: " + color + "20 Members",
                 "",
+                color + "[!] &7Must be level %minLevel% to purchase",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, MembersEnhancementData>()
                 .put(0, new MembersEnhancementData(5, 10000, new HashMap<>(), 5))
@@ -115,7 +120,7 @@ public class Enhancements {
                 color + "&lInformation:",
                 color + "&l * &7Current Level: " + color + "%current_level%",
                 color + "&l * &7Current Warps: " + color + "%warps% Warps",
-                color + "&l * &7Upgrade Cost: " + color + "%cost%",
+                color + "&l * &7Upgrade Cost: " + color + "%vault_cost%",
                 color + "&lLevels:",
                 color + "&l * &7Level 1: " + color + "1 Warps",
                 color + "&l * &7Level 2: " + color + "3 Warps",
@@ -123,6 +128,7 @@ public class Enhancements {
                 color + "&l * &7Level 4: " + color + "7 Warps",
                 color + "&l * &7Level 5: " + color + "9 Warps",
                 "",
+                color + "[!] &7Must be level %minLevel% to purchase",
                 color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
         )), new ImmutableMap.Builder<Integer, WarpsEnhancementData>()
                 .put(0, new WarpsEnhancementData(5, 10000, new HashMap<>(), 1))
@@ -139,13 +145,14 @@ public class Enhancements {
                         "",
                         color + "&lInformation:",
                         color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Upgrade Cost: $%cost%",
+                        color + "&l * &7Upgrade Cost: $%vault_cost%",
                         "",
+                        color + "[!] &7Must be level %minLevel% to purchase",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
-                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.FAST_DIGGING))
-                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.FAST_DIGGING))
-                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.FAST_DIGGING))
+                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.HASTE))
+                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.HASTE))
+                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.HASTE))
                         .build()
                 ))
                 .put("speed", new Enhancement<>(
@@ -154,8 +161,9 @@ public class Enhancements {
                         "",
                         color + "&lInformation:",
                         color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Upgrade Cost: $%cost%",
+                        color + "&l * &7Upgrade Cost: $%vault_cost%",
                         "",
+                        color + "[!] &7Must be level %minLevel% to purchase",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
                         .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.SPEED))
@@ -169,13 +177,14 @@ public class Enhancements {
                         "",
                         color + "&lInformation:",
                         color + "&l * &7Current Level: %current_level%",
-                        color + "&l * &7Upgrade Cost: $%cost%",
+                        color + "&l * &7Upgrade Cost: $%vault_cost%",
                         "",
+                        color + "[!] &7Must be level %minLevel% to purchase",
                         color + "&l[!] " + color + "Left Click to Purchase Level %next_level%."
                 )), new ImmutableMap.Builder<Integer, PotionEnhancementData>()
-                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.JUMP))
-                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.JUMP))
-                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.JUMP))
+                        .put(1, new PotionEnhancementData(5, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 1, XPotion.JUMP_BOOST))
+                        .put(2, new PotionEnhancementData(10, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 2, XPotion.JUMP_BOOST))
+                        .put(3, new PotionEnhancementData(15, 10000, new HashMap<>(), Collections.singletonList(EnhancementAffectsType.VISITORS), 3, XPotion.JUMP_BOOST))
                         .build()
                 ))
                 .build();

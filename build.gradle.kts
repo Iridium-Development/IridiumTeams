@@ -1,15 +1,16 @@
 plugins {
     java
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "com.iridium"
-version = "2.3.6-dev1"
+version = "2.5.7"
 description = "IridiumTeams"
 
 repositories {
-    maven("https://repo.mvdw-software.com/content/groups/public/")
+    mavenCentral()
+    mavenLocal()
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://ci.ender.zone/plugin/repository/everything/")
@@ -17,7 +18,10 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://hub.jeff-media.com/nexus/repository/jeff-media-public/")
     maven("https://jitpack.io")
-    mavenCentral()
+    maven("https://repo.rosewooddev.io/repository/public/")
+    maven("https://repo.bg-software.com/repository/api/")
+    maven("https://repo.essentialsx.net/releases/")
+    maven("https://moyskleytech.com/debian/m2")
 }
 
 dependencies {
@@ -25,22 +29,23 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:1.8.6")
+    implementation("com.iridium:IridiumCore:2.0.5")
 
     // Other dependencies that are not required or already available at runtime
-    compileOnly("org.projectlombok:lombok:1.18.30")
-    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("org.projectlombok:lombok:1.18.32")
+    compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
-    compileOnly("me.clip:placeholderapi:2.11.5")
-    compileOnly("be.maximvdw:MVdWPlaceholderAPI:3.1.1-SNAPSHOT") {
-        exclude("org.spigotmc")
-    }
+    compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly("dev.rosewood:rosestacker:1.5.21")
+    compileOnly("com.bgsoftware:WildStackerAPI:2024.1")
+    compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
+    compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Enable lombok annotation processing
-    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
 
     // Test dependencies
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
@@ -60,12 +65,6 @@ tasks {
 
         // Remove the archive classifier suffix
         archiveClassifier.set("")
-
-        // Remove unnecessary files from the jar
-        // > sh0inx: you are the source of my misery, you have been banished to the comments until further notice
-        //minimize {
-        //    exclude(dependency("com.github.cryptomorin:XSeries:*"))
-        //}
     }
 
     // Set UTF-8 as the encoding
@@ -98,16 +97,12 @@ tasks {
     }
 }
 
-// Set the Java version and vendor
-java {
-    toolchain {
-        vendor.set(JvmVendorSpec.ADOPTOPENJDK)
-    }
-}
-
 // Maven publishing
 publishing {
     publications.create<MavenPublication>("maven") {
-        from(components["java"])
+        setGroupId("com.iridium")
+        setArtifactId("IridiumTeams")
+        setVersion(version)
+        artifact(tasks["shadowJar"])
     }
 }

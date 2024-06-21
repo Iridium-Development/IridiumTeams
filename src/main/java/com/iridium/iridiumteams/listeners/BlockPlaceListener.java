@@ -31,7 +31,7 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
 
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getBlock().getLocation());
 
         if (team.isPresent()) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.BLOCK_PLACE)) {
@@ -52,12 +52,15 @@ public class BlockPlaceListener<T extends Team, U extends IridiumUser<T>> implem
         iridiumTeams.getTeamManager().getTeamViaID(user.getTeamID()).ifPresent(team -> {
             iridiumTeams.getMissionManager().handleMissionUpdate(team, event.getBlock().getLocation().getWorld(), "PLACE", material.name(), 1);
         });
-        iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+        iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer(), event.getBlock().getLocation()).ifPresent(team -> {
             TeamBlock teamBlock = iridiumTeams.getTeamManager().getTeamBlock(team, material);
             teamBlock.setAmount(teamBlock.getAmount() + 1);
 
             if (event.getBlock().getState() instanceof CreatureSpawner) {
                 CreatureSpawner creatureSpawner = (CreatureSpawner) event.getBlock().getState();
+
+                if(creatureSpawner.getSpawnedType() == null) return;
+
                 TeamSpawners teamSpawners = iridiumTeams.getTeamManager().getTeamSpawners(team, creatureSpawner.getSpawnedType());
                 teamSpawners.setAmount(teamSpawners.getAmount() + 1);
             }

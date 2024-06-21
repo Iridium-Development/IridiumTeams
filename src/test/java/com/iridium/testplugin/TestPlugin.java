@@ -6,6 +6,7 @@ import com.iridium.iridiumteams.TeamChatPlaceholderBuilder;
 import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.managers.MissionManager;
 import com.iridium.iridiumteams.managers.ShopManager;
+import com.iridium.iridiumteams.managers.SupportManager;
 import com.iridium.testplugin.api.EnhancementUpdateEvent;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
@@ -24,6 +25,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private CommandManager commandManager;
     private MissionManager<TestTeam, User> missionManager;
     private ShopManager<TestTeam, User> shopManager;
+    private SupportManager<TestTeam, User> supportManager;
 
     private Configuration configuration;
     private Messages messages;
@@ -53,6 +55,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.commandManager = new CommandManager(this, "&c", "iridiumtest");
         this.missionManager = new MissionManager<>(this);
         this.shopManager = new ShopManager<>(this);
+        this.supportManager = new SupportManager<>(this);
 
         super.onEnable();
     }
@@ -113,6 +116,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     @Override
     public ShopManager<TestTeam, User> getShopManager() {
         return this.shopManager;
+    }
+
+    @Override
+    public SupportManager<TestTeam, User> getSupportManager() {
+        return this.supportManager;
     }
 
     public Configuration getConfiguration() {

@@ -19,6 +19,7 @@ public class BlockBurnListener<T extends Team, U extends IridiumUser<T>> impleme
 
         iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
             TeamSetting teamSetting = iridiumTeams.getTeamManager().getTeamSetting(team, SettingType.FIRE_SPREAD.getSettingKey());
+            if (teamSetting == null) return;
             if (teamSetting.getValue().equalsIgnoreCase("Disabled")) {
                 event.setCancelled(true);
             }

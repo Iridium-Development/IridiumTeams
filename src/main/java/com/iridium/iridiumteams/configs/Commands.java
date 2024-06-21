@@ -53,6 +53,8 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public RewardsCommand<T, U> rewardsCommand;
     public ExperienceCommand<T, U> experienceCommand;
     public ShopCommand<T, U> shopCommand;
+    public BlockValueCommand<T, U> blockValueCommand;
+    public LevelCommand<T, U> levelCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -78,21 +80,21 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         kickCommand = new KickCommand<>(Collections.singletonList("kick"), "Kick a player from your " + team, "%prefix% &7/" + commandBase + " kick <player>", "", 0);
         leaveCommand = new LeaveCommand<>(Collections.singletonList("leave"), "Leave your current " + team, "%prefix% &7/" + commandBase + " leave", "", 0);
         deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete (player)", "", 0, permissionBase + ".delete.others");
-        infoCommand = new InfoCommand<>(Arrays.asList("info", "level", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "", 0);
+        infoCommand = new InfoCommand<>(Arrays.asList("info", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "", 0);
         descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Set your " + team + " description.", "%prefix% &7/" + commandBase + " description (" + team + ") <description>", "", 0, permissionBase + ".description.others");
         renameCommand = new RenameCommand<>(Collections.singletonList("rename"), "Rename your " + team, "%prefix% &7/" + commandBase + " rename (" + team + ") <name>", "", 0, permissionBase + ".rename.others");
         setHomeCommand = new SetHomeCommand<>(Collections.singletonList("sethome"), "Set your " + team + "'s home", "%prefix% &7/" + commandBase + " sethome", "", 0);
         homeCommand = new HomeCommand<>(Collections.singletonList("home"), "Teleport to your " + team + "'s home", "%prefix% &7/" + commandBase + " home", "", 0);
         bypassCommand = new BypassCommand<>(Collections.singletonList("bypass"), "Bypass " + team + " restrictions", "%prefix% &7/" + commandBase + " bypass", permissionBase + ".bypass", 0);
         transferCommand = new TransferCommand<>(Collections.singletonList("transfer"), "Transfer " + team + " ownership to another player", "%prefix% &7/" + commandBase + " transfer <player>", "", 0);
-        joinCommand = new JoinCommand<>(Collections.singletonList("join"), "Join a " + team, "%prefix% &7/" + commandBase + " join", "", 0);
+        joinCommand = new JoinCommand<>(Collections.singletonList("join"), "Join a " + team, "%prefix% &7/" + commandBase + " join <player>", "", 0);
         bankCommand = new BankCommand<>(Collections.singletonList("bank"), "View your " + team + " bank", "%prefix% &7/" + commandBase + " bank <give/set/remove> <player> <item> <amount>", "", 0, permissionBase + ".bank.modify");
         depositCommand = new DepositCommand<>(Collections.singletonList("deposit"), "Deposit into your " + team + " bank", "%prefix% &7/" + commandBase + " deposit <name> <amount>", "", 0);
         withdrawCommand = new WithdrawCommand<>(Collections.singletonList("withdraw"), "Withdraw from your " + team + " bank", "%prefix% &7/" + commandBase + " withdraw <name> <amount>", "", 0);
         chatCommand = new ChatCommand<>(Arrays.asList("chat", "c"), "Change your " + team + " chat type", "%prefix% &7/" + commandBase + " chat <chattype>", "", 0);
         boostersCommand = new BoostersCommand<>(Collections.singletonList("boosters"), "View your " + team + " Boosters", "%prefix% &7/" + commandBase + " boosters buy <booster>", "", 0);
         upgradesCommand = new UpgradesCommand<>(Collections.singletonList("upgrades"), "View your " + team + " Upgrades", "%prefix% &7/" + commandBase + " upgrades buy <upgrade>", "", 0);
-        flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", permissionBase + ".fly", 0);
+        flyCommand = new FlyCommand<>(Collections.singletonList("fly"), "Toggle your ability to fly", "%prefix% &7/ " + commandBase + " fly", permissionBase + ".fly", permissionBase + ".fly.anywhere", 0);
         topCommand = new TopCommand<>(Collections.singletonList("top"), "View the top " + team + "'s", "%prefix% &7/" + commandBase + " top", "", 0);
         recalculateCommand = new RecalculateCommand<>(Collections.singletonList("recalculate"), "Recalculate all " + team + "'s value ", "%prefix% &7/" + commandBase + " recalculate", permissionBase + ".recalculate", 0);
         warpsCommand = new WarpsCommand<>(Collections.singletonList("warps"), "View your " + team + "'s warps", "%prefix% &7/" + commandBase + " warps", "", 0);
@@ -104,5 +106,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         rewardsCommand = new RewardsCommand<>(Collections.singletonList("rewards"), "View your " + team + " rewards", "%prefix% &7/" + commandBase + " rewards", "", 0);
         experienceCommand = new ExperienceCommand<>(Collections.singletonList("experience"), "View your " + team + " experience", "%prefix% &7/" + commandBase + " experience <give/set/remove> <player> <amount>", "", 0, permissionBase + ".experience.modify");
         shopCommand = new ShopCommand<>(Collections.singletonList("shop"), "Open the Shop", "%prefix% &7/" + commandBase + " shop", "", 0);
+        blockValueCommand = new BlockValueCommand<>(Collections.singletonList("blockvalues"), "View block values","%prefix% &7/" + commandBase + "blockvalues <blocks/spawners> (player)", "", 0);
+        levelCommand = new LevelCommand<>(Collections.singletonList("level"), "Check your " + team + " level", "%prefix% &7/" + commandBase + " level", "", 0);
     }
 }
