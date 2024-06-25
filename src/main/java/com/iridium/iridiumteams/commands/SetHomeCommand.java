@@ -5,9 +5,11 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,6 +42,17 @@ public class SetHomeCommand<T extends Team, U extends IridiumUser<T>> extends Co
                         .replace("%player%", player.getName())
                 ))
         );
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "set_home",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                String.format("%.0f, %.0f, %.0f", player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())
+        ));
+        
         return true;
     }
 

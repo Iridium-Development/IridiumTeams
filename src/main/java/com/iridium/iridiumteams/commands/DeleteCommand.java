@@ -5,10 +5,12 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,16 @@ public class DeleteCommand<T extends Team, U extends IridiumUser<T>> extends Com
             return false;
         }
         deleteTeam(user, team, iridiumTeams, false);
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "delete_team",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                team.getName()
+        ));
+        
         return true;
     }
 

@@ -6,11 +6,13 @@ import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,6 +62,16 @@ public class SetPermissionCommand<T extends Team, U extends IridiumUser<T>> exte
                 .replace("%permission%", permission.get())
                 .replace("%rank%", WordUtils.capitalizeFully(args[1]))
                 .replace("%allowed%", String.valueOf(allowed))
+        ));
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "set_permission",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                permission.get() + " " + rank.get() + " " + allowed
         ));
 
         return true;

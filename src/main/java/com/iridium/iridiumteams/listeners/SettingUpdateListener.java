@@ -5,10 +5,12 @@ import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.api.SettingUpdateEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -27,6 +29,16 @@ public class SettingUpdateListener<T extends Team, U extends IridiumUser<T>> imp
                     iridiumTeams.getTeamManager().sendTeamWeather(player)
             );
         }
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                event.getTeam(),
+                event.getUser().getPlayer().getUniqueId(),
+                "setting_update",
+                1,
+                event.getUser().getPlayer().getLocation(),
+                LocalDateTime.now(),
+                event.getSetting() + ": " + event.getValue()
+        ));
     }
 
 }

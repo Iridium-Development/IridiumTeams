@@ -227,6 +227,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract TeamEnhancement getTeamEnhancement(T team, String enhancement);
 
+    public abstract List<TeamLog> getTeamLogs(T team);
+
+    public abstract void addTeamLog(TeamLog teamLog);
+
     public boolean UpdateEnhancement(T team, String booster, Player player) {
         Enhancement<?> enhancement = iridiumTeams.getEnhancementList().get(booster);
         TeamEnhancement teamEnhancement = getTeamEnhancement(team, booster);
@@ -364,6 +368,18 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         reward.commands.forEach(command ->
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()))
         );
+
+        getTeamViaID(teamReward.getTeamID()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                    team,
+                    player.getUniqueId(),
+                    "claim_reward",
+                    1,
+                    player.getLocation(),
+                    LocalDateTime.now(),
+                    String.valueOf(teamReward.getId())
+            ));
+        });
     }
 
     public void sendTeamTime(Player player) {

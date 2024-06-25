@@ -5,11 +5,13 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +40,16 @@ public class UnInviteCommand<T extends Team, U extends IridiumUser<T>> extends C
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamInviteRevoked
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", offlinePlayer.getName())
+        ));
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "uninvite_player",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                offlinePlayer.getName()
         ));
         
         return true;

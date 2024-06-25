@@ -5,11 +5,13 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,17 @@ public class InviteCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", player.getName())
         ));
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "invite_player",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                offlinePlayerUser.getName()
+        ));
+
         return true;
     }
 

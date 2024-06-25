@@ -5,10 +5,12 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.database.TeamWarp;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -50,6 +52,17 @@ public class DeleteWarpCommand<T extends Team, U extends IridiumUser<T>> extends
                         .replace("%name%", teamWarp.get().getName())
                 ))
         );
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "delete_warp",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                teamWarp.get().getName()
+        ));
+        
         return true;
     }
 

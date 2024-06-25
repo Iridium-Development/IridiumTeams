@@ -5,11 +5,13 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.enhancements.WarpsEnhancementData;
 import com.iridium.iridiumteams.utils.LocationUtils;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -63,6 +65,16 @@ public class SetWarpCommand<T extends Team, U extends IridiumUser<T>> extends Co
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().createdWarp
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%name%", args[0])
+        ));
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "set_warp",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                String.format("%s: Location [X=%d, Y=%d, Z=%d]", args[0], player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())
         ));
 
         return true;

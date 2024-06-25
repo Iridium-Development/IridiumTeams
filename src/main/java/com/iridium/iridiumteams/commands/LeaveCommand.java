@@ -5,10 +5,12 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -45,6 +47,17 @@ public class LeaveCommand<T extends Team, U extends IridiumUser<T>> extends Comm
         });
 
         user.setTeam(null);
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "leave_team",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                player.getName()
+        ));
+        
         return true;
     }
 

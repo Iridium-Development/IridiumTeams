@@ -6,10 +6,12 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.database.TeamWarp;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +62,17 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpIconSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
+
+                iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                        team,
+                        player.getUniqueId(),
+                        "edit_warp_icon",
+                        1,
+                        player.getLocation(),
+                        LocalDateTime.now(),
+                        teamWarp.get().getName() + " " + xMaterial.get().name()
+                ));
+                
                 return true;
             case "description":
                 if (args.length < 3) {
@@ -72,6 +85,17 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpDescriptionSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
+
+                iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                        team,
+                        player.getUniqueId(),
+                        "edit_warp_description",
+                        1,
+                        player.getLocation(),
+                        LocalDateTime.now(),
+                        teamWarp.get().getName() + " " + description
+                ));
+
                 return true;
             default:
                 player.sendMessage(StringUtils.color(syntax.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
