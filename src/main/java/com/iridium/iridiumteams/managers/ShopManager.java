@@ -102,15 +102,17 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
         ));
         iridiumTeams.getShop().successSound.play(player);
 
-        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
-                iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(player.getName()).get(),
-                player.getUniqueId(),
-                "sell",
-                amount,
-                player.getLocation(),
-                LocalDateTime.now(),
-                shopItem.name
-        ));
+        iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(player.getName()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                    team,
+                    player.getUniqueId(),
+                    "sell",
+                    soldAmount,
+                    player.getLocation(),
+                    LocalDateTime.now(),
+                    shopItem.name
+            ));
+        });
     }
 
     private double getBankBalance(Player player, String bankItem) {
@@ -174,15 +176,16 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
             setBankBalance(player, bankItem, getBankBalance(player, bankItem) - cost);
         }
 
-        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
-                iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(player.getName()).get(),
-                player.getUniqueId(),
-                "buy",
-                amount,
-                player.getLocation(),
-                LocalDateTime.now(),
-                shopItem.name)
-        );
+        iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(player.getName()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                    team,
+                    player.getUniqueId(),
+                    "buy",
+                    amount,
+                    player.getLocation(),
+                    LocalDateTime.now(),
+                    shopItem.name));
+        });
     }
 
     private double calculateCost(int amount, int defaultAmount, double defaultPrice) {

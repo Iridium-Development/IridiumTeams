@@ -56,7 +56,7 @@ public class WithdrawCommand<T extends Team, U extends IridiumUser<T>> extends C
                     LocalDateTime.now(),
                     bankItem.get().getName()
             ));
-            
+
             return true;
         } catch (NumberFormatException exception) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
