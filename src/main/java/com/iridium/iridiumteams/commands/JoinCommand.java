@@ -3,16 +3,14 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.SettingType;
-import com.iridium.iridiumteams.database.IridiumUser;
-import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamInvite;
-import com.iridium.iridiumteams.database.TeamSetting;
+import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.MembersEnhancementData;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,6 +76,16 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                         ));
                     }
                 });
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team.get(),
+                player.getUniqueId(),
+                "join_team",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                player.getName()
+        ));
         return true;
     }
 

@@ -5,9 +5,11 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -70,7 +72,18 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             getCooldownProvider().applyCooldown(player);
+
+            iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                    team,
+                    player.getUniqueId(),
+                    "create",
+                    1,
+                    player.getLocation(),
+                    LocalDateTime.now(),
+                    teamName
+            ));
         });
+        
         return false;
     }
 

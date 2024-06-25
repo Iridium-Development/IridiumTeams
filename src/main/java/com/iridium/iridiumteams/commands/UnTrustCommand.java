@@ -2,15 +2,13 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.database.IridiumUser;
-import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamInvite;
-import com.iridium.iridiumteams.database.TeamTrust;
+import com.iridium.iridiumteams.database.*;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +39,16 @@ public class UnTrustCommand<T extends Team, U extends IridiumUser<T>> extends Co
                 .replace("%player%", offlinePlayer.getName())
         ));
 
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "untrust_player",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                offlinePlayer.getName()
+        ));
+        
         return true;
     }
 

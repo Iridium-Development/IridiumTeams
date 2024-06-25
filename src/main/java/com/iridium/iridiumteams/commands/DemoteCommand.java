@@ -6,12 +6,14 @@ import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +71,17 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 }
             }
         }
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "demote",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                targetUser.getUuid().toString()
+        ));
+
         return true;
     }
 

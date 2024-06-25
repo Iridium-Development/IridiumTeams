@@ -368,6 +368,18 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         reward.commands.forEach(command ->
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()))
         );
+
+        getTeamViaID(teamReward.getTeamID()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                    team,
+                    player.getUniqueId(),
+                    "claim_reward",
+                    1,
+                    player.getLocation(),
+                    LocalDateTime.now(),
+                    String.valueOf(teamReward.getId())
+            ));
+        });
     }
 
     public void sendTeamTime(Player player) {

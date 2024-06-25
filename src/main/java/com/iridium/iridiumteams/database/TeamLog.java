@@ -14,10 +14,12 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @NoArgsConstructor
 @DatabaseTable(tableName = "team_log")
-public class TeamLog extends TeamData {
-
+public class TeamLog extends DatabaseObject {
     @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
     private int id;
+
+    @DatabaseField(columnName = "team_id", canBeNull = false)
+    private int teamID;
 
     @DatabaseField(columnName = "user")
     private UUID user;
@@ -38,7 +40,7 @@ public class TeamLog extends TeamData {
     private String type;
 
     public TeamLog(@NotNull Team team, UUID user, String action, double amount, Location location, LocalDateTime dateTime, String type) {
-        super(team);
+        this.teamID = team.getId();
         this.user = user;
         this.action = action;
         this.amount = amount;

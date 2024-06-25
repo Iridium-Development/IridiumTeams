@@ -5,9 +5,11 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -53,6 +55,17 @@ public class DescriptionCommand<T extends Team, U extends IridiumUser<T>> extend
             return false;
         }
         changeDescription(team, String.join(" ", arguments), player, iridiumTeams);
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                team,
+                player.getUniqueId(),
+                "change_description",
+                1,
+                player.getLocation(),
+                LocalDateTime.now(),
+                String.join(" ", arguments)
+        ));
+        
         return true;
     }
 

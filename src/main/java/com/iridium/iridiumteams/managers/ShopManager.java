@@ -9,6 +9,7 @@ import com.iridium.iridiumteams.configs.Shop;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamBank;
+import com.iridium.iridiumteams.database.TeamLog;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,6 +101,16 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
                 .replace("%vault_reward%", String.valueOf(moneyReward))
         ));
         iridiumTeams.getShop().successSound.play(player);
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(player.getName()).get(),
+                player.getUniqueId(),
+                "sell",
+                amount,
+                player.getLocation(),
+                LocalDateTime.now(),
+                shopItem.name
+        ));
     }
 
     private double getBankBalance(Player player, String bankItem) {
@@ -161,6 +173,16 @@ public class ShopManager<T extends Team, U extends IridiumUser<T>> {
             double cost = calculateCost(amount, shopItem.defaultAmount, shopItem.buyCost.bankItems.get(bankItem));
             setBankBalance(player, bankItem, getBankBalance(player, bankItem) - cost);
         }
+
+        iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                iridiumTeams.getTeamManager().getTeamViaNameOrPlayer(player.getName()).get(),
+                player.getUniqueId(),
+                "buy",
+                amount,
+                player.getLocation(),
+                LocalDateTime.now(),
+                shopItem.name)
+        );
     }
 
     private double calculateCost(int amount, int defaultAmount, double defaultPrice) {

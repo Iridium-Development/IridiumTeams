@@ -81,5 +81,10 @@
       <option name="name" value="maven11" />
       <option name="url" value="https://moyskleytech.com/debian/m2" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="MavenLocal" />
+      <option name="name" value="MavenLocal" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../Genre%20Mamanao/.m2/repository/" />
+    </remote-repository>
   </component>
 </project>

@@ -5,12 +5,14 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,6 +68,16 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%old_owner%", user.getName())
                             .replace("%new_owner%", targetUser.getName())
+                    ));
+
+                    iridiumTeams.getTeamManager().addTeamLog(new TeamLog(
+                            team,
+                            user.getUuid(),
+                            "transfer_ownership",
+                            1,
+                            player.getLocation(),
+                            LocalDateTime.now(),
+                            targetUser.getName()
                     ));
                 }
             });
