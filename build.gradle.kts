@@ -32,7 +32,7 @@ dependencies {
     implementation("com.iridium:IridiumCore:2.0.5")
 
     // Other dependencies that are not required or already available at runtime
-    compileOnly("org.projectlombok:lombok:1.18.32")
+    compileOnly("org.projectlombok:lombok:1.18.34")
     compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.6")
@@ -45,7 +45,7 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Enable lombok annotation processing
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.34")
 
     // Test dependencies
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
