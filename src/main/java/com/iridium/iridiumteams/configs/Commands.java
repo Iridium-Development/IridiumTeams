@@ -79,7 +79,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         trustsCommand = new TrustsCommand<>(Collections.singletonList("trusts"), "View all active trusted members for your " + team, "%prefix% &7/" + commandBase + " trusts", "", 0);
         kickCommand = new KickCommand<>(Collections.singletonList("kick"), "Kick a player from your " + team, "%prefix% &7/" + commandBase + " kick <player>", "", 0);
         leaveCommand = new LeaveCommand<>(Collections.singletonList("leave"), "Leave your current " + team, "%prefix% &7/" + commandBase + " leave", "", 0);
-        deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete (player)", "", 0, permissionBase + ".delete.others");
+        deleteCommand = new DeleteCommand<>(Collections.singletonList("delete"), "Delete your " + team, "%prefix% &7/" + commandBase + " delete (player)", "", 0, permissionBase + ".delete.others", true);
         infoCommand = new InfoCommand<>(Arrays.asList("info", "value"), "View information about a " + team, "%prefix% &7/" + commandBase + " info <" + team.toLowerCase() + ">", "", 0);
         descriptionCommand = new DescriptionCommand<>(Collections.singletonList("description"), "Set your " + team + " description.", "%prefix% &7/" + commandBase + " description (" + team + ") <description>", "", 0, permissionBase + ".description.others");
         renameCommand = new RenameCommand<>(Collections.singletonList("rename"), "Rename your " + team, "%prefix% &7/" + commandBase + " rename (" + team + ") <name>", "", 0, permissionBase + ".rename.others");
