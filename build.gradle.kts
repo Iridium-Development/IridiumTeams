@@ -55,14 +55,12 @@ dependencies {
 }
 
 tasks {
-    // "Replace" the build task with the shadowJar task (probably bad but who cares)
-    jar {
-        dependsOn("shadowJar")
-        enabled = false
+    // Add the shadowJar task to the build task
+    build {
+        dependsOn(shadowJar)
     }
 
     shadowJar {
-
         // Remove the archive classifier suffix
         archiveClassifier.set("")
     }
