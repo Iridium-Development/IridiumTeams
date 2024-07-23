@@ -63,6 +63,14 @@ tasks {
     shadowJar {
         // Remove the archive classifier suffix
         archiveClassifier.set("")
+
+        fun relocate(origin: String) = relocate(origin, "com.iridium.iridiumteams.dependencies${origin.substring(origin.lastIndexOf('.'))}")
+
+        relocate("org.bstats")
+        relocate("org.intellij")
+        relocate("org.jetbrains")
+        relocate("de.jeff_media.updatechecker")
+        relocate("com.j256.ormlite")
     }
 
     // Set UTF-8 as the encoding
