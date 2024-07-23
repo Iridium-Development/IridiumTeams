@@ -55,13 +55,19 @@ dependencies {
 }
 
 tasks {
-    // "Replace" the build task with the shadowJar task (probably bad but who cares)
-    jar {
-        dependsOn("shadowJar")
-        enabled = false
+    // Add the shadowJar task to the build task
+    build {
+        dependsOn(shadowJar)
     }
 
     shadowJar {
+        fun relocate(origin: String) = relocate(origin, "com.iridium.iridiumteams.dependencies${origin.substring(origin.lastIndexOf('.'))}")
+
+        relocate("org.bstats")
+        relocate("org.intellij")
+        relocate("org.jetbrains")
+        relocate("de.jeff_media.updatechecker")
+        relocate("com.j256.ormlite")
 
         // Remove the archive classifier suffix
         archiveClassifier.set("")
