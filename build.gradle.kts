@@ -42,7 +42,7 @@ dependencies {
     compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
     implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation("org.bstats:bstats-bukkit:3.0.3")
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.34")
