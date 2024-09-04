@@ -22,7 +22,7 @@ public class BoostersCommand<T extends Team, U extends IridiumUser<T>> extends C
     public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
-            player.openInventory(new BoostersGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            player.openInventory(new BoostersGUI<>(team, player, iridiumTeams).getInventory());
             return false;
         }
         if (args.length != 2 || !args[0].equalsIgnoreCase("buy")) {

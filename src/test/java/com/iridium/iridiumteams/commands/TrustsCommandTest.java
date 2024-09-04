@@ -6,7 +6,6 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
-import com.iridium.iridiumteams.gui.InvitesGUI;
 import com.iridium.iridiumteams.gui.TrustsGUI;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;

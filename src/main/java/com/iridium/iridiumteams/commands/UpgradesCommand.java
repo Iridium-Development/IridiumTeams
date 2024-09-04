@@ -23,7 +23,7 @@ public class UpgradesCommand<T extends Team, U extends IridiumUser<T>> extends C
     public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
-            player.openInventory(new UpgradesGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            player.openInventory(new UpgradesGUI<>(team, player, iridiumTeams).getInventory());
             return true;
         }
         if (args.length != 2 || !args[0].equalsIgnoreCase("buy")) {

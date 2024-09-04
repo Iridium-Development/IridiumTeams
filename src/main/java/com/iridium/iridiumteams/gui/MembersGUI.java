@@ -8,6 +8,7 @@ import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,14 +21,14 @@ public class MembersGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
 
-    public MembersGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public MembersGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
                 iridiumTeams.getInventories().membersGUI.size,
                 iridiumTeams.getInventories().membersGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
-                previousInventory,
+                player,
                 iridiumTeams.getInventories().backButton
         );
         this.iridiumTeams = iridiumTeams;

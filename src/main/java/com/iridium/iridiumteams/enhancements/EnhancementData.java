@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.enhancements;
 
-import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iridium.iridiumcore.utils.Placeholder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
