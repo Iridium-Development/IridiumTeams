@@ -19,7 +19,7 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
     @Override
     public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        player.openInventory(new TopGUI<>(iridiumTeams.getTop().valueTeamSort, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        player.openInventory(new TopGUI<>(iridiumTeams.getTop().valueTeamSort, player, iridiumTeams).getInventory());
         return true;
     }
 

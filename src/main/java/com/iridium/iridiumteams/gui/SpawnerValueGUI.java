@@ -12,6 +12,7 @@ import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -24,14 +25,14 @@ public class SpawnerValueGUI<T extends Team, U extends IridiumUser<T>> extends P
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public SpawnerValueGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public SpawnerValueGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
                 iridiumTeams.getInventories().spawnerValueGUI.size,
                 iridiumTeams.getInventories().spawnerValueGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
-                previousInventory,
+                player,
                 iridiumTeams.getInventories().backButton
         );
         this.team = team;

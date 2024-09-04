@@ -13,6 +13,7 @@ import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,14 +27,14 @@ public class BlockValueGUI<T extends Team, U extends IridiumUser<T>> extends Pag
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public BlockValueGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public BlockValueGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
                 iridiumTeams.getInventories().blockValueGUI.size,
                 iridiumTeams.getInventories().blockValueGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
-                previousInventory,
+                player,
                 iridiumTeams.getInventories().backButton
         );
         this.team = team;
