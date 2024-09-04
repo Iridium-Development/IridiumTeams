@@ -7,7 +7,6 @@ import com.iridium.iridiumteams.configs.inventories.BlockValuesTypeSelectorInven
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamSetting;
-
 import com.iridium.iridiumteams.gui.BlockValueGUI;
 import com.iridium.iridiumteams.gui.BlockValuesTypeSelectorGUI;
 import com.iridium.iridiumteams.gui.SpawnerValueGUI;

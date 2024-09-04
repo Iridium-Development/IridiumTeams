@@ -3,7 +3,6 @@ package com.iridium.iridiumteams.commands;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.gui.InvitesGUI;
 import com.iridium.iridiumteams.gui.TrustsGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;

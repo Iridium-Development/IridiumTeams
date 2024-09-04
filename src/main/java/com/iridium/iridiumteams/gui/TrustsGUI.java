@@ -8,7 +8,6 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamTrust;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

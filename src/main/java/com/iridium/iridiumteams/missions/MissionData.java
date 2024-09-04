@@ -1,7 +1,7 @@
 package com.iridium.iridiumteams.missions;
 
+import com.cryptomorin.xseries.XSound;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XSound;
 import com.iridium.iridiumteams.Reward;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
