@@ -4,7 +4,6 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamTrust;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;

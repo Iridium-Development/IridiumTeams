@@ -10,6 +10,7 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -26,16 +27,16 @@ public class PermissionsGUI<T extends Team, U extends IridiumUser<T>> extends Ba
     @Getter
     private int page;
 
-    public PermissionsGUI(T team, int rank, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().permissionsGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public PermissionsGUI(T team, int rank, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().permissionsGUI.background, player, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
         this.team = team;
         this.rank = rank;
         this.page = 1;
     }
 
-    public PermissionsGUI(T team, int rank, int page, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().permissionsGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public PermissionsGUI(T team, int rank, int page, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().permissionsGUI.background, player, iridiumTeams.getInventories().backButton);
 
         this.iridiumTeams = iridiumTeams;
         this.team = team;

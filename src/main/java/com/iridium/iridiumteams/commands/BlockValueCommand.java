@@ -7,7 +7,6 @@ import com.iridium.iridiumteams.configs.inventories.BlockValuesTypeSelectorInven
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamSetting;
-
 import com.iridium.iridiumteams.gui.BlockValueGUI;
 import com.iridium.iridiumteams.gui.BlockValuesTypeSelectorGUI;
 import com.iridium.iridiumteams.gui.SpawnerValueGUI;
@@ -58,25 +57,25 @@ public class BlockValueCommand<T extends Team, U extends IridiumUser<T>> extends
         }
 
         if (args.length == 0) {
-            player.openInventory(new BlockValuesTypeSelectorGUI<>(teamArg, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            player.openInventory(new BlockValuesTypeSelectorGUI<>(teamArg, player, iridiumTeams).getInventory());
             return true;
         }
 
         switch (args[args.length - 1]) {
             case ("blocks"): {
                 if (blockValuesTypeSelectorInventoryConfig.blocks.enabled) {
-                    player.openInventory(new BlockValueGUI<>(team.get(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    player.openInventory(new BlockValueGUI<>(team.get(), player, iridiumTeams).getInventory());
                     return true;
                 }
             }
             case ("spawners"): {
                 if (blockValuesTypeSelectorInventoryConfig.spawners.enabled) {
-                    player.openInventory(new SpawnerValueGUI<>(team.get(), player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                    player.openInventory(new SpawnerValueGUI<>(team.get(), player, iridiumTeams).getInventory());
                     return true;
                 }
             }
             default: {
-                player.openInventory(new BlockValuesTypeSelectorGUI<>(teamArg, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+                player.openInventory(new BlockValuesTypeSelectorGUI<>(teamArg, player, iridiumTeams).getInventory());
                 return true;
             }
         }

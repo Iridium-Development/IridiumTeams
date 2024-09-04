@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.commands;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;

@@ -14,6 +14,7 @@ import com.iridium.iridiumteams.missions.MissionData;
 import com.iridium.iridiumteams.missions.MissionType;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -30,8 +31,8 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
     private final MissionType missionType;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public MissionGUI(T team, MissionType missionType, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().missionGUI.get(missionType).background, previousInventory, iridiumTeams.getInventories().backButton);
+    public MissionGUI(T team, MissionType missionType, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().missionGUI.get(missionType).background, player, iridiumTeams.getInventories().backButton);
         this.team = team;
         this.missionType = missionType;
         this.iridiumTeams = iridiumTeams;

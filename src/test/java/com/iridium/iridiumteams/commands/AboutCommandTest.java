@@ -4,17 +4,12 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumcore.utils.StringUtils;
-import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.support.SpawnerSupport;
-import com.iridium.iridiumteams.support.StackerSupport;
 import com.iridium.testplugin.TestPlugin;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class AboutCommandTest {
 
