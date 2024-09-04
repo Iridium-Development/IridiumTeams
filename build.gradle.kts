@@ -99,9 +99,9 @@ tasks {
 // Maven publishing
 publishing {
     publications.create<MavenPublication>("maven") {
-        setGroupId("com.iridium")
-        setArtifactId("IridiumTeams")
-        setVersion(version)
+        groupId = "com.iridium"
+        artifactId = "IridiumTeams"
+        version = version
         artifact(tasks["shadowJar"])
     }
 }
