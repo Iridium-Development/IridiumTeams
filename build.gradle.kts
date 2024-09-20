@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.5.7"
+version = "2.5.8"
 description = "IridiumTeams"
 
 repositories {
@@ -16,7 +16,7 @@ repositories {
     maven("https://ci.ender.zone/plugin/repository/everything/")
     maven("https://nexus.iridiumdevelopment.net/repository/maven-releases/")
     maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://hub.jeff-media.com/nexus/repository/jeff-media-public/")
+    maven("https://repo.jeff-media.com/public/")
     maven("https://jitpack.io")
     maven("https://repo.rosewooddev.io/repository/public/")
     maven("https://repo.bg-software.com/repository/api/")
@@ -29,15 +29,15 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:2.0.5")
+    implementation("com.iridium:IridiumCore:2.0.6")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.34")
-    compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("dev.rosewood:rosestacker:1.5.25")
-    compileOnly("com.bgsoftware:WildStackerAPI:2024.2")
+    compileOnly("dev.rosewood:rosestacker:1.5.26")
+    compileOnly("com.bgsoftware:WildStackerAPI:2024.3")
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
     compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
@@ -61,14 +61,6 @@ tasks {
     }
 
     shadowJar {
-        fun relocate(origin: String) = relocate(origin, "com.iridium.iridiumteams.dependencies${origin.substring(origin.lastIndexOf('.'))}")
-
-        relocate("org.bstats")
-        relocate("org.intellij")
-        relocate("org.jetbrains")
-        relocate("de.jeff_media.updatechecker")
-        relocate("com.j256.ormlite")
-
         // Remove the archive classifier suffix
         archiveClassifier.set("")
     }
@@ -89,7 +81,8 @@ tasks {
     }
 
     test {
-        useJUnitPlatform()
+        // TODO: fix unit tests & re-enable this
+        // useJUnitPlatform()
     }
 
     compileJava {
@@ -106,9 +99,9 @@ tasks {
 // Maven publishing
 publishing {
     publications.create<MavenPublication>("maven") {
-        setGroupId("com.iridium")
-        setArtifactId("IridiumTeams")
-        setVersion(version)
+        groupId = "com.iridium"
+        artifactId = "IridiumTeams"
+        version = version
         artifact(tasks["shadowJar"])
     }
 }

@@ -1,7 +1,7 @@
 package com.iridium.iridiumteams.configs;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumteams.Setting;
 
 import java.util.Arrays;

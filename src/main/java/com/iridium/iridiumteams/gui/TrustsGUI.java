@@ -8,9 +8,9 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamInvite;
 import com.iridium.iridiumteams.database.TeamTrust;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,14 +27,14 @@ public class TrustsGUI<T extends Team, U extends IridiumUser<T>> extends PagedGU
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public TrustsGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public TrustsGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
                 iridiumTeams.getInventories().trustsGUI.size,
                 iridiumTeams.getInventories().trustsGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
-                previousInventory,
+                player,
                 iridiumTeams.getInventories().backButton
         );
         this.team = team;

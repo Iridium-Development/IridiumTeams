@@ -9,6 +9,7 @@ import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -17,8 +18,8 @@ public class MissionTypeSelectorGUI<T extends Team, U extends IridiumUser<T>> ex
 
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public MissionTypeSelectorGUI(Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().missionTypeSelectorGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public MissionTypeSelectorGUI(Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().missionTypeSelectorGUI.background, player, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
     }
 

@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.enhancements;
 
-import com.iridium.iridiumcore.dependencies.xseries.XPotion;
+import com.cryptomorin.xseries.XPotion;
 import lombok.NoArgsConstructor;
 
 import java.util.List;

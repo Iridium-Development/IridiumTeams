@@ -114,7 +114,7 @@ public class BankCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     @Override
     public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        player.openInventory(new BankGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        player.openInventory(new BankGUI<>(team, player, iridiumTeams).getInventory());
         return false;
     }
 

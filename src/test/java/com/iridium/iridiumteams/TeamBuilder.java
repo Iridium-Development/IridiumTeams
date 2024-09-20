@@ -1,7 +1,7 @@
 package com.iridium.iridiumteams;
 
 import be.seeseemelk.mockbukkit.ServerMock;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.database.TeamEnhancement;
 import com.iridium.iridiumteams.database.TeamReward;
 import com.iridium.testplugin.TestPlugin;

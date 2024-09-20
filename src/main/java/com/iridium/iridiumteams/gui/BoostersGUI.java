@@ -13,6 +13,7 @@ import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -25,8 +26,8 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
     private final IridiumTeams<T, U> iridiumTeams;
     private final Map<Integer, String> boosters = new HashMap<>();
 
-    public BoostersGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().boostersGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public BoostersGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().boostersGUI.background, player, iridiumTeams.getInventories().backButton);
         this.team = team;
         this.iridiumTeams = iridiumTeams;
     }

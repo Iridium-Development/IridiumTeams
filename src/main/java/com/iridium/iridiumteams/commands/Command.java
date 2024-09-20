@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.commands;
 
-import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iridium.iridiumcore.CooldownProvider;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
