@@ -1,11 +1,11 @@
 plugins {
     java
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.github.goooler.shadow") version "8.1.8"
 }
 
 group = "com.iridium"
-version = "2.5.8"
+version = "2.5.9"
 description = "IridiumTeams"
 
 repositories {
@@ -29,7 +29,7 @@ dependencies {
     implementation("org.jetbrains:annotations:25.0.0")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:2.0.6")
+    implementation("com.iridium:IridiumCore:2.0.7")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.34")
