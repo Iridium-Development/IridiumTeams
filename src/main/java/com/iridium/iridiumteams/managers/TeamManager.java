@@ -326,6 +326,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         for (TeamMission teamMission : teamMissions) {
             if (teamMission.hasExpired()) {
                 deleteTeamMission(teamMission);
+                deleteTeamMissionData(teamMission);
             } else {
                 missions.add(teamMission.getMissionName());
             }
