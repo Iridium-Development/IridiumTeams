@@ -308,6 +308,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract void deleteTeamMission(TeamMission teamMission);
 
+    public abstract void deleteTeamMissionData(TeamMission teamMission);
+
     public void resetTeamMissionData(TeamMission teamMission) {
         getTeamMissionData(teamMission).forEach(teamMissionData -> teamMissionData.setProgress(0));
     }
