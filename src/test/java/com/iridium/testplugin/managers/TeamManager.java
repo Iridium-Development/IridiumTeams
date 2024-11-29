@@ -315,6 +315,14 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public void deleteTeamMissionData(TeamMission teamMission) {
+        for(TeamMissionData missionData : teamMissionData) {
+            if(missionData.getMissionID() != teamMission.getId()) { continue; }
+            teamMissionData.remove(missionData);
+        }
+    }
+
+    @Override
     public List<TeamReward> getTeamRewards(TestTeam team) {
         return teamRewards.stream().filter(teamReward -> teamReward.getTeamID() == team.getId()).collect(Collectors.toList());
     }
