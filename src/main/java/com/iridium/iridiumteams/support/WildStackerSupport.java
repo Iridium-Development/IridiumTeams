@@ -82,7 +82,7 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
         HashMap<XMaterial, Integer> hashMap = new HashMap<>();
 
         WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrels(chunk).forEach(stackedBarrel -> {
-            if (iridiumTeams.getTeamManager().isInTeam(team, stackedBarrel.getLocation())) return;
+            if (!iridiumTeams.getTeamManager().isInTeam(team, stackedBarrel.getLocation())) return;
 
             XMaterial xMaterial = XMaterial.matchXMaterial(stackedBarrel.getType());
             hashMap.put(xMaterial, hashMap.getOrDefault(xMaterial, 0) + stackedBarrel.getStackAmount());
