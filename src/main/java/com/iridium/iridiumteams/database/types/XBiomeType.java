@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.database.types;
 
-import com.iridium.iridiumcore.dependencies.xseries.XBiome;
+import com.cryptomorin.xseries.XBiome;
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.field.types.StringType;
@@ -23,7 +23,7 @@ public class XBiomeType extends StringType {
     @Override
     public Object sqlArgToJava(FieldType fieldType, Object sqlArg, int columnPos) throws SQLException {
         String value = (String) super.sqlArgToJava(fieldType, sqlArg, columnPos);
-        Optional<XBiome> biome = XBiome.matchXBiome(value);
+        Optional<XBiome> biome = XBiome.of(value);
         return biome.orElse(null);
     }
 

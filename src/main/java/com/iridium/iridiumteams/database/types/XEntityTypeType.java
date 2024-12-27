@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.database.types;
 
-import com.iridium.iridiumcore.dependencies.xseries.XEntityType;
+import com.cryptomorin.xseries.XEntityType;
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.field.types.StringType;
@@ -23,7 +23,7 @@ public class XEntityTypeType extends StringType {
     @Override
     public Object sqlArgToJava(FieldType fieldType, Object sqlArg, int columnPos) throws SQLException {
         String value = (String) super.sqlArgToJava(fieldType, sqlArg, columnPos);
-        Optional<XEntityType> entity =  Optional.ofNullable(XEntityType.of(value));
+        Optional<XEntityType> entity =  XEntityType.of(value);
         return entity.orElse(null);
     }
 
