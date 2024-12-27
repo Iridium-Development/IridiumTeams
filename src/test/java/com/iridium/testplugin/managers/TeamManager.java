@@ -1,6 +1,6 @@
 package com.iridium.testplugin.managers;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.Setting;
 import com.iridium.iridiumteams.database.*;
@@ -312,6 +312,14 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     @Override
     public void deleteTeamMission(TeamMission teamMission) {
         teamMissions.remove(teamMission);
+    }
+
+    @Override
+    public void deleteTeamMissionData(TeamMission teamMission) {
+        for(TeamMissionData missionData : teamMissionData) {
+            if(missionData.getMissionID() != teamMission.getId()) { continue; }
+            teamMissionData.remove(missionData);
+        }
     }
 
     @Override

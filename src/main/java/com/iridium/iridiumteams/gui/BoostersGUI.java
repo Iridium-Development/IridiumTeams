@@ -13,6 +13,7 @@ import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -25,8 +26,8 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
     private final IridiumTeams<T, U> iridiumTeams;
     private final Map<Integer, String> boosters = new HashMap<>();
 
-    public BoostersGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().boostersGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public BoostersGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().boostersGUI.background, player, iridiumTeams.getInventories().backButton);
         this.team = team;
         this.iridiumTeams = iridiumTeams;
     }
@@ -56,15 +57,25 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
             int currentLevel = teamEnhancement.isActive(enhancementEntry.getValue().type) ? teamEnhancement.getLevel() : 0;
             String nextLevel = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(currentLevel + 1);
             String cost = nextData == null ? currentData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(currentData.money) : String.valueOf(nextData.money);
+            String minLevel = nextData == null ? iridiumTeams.getMessages().nullPlaceholder : String.valueOf(nextData.minLevel);
             List<Placeholder> placeholders = currentData == null ? new ArrayList<>() : new ArrayList<>(currentData.getPlaceholders());
             placeholders.addAll(Arrays.asList(
                     new Placeholder("timeremaining_hours", String.valueOf(hours)),
                     new Placeholder("timeremaining_minutes", String.valueOf(minutes)),
                     new Placeholder("timeremaining_seconds", String.valueOf(seconds)),
                     new Placeholder("current_level", String.valueOf(currentLevel)),
+                    new Placeholder("minLevel", minLevel),
                     new Placeholder("next_level", nextLevel),
-                    new Placeholder("cost", cost)
+                    new Placeholder("cost", cost),
+                    new Placeholder("vault_cost", cost)
             ));
+
+            if(nextData != null) {
+                for (Map.Entry<String, Double> bankItem : nextData.bankCosts.entrySet()) {
+                    placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
+                }
+            }
+
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
     }
@@ -76,5 +87,12 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
         if (!boosters.containsKey(event.getSlot())) return;
         String booster = boosters.get(event.getSlot());
         iridiumTeams.getCommandManager().executeCommand(event.getWhoClicked(), iridiumTeams.getCommands().boostersCommand, new String[]{"buy", booster});
+    }
+
+    public String formatPrice(double value) {
+        if (iridiumTeams.getShop().abbreviatePrices) {
+            return iridiumTeams.getConfiguration().numberFormatter.format(value);
+        }
+        return String.valueOf(value);
     }
 }

@@ -3,8 +3,8 @@ package com.iridium.iridiumteams.gui;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableMap;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.InventoryUtils;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.TeamBuilder;
@@ -62,7 +62,8 @@ class ShopCategoryGUITest {
                                         1,
                                         12,
                                         new Shop.Cost(100, new HashMap<>()),
-                                        new Shop.Cost(10, new HashMap<>())
+                                        new Shop.Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new Shop.ShopItem(
                                         "&9&lWater Bucket",
@@ -70,7 +71,8 @@ class ShopCategoryGUITest {
                                         1,
                                         13,
                                         new Shop.Cost(200, new HashMap<>()),
-                                        new Shop.Cost(10, new HashMap<>())
+                                        new Shop.Cost(10, new HashMap<>()),
+                                        1
                                 ),
                                 new Shop.ShopItem(
                                         "&9&lLava Bucket",
@@ -78,7 +80,8 @@ class ShopCategoryGUITest {
                                         1,
                                         14,
                                         new Shop.Cost(200, new HashMap<>()),
-                                        new Shop.Cost(20, new HashMap<>())
+                                        new Shop.Cost(20, new HashMap<>()),
+                                        1
                                 ),
                                 new Shop.ShopItem(
                                         "&9&lName Tag",
@@ -86,7 +89,8 @@ class ShopCategoryGUITest {
                                         1,
                                         21,
                                         new Shop.Cost(200, new HashMap<>()),
-                                        new Shop.Cost(30, new HashMap<>())
+                                        new Shop.Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new Shop.ShopItem(
                                         "&9&lSaddle",
@@ -94,7 +98,8 @@ class ShopCategoryGUITest {
                                         1,
                                         22,
                                         new Shop.Cost(300, new HashMap<>()),
-                                        new Shop.Cost(30, new HashMap<>())
+                                        new Shop.Cost(30, new HashMap<>()),
+                                        1
                                 ),
                                 new Shop.ShopItem(
                                         "&9&lEnd Portal Frame",
@@ -102,7 +107,8 @@ class ShopCategoryGUITest {
                                         1,
                                         23,
                                         new Shop.Cost(5000, new HashMap<>()),
-                                        new Shop.Cost(0, new HashMap<>())
+                                        new Shop.Cost(0, new HashMap<>()),
+                                        1
                                 ),
                                 new Shop.ShopItem(
                                         "&9&lDiamond",
@@ -111,7 +117,8 @@ class ShopCategoryGUITest {
                                         12,
                                         2,
                                         new Shop.Cost(100, new HashMap<>()),
-                                        new Shop.Cost(10, new HashMap<>())
+                                        new Shop.Cost(10, new HashMap<>()),
+                                        1
                                 )
                         )
                 )

@@ -56,10 +56,15 @@ public class IridiumUser<T extends Team> extends DatabaseObject {
 
     public boolean canFly(IridiumTeams<T, ?> iridiumTeams) {
         Player player = getPlayer();
-        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.permission)) return true;
-        if (isBypassing()) return true;
+
+        if (isBypassing()) return true; // bypass should be checked first, since this is an admin permission
+        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.getFlyAnywherePermission())) return true;
+
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaID(getTeamID());
         Optional<T> visitor = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player);
+        if (player.hasPermission(iridiumTeams.getCommands().flyCommand.permission) && team.isPresent() && team.map(T::getId).orElse(-1).equals(visitor.map(T::getId).orElse(-1))) {
+            return true;
+        }
         return canFly(team.orElse(null), iridiumTeams) || canFly(visitor.orElse(null), iridiumTeams);
     }
 

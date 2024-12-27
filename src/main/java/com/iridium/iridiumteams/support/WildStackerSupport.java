@@ -2,14 +2,11 @@ package com.iridium.iridiumteams.support;
 
 import com.bgsoftware.wildstacker.api.WildStackerAPI;
 import com.bgsoftware.wildstacker.api.objects.StackedBarrel;
-import com.bgsoftware.wildstacker.api.objects.StackedObject;
 import com.bgsoftware.wildstacker.api.objects.StackedSpawner;
-
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
@@ -82,7 +79,7 @@ public class WildStackerSupport<T extends Team, U extends IridiumUser<T>> implem
 
     @Override
     public Map<XMaterial, Integer> getBlocksStacked(Chunk chunk, T team) {
-        HashMap<XMaterial, Integer> hashMap = new HashMap();
+        HashMap<XMaterial, Integer> hashMap = new HashMap<>();
 
         WildStackerAPI.getWildStacker().getSystemManager().getStackedBarrels(chunk).forEach(stackedBarrel -> {
             if (iridiumTeams.getTeamManager().isInTeam(team, stackedBarrel.getLocation())) return;

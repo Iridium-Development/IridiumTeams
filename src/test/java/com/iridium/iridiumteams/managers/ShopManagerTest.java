@@ -3,7 +3,7 @@ package com.iridium.iridiumteams.managers;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.InventoryUtils;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.UserBuilder;
@@ -35,7 +35,8 @@ class ShopManagerTest {
                 16,
                 0,
                 new Shop.Cost(200, new HashMap<>()),
-                new Shop.Cost(30, new HashMap<>())
+                new Shop.Cost(30, new HashMap<>()),
+                1
         );
     }
 

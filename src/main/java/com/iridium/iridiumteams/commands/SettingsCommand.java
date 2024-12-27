@@ -30,7 +30,7 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
     public boolean execute(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (args.length == 0) {
-            player.openInventory(new SettingsGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            player.openInventory(new SettingsGUI<>(team, player, iridiumTeams).getInventory());
             return true;
         } else if (args.length == 2) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.SETTINGS)) {

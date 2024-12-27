@@ -1,9 +1,9 @@
 package com.iridium.iridiumteams.configs;
 
+import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
-import com.iridium.iridiumcore.dependencies.xseries.XSound;
 import com.iridium.iridiumcore.utils.NumberFormatter;
 import com.iridium.iridiumteams.Reward;
 import com.iridium.iridiumteams.UserRank;
@@ -24,12 +24,17 @@ public class Configuration {
 
     public int recalculateInterval;
     public int forceRecalculateInterval;
+    public boolean enableLeveling;
+    public boolean giveLevelRewards;
+    public int flatExpRequirement;
+    public double curvedExpModifier;
     public Map<Integer, UserRank> userRanks;
     public UserRank visitor;
     public UserRank owner;
     public String teamInfoTitle;
     public String teamInfoTitleFiller;
     public List<String> teamInfo;
+    public List<String> levelInfo;
     public List<String> noneChatAlias;
     public List<String> teamChatAlias;
     public Map<Integer, Integer> teamTopSlots;
@@ -47,7 +52,6 @@ public class Configuration {
      */
     public Map<Integer, Reward> levelRewards;
     public List<String> whitelistedWorlds;
-    public boolean multiplicativeSpawners;
 
     public Configuration() {
         this("&c", "Team", "IridiumTeams");
@@ -65,6 +69,10 @@ public class Configuration {
         this.maxTeamNameLength = 20;
         this.recalculateInterval = 5;
         this.forceRecalculateInterval = 1;
+        this.enableLeveling = true;
+        this.giveLevelRewards = true;
+        this.flatExpRequirement = 10;
+        this.curvedExpModifier = 0.95;
         this.userRanks = new ImmutableMap.Builder<Integer, UserRank>()
                 .put(1, new UserRank("Member", new Item(XMaterial.STONE_AXE, 12, 1, "&9&lMember", Collections.emptyList())))
                 .put(2, new UserRank("Moderator", new Item(XMaterial.IRON_AXE, 13, 1, "&5&lModerator", Collections.emptyList())))
@@ -80,6 +88,10 @@ public class Configuration {
                 color + "Value: &7%" + team.toLowerCase() + "_value% (#%" + team.toLowerCase() + "_value_rank%)",
                 color + "Online Members (%" + team.toLowerCase() + "_members_online_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_online%",
                 color + "Offline Members (%" + team.toLowerCase() + "_members_offline_count%/%" + team.toLowerCase() + "_members_count%): &7%" + team.toLowerCase() + "_members_offline%"
+        );
+        this.levelInfo = Arrays.asList(
+                color + "Level: &7%" + team.toLowerCase() + "_level%",
+                color + "Experience: &7%" + team.toLowerCase() + "_experience% / %" + team.toLowerCase() + "_experienceForNextLevel% (need %" + team.toLowerCase() + "_experienceToLevelUp% more)"
         );
 
         this.noneChatAlias = Arrays.asList("n", "none");
@@ -120,6 +132,5 @@ public class Configuration {
                 .build();
 
         this.whitelistedWorlds = Collections.emptyList();
-        this.multiplicativeSpawners = false;
     }
 }

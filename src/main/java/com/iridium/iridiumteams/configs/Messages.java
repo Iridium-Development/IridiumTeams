@@ -139,6 +139,9 @@ public class Messages {
     public String cannotVisit;
     public String teamLevelUp;
     public String activeCooldown;
+    public String teamIsPrivate;
+    public String blockName;
+    public String spawnerName;
     public String nullPlaceholder;
     public String enabledPlaceholder;
     public String disabledPlaceholder;
@@ -270,7 +273,7 @@ public class Messages {
         noSuchBooster = "%prefix% &7No booster by that name exists.";
         noSuchUpgrade = "%prefix% &7No Upgrade by that name exists.";
         maxUpgradeLevelReached = "%prefix% &7Maximum upgrade level reached.";
-        notHighEnoughLevel = "%prefix% &7You need to be atleast level %level% in your " + team + ".";
+        notHighEnoughLevel = "%prefix% &7You need to be at least level %level% in your " + team + ".";
         notEnoughMoney = "%prefix% &7You dont have enough money to purchase this.";
         notEnoughBankItem = "%prefix% &7You dont have enough %bank% in your " + team + " Bank.";
         purchasedBooster = "%prefix% &7You have purchased a %booster% booster";
@@ -299,6 +302,9 @@ public class Messages {
         cannotVisit = "%prefix% &7You cannot visit that " + team + ".";
         teamLevelUp = "%prefix% &7Your " + team + " has reached level %level%.";
         activeCooldown = "%prefix% &7You cannot do that due to a running cooldown, please wait %hours% hour(s), %minutes% minute(s), %seconds% second(s)!";
+        teamIsPrivate = "%prefix% &7That " + team + " has chosen not to be publicly viewable, you cannot do that.";
+        blockName = "Blocks";
+        spawnerName = "Spawners";
         nullPlaceholder = "N/A";
         enabledPlaceholder = "Enabled";
         disabledPlaceholder = "Disabled";

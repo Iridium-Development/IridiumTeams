@@ -23,7 +23,7 @@ public class ShopCommand<T extends Team, U extends IridiumUser<T>> extends Comma
     public boolean execute(U user, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
         if (arguments.length == 0) {
-            player.openInventory(new ShopOverviewGUI<>(player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            player.openInventory(new ShopOverviewGUI<>(player, iridiumTeams).getInventory());
             return true;
         }
 
@@ -36,7 +36,7 @@ public class ShopCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             return false;
         }
 
-        player.openInventory(new ShopCategoryGUI<>(categoryName.get(), player.getOpenInventory().getTopInventory(), 1, iridiumTeams).getInventory());
+        player.openInventory(new ShopCategoryGUI<>(categoryName.get(), player, 1, iridiumTeams).getInventory());
         return true;
     }
 

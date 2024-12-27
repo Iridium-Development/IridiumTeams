@@ -11,6 +11,7 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamBank;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -23,8 +24,8 @@ public class BankGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public BankGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().bankGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public BankGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().bankGUI.background, player, iridiumTeams.getInventories().backButton);
         this.team = team;
         this.iridiumTeams = iridiumTeams;
     }

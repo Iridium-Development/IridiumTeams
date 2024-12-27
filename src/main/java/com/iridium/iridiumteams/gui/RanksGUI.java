@@ -8,6 +8,7 @@ import com.iridium.iridiumteams.UserRank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -19,8 +20,8 @@ public class RanksGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI 
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
 
-    public RanksGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().ranksGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public RanksGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().ranksGUI.background, player, iridiumTeams.getInventories().backButton);
         this.team = team;
         this.iridiumTeams = iridiumTeams;
     }
@@ -48,7 +49,7 @@ public class RanksGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI 
 
         for (Map.Entry<Integer, UserRank> userRank : iridiumTeams.getUserRanks().entrySet()) {
             if (event.getSlot() != userRank.getValue().item.slot) continue;
-            event.getWhoClicked().openInventory(new PermissionsGUI<>(team, userRank.getKey(), event.getWhoClicked().getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+            event.getWhoClicked().openInventory(new PermissionsGUI<>(team, userRank.getKey(), (Player) event.getWhoClicked(), iridiumTeams).getInventory());
             return;
         }
     }

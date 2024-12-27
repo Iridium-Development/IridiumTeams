@@ -2,7 +2,7 @@ package com.iridium.iridiumteams.managers;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
@@ -36,5 +36,20 @@ class TeamManagerTest {
                 .withSpawners(EntityType.PIG, 5)
                 .build();
         assertEquals(1350, TestPlugin.getInstance().getTeamManager().getTeamValue(team));
+    }
+
+    @Test
+    public void getTeamLevel_ShouldReturnOne_WhenLevelingDisabled() {
+        TestPlugin.getInstance().getConfiguration().enableLeveling = false;
+
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamLevel(100));
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamLevel(0));
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamLevel(-100));
+    }
+
+    @Test
+    public void getTeamLevel_ShouldHaveMinimumLevelOfOne() {
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamLevel(0));
+        assertEquals(1, TestPlugin.getInstance().getTeamManager().getTeamLevel(-100));
     }
 }

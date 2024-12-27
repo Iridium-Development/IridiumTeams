@@ -10,6 +10,7 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -26,14 +27,14 @@ public class InvitesGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     private final T team;
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public InvitesGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public InvitesGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
                 iridiumTeams.getInventories().invitesGUI.size,
                 iridiumTeams.getInventories().invitesGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
-                previousInventory,
+                player,
                 iridiumTeams.getInventories().backButton
         );
         this.team = team;
