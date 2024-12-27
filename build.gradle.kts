@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.5.9"
+version = "2.5.9.1"
 description = "IridiumTeams"
 
 repositories {
@@ -29,7 +29,7 @@ dependencies {
     implementation("org.jetbrains:annotations:26.0.1")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:2.0.8")
+    implementation("com.iridium:IridiumCore:2.0.8.1")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.36")
