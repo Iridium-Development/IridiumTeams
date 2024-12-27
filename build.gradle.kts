@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.5.8"
+version = "2.5.9.5"
 description = "IridiumTeams"
 
 repositories {
@@ -26,18 +26,18 @@ repositories {
 
 dependencies {
     // Dependencies that we want to shade in
-    implementation("org.jetbrains:annotations:26.0.0")
+    implementation("org.jetbrains:annotations:26.0.1")
     implementation("com.j256.ormlite:ormlite-core:6.1")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation("com.iridium:IridiumCore:2.0.6")
+    implementation("com.iridium:IridiumCore:2.0.8.5")
 
     // Other dependencies that are not required or already available at runtime
-    compileOnly("org.projectlombok:lombok:1.18.34")
+    compileOnly("org.projectlombok:lombok:1.18.36")
     compileOnly("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("dev.rosewood:rosestacker:1.5.28")
-    compileOnly("com.bgsoftware:WildStackerAPI:2024.3")
+    compileOnly("dev.rosewood:rosestacker:1.5.30")
+    compileOnly("com.bgsoftware:WildStackerAPI:2024.4")
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
     compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
@@ -45,11 +45,11 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // Enable lombok annotation processing
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
 
     // Test dependencies
-    testImplementation(platform("org.junit:junit-bom:5.11.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.2")
+    testImplementation(platform("org.junit:junit-bom:5.11.4"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.85.2")
     testImplementation("com.github.MilkBowl:VaultAPI:1.7")
 }
