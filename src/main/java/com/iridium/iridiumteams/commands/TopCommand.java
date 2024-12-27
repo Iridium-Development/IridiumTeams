@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
     public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
 
         int listLength = 10;
-        boolean showValue = true;
+        TeamSorting<T> sortingType = iridiumTeams.getSortingTypes().get(0);
         boolean excludePrivate = !sender.hasPermission(adminPermission);
 
         if (sender instanceof Player && arguments.length == 0) return sendGUI((Player) sender, iridiumTeams);
@@ -38,11 +39,13 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
         switch (arguments.length) {
             case 3: {
                 try {
-                    listLength = Integer.parseInt(arguments[2]);
+                    listLength = Math.min(Integer.parseInt(arguments[2]), 100);
                 } catch (NumberFormatException ignored) {}
             }
             case 2: {
-                if (arguments[1].equalsIgnoreCase("experience")) showValue = false;
+                for(TeamSorting<T> pluginSortingType : iridiumTeams.getSortingTypes()) {
+                    if (arguments[1].equalsIgnoreCase(pluginSortingType.getName())) sortingType = pluginSortingType;
+                }
             }
             case 1: {
                 if (!arguments[0].equalsIgnoreCase("list")) {
@@ -51,7 +54,7 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
                 }
             }
             default: {
-                sendList(sender, iridiumTeams, showValue, listLength, excludePrivate);
+                sendList(sender, iridiumTeams, sortingType, listLength, excludePrivate);
                 return true;
             }
         }
@@ -62,29 +65,22 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
          return true;
     }
 
-    public void sendList(CommandSender sender, IridiumTeams<T, U> iridiumTeams, boolean showValue, int listLength, boolean excludePrivate) {
+    public void sendList(CommandSender sender, IridiumTeams<T, U> iridiumTeams, TeamSorting<T> sortingType, int listLength, boolean excludePrivate) {
 
         List<T> teamList;
-        if (showValue) teamList = iridiumTeams.getTeamManager().getTeams(iridiumTeams.getTop().valueTeamSort, excludePrivate);
-        else teamList = iridiumTeams.getTeamManager().getTeams(iridiumTeams.getTop().experienceTeamSort, excludePrivate);
+        teamList = iridiumTeams.getTeamManager().getTeams(sortingType, excludePrivate);
 
-        String sortingType = iridiumTeams.getMessages().topValue;
-        if (!showValue) sortingType = iridiumTeams.getMessages().topExperience;
+        String sortingTypeName = sortingType.getName();
 
         sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().topCommandHeader
-                .replace("%sortType%", sortingType)));
+                .replace("%sortType%", sortingTypeName)));
 
         for (int i = 0; i < listLength;  i++) {
-            if(i ==  teamList.size()) break;
+            if(i == sortingType.getSortedTeams(iridiumTeams).size()) break;
             String teamOwner = iridiumTeams.getTeamManager().getTeamMembers(teamList.get(i)).stream()
                     .filter(user -> user.getUserRank() == Rank.OWNER.getId())
                     .findFirst()
                     .map(U::getName).get();
-
-            double listedValue = teamList.get(i).getValue();
-            if (!showValue) {
-                listedValue = teamList.get(i).getExperience();
-            }
 
             String color = "&7";
             switch(i) {
@@ -103,7 +99,7 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
             }
 
             String teamID = "";
-            if (!excludePrivate) teamID = "[" + teamList.get(i).getId() + "] ";
+            if (!excludePrivate) teamID = "[" + sortingType.getSortedTeams(iridiumTeams).get(i).getId() + "] ";
 
             sender.sendMessage(StringUtils.color(color + (i + 1)  + "&7: " + teamID + teamOwner + ": &a" + listedValue));
         }
@@ -117,7 +113,11 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
                 return Collections.singletonList("list");
             }
             case 2: {
-                return Arrays.asList("value", "experience");
+                List<String> sortingTypes = new ArrayList<>();
+                for(TeamSorting<T> pluginSortingType : iridiumTeams.getSortingTypes()) {
+                    sortingTypes.add(pluginSortingType.getName());
+                }
+                return sortingTypes;
             }
             case 3: {
                 return Collections.singletonList("10");

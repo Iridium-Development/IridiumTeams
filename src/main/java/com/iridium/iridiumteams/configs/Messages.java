@@ -328,8 +328,6 @@ public class Messages {
         nightPlaceholder = "Night";
         midnightPlaceholder = "Midnight";
         cannotInteract = "%prefix% &7You cannot interact with that.";
-        topValue = "Value";
-        topExperience = "Experience";
         topFirstColor = "&e&l";
         topSecondColor = "&l";
         topThirdColor = "&6";
