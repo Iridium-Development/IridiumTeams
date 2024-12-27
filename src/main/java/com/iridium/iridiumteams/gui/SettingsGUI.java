@@ -10,6 +10,7 @@ import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamSetting;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -22,8 +23,8 @@ public class SettingsGUI<T extends Team, U extends IridiumUser<T>> extends BackG
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
 
-    public SettingsGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().settingsGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public SettingsGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().settingsGUI.background, player, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
         this.team = team;
     }

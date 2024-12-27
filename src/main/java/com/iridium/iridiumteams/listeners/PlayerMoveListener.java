@@ -4,7 +4,6 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamPermission;
 import lombok.AllArgsConstructor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -28,8 +27,7 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
         Location from = event.getFrom();
 
         // might help speed things up - if the next location does not change blocks, why do anything?
-        // we don't need to check y, since we don't check anything against verticality.
-        if ((from.getBlockX() == to.getBlockX()) && (from.getZ() == to.getBlockZ())) return;
+        if ((from.getBlockX() == to.getBlockX()) && (from.getBlockZ() == to.getBlockZ()) && (from.getBlockY() == to.getBlockY())) return;
 
         Player player = event.getPlayer();
 

@@ -28,8 +28,8 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
     @Getter
     private int page;
 
-    public ShopCategoryGUI(String categoryName, Inventory previousInventory, int page, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().shopCategoryGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public ShopCategoryGUI(String categoryName, Player player, int page, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().shopCategoryGUI.background, player, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
         this.categoryName = categoryName;
         this.shopCategory = iridiumTeams.getShop().categories.get(categoryName);

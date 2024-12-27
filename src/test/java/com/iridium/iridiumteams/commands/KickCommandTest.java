@@ -91,6 +91,18 @@ class KickCommandTest {
     }
 
     @Test
+    public void executeKickCommand__CannotKickOwner() {
+        TestTeam team = new TeamBuilder().withPermission(1, PermissionType.KICK, true).build();
+        PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(5).build();
+        PlayerMock owner = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();
+
+        serverMock.dispatchCommand(playerMock, "test kick " + owner.getName());
+
+        playerMock.assertSaid(StringUtils.color(TestPlugin.getInstance().getMessages().cannotKickHigherRank.replace("%prefix%", TestPlugin.getInstance().getConfiguration().prefix)));
+        playerMock.assertNoMoreSaid();
+    }
+
+    @Test
     public void executeKickCommand__PlayerCannotKickSelf() {
         TestTeam team = new TeamBuilder().build();
         PlayerMock playerMock = new UserBuilder(serverMock).withTeam(team).withRank(Rank.OWNER.getId()).build();

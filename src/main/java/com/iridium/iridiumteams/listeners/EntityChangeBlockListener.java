@@ -8,7 +8,6 @@ import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamSetting;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreakDoorEvent;

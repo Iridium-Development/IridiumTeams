@@ -8,7 +8,6 @@ import com.iridium.iridiumteams.gui.BankGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -101,7 +100,7 @@ public class ExperienceCommand<T extends Team, U extends IridiumUser<T>> extends
     @Override
     public boolean execute(U user, T team, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
         Player player = user.getPlayer();
-        player.openInventory(new BankGUI<>(team, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+        player.openInventory(new BankGUI<>(team, player, iridiumTeams).getInventory());
         return true;
     }
 

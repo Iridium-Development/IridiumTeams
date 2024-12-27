@@ -2,7 +2,7 @@ package com.iridium.iridiumteams.sorting;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;
