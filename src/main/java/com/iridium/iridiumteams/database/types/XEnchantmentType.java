@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.database.types;
 
-import com.iridium.iridiumcore.dependencies.xseries.XEnchantment;
+import com.cryptomorin.xseries.XEnchantment;
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.field.types.StringType;
@@ -23,7 +23,7 @@ public class XEnchantmentType extends StringType {
     @Override
     public Object sqlArgToJava(FieldType fieldType, Object sqlArg, int columnPos) throws SQLException {
         String value = (String) super.sqlArgToJava(fieldType, sqlArg, columnPos);
-        Optional<XEnchantment> enchantment = XEnchantment.matchXEnchantment(value);
+        Optional<XEnchantment> enchantment = XEnchantment.of(value);
         return enchantment.orElse(null);
     }
 

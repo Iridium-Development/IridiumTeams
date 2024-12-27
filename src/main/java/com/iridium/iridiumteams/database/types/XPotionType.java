@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.database.types;
 
-import com.iridium.iridiumcore.dependencies.xseries.XPotion;
+import com.cryptomorin.xseries.XPotion;
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.field.types.StringType;
@@ -23,7 +23,7 @@ public class XPotionType extends StringType {
     @Override
     public Object sqlArgToJava(FieldType fieldType, Object sqlArg, int columnPos) throws SQLException {
         String value = (String) super.sqlArgToJava(fieldType, sqlArg, columnPos);
-        Optional<XPotion> potion = XPotion.matchXPotion(value);
+        Optional<XPotion> potion = XPotion.of(value);
         return potion.orElse(null);
     }
 
