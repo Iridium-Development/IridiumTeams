@@ -1,9 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
-import com.iridium.iridiumcore.dependencies.nbtapi.NBT;
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTType;
-import com.iridium.iridiumcore.dependencies.paperlib.PaperLib;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.*;
 import com.iridium.iridiumteams.api.EnhancementUpdateEvent;
@@ -15,7 +12,13 @@ import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import com.iridium.iridiumteams.utils.PlayerUtils;
-import org.bukkit.*;
+import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBTType;
+import io.papermc.lib.PaperLib;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -305,6 +308,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract void deleteTeamMission(TeamMission teamMission);
 
+    public abstract void deleteTeamMissionData(TeamMission teamMission);
+
     public void resetTeamMissionData(TeamMission teamMission) {
         getTeamMissionData(teamMission).forEach(teamMissionData -> teamMissionData.setProgress(0));
     }
@@ -321,6 +326,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         for (TeamMission teamMission : teamMissions) {
             if (teamMission.hasExpired()) {
                 deleteTeamMission(teamMission);
+                deleteTeamMissionData(teamMission);
             } else {
                 missions.add(teamMission.getMissionName());
             }

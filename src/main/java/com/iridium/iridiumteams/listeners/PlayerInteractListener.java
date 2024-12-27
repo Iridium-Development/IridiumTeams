@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.listeners;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
@@ -11,7 +11,6 @@ import com.iridium.iridiumteams.database.TeamSetting;
 import com.iridium.iridiumteams.database.TeamSpawners;
 import lombok.AllArgsConstructor;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.block.data.type.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +23,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SpawnEggMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;

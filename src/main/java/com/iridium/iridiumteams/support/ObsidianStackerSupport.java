@@ -1,19 +1,15 @@
 package com.iridium.iridiumteams.support;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-
-import com.moyskleytech.obsidianstacker.api.StackerAPI;
 import com.moyskleytech.obsidianstacker.api.Stack;
-
-import dev.rosewood.rosestacker.api.RoseStackerAPI;
+import com.moyskleytech.obsidianstacker.api.StackerAPI;
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ObsidianStackerSupport<T extends Team, U extends IridiumUser<T>> implements StackerSupport<T> {
 
@@ -53,7 +49,7 @@ public class ObsidianStackerSupport<T extends Team, U extends IridiumUser<T>> im
 
     @Override
     public Map<XMaterial, Integer> getBlocksStacked(Chunk chunk, T team) {
-        HashMap<XMaterial, Integer> hashMap = new HashMap();
+        HashMap<XMaterial, Integer> hashMap = new HashMap<>();
 
         return hashMap;
     }

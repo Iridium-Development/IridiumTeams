@@ -4,14 +4,11 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.support.SpawnerSupport;
-import com.iridium.iridiumteams.support.StackerSupport;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class AboutCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {

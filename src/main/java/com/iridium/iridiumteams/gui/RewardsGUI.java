@@ -23,14 +23,14 @@ public class RewardsGUI<T extends Team, U extends IridiumUser<T>> extends PagedG
     private final IridiumTeams<T, U> iridiumTeams;
     private final T team;
 
-    public RewardsGUI(T team, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
+    public RewardsGUI(T team, Player player, IridiumTeams<T, U> iridiumTeams) {
         super(
                 1,
                 iridiumTeams.getInventories().rewardsGUI.size,
                 iridiumTeams.getInventories().rewardsGUI.background,
                 iridiumTeams.getInventories().previousPage,
                 iridiumTeams.getInventories().nextPage,
-                previousInventory,
+                player,
                 iridiumTeams.getInventories().backButton
         );
         this.iridiumTeams = iridiumTeams;
