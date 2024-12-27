@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.listeners;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.PermissionType;
@@ -11,7 +11,6 @@ import com.iridium.iridiumteams.database.TeamSetting;
 import com.iridium.iridiumteams.database.TeamSpawners;
 import lombok.AllArgsConstructor;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.block.data.type.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +23,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SpawnEggMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +38,7 @@ import java.util.List;
             Player player = event.getPlayer();
             U user = iridiumTeams.getUserManager().getUser(player);
 
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getClickedBlock().getLocation()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getClickedBlock().getLocation()).ifPresent(team -> {
                 if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.OPEN_CONTAINERS.getPermissionKey()) && event.getClickedBlock().getState() instanceof InventoryHolder) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotOpenContainers
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
@@ -108,7 +106,7 @@ import java.util.List;
             Player player = event.getPlayer();
             U user = iridiumTeams.getUserManager().getUser(player);
 
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getBlock().getLocation()).ifPresent(team -> {
                 if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.INTERACT.getPermissionKey())) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotInteract
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
@@ -122,7 +120,7 @@ import java.util.List;
             Player player = event.getPlayer();
             U user = iridiumTeams.getUserManager().getUser(player);
 
-            iridiumTeams.getTeamManager().getTeamViaLocation(event.getRightClicked().getLocation()).ifPresent(team -> {
+            iridiumTeams.getTeamManager().getTeamViaPlayerLocation(player, event.getRightClicked().getLocation()).ifPresent(team -> {
                 if (!iridiumTeams.getTeamManager().getTeamPermission(team, user, PermissionType.INTERACT.getPermissionKey())) {
                     player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotInteract
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));

@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.listeners;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -16,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

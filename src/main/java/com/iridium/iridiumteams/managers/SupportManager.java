@@ -4,7 +4,6 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.support.*;
-
 import lombok.Getter;
 import org.bukkit.Bukkit;
 

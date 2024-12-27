@@ -1,6 +1,7 @@
 package com.iridium.iridiumteams.utils;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
+import com.iridium.iridiumcore.IridiumCore;
 import com.iridium.iridiumcore.multiversion.MultiVersion;
 import com.iridium.iridiumteams.IridiumTeams;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class LocationUtils {
     ).map(XMaterial::parseMaterial).collect(Collectors.toList());
 
     public static boolean isSafe(@NotNull Location location, IridiumTeams<?, ?> iridiumTeams) {
-        if (iridiumTeams.isTesting()) {
+        if (IridiumCore.isTesting()) {
             boolean safe = isSafeTesting;
             isSafeTesting = true;
             return safe;

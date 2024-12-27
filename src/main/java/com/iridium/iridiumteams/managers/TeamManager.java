@@ -1,9 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTItem;
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTType;
-import com.iridium.iridiumcore.dependencies.paperlib.PaperLib;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.*;
 import com.iridium.iridiumteams.api.EnhancementUpdateEvent;
@@ -15,7 +12,13 @@ import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import com.iridium.iridiumteams.utils.PlayerUtils;
-import org.bukkit.*;
+import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBTType;
+import io.papermc.lib.PaperLib;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.WeatherType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -33,6 +36,7 @@ import java.util.stream.Collectors;
 
 public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     private final TemporaryCache<TeamSorting<T>, List<T>> teamTopCache = new TemporaryCache<>();
+    private final TemporaryCache<T, Double> teamValueCache = new TemporaryCache<>();
     private final IridiumTeams<T, U> iridiumTeams;
 
     public TeamManager(IridiumTeams<T, U> iridiumTeams) {
@@ -45,10 +49,40 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract Optional<T> getTeamViaLocation(Location location);
 
+    /**
+     * Gets a team via a location, providing a team for cache
+     *
+     * @param location  The location
+     * @param teamCache a team for cache, used for if we know the team of a nearby location, and we assume the current location is also in the team (e.g. on a piston event or a BlockFromToEvent)
+     * @return The Team the location is in
+     */
+
+    public abstract Optional<T> getTeamViaLocation(Location location, T teamCache);
+
+    /**
+     * Gets a team via a location, providing a team for cache
+     *
+     * @param location  The location
+     * @param teamCache a team for cache, used for if we know the team of a nearby location, and we assume the current location is also in the team (e.g. on a piston event or a BlockFromToEvent)
+     * @return The Team the location is in
+     */
+    public abstract Optional<T> getTeamViaLocation(Location location, Optional<T> teamCache);
+
     public abstract Optional<T> getTeamViaNameOrPlayer(String name);
 
     public Optional<T> getTeamViaPlayerLocation(Player player) {
-        return getTeamViaLocation(player.getLocation());
+        return getTeamViaPlayerLocation(player, player.getLocation());
+    }
+
+    /**
+     * Gets a team via a location, providing a team for cache
+     *
+     * @param location The location
+     * @param player   a player for cache, used for if the player is near the new location, since the player has an internal team cache for the team they are currently on)
+     * @return The Team the location is in
+     */
+    public Optional<T> getTeamViaPlayerLocation(Player player, Location location) {
+        return getTeamViaLocation(location);
     }
 
     public abstract void sendTeamTitle(Player player, T team);
@@ -69,6 +103,11 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                     return !excludePrivate || (teamSetting == null || teamSetting.getValue().equalsIgnoreCase("Public"));
                 })
                 .collect(Collectors.toList()));
+    }
+
+    public int getRank(T team, TeamSorting<T> sortType) {
+        List<T> teams = getTeams(sortType, true);
+        return teams.indexOf(team) + 1;
     }
 
     public List<T> getTeams(SortType sortType, boolean excludePrivate) {
@@ -144,18 +183,49 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract @Nullable TeamSetting getTeamSetting(T team, String setting);
 
+    public int getTeamLevel(int experience) {
+        if (!iridiumTeams.getConfiguration().enableLeveling) return 1;
+
+        int flatExpRequirement = iridiumTeams.getConfiguration().flatExpRequirement;
+        double curvedExpModifier = iridiumTeams.getConfiguration().curvedExpModifier;
+
+        // if flatExpRequirement = 0, set experience per level up to 1 (because dividing by 0 is a no-no)
+        // if curvedExpModifer = 0, set modifier to 1 (because value ^ 1 = value, and value ^ 0 = 1)
+
+        if (flatExpRequirement == 0) flatExpRequirement = 1;
+        if (curvedExpModifier == 0) curvedExpModifier = 1;
+
+        return Math.max(1, (int) Math.floor(Math.pow(experience / (double) Math.abs(flatExpRequirement), Math.abs(curvedExpModifier)) + 1));
+    }
+
+    public int getExperienceForLevel(int level) {
+        int flatExpRequirement = iridiumTeams.getConfiguration().flatExpRequirement;
+        double curvedExpModifier = iridiumTeams.getConfiguration().curvedExpModifier;
+
+        if (flatExpRequirement == 0) flatExpRequirement = 1;
+        if (curvedExpModifier == 0) curvedExpModifier = 1;
+
+        return (int) Math.floor(Math.abs(flatExpRequirement) * Math.pow(10, Math.log10(level - 1) / Math.abs(curvedExpModifier)));
+    }
+
+    public int getTeamExperienceForNextLevel(T team) {
+        return getExperienceForLevel(team.getLevel() + 1) - team.getExperience();
+    }
+
     public double getTeamValue(T team) {
-        double value = 0;
+        return teamValueCache.get(team, Duration.ofSeconds(1), () -> {
+            double value = 0;
 
-        for (Map.Entry<XMaterial, BlockValues.ValuableBlock> valuableBlock : iridiumTeams.getBlockValues().blockValues.entrySet()) {
-            value += getTeamBlock(team, valuableBlock.getKey()).getAmount() * valuableBlock.getValue().value;
-        }
+            for (Map.Entry<XMaterial, BlockValues.ValuableBlock> valuableBlock : iridiumTeams.getBlockValues().blockValues.entrySet()) {
+                value += getTeamBlock(team, valuableBlock.getKey()).getAmount() * valuableBlock.getValue().value;
+            }
 
-        for (Map.Entry<EntityType, BlockValues.ValuableBlock> valuableSpawner : iridiumTeams.getBlockValues().spawnerValues.entrySet()) {
-            value += getTeamSpawners(team, valuableSpawner.getKey()).getAmount() * valuableSpawner.getValue().value;
-        }
+            for (Map.Entry<EntityType, BlockValues.ValuableBlock> valuableSpawner : iridiumTeams.getBlockValues().spawnerValues.entrySet()) {
+                value += getTeamSpawners(team, valuableSpawner.getKey()).getAmount() * valuableSpawner.getValue().value;
+            }
 
-        return value;
+            return value;
+        });
     }
 
     public abstract TeamEnhancement getTeamEnhancement(T team, String enhancement);
@@ -238,6 +308,8 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract void deleteTeamMission(TeamMission teamMission);
 
+    public abstract void deleteTeamMissionData(TeamMission teamMission);
+
     public void resetTeamMissionData(TeamMission teamMission) {
         getTeamMissionData(teamMission).forEach(teamMissionData -> teamMissionData.setProgress(0));
     }
@@ -254,6 +326,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         for (TeamMission teamMission : teamMissions) {
             if (teamMission.hasExpired()) {
                 deleteTeamMission(teamMission);
+                deleteTeamMissionData(teamMission);
             } else {
                 missions.add(teamMission.getMissionName());
             }
@@ -379,7 +452,12 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         if (item == null || item.getType() == Material.AIR) {
             return false;
         }
-        return new NBTItem(item).hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
+
+        NBT.get(item, readableItemNBT -> {
+            return readableItemNBT.hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
+        });
+
+        return false;
     }
 
     public enum SortType {

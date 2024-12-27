@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.commands;
 
-import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iridium.iridiumcore.CooldownProvider;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
@@ -105,6 +105,11 @@ public class Command<T extends Team, U extends IridiumUser<T>> {
 
     public List<String> onTabComplete(U user, T team, String[] args, IridiumTeams<T, U> iridiumTeams) {
         return Collections.emptyList();
+    }
+
+    @JsonIgnore
+    public boolean isSuperSecretCommand(){
+        return false;
     }
 
 }

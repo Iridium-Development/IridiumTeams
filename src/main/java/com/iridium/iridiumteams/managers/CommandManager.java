@@ -82,6 +82,8 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         registerCommand(iridiumTeams.getCommands().experienceCommand);
         registerCommand(iridiumTeams.getCommands().shopCommand);
         registerCommand(iridiumTeams.getCommands().settingsCommand);
+        registerCommand(iridiumTeams.getCommands().blockValueCommand);
+        registerCommand(iridiumTeams.getCommands().levelCommand);
     }
 
     public void registerCommand(Command<T, U> command) {
@@ -141,6 +143,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         if (args.length == 1) {
             ArrayList<String> result = new ArrayList<>();
             for (Command<T, U> command : commands) {
+                if(command.isSuperSecretCommand()) continue;
                 for (String alias : command.aliases) {
                     if (!alias.toLowerCase().startsWith(args[0].toLowerCase())) continue;
                     if (command.hasPermission(commandSender, iridiumTeams)) {
@@ -152,6 +155,7 @@ public abstract class CommandManager<T extends Team, U extends IridiumUser<T>> i
         }
 
         for (Command<T, U> command : commands) {
+            if(command.isSuperSecretCommand()) continue;
             if (!command.aliases.contains(args[0].toLowerCase())) continue;
             if (command.hasPermission(commandSender, iridiumTeams)) {
                 return command.onTabComplete(commandSender, Arrays.copyOfRange(args, 1, args.length), iridiumTeams);

@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -28,8 +29,8 @@ public class TopGUI<T extends Team, U extends IridiumUser<T>> extends BackGUI {
     @Getter(AccessLevel.NONE)
     private final IridiumTeams<T, U> iridiumTeams;
 
-    public TopGUI(TeamSorting<T> sortingType, Inventory previousInventory, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().topGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public TopGUI(TeamSorting<T> sortingType, Player player, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().topGUI.background, player, iridiumTeams.getInventories().backButton);
         this.sortingType = sortingType;
         this.iridiumTeams = iridiumTeams;
     }

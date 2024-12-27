@@ -33,7 +33,11 @@ public class InventoryConfigGUI implements GUI {
     public void addContent(Inventory inventory) {
         InventoryUtils.fillInventory(inventory, inventoryConfig.background);
 
-        inventoryConfig.items.values().forEach(item -> inventory.setItem(item.slot, ItemStackUtils.makeItem(item)));
+        inventoryConfig.items.values().forEach(item -> {
+            if(item.slot >= 0) {
+                inventory.setItem(item.slot, ItemStackUtils.makeItem(item));
+            }
+        });
     }
 
     @Override

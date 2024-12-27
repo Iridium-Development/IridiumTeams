@@ -50,7 +50,7 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
             ));
             return false;
         }
-        if (kickedPlayer.getUserRank() >= user.getUserRank() && !user.isBypassing() && user.getUserRank() != Rank.OWNER.getId()) {
+        if ((kickedPlayer.getUserRank() >= user.getUserRank() || kickedPlayer.getUserRank() == Rank.OWNER.getId()) && !user.isBypassing() && user.getUserRank() != Rank.OWNER.getId()) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotKickHigherRank
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));

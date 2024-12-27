@@ -5,6 +5,7 @@ import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import lombok.AllArgsConstructor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,27 +20,26 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
+
         Location to = event.getTo();
-        Location from = event.getFrom();
         if (to == null) return; // This is possible apparently?
-        U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> toTeam = iridiumTeams.getTeamManager().getTeamViaLocation(to);
-        Optional<T> fromTeam = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer());
+
+        Location from = event.getFrom();
+
+        // might help speed things up - if the next location does not change blocks, why do anything?
+        if ((from.getBlockX() == to.getBlockX()) && (from.getBlockZ() == to.getBlockZ()) && (from.getBlockY() == to.getBlockY())) return;
+
+        Player player = event.getPlayer();
+
+        Optional<T> fromTeam = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer(), from);
+        Optional<T> toTeam = iridiumTeams.getTeamManager().getTeamViaPlayerLocation(event.getPlayer(), to);
+
         if (fromTeam.isPresent()) {
             iridiumTeams.getTeamManager().sendTeamTime(player);
             iridiumTeams.getTeamManager().sendTeamWeather(player);
         }
-        if (user.isFlying() && (to.getBlockX() != from.getBlockX() || to.getBlockZ() != from.getBlockZ()) && !user.canFly(iridiumTeams)) {
-            user.setFlying(false);
-            player.setAllowFlight(false);
-            player.setFlying(false);
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().flightDisabled
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
-            );
-        }
-        if (!toTeam.isPresent()) return;
-        if (!iridiumTeams.getTeamManager().canVisit(player, toTeam.get())) {
+
+        if (toTeam.isPresent() && !iridiumTeams.getTeamManager().canVisit(player, toTeam.get())) {
             event.setCancelled(true);
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotVisit
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
@@ -47,9 +47,24 @@ public class PlayerMoveListener<T extends Team, U extends IridiumUser<T>> implem
             return;
         }
 
+        // we should only be checking if the player is flying if the flight enhancement is enabled (this is a global config setting)
+        // we're not an anti-cheat, we don't care otherwise
+        U user = iridiumTeams.getUserManager().getUser(player);
+        if (iridiumTeams.getEnhancements().flightEnhancement.enabled && user.isFlying()) {
+            if (!user.canFly(iridiumTeams) && player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) {
+                user.setFlying(false);
+                player.setFlying(false);
+                player.setAllowFlight(false);
+
+                player.sendMessage(StringUtils.color(iridiumTeams.getMessages().flightDisabled
+                        .replace("%prefix%", iridiumTeams.getConfiguration().prefix))
+                );
+            }
+        }
+
+        if (!toTeam.isPresent()) return;
         if (!toTeam.map(T::getId).orElse(-99999).equals(fromTeam.map(T::getId).orElse(-99999))) {
             iridiumTeams.getTeamManager().sendTeamTitle(player, toTeam.get());
         }
     }
-
 }

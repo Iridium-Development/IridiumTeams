@@ -58,7 +58,7 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
     }
 
      public boolean sendGUI(Player player, IridiumTeams<T, U> iridiumTeams) {
-         player.openInventory(new TopGUI<>(iridiumTeams.getTop().valueTeamSort, player.getOpenInventory().getTopInventory(), iridiumTeams).getInventory());
+         player.openInventory(new TopGUI<>(iridiumTeams.getTop().valueTeamSort, player, iridiumTeams).getInventory());
          return true;
     }
 

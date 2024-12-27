@@ -28,8 +28,8 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
     @Getter
     private int page;
 
-    public ShopCategoryGUI(String categoryName, Inventory previousInventory, int page, IridiumTeams<T, U> iridiumTeams) {
-        super(iridiumTeams.getInventories().shopCategoryGUI.background, previousInventory, iridiumTeams.getInventories().backButton);
+    public ShopCategoryGUI(String categoryName, Player player, int page, IridiumTeams<T, U> iridiumTeams) {
+        super(iridiumTeams.getInventories().shopCategoryGUI.background, player, iridiumTeams.getInventories().backButton);
         this.iridiumTeams = iridiumTeams;
         this.categoryName = categoryName;
         this.shopCategory = iridiumTeams.getShop().categories.get(categoryName);
@@ -75,7 +75,8 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
         List<Placeholder> placeholders = new ArrayList<>(Arrays.asList(
                 new Placeholder("amount", iridiumTeams.getShopManager().formatPrice(item.defaultAmount)),
                 new Placeholder("vault_cost", iridiumTeams.getShopManager().formatPrice(item.buyCost.money)),
-                new Placeholder("vault_reward", iridiumTeams.getShopManager().formatPrice(item.sellCost.money))
+                new Placeholder("vault_reward", iridiumTeams.getShopManager().formatPrice(item.sellCost.money)),
+                new Placeholder("minLevel", String.valueOf(item.minLevel))
         ));
         for (Map.Entry<String, Double> bankItem : item.buyCost.bankItems.entrySet()) {
             placeholders.add(new Placeholder(bankItem.getKey() + "_cost", iridiumTeams.getShopManager().formatPrice(bankItem.getValue())));
@@ -94,6 +95,10 @@ public class ShopCategoryGUI<T extends Team, U extends IridiumUser<T>> extends B
             lore.add(iridiumTeams.getShop().buyPriceLore);
         } else {
             lore.add(iridiumTeams.getShop().notPurchasableLore);
+        }
+
+        if(item.minLevel > 1) {
+            lore.add(iridiumTeams.getShop().levelRequirementLore);
         }
 
         if (item.sellCost.canPurchase()) {
