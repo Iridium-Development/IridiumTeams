@@ -53,6 +53,8 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
         super.addContent(inventory);
 
         List<TeamMission> teamMissions = iridiumTeams.getTeamManager().getTeamMissions(team);
+
+        // Deals where slot is not null
         for (Map.Entry<String, Mission> entry : iridiumTeams.getMissions().missions.entrySet()) {
             if (entry.getValue().getMissionType() != missionType) continue;
             Optional<TeamMission> teamMission = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).findFirst();
@@ -67,6 +69,7 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
             inventory.setItem(missionData.getItem().slot, getItem(entry.getKey()));
         }
 
+        // Deals where slot is null, to randomly pick a few missions
         List<String> missions = iridiumTeams.getTeamManager().getTeamMission(team, missionType);
         int index = 0;
         for (String missionName : missions) {
@@ -78,6 +81,7 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
     }
 
     private ItemStack getItem(String missionName) {
+        // This will create the mission if it doesnt exist
         TeamMission teamMission = iridiumTeams.getTeamManager().getTeamMission(team, missionName);
         Mission mission = iridiumTeams.getMissions().missions.get(missionName);
         MissionData missionData = mission.getMissionData().get(teamMission.getMissionLevel());
