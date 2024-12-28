@@ -320,6 +320,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
                 .filter(teamMission -> iridiumTeams.getMissions().missions.containsKey(teamMission.getMissionName()))
                 .filter(teamMission -> iridiumTeams.getMissions().missions.get(teamMission.getMissionName()).getMissionType() == missionType)
                 .filter(teamMission -> iridiumTeams.getMissions().missions.get(teamMission.getMissionName()).getMissionData().get(teamMission.getMissionLevel()).getItem().slot == null)
+                .filter(teamMission -> !teamMission.hasExpired())
                 .collect(Collectors.toList());
         // Filter and delete expired ones
         List<String> missions = new ArrayList<>();
