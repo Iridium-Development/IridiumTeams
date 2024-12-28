@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -54,7 +55,11 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
         List<TeamMission> teamMissions = iridiumTeams.getTeamManager().getTeamMissions(team);
         for (Map.Entry<String, Mission> entry : iridiumTeams.getMissions().missions.entrySet()) {
             if (entry.getValue().getMissionType() != missionType) continue;
-            int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(1);
+            Optional<TeamMission> teamMission = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).findFirst();
+            int level = teamMission.map(TeamMission::getMissionLevel).orElse(1);
+            if(teamMission.isPresent() && teamMission.get().hasExpired()){
+                iridiumTeams.getTeamManager().deleteTeamMissionData(teamMission.get());
+            }
             MissionData missionData = entry.getValue().getMissionData().get(level);
             if (missionData.getItem().slot == null) continue;
             inventory.setItem(missionData.getItem().slot, getItem(entry.getKey()));
