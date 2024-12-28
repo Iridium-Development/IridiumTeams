@@ -58,7 +58,9 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
             Optional<TeamMission> teamMission = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).findFirst();
             int level = teamMission.map(TeamMission::getMissionLevel).orElse(1);
             if(teamMission.isPresent() && teamMission.get().hasExpired()){
+                iridiumTeams.getTeamManager().deleteTeamMission(teamMission.get());
                 iridiumTeams.getTeamManager().deleteTeamMissionData(teamMission.get());
+                level = 1;
             }
             MissionData missionData = entry.getValue().getMissionData().get(level);
             if (missionData.getItem().slot == null) continue;
