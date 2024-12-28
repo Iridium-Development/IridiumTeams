@@ -354,7 +354,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract void deleteTeamReward(TeamReward teamReward);
 
-    public void claimTeamReward(TeamReward teamReward, Player player) {
+    public synchronized void claimTeamReward(TeamReward teamReward, Player player) {
         Reward reward = teamReward.getReward();
         deleteTeamReward(teamReward);
         reward.sound.play(player);
