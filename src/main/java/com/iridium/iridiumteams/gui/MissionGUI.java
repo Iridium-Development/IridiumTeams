@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -52,14 +53,23 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
         super.addContent(inventory);
 
         List<TeamMission> teamMissions = iridiumTeams.getTeamManager().getTeamMissions(team);
+
+        // Deals where slot is not null
         for (Map.Entry<String, Mission> entry : iridiumTeams.getMissions().missions.entrySet()) {
             if (entry.getValue().getMissionType() != missionType) continue;
-            int level = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).map(TeamMission::getMissionLevel).findFirst().orElse(1);
+            Optional<TeamMission> teamMission = teamMissions.stream().filter(m -> m.getMissionName().equals(entry.getKey())).findFirst();
+            int level = teamMission.map(TeamMission::getMissionLevel).orElse(1);
+            if(teamMission.isPresent() && teamMission.get().hasExpired()){
+                iridiumTeams.getTeamManager().deleteTeamMission(teamMission.get());
+                iridiumTeams.getTeamManager().deleteTeamMissionData(teamMission.get());
+                level = 1;
+            }
             MissionData missionData = entry.getValue().getMissionData().get(level);
             if (missionData.getItem().slot == null) continue;
             inventory.setItem(missionData.getItem().slot, getItem(entry.getKey()));
         }
 
+        // Deals where slot is null, to randomly pick a few missions
         List<String> missions = iridiumTeams.getTeamManager().getTeamMission(team, missionType);
         int index = 0;
         for (String missionName : missions) {
@@ -71,6 +81,7 @@ public class MissionGUI<T extends Team, U extends IridiumUser<T>> extends BackGU
     }
 
     private ItemStack getItem(String missionName) {
+        // This will create the mission if it doesnt exist
         TeamMission teamMission = iridiumTeams.getTeamManager().getTeamMission(team, missionName);
         Mission mission = iridiumTeams.getMissions().missions.get(missionName);
         MissionData missionData = mission.getMissionData().get(teamMission.getMissionLevel());
