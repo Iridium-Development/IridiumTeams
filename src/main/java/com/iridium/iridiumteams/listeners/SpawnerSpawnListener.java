@@ -28,8 +28,11 @@ public class SpawnerSpawnListener<T extends Team, U extends IridiumUser<T>> impl
             if (!teamEnhancement.isActive(spawnerEnhancement.type)) return;
             if (data == null) return;
 
+            int spawnCount = spawner.getSpawnCount();
             spawner.setSpawnCount((spawner.getSpawnCount() * data.spawnMultiplier) + data.spawnCount);
+            if(spawner.getMaxSpawnDelay() != data.spawnDelay) { spawner.setMaxSpawnDelay(data.spawnDelay); }
             spawner.update(true);
+            spawner.setSpawnCount(spawnCount);
         });
     }
 }
