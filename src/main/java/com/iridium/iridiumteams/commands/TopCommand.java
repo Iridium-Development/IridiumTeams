@@ -1,5 +1,6 @@
 package com.iridium.iridiumteams.commands;
 
+import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.Rank;
@@ -29,7 +30,6 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
 
     @Override
     public boolean execute(CommandSender sender, String[] arguments, IridiumTeams<T, U> iridiumTeams) {
-
         int listLength = 10;
         TeamSorting<T> sortingType = iridiumTeams.getSortingTypes().get(0);
         boolean excludePrivate = !sender.hasPermission(adminPermission);
@@ -66,21 +66,16 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
     }
 
     public void sendList(CommandSender sender, IridiumTeams<T, U> iridiumTeams, TeamSorting<T> sortingType, int listLength, boolean excludePrivate) {
+        List<T> teamList = iridiumTeams.getTeamManager().getTeams(sortingType, excludePrivate);
 
-        List<T> teamList;
-        teamList = iridiumTeams.getTeamManager().getTeams(sortingType, excludePrivate);
-
-        String sortingTypeName = sortingType.getName();
-
-        sender.sendMessage(StringUtils.color(iridiumTeams.getMessages().topCommandHeader
-                .replace("%sortType%", sortingTypeName)));
+        sender.sendMessage(StringUtils.color(StringUtils.getCenteredMessage(iridiumTeams.getMessages().topCommandHeader.replace("%sort_type%", sortingType.getName()), iridiumTeams.getMessages().topCommandFiller)));
 
         for (int i = 0; i < listLength;  i++) {
             if(i == sortingType.getSortedTeams(iridiumTeams).size()) break;
-            String teamOwner = iridiumTeams.getTeamManager().getTeamMembers(teamList.get(i)).stream()
-                    .filter(user -> user.getUserRank() == Rank.OWNER.getId())
-                    .findFirst()
-                    .map(U::getName).get();
+            T team = teamList.get(i);
+            List<Placeholder> placeholders = iridiumTeams.getTeamsPlaceholderBuilder().getPlaceholders(team);
+            placeholders.add(new Placeholder("value", iridiumTeams.getConfiguration().numberFormatter.format(sortingType.getValue(team))));
+            placeholders.add(new Placeholder("rank", String.valueOf(i+1)));
 
             String color = "&7";
             switch(i) {
@@ -97,11 +92,10 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
                     break;
                 }
             }
+            placeholders.add(new Placeholder("color", color));
 
-            String teamID = "";
-            if (!excludePrivate) teamID = "[" + sortingType.getSortedTeams(iridiumTeams).get(i).getId() + "] ";
 
-            sender.sendMessage(StringUtils.color(color + (i + 1)  + "&7: " + teamID + teamOwner + ": &a" + listedValue));
+            sender.sendMessage(StringUtils.color(StringUtils.processMultiplePlaceholders(iridiumTeams.getMessages().topCommandMessage, placeholders)));
         }
     }
 
@@ -113,11 +107,7 @@ public class TopCommand<T extends Team, U extends IridiumUser<T>> extends Comman
                 return Collections.singletonList("list");
             }
             case 2: {
-                List<String> sortingTypes = new ArrayList<>();
-                for(TeamSorting<T> pluginSortingType : iridiumTeams.getSortingTypes()) {
-                    sortingTypes.add(pluginSortingType.getName());
-                }
-                return sortingTypes;
+                return iridiumTeams.getSortingTypes().stream().map(TeamSorting::getName).collect(Collectors.toList());
             }
             case 3: {
                 return Collections.singletonList("10");

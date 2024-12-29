@@ -7,6 +7,8 @@ public class Messages {
     public String notAPlayer;
     public String unknownCommand;
     public String topCommandHeader;
+    public String topCommandFiller;
+    public String topCommandMessage;
     public String helpCommandHeader;
     public String helpCommandFiller;
     public String helpCommandMessage;
@@ -175,7 +177,9 @@ public class Messages {
         mustBeAPlayer = "%prefix% &7You must be a player to execute this command.";
         notAPlayer = "%prefix% &7That player doesn't exist.";
         unknownCommand = "%prefix% &7Unknown Command, Try /" + command + " help.";
-        topCommandHeader = "&8[" + color + "&l" + pluginName + "&r" + color + " Leaderboard - &l&a%sortType%&8]";
+        topCommandHeader = "&8[" + color + "&l" + pluginName + "&r" + color + " Leaderboard - &l&a%sort_type%&8]";
+        topCommandFiller = "&8&m ";
+        topCommandMessage = "%color%#%rank% &7: %"+team.toLowerCase()+"_name%: &a%value%";
         helpCommandHeader = "&8[" + color + "&l" + pluginName + " Help&8]";
         helpCommandFiller = "&8&m ";
         helpCommandMessage = color + "/" + command + " %command%&r: &7%description%";
