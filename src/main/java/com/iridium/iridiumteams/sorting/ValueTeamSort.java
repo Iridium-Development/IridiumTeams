@@ -23,4 +23,14 @@ public class ValueTeamSort<T extends Team> extends TeamSorting<T> {
                 .sorted(Comparator.comparing(T::getValue).reversed())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String getName() {
+        return "Value";
+    }
+
+    @Override
+    public double getValue(T team) {
+        return team.getValue();
+    }
 }
