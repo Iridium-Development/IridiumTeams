@@ -25,6 +25,7 @@ public class LocalDateTimeType extends LongType {
     @Override
     public Object sqlArgToJava(FieldType fieldType, Object sqlArg, int columnPos) throws SQLException {
         long value = (Long) super.sqlArgToJava(fieldType, sqlArg, columnPos);
+        if(value == 0) return null;
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(value), ZoneId.systemDefault());
     }
 

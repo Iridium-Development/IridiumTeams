@@ -22,6 +22,7 @@ public class TeamMission extends TeamData {
 
     @DatabaseField(columnName = "mission_level", uniqueCombo = true)
     private int missionLevel;
+
     @DatabaseField(columnName = "expiration")
     private LocalDateTime expiration;
 
