@@ -48,8 +48,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.36")
 
     // Test dependencies
-    testImplementation(platform("org.junit:junit-bom:5.12.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.12.0")
+    testImplementation(platform("org.junit:junit-bom:5.12.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.12.1")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.85.2")
     testImplementation("com.github.MilkBowl:VaultAPI:1.7")
 }
