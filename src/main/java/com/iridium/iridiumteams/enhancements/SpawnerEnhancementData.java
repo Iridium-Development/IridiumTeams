@@ -8,10 +8,12 @@ import java.util.Map;
 public class SpawnerEnhancementData extends EnhancementData {
     public int spawnCount;
     public int spawnMultiplier;
+    public int spawnDelay;
 
-    public SpawnerEnhancementData(int minLevel, int money, Map<String, Double> bankCosts, int spawnCount, int spawnMultiplier) {
+    public SpawnerEnhancementData(int minLevel, int money, Map<String, Double> bankCosts, int spawnCount, int spawnMultiplier, int spawnDelay) {
         super(minLevel, money, bankCosts);
         this.spawnCount = spawnCount;
         this.spawnMultiplier = spawnMultiplier;
+        this.spawnDelay = spawnDelay;
     }
 }
