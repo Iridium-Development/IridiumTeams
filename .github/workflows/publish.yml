@@ -54,25 +54,33 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Downloading artifact
+      - name: Checkout code
         uses: actions/checkout@v4
+
       - uses: thecodemonkey/action-get-gradle-version@master
         id: version
         with:
           file: "build.gradle.kts"
-      - uses: actions/download-artifact@v4.2.1
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4.2.1
         with:
           name: "IridiumTeams"
           path: "./"
 
-      - name: Publishing to Nexus
-        uses: sonatype-nexus-community/nexus-repo-github-action@master
-        with:
-          serverUrl: "https://nexus.iridiumdevelopment.net/"
-          username: "${{ secrets.NEXUS_USERNAME }}"
-          password: "${{ secrets.NEXUS_PASSWORD }}"
-          format: "maven2"
-          repository: "maven-releases"
-          coordinates: "groupId=com.iridium artifactId=IridiumTeams version=${{steps.version.outputs.version}} generate-pom=on"
-          assets: "extension=jar"
-          filename: "IridiumTeams-*.jar"
+      - name: Find IridiumTeams jar
+        id: find_jar
+        run: |
+          FILE=$(find . -type f -name "IridiumTeams-*.jar" | head -n 1)
+          echo "file=$FILE" >> "$GITHUB_OUTPUT"
+
+      - name: Upload to Nexus with curl
+        run: |
+          curl -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \
+          -X POST "https://nexus.iridiumdevelopment.net/service/rest/v1/components?repository=maven-releases" \
+          -F "maven2.groupId=com.iridium" \
+          -F "maven2.artifactId=IridiumTeams" \
+          -F "maven2.version=${{ steps.version.outputs.version }}" \
+          -F "maven2.generate-pom=true" \
+          -F "maven2.asset1=@${{ steps.find_jar.outputs.file }}" \
+          -F "maven2.asset1.extension=jar"
