@@ -44,10 +44,6 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     @Setter
     private boolean recalculating = false;
 
-    public IridiumTeams(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
-        super(loader, description, dataFolder, file);
-    }
-
     @Override
     public void onEnable() {
         super.onEnable();

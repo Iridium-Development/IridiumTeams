@@ -42,10 +42,6 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
     private final TestEconomyProvider economyProvider = new TestEconomyProvider();
 
-    public TestPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
-        super(loader, description, dataFolder, file);
-    }
-
     @Override
     public void onEnable() {
         instance = this;

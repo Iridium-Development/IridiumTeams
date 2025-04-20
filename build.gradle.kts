@@ -48,9 +48,9 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
     // Test dependencies
-    testImplementation(platform("org.junit:junit-bom:5.12.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.12.2")
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.85.2")
+    testImplementation(platform("org.junit:junit-bom:5.11.4"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.21:3.95.1")
     testImplementation("com.github.MilkBowl:VaultAPI:1.7")
 }
 
@@ -81,8 +81,7 @@ tasks {
     }
 
     test {
-        // TODO: fix unit tests & re-enable this
-        // useJUnitPlatform()
+         useJUnitPlatform()
     }
 
     compileJava {
@@ -91,8 +90,8 @@ tasks {
     }
 
     compileTestJava {
-        sourceCompatibility = JavaVersion.VERSION_17.toString()
-        targetCompatibility = JavaVersion.VERSION_17.toString()
+        sourceCompatibility = JavaVersion.VERSION_21.toString()
+        targetCompatibility = JavaVersion.VERSION_21.toString()
     }
 }
 
