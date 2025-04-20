@@ -76,8 +76,8 @@ jobs:
 
       - name: Upload to Nexus with curl
         run: |
-          curl -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \
-          -X POST "https://nexus.iridiumdevelopment.net/service/rest/v1/components?repository=maven-releases" \
+          curl --location 'https://nexus.iridiumdevelopment.net/service/rest/v1/components?repository=maven-releases' \
+          --header 'Authorization: Basic ${{ secrets.NEXUS_AUTH }}' \
           -F "maven2.groupId=com.iridium" \
           -F "maven2.artifactId=IridiumTeams" \
           -F "maven2.version=${{ steps.version.outputs.version }}" \
