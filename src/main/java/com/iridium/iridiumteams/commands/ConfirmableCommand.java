@@ -14,7 +14,7 @@ public abstract class ConfirmableCommand<T extends Team, U extends IridiumUser<T
 
     public ConfirmableCommand() {
         super();
-        this.requiresConfirmation = false;
+        this.requiresConfirmation = true;
     }
 
     public ConfirmableCommand(@NotNull List<String> aliases, @NotNull String description, @NotNull String syntax,
