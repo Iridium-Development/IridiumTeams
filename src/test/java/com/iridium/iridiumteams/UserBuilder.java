@@ -1,7 +1,7 @@
 package com.iridium.iridiumteams;
 
-import be.seeseemelk.mockbukkit.ServerMock;
-import be.seeseemelk.mockbukkit.entity.PlayerMock;
+import org.mockbukkit.mockbukkit.ServerMock;
+import org.mockbukkit.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import com.iridium.testplugin.TestPlugin;
 import com.iridium.testplugin.TestTeam;

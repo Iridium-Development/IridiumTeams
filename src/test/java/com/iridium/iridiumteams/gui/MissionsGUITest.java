@@ -1,7 +1,7 @@
 package com.iridium.iridiumteams.gui;
 
-import be.seeseemelk.mockbukkit.MockBukkit;
-import be.seeseemelk.mockbukkit.ServerMock;
+import org.mockbukkit.mockbukkit.MockBukkit;
+import org.mockbukkit.mockbukkit.ServerMock;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.missions.MissionType;

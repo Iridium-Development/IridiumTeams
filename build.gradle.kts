@@ -34,7 +34,7 @@ dependencies {
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.38")
     compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("dev.rosewood:rosestacker:1.5.32")
     compileOnly("com.bgsoftware:WildStackerAPI:2025.1")
@@ -48,10 +48,10 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
     // Test dependencies
-    testImplementation(platform("org.junit:junit-bom:5.11.4"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.21:3.95.1")
-    testImplementation("com.github.MilkBowl:VaultAPI:1.7")
+    testImplementation(platform("org.junit:junit-bom:5.12.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.12.2")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.45.1")
+    testImplementation("com.github.MilkBowl:VaultAPI:1.7.1")
 }
 
 tasks {

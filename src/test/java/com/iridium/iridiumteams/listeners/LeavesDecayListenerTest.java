@@ -1,7 +1,7 @@
 package com.iridium.iridiumteams.listeners;
 
-import be.seeseemelk.mockbukkit.MockBukkit;
-import be.seeseemelk.mockbukkit.ServerMock;
+import org.mockbukkit.mockbukkit.MockBukkit;
+import org.mockbukkit.mockbukkit.ServerMock;
 import com.iridium.iridiumteams.SettingType;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.testplugin.TestPlugin;

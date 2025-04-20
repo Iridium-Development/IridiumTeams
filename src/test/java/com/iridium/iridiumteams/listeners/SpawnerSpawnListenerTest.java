@@ -1,9 +1,9 @@
 package com.iridium.iridiumteams.listeners;
 
-import be.seeseemelk.mockbukkit.MockBukkit;
-import be.seeseemelk.mockbukkit.ServerMock;
-import be.seeseemelk.mockbukkit.block.state.CreatureSpawnerMock;
-import be.seeseemelk.mockbukkit.entity.PlayerMock;
+import org.mockbukkit.mockbukkit.MockBukkit;
+import org.mockbukkit.mockbukkit.ServerMock;
+import org.mockbukkit.mockbukkit.block.state.CreatureSpawnerStateMock;
+import org.mockbukkit.mockbukkit.entity.PlayerMock;
 import com.iridium.iridiumteams.TeamBuilder;
 import com.iridium.iridiumteams.UserBuilder;
 import com.iridium.testplugin.TestPlugin;
@@ -41,7 +41,7 @@ class SpawnerSpawnListenerTest {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         Entity entity = playerMock.getWorld().spawnEntity(playerMock.getLocation(), EntityType.ZOMBIE);
 
-        CreatureSpawnerMock creatureSpawnerMock = new CreatureSpawnerMock(Material.SPAWNER);
+        CreatureSpawnerStateMock creatureSpawnerMock = new CreatureSpawnerStateMock(Material.SPAWNER);
         SpawnerSpawnEvent spawnerSpawnEvent = new SpawnerSpawnEvent(entity, creatureSpawnerMock);
         serverMock.getPluginManager().callEvent(spawnerSpawnEvent);
 
@@ -55,7 +55,7 @@ class SpawnerSpawnListenerTest {
         PlayerMock playerMock = new UserBuilder(serverMock).build();
         Entity entity = playerMock.getWorld().spawnEntity(playerMock.getLocation(), EntityType.ZOMBIE);
 
-        CreatureSpawnerMock creatureSpawnerMock = new CreatureSpawnerMock(Material.SPAWNER);
+        CreatureSpawnerStateMock creatureSpawnerMock = new CreatureSpawnerStateMock(Material.SPAWNER);
         SpawnerSpawnEvent spawnerSpawnEvent = new SpawnerSpawnEvent(entity, creatureSpawnerMock);
         serverMock.getPluginManager().callEvent(spawnerSpawnEvent);
 
