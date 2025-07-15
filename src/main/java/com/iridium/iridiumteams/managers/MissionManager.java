@@ -32,7 +32,7 @@ public class MissionManager<T extends Team, U extends IridiumUser<T>> {
             case DAILY:
                 return baseTime.plusDays(1);
             case WEEKLY:
-                baseTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+                return baseTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
             case INFINITE:
                 return null;
         }
