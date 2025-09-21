@@ -40,7 +40,9 @@ public class Configuration {
     public Map<Integer, Integer> teamTopSlots;
 
     public Map<Integer, Integer> teamWarpSlots;
-
+    public int teleportDelay;
+    public double teleportMovementThreshold;
+    public String teleportBypassPermission;
 
     /**
      * The Rewards the island gets for leveling up
@@ -116,15 +118,15 @@ public class Configuration {
                 .build();
 
         this.levelRewards = ImmutableMap.<Integer, Reward>builder()
-                .put(1, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %"+team.toLowerCase()+"_level% Reward", Arrays.asList(
-                        "&7"+team+" Level %"+team.toLowerCase()+"_level% Rewards:",
+                .put(1, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %" + team.toLowerCase() + "_level% Reward", Arrays.asList(
+                        "&7" + team + " Level %" + team.toLowerCase() + "_level% Rewards:",
                         "&b&l* &b200 Money",
                         "",
                         "&b&l[!] &bLeft click to redeem"
                 )), Collections.emptyList(), 0, new HashMap<>(), 200, 0, XSound.ENTITY_PLAYER_LEVELUP))
 
-                .put(5, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %"+team.toLowerCase()+"_level% Reward", Arrays.asList(
-                        "&7"+team+" Level %"+team.toLowerCase()+"_level% Rewards:",
+                .put(5, new Reward(new Item(XMaterial.EXPERIENCE_BOTTLE, 1, "&b&lLevel %" + team.toLowerCase() + "_level% Reward", Arrays.asList(
+                        "&7" + team + " Level %" + team.toLowerCase() + "_level% Rewards:",
                         "&b&l* &b2000 Money",
                         "",
                         "&b&l[!] &bLeft click to redeem"
@@ -132,5 +134,8 @@ public class Configuration {
                 .build();
 
         this.whitelistedWorlds = Collections.emptyList();
+        this.teleportDelay = 0;
+        this.teleportMovementThreshold = 0.5;
+        this.teleportBypassPermission = pluginName.toLowerCase().replace(" ", "") + ".teleport.bypass";
     }
 }
