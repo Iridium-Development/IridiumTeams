@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -50,10 +51,10 @@ public class TeleportRequest<T extends Team, U extends IridiumUser<T>> {
     /**
      * Get the player associated with this teleport request
      * 
-     * @return Player object or null if player is offline
+     * @return Optional containing the Player object, or empty if player is offline
      */
-    public Player getPlayer() {
-        return Bukkit.getPlayer(playerId);
+    public Optional<Player> getPlayer() {
+        return Optional.ofNullable(Bukkit.getPlayer(playerId));
     }
 
     /**
@@ -63,10 +64,10 @@ public class TeleportRequest<T extends Team, U extends IridiumUser<T>> {
      * @return true if player has moved beyond threshold
      */
     public boolean hasPlayerMoved(double threshold) {
-        Player player = getPlayer();
-        if (player == null)
-            return true;
+        Optional<Player> optionalPlayer = getPlayer();
+        if (!optionalPlayer.isPresent()) return true;
 
+        Player player = optionalPlayer.get();
         Location currentLocation = player.getLocation();
 
         // Check if they're in the same world

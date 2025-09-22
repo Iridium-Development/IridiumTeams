@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -80,11 +81,11 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
         if (request == null) return;
         request.cancelTasks();
 
-        Player player = request.getPlayer();
-        if (player != null && player.isOnline()) {
+        Optional<Player> player = request.getPlayer();
+        if (player.isPresent() && player.get().isOnline()) {
             String message = getTeleportCancelMessage(reason);
             if (message != null) {
-                player.sendMessage(StringUtils.color(message
+                player.get().sendMessage(StringUtils.color(message
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             }
         }
@@ -95,10 +96,10 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
      * Get a player's active teleport request
      * 
      * @param playerId The player's UUID
-     * @return The teleport request or null if none exists
+     * @return Optional containing the teleport request, or empty if none exists
      */
-    public TeleportRequest<T, U> getTeleportRequest(UUID playerId) {
-        return activeRequests.get(playerId);
+    public Optional<TeleportRequest<T, U>> getTeleportRequest(UUID playerId) {
+        return Optional.ofNullable(activeRequests.get(playerId));
     }
 
     /**
@@ -135,8 +136,8 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
         BukkitRunnable countdownTask = new BukkitRunnable() {
             @Override
             public void run() {
-                Player player = request.getPlayer();
-                if (player == null || !player.isOnline()) {
+                Optional<Player> player = request.getPlayer();
+                if (!player.isPresent() || !player.get().isOnline()) {
                     cancelTeleport(request.getPlayerId(), TeleportCancelReason.PLAYER_OFFLINE);
                     return;
                 }
@@ -147,7 +148,7 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
                 }
 
                 if (request.getRemainingSeconds() > 0) {
-                    player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportDelay
+                    player.get().sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportDelay
                             .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                             .replace("%delay%", String.valueOf(request.getRemainingSeconds()))));
 
@@ -171,12 +172,14 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
             @Override
             public void run() {
                 UUID playerId = request.getPlayerId();
-                Player player = request.getPlayer();
+                Optional<Player> optionalPlayer = request.getPlayer();
 
-                if (player == null || !player.isOnline()) {
+                if (!optionalPlayer.isPresent() || !optionalPlayer.get().isOnline()) {
                     activeRequests.remove(playerId);
                     return;
                 }
+
+                Player player = optionalPlayer.get();
 
                 if (request.hasPlayerMoved(iridiumTeams.getConfiguration().teleportMovementThreshold)) {
                     cancelTeleport(playerId, TeleportCancelReason.PLAYER_MOVED);
