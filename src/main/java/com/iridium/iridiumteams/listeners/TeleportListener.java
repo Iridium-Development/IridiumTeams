@@ -39,14 +39,14 @@ public class TeleportListener<T extends Team, U extends IridiumUser<T>> implemen
         TeleportManager<T, U> teleportManager = iridiumTeams.getTeleportManager();
         TeleportRequest<T, U> request = teleportManager.getTeleportRequest(playerId);
 
-        if (request != null) {
-            if (event.getFrom().getBlockX() != event.getTo().getBlockX() ||
-                    event.getFrom().getBlockY() != event.getTo().getBlockY() ||
-                    event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
+        if (request == null) return;
 
-                if (request.hasPlayerMoved(iridiumTeams.getConfiguration().teleportMovementThreshold)) {
-                    teleportManager.cancelTeleport(playerId, TeleportCancelReason.PLAYER_MOVED);
-                }
+
+        if (event.getFrom().getBlockX() != event.getTo().getBlockX() ||
+                event.getFrom().getBlockY() != event.getTo().getBlockY() ||
+                event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
+            if (request.hasPlayerMoved(iridiumTeams.getConfiguration().teleportMovementThreshold)) {
+                teleportManager.cancelTeleport(playerId, TeleportCancelReason.PLAYER_MOVED);
             }
         }
     }
