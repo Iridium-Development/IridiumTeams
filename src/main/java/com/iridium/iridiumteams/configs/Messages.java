@@ -166,6 +166,11 @@ public class Messages {
     public String topFirstColor;
     public String topSecondColor;
     public String topThirdColor;
+    public String teleportStarted;
+    public String teleportDelay;
+    public String teleportCancelled;
+    public String teleportCancelledMovement;
+    public String teleportCancelledDamage;
 
     public Messages() {
         this("Team", "t", "IridiumTeams", "&c");
@@ -335,5 +340,10 @@ public class Messages {
         topFirstColor = "&e&l";
         topSecondColor = "&l";
         topThirdColor = "&6";
+        teleportStarted = "%prefix% Teleporting...";
+        teleportDelay = "%prefix% Teleporting in %delay% seconds. Don't move!";
+        teleportCancelled = "%prefix% Teleport cancelled.";
+        teleportCancelledMovement = "%prefix% Teleport cancelled because you moved!";
+        teleportCancelledDamage = "%prefix% Teleport cancelled because you took damage!";
     }
 }

@@ -40,14 +40,8 @@ public class WarpCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                 return false;
             }
         }
-        
-        if (iridiumTeams.getTeamManager().teleport(player, teamWarp.get().getLocation(), team)) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportingWarp
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-                    .replace("%name%", teamWarp.get().getName())
-            ));
-        }
 
+        iridiumTeams.getTeamManager().teleportToWarp(player, teamWarp.get().getLocation(), team, teamWarp.get().getName());
         return true;
     }
 

@@ -13,6 +13,7 @@ import com.iridium.iridiumteams.managers.*;
 import com.iridium.iridiumteams.placeholders.ClipPlaceholderAPI;
 import com.iridium.iridiumteams.sorting.TeamSorting;
 import de.jeff_media.updatechecker.UpdateChecker;
+import com.iridium.iridiumteams.teleport.TeleportManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -98,6 +99,8 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract TeamManager<T, U> getTeamManager();
 
     public abstract IridiumUserManager<T, U> getUserManager();
+
+    public abstract TeleportManager<T, U> getTeleportManager();
 
     public abstract CommandManager<T, U> getCommandManager();
 
@@ -201,6 +204,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
         Bukkit.getPluginManager().registerEvents(new SettingUpdateListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new EntityDamageListener<>(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerBucketListener<>(this), this);
+        Bukkit.getPluginManager().registerEvents(new TeleportListener<>(this), this);
     }
 
     public void saveData() {

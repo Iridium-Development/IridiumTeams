@@ -21,22 +21,14 @@ public class HomeCommand<T extends Team, U extends IridiumUser<T>> extends Comma
         Player player = user.getPlayer();
         Location home = team.getHome();
         if (home == null) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().homeNotSet
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-            ));
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().homeNotSet.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
         }
         if (iridiumTeams.getTeamManager().getTeamViaLocation(home).map(T::getId).orElse(0) != team.getId()) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().homeNotInTeam
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-            ));
+            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().homeNotInTeam.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));
             return false;
         }
-        if (iridiumTeams.getTeamManager().teleport(player, home, team)) {
-            player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teleportingHome
-                    .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
-            ));
-        }
+        iridiumTeams.getTeamManager().teleportToHome(player, home, team);
         return true;
     }
 

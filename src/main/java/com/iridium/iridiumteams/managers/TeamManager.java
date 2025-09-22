@@ -11,6 +11,7 @@ import com.iridium.iridiumteams.enhancements.EnhancementData;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
 import com.iridium.iridiumteams.sorting.TeamSorting;
+import com.iridium.iridiumteams.teleport.TeleportType;
 import com.iridium.iridiumteams.utils.PlayerUtils;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTType;
@@ -438,6 +439,49 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
         PaperLib.teleportAsync(player, location);
         player.teleport(location);
         return true;
+    }
+
+    /**
+     * Teleport a player with delay using the TeleportManager
+     *
+     * @param player       The player to teleport
+     * @param location     The destination location
+     * @param team         The team associated with this teleport
+     * @param teleportType The type of teleport (HOME, WARP, etc.)
+     * @param teleportName The name of the teleport (for warps)
+     * @return true if teleport was initiated successfully
+     */
+    public boolean teleportWithDelay(Player player, Location location, T team,
+                                     TeleportType teleportType,
+                                     String teleportName) {
+        return iridiumTeams.getTeleportManager().startTeleport(player, location, team, teleportType, teleportName);
+    }
+
+    /**
+     * Teleport a player to team home with delay
+     *
+     * @param player   The player to teleport
+     * @param location The home location
+     * @param team     The team
+     * @return true if teleport was initiated successfully
+     */
+    public boolean teleportToHome(Player player, Location location, T team) {
+        return teleportWithDelay(player, location, team,
+                TeleportType.HOME, "home");
+    }
+
+    /**
+     * Teleport a player to a team warp with delay
+     *
+     * @param player   The player to teleport
+     * @param location The warp location
+     * @param team     The team
+     * @param warpName The name of the warp
+     * @return true if teleport was initiated successfully
+     */
+    public boolean teleportToWarp(Player player, Location location, T team, String warpName) {
+        return teleportWithDelay(player, location, team,
+                TeleportType.WARP, warpName);
     }
 
     public void handleBlockBreakOutsideTerritory(BlockBreakEvent blockEvent) {
