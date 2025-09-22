@@ -46,12 +46,12 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
         }
 
         if (player.hasPermission(iridiumTeams.getConfiguration().teleportBypassPermission)) {
-            return instantTeleport(player, destination, team);
+            return instantTeleport(player, destination);
         }
 
         int delay = iridiumTeams.getConfiguration().teleportDelay;
         if (delay <= 0) {
-            return instantTeleport(player, destination, team);
+            return instantTeleport(player, destination);
         }
 
         TeleportRequest<T, U> request = new TeleportRequest<>(
@@ -117,10 +117,9 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
      * 
      * @param player      The player to teleport
      * @param destination The destination location
-     * @param team        The team associated with this teleport
      * @return true if teleport was successful
      */
-    private boolean instantTeleport(Player player, Location destination, T team) {
+    private boolean instantTeleport(Player player, Location destination) {
         player.setFallDistance(0);
         PaperLib.teleportAsync(player, destination);
         player.teleport(destination);
@@ -191,7 +190,7 @@ public class TeleportManager<T extends Team, U extends IridiumUser<T>> {
                 }
                 activeRequests.remove(playerId);
 
-                instantTeleport(player, request.getDestination(), request.getTeam());
+                instantTeleport(player, request.getDestination());
                 sendSuccessMessage(player, request);
             }
         };

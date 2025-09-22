@@ -18,7 +18,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import java.util.Optional;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 /**
  * Handles events that should cancel delayed teleports
@@ -33,22 +35,15 @@ public class TeleportListener<T extends Team, U extends IridiumUser<T>> implemen
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-        UUID playerId = player.getUniqueId();
+        if (event.getTo() == null) return;
 
-        TeleportManager<T, U> teleportManager = iridiumTeams.getTeleportManager();
-        TeleportRequest<T, U> request = teleportManager.getTeleportRequest(playerId);
-
-        if (request == null) return;
-
-
-        if (event.getFrom().getBlockX() != event.getTo().getBlockX() ||
-                event.getFrom().getBlockY() != event.getTo().getBlockY() ||
-                event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
-            if (request.hasPlayerMoved(iridiumTeams.getConfiguration().teleportMovementThreshold)) {
-                teleportManager.cancelTeleport(playerId, TeleportCancelReason.PLAYER_MOVED);
+        handleTeleportRequest(event.getPlayer(), (player, request) -> {
+            if (hasPlayerMovedBlock(event) &&
+                    request.hasPlayerMoved(iridiumTeams.getConfiguration().teleportMovementThreshold)) {
+                iridiumTeams.getTeleportManager()
+                        .cancelTeleport(player.getUniqueId(), TeleportCancelReason.PLAYER_MOVED);
             }
-        }
+        });
     }
 
     /**
@@ -56,14 +51,12 @@ public class TeleportListener<T extends Team, U extends IridiumUser<T>> implemen
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player)) {
-            return;
-        }
-
+        if (!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
-        UUID playerId = player.getUniqueId();
 
+        UUID playerId = player.getUniqueId();
         TeleportManager<T, U> teleportManager = iridiumTeams.getTeleportManager();
+
         if (teleportManager.hasActiveTeleport(playerId)) {
             teleportManager.cancelTeleport(playerId, TeleportCancelReason.PLAYER_DAMAGED);
         }
@@ -89,23 +82,41 @@ public class TeleportListener<T extends Team, U extends IridiumUser<T>> implemen
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
-        Player player = event.getPlayer();
-        UUID playerId = player.getUniqueId();
+        if (event.getTo() == null) return;
 
-        TeleportManager<T, U> teleportManager = iridiumTeams.getTeleportManager();
-        TeleportRequest<T, U> request = teleportManager.getTeleportRequest(playerId);
-
-        if (request != null) {
+        handleTeleportRequest(event.getPlayer(), (player, request) -> {
             if (locationsAreClose(event.getTo(), request.getDestination(), 0.5)) {
-                teleportManager.cancelTeleport(playerId, TeleportCancelReason.OTHER_TELEPORT);
+                iridiumTeams.getTeleportManager()
+                        .cancelTeleport(player.getUniqueId(), TeleportCancelReason.OTHER_TELEPORT);
             }
-        }
+        });
+    }
+
+    /**
+     * Shared helper for fetching and processing teleport requests.
+     * Honestly, I just found the duplicate code warning from Intellij annoying...
+     */
+    private void handleTeleportRequest(Player player, BiConsumer<Player, TeleportRequest<T, U>> consumer) {
+        UUID playerId = player.getUniqueId();
+        TeleportManager<T, U> teleportManager = iridiumTeams.getTeleportManager();
+
+        Optional<TeleportRequest<T, U>> requestOpt = teleportManager.getTeleportRequest(playerId);
+        requestOpt.ifPresent(request -> consumer.accept(player, request));
+    }
+
+    private boolean hasPlayerMovedBlock(PlayerMoveEvent event) {
+        if (event.getTo() == null) return false;
+
+        return event.getFrom().getBlockX() != event.getTo().getBlockX()
+                || event.getFrom().getBlockY() != event.getTo().getBlockY()
+                || event.getFrom().getBlockZ() != event.getTo().getBlockZ();
     }
 
     private boolean locationsAreClose(Location loc1, Location loc2, double threshold) {
-        if (!loc1.getWorld().equals(loc2.getWorld())) {
-            return false;
-        }
+        if (loc1 == null || loc2 == null) return false;
+        if (loc1.getWorld() == null || loc2.getWorld() == null) return false;
+        if (!loc1.getWorld().equals(loc2.getWorld())) return false;
+
         return loc1.distance(loc2) <= threshold;
     }
 }
