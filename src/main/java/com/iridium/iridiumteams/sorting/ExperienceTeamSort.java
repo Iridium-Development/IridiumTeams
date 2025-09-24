@@ -1,5 +1,7 @@
 package com.iridium.iridiumteams.sorting;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.Team;
@@ -24,6 +26,7 @@ public class ExperienceTeamSort<T extends Team> extends TeamSorting<T> {
                 .collect(Collectors.toList());
     }
 
+    @JsonIgnore
     @Override
     public String getName() {
         return "Experience";
