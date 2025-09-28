@@ -497,11 +497,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
             return false;
         }
 
-        NBT.get(item, readableItemNBT -> {
+        return NBT.get(item, readableItemNBT -> {
             return readableItemNBT.hasTag(iridiumTeams.getName().toLowerCase(), NBTType.NBTTagCompound);
         });
-
-        return false;
     }
 
     public enum SortType {
