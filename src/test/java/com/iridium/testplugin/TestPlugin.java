@@ -7,6 +7,7 @@ import com.iridium.iridiumteams.configs.*;
 import com.iridium.iridiumteams.managers.MissionManager;
 import com.iridium.iridiumteams.managers.ShopManager;
 import com.iridium.iridiumteams.managers.SupportManager;
+import com.iridium.iridiumteams.teleport.TeleportManager;
 import com.iridium.testplugin.api.EnhancementUpdateEvent;
 import com.iridium.testplugin.managers.CommandManager;
 import com.iridium.testplugin.managers.TeamManager;
@@ -26,6 +27,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
     private MissionManager<TestTeam, User> missionManager;
     private ShopManager<TestTeam, User> shopManager;
     private SupportManager<TestTeam, User> supportManager;
+    private TeleportManager<TestTeam, User> teleportManager;
 
     private Configuration configuration;
     private Messages messages;
@@ -56,6 +58,7 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
         this.missionManager = new MissionManager<>(this);
         this.shopManager = new ShopManager<>(this);
         this.supportManager = new SupportManager<>(this);
+        this.teleportManager = new TeleportManager<>(this);
 
         super.onEnable();
     }
@@ -103,6 +106,11 @@ public class TestPlugin extends IridiumTeams<TestTeam, User> {
 
     public UserManager getUserManager() {
         return this.userManager;
+    }
+
+    @Override
+    public TeleportManager<TestTeam, User> getTeleportManager() {
+        return this.teleportManager;
     }
 
     public CommandManager getCommandManager() {
