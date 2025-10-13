@@ -12,8 +12,9 @@ import com.iridium.iridiumteams.listeners.*;
 import com.iridium.iridiumteams.managers.*;
 import com.iridium.iridiumteams.placeholders.ClipPlaceholderAPI;
 import com.iridium.iridiumteams.sorting.TeamSorting;
-import de.jeff_media.updatechecker.UpdateChecker;
 import com.iridium.iridiumteams.teleport.TeleportManager;
+import com.jeff_media.updatechecker.UpdateCheckSource;
+import com.jeff_media.updatechecker.UpdateChecker;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -324,8 +325,12 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     }
 
     public void startUpdateChecker(int pluginId) {
+        this.startUpdateChecker(String.valueOf(pluginId));
+    }
+
+    public void startUpdateChecker(String pluginId) {
         if (getConfiguration().updateChecks) {
-            UpdateChecker.init(this, pluginId)
+            new UpdateChecker(this, UpdateCheckSource.SPIGOT, pluginId)
                     .checkEveryXHours(24)
                     .setDownloadLink(pluginId)
                     .setColoredConsoleOutput(true)

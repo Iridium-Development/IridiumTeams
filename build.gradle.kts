@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.iridium"
-version = "2.6.1"
+version = "2.6.2"
 description = "IridiumTeams"
 
 repositories {
@@ -41,15 +41,15 @@ dependencies {
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
     compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
-    implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
+    implementation("com.jeff_media:SpigotUpdateChecker:3.0.4")
     implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
     // Test dependencies
-    testImplementation(platform("org.junit:junit-bom:5.13.4"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
+    testImplementation(platform("org.junit:junit-bom:5.14.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.14.0")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.85.2")
     testImplementation("com.github.MilkBowl:VaultAPI:1.7")
 }
