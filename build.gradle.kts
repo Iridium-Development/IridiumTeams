@@ -41,7 +41,7 @@ dependencies {
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
     compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
-    implementation("de.jeff_media:SpigotUpdateChecker:1.3.2")
+    implementation("com.jeff_media:SpigotUpdateChecker:3.0.4")
     implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // Enable lombok annotation processing
