@@ -1,11 +1,11 @@
 plugins {
     java
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "9.2.2"
 }
 
 group = "com.iridium"
-version = "2.6.4"
+version = "2.6.5"
 description = "IridiumTeams"
 
 repositories {
@@ -61,8 +61,14 @@ tasks {
     }
 
     shadowJar {
+        fun relocate(origin: String) =
+            relocate(origin, "com.iridium.iridiumteams.dependencies${origin.substring(origin.lastIndexOf('.'))}")
+
         // Remove the archive classifier suffix
         archiveClassifier.set("")
+
+        // Relocate dependencies
+        relocate("com.jeff_media.updatechecker")
     }
 
     // Set UTF-8 as the encoding
