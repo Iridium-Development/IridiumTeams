@@ -25,6 +25,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -491,6 +492,10 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     }
 
     public void handleBlockPlaceOutsideTerritory(BlockPlaceEvent blockEvent) {
+        // By default do nothing
+    }
+
+    public void handlePlayerInteractOutsideTerritory(PlayerInteractEvent interactEvent) {
         // By default do nothing
     }
 
