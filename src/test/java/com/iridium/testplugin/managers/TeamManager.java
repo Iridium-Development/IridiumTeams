@@ -205,7 +205,7 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
 
     @Override
     public TeamSpawners getTeamSpawners(TestTeam team, EntityType entityType) {
-        Optional<TeamSpawners> spawners = teamSpawners.stream().filter(s -> s.getTeamID() == team.getId() && s.getEntityType() == entityType).findFirst();
+        Optional<TeamSpawners> spawners = teamSpawners.stream().filter(s -> s.getTeamID() == team.getId() && s.getEntityType().get() == entityType).findFirst();
         if (spawners.isPresent()) {
             return spawners.get();
         }

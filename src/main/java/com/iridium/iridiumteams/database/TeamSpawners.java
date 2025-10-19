@@ -39,8 +39,4 @@ public class TeamSpawners extends TeamData {
         setChanged(true);
     }
 
-    public EntityType getEntityType() {
-        if(entityType == null) return null;
-        return entityType.get();
-    }
 }
