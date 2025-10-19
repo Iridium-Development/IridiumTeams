@@ -22,4 +22,8 @@ public class TeamReward extends TeamData {
         super(team);
         this.reward = reward;
     }
+
+    public TeamReward(int id) {
+        this.id = id;
+    }
 }

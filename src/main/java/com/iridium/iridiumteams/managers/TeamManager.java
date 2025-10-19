@@ -181,6 +181,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract TeamBank getTeamBank(T team, String bankItem);
 
     public abstract TeamSpawners getTeamSpawners(T team, EntityType entityType);
+
     public abstract TeamSpawners getTeamSpawners(T team, XEntityType xEntityType);
 
     public abstract TeamBlock getTeamBlock(T team, XMaterial xMaterial);
@@ -354,11 +355,16 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract List<TeamReward> getTeamRewards(T team);
 
+    public abstract Optional<TeamReward> getTeamReward(int id);
+
     public abstract void addTeamReward(TeamReward teamReward);
 
     public abstract void deleteTeamReward(TeamReward teamReward);
 
     public synchronized void claimTeamReward(TeamReward teamReward, Player player) {
+        if (!getTeamReward(teamReward.getId()).isPresent()) {
+            return;
+        }
         Reward reward = teamReward.getReward();
         deleteTeamReward(teamReward);
         reward.sound.play(player);

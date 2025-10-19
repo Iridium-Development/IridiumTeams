@@ -334,6 +334,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public Optional<TeamReward> getTeamReward(int id) {
+        return teamRewards.stream().filter(teamReward -> teamReward.getId() == id).findFirst();
+    }
+
+    @Override
     public void addTeamReward(TeamReward teamReward) {
         teamRewards.add(teamReward);
     }
