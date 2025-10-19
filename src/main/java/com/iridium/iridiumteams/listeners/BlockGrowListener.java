@@ -42,7 +42,11 @@ public class BlockGrowListener<T extends Team, U extends IridiumUser<T>> impleme
                 if (teamEnhancement.isActive(farmingEnhancement.type) && data != null) {
                     ageable.setAge(Math.min(ageable.getAge() + data.farmingModifier, ageable.getMaximumAge()));
                     event.getNewState().setBlockData(ageable);
-                    event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.BONE_MEAL_USE, 0);
+                    try {
+                        event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.BONE_MEAL_USE, 0);
+                    } catch (NoSuchFieldError e) {
+                        // ignored
+                    }
                 }
 
             } else {
