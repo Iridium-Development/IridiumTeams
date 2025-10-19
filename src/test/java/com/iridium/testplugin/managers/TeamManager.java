@@ -1,5 +1,6 @@
 package com.iridium.testplugin.managers;
 
+import com.cryptomorin.xseries.XEntityType;
 import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.Setting;
@@ -211,6 +212,11 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
         TeamSpawners s = new TeamSpawners(team, entityType, 0);
         teamSpawners.add(s);
         return s;
+    }
+
+    @Override
+    public TeamSpawners getTeamSpawners(TestTeam team, XEntityType xEntityType) {
+        return getTeamSpawners(team, xEntityType.get());
     }
 
     @Override

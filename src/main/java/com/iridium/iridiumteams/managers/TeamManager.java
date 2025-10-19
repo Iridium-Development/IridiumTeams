@@ -1,5 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
+import com.cryptomorin.xseries.XEntityType;
 import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.*;
@@ -179,6 +180,7 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
     public abstract TeamBank getTeamBank(T team, String bankItem);
 
     public abstract TeamSpawners getTeamSpawners(T team, EntityType entityType);
+    public abstract TeamSpawners getTeamSpawners(T team, XEntityType xEntityType);
 
     public abstract TeamBlock getTeamBlock(T team, XMaterial xMaterial);
 

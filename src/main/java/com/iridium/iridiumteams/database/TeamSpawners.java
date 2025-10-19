@@ -28,6 +28,12 @@ public class TeamSpawners extends TeamData {
         this.amount = amount;
     }
 
+    public TeamSpawners(@NotNull Team team, XEntityType entityType, int amount) {
+        super(team);
+        this.entityType = entityType;
+        this.amount = amount;
+    }
+
     public void setAmount(int amount) {
         this.amount = amount;
         setChanged(true);
