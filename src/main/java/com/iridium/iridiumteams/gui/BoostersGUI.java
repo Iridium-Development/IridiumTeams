@@ -70,11 +70,10 @@ public class BoostersGUI<T extends Team, U extends IridiumUser<T>> extends BackG
                     new Placeholder("vault_cost", cost)
             ));
 
-            if(nextData != null) {
-                for (Map.Entry<String, Double> bankItem : nextData.bankCosts.entrySet()) {
-                    placeholders.add(new Placeholder(bankItem.getKey() + "_cost", formatPrice(bankItem.getValue())));
-                }
-            }
+            iridiumTeams.getBankItemList().forEach(bankItem -> {
+                double required = nextData == null ? 0 : nextData.bankCosts.getOrDefault(bankItem.getName(), 0.00);
+                placeholders.add(new Placeholder(bankItem.getName() + "_cost", nextData == null ? iridiumTeams.getMessages().nullPlaceholder :formatPrice(required)));
+            });
 
             inventory.setItem(enhancementEntry.getValue().item.slot, ItemStackUtils.makeItem(enhancementEntry.getValue().item, placeholders));
         }
