@@ -37,7 +37,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("dev.rosewood:rosestacker:1.5.36")
-    compileOnly("com.bgsoftware:WildStackerAPI:2025.1")
+    compileOnly("com.bgsoftware:WildStackerAPI:2025.2")
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
     compileOnly("net.ess3:EssentialsXSpawn:2.16.1")
 
