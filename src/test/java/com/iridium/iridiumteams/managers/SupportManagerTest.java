@@ -25,25 +25,25 @@ class SupportManagerTest {
 
     @Test
     public void SupportManager__Stacker_Support_Empty() {
-        TestPlugin.getInstance().getSupportManager().registerSupport();
+        TestPlugin.getInstance().getSupportManager().registerDefaults();
         assertTrue(TestPlugin.getInstance().getSupportManager().getStackerSupport().isEmpty());
     }
 
     @Test
     public void SupportManager__Spawner_Support_Empty() {
-        TestPlugin.getInstance().getSupportManager().registerSupport();
+        TestPlugin.getInstance().getSupportManager().registerDefaults();
         assertTrue(TestPlugin.getInstance().getSupportManager().getSpawnerSupport().isEmpty());
     }
 
     @Test
     public void SupportManager__Spawn_Support_Empty() {
-        TestPlugin.getInstance().getSupportManager().registerSupport();
+        TestPlugin.getInstance().getSupportManager().registerDefaults();
         assertTrue(TestPlugin.getInstance().getSupportManager().getSpawnSupport().isEmpty());
     }
 
     @Test
     public void SupportManager__Provider_List_Empty() {
-        TestPlugin.getInstance().getSupportManager().registerSupport();
+        TestPlugin.getInstance().getSupportManager().registerDefaults();
         assertTrue(TestPlugin.getInstance().getSupportManager().getProviderList().isEmpty());
     }
 }
