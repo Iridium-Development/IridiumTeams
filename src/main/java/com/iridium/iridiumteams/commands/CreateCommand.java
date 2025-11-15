@@ -40,6 +40,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 getCooldownProvider().applyCooldown(player);
+                iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_CREATE, iridiumTeams.getTeamLogs().teamCreateLogDescription, user.getUuid()));
             });
             return false;
         }
