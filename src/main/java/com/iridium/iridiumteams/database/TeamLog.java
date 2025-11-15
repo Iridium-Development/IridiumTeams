@@ -57,4 +57,13 @@ public class TeamLog {
         this.user = user;
         this.otherUser = otherUser;
     }
+
+    public TeamLog(TeamLog teamLog, String description){
+        this.teamID = teamLog.getTeamID();
+        this.time = teamLog.getTime();
+        this.action = teamLog.getAction();
+        this.description = description;
+        this.user = teamLog.getUser();
+        this.otherUser = teamLog.getOtherUser();
+    }
 }

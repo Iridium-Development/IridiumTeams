@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -49,10 +50,12 @@ public class LogsCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
             int finalPage = page;
             iridiumTeams.getTeamManager().getTeamLogs(team, 8, page, null, null).thenAccept(teamLogs -> Bukkit.getScheduler().runTask(iridiumTeams, () -> {
+                List<TeamLog> processedTeamLogs = iridiumTeams.getTeamManager().processTeamLogs(teamLogs);
                 Player player = user.getPlayer();
                 // Prepare the footer
                 TextComponent footerText = new TextComponent(StringUtils.color(iridiumTeams.getTeamLogs().teamLogFooter
                         .replace("%page%", String.valueOf(finalPage))
+                        .replace("%max_page%", String.valueOf(maxPage))
                 ));
                 TextComponent previousButton = new TextComponent(StringUtils.color(iridiumTeams.getTeamLogs().teamLogPreviousPage));
                 TextComponent nextButton = new TextComponent(StringUtils.color(iridiumTeams.getTeamLogs().teamLogNextPage));
@@ -67,9 +70,9 @@ public class LogsCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
                 // Send all messages
                 player.sendMessage(StringUtils.color(StringUtils.getCenteredMessage(iridiumTeams.getTeamLogs().teamLogHeader, iridiumTeams.getTeamLogs().teamLogFiller)));
-                teamLogs.stream()
+                processedTeamLogs.stream()
                         .map(teamLog -> StringUtils.color(iridiumTeams.getTeamLogs().teamLogMessage
-                                .replace("%date%", teamLog.getTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getConfiguration().dateTimeFormat)))
+                                .replace("%date%", teamLog.getTime().format(DateTimeFormatter.ofPattern(iridiumTeams.getTeamLogs().teamLogDateTimeFormat)))
                                 .replace("%description%", teamLog.getDescription())))
                         .forEach(player::sendMessage);
 

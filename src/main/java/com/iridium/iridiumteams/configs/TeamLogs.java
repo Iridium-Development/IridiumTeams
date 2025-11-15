@@ -27,6 +27,7 @@ public class TeamLogs {
     public String teamLogNextPage;
     public String teamLogNextPageHover;
     public String teamLogPreviousPageHover;
+    public String teamLogDateTimeFormat = "dd/MM/yy HH:mm";
 
     public String teamCreateLogDescription = "%user% has created your island";
     public String teamInviteLogDescription = "%user% invited %otherUser% to join your island";
