@@ -188,6 +188,9 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract @Nullable TeamSetting getTeamSetting(T team, String setting);
 
+    public abstract CompletableFuture<Void> saveTeamLog(TeamLog teamLog);
+    public abstract CompletableFuture<List<TeamLog>> getTeamLogs(T team, int limit, String action, UUID user);
+
     public int getTeamLevel(int experience) {
         if (!iridiumTeams.getConfiguration().enableLeveling) return 1;
 

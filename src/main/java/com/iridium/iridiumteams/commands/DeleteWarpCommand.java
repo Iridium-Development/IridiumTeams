@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.database.TeamWarp;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
@@ -43,6 +45,7 @@ public class DeleteWarpCommand<T extends Team, U extends IridiumUser<T>> extends
         }
 
         iridiumTeams.getTeamManager().deleteWarp(teamWarp.get());
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_WARP_DELETE, iridiumTeams.getTeamLogs().teamWarpDeleteDescription.replace("%warp%", teamWarp.get().getName()), user.getUuid()));
         iridiumTeams.getTeamManager().getTeamMembers(team).stream().map(U::getPlayer).filter(Objects::nonNull).forEach(member ->
                 member.sendMessage(StringUtils.color(iridiumTeams.getMessages().deletedWarp
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

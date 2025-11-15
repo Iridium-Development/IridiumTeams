@@ -2,11 +2,9 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.SettingType;
-import com.iridium.iridiumteams.database.IridiumUser;
-import com.iridium.iridiumteams.database.Team;
-import com.iridium.iridiumteams.database.TeamInvite;
-import com.iridium.iridiumteams.database.TeamSetting;
+import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.enhancements.MembersEnhancementData;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
@@ -62,6 +60,8 @@ public class JoinCommand<T extends Team, U extends IridiumUser<T>> extends Comma
 
         user.setTeam(team.get());
         teamInvite.ifPresent(invite -> iridiumTeams.getTeamManager().deleteTeamInvite(invite));
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team.get(), LogType.TEAM_JOIN, iridiumTeams.getTeamLogs().teamJoinLogDescription, user.getUuid()));
+
 
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().joinedTeam
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)

@@ -244,6 +244,16 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
+    public CompletableFuture<Void> saveTeamLog(TeamLog teamLog) {
+        return CompletableFuture.runAsync(() -> {});
+    }
+
+    @Override
+    public CompletableFuture<List<TeamLog>> getTeamLogs(TestTeam team, int limit, String action, UUID user) {
+        return CompletableFuture.completedFuture(new ArrayList<>());
+    }
+
+    @Override
     public TeamEnhancement getTeamEnhancement(TestTeam team, String enhancement) {
         if (!teamEnhancements.containsKey(enhancement)) {
             teamEnhancements.put(enhancement, new TeamEnhancement(team, enhancement, 0));

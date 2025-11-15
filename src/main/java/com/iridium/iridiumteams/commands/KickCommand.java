@@ -2,10 +2,12 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -68,6 +70,9 @@ public class KickCommand<T extends Team, U extends IridiumUser<T>> extends Comma
                         .replace("%kicker%", player.getName())
                 ))
         );
+
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_KICK, iridiumTeams.getTeamLogs().teamKickLogDescription, kickedPlayer.getUuid(), user.getUuid()));
+
         return true;
     }
 

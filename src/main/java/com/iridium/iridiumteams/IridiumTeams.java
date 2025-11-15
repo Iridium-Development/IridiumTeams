@@ -133,6 +133,7 @@ public abstract class IridiumTeams<T extends Team, U extends IridiumUser<T>> ext
     public abstract Shop getShop();
 
     public abstract Settings getSettings();
+    public abstract TeamLogs getTeamLogs();
 
     public void recalculateTeams() {
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {

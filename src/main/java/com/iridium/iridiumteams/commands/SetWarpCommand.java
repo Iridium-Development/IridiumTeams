@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.enhancements.WarpsEnhancementData;
 import com.iridium.iridiumteams.utils.LocationUtils;
 import lombok.NoArgsConstructor;
@@ -60,6 +62,7 @@ public class SetWarpCommand<T extends Team, U extends IridiumUser<T>> extends Co
         }
 
         iridiumTeams.getTeamManager().createWarp(team, player.getUniqueId(), player.getLocation(), args[0], args.length == 2 ? args[1] : null);
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_WARP_CREATE, iridiumTeams.getTeamLogs().teamWarpCreateDescription.replace("%warp%", args[0]), user.getUuid()));
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().createdWarp
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%name%", args[0])
