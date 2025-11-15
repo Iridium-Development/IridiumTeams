@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.gui.ConfirmationGUI;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
@@ -68,6 +70,8 @@ public class TransferCommand<T extends Team, U extends IridiumUser<T>> extends C
                             .replace("%new_owner%", targetUser.getName())
                     ));
                 }
+
+                iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_TRANSFER, iridiumTeams.getTeamLogs().teamTransferLogDescription, targetUser.getUuid(), user.getUuid()));
             });
             getCooldownProvider().applyCooldown(player);
         }, iridiumTeams).getInventory());

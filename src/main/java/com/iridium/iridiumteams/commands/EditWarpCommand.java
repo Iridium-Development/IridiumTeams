@@ -3,9 +3,11 @@ package com.iridium.iridiumteams.commands;
 import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.database.TeamWarp;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
@@ -57,6 +59,7 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
                     return false;
                 }
                 teamWarp.get().setIcon(xMaterial.get());
+                iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_WARP_EDIT, iridiumTeams.getTeamLogs().teamWarpEditDescription.replace("%warp%", teamWarp.get().getName()).replace("%type%", "Icon"), user.getUuid()));
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpIconSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
@@ -69,6 +72,7 @@ public class EditWarpCommand<T extends Team, U extends IridiumUser<T>> extends C
 
                 String description = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
                 teamWarp.get().setDescription(description);
+                iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_WARP_EDIT, iridiumTeams.getTeamLogs().teamWarpEditDescription.replace("%warp%", teamWarp.get().getName()).replace("%type%", "Description"), user.getUuid()));
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().warpDescriptionSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));

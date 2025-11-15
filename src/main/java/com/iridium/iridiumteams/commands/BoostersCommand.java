@@ -2,8 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamEnhancement;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
 import com.iridium.iridiumteams.gui.BoostersGUI;
@@ -37,12 +40,14 @@ public class BoostersCommand<T extends Team, U extends IridiumUser<T>> extends C
             ));
             return false;
         }
+        TeamEnhancement teamEnhancement = iridiumTeams.getTeamManager().getTeamEnhancement(team, booster);
         boolean success = iridiumTeams.getTeamManager().UpdateEnhancement(team, booster, player);
         if (success) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().purchasedBooster
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%booster%", booster)
             ));
+            iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_BOOSTER_PURCHASE, iridiumTeams.getTeamLogs().teamBoosterPurchaseDescription.replace("%upgrade_type%", teamEnhancement.getEnhancementName()).replace("%level%", String.valueOf(teamEnhancement.getLevel())), user.getUuid()));
         }
         return success;
     }

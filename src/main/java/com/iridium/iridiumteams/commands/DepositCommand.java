@@ -2,11 +2,13 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.bank.BankItem;
 import com.iridium.iridiumteams.bank.BankResponse;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamBank;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -44,6 +46,9 @@ public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Co
                     .replace("%amount%", String.valueOf(bankResponse.getAmount()))
                     .replace("%type%", bankItem.get().getName())
             ));
+
+            iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_BANK_DEPOSIT, iridiumTeams.getTeamLogs().teamBankDepositDescription.replace("%amount%", String.valueOf(bankResponse.getAmount())).replace("%type%", bankItem.get().getName()), user.getUuid()));
+
             return true;
         } catch (NumberFormatException exception) {
             player.sendMessage(StringUtils.color(iridiumTeams.getMessages().notANumber.replace("%prefix%", iridiumTeams.getConfiguration().prefix)));

@@ -188,6 +188,23 @@ public abstract class TeamManager<T extends Team, U extends IridiumUser<T>> {
 
     public abstract @Nullable TeamSetting getTeamSetting(T team, String setting);
 
+    public abstract CompletableFuture<Void> saveTeamLog(TeamLog teamLog);
+
+    public abstract CompletableFuture<List<TeamLog>> getTeamLogs(T team, int limit, int page, String action, UUID user);
+
+    public abstract CompletableFuture<Integer> getTeamLogsMaxPage(T team, int pageSize, String action, UUID user);
+
+    public List<TeamLog> processTeamLogs(List<TeamLog> teamLogs) {
+        return teamLogs.stream().map(this::processTeamLog).collect(Collectors.toList());
+    }
+
+    public TeamLog processTeamLog(TeamLog teamLog) {
+        String username = iridiumTeams.getUserManager().getUserByUUID(teamLog.getUser()).map(U::getName).orElse("N/A");
+        String otherUsername = iridiumTeams.getUserManager().getUserByUUID(teamLog.getOtherUser()).map(U::getName).orElse("N/A");
+
+        return new TeamLog(teamLog, teamLog.getDescription().replace("%user%", username).replace("%otherUser%", otherUsername));
+    }
+
     public int getTeamLevel(int experience) {
         if (!iridiumTeams.getConfiguration().enableLeveling) return 1;
 

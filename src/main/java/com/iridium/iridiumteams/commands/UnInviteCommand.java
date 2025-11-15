@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamInvite;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -35,6 +37,7 @@ public class UnInviteCommand<T extends Team, U extends IridiumUser<T>> extends C
         }
 
         iridiumTeams.getTeamManager().deleteTeamInvite(teamInvite.get());
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_UNINVITE, iridiumTeams.getTeamLogs().teamUnInviteLogDescription, user.getUuid(), offlinePlayer.getUuid()));
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamInviteRevoked
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", offlinePlayer.getName())

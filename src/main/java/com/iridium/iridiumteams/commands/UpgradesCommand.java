@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
 import com.iridium.iridiumteams.database.TeamEnhancement;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.enhancements.Enhancement;
 import com.iridium.iridiumteams.enhancements.EnhancementType;
 import com.iridium.iridiumteams.gui.UpgradesGUI;
@@ -51,6 +53,8 @@ public class UpgradesCommand<T extends Team, U extends IridiumUser<T>> extends C
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                     .replace("%upgrade%", booster)
             ));
+
+            iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_UPGRADE_PURCHASE, iridiumTeams.getTeamLogs().teamUpgradePurchaseDescription.replace("%upgrade_type%", teamEnhancement.getEnhancementName()).replace("%level%", String.valueOf(teamEnhancement.getLevel())), user.getUuid()));
         }
         return success;
     }

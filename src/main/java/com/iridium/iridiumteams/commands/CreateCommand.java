@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
@@ -38,6 +40,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
                 getCooldownProvider().applyCooldown(player);
+                iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_CREATE, iridiumTeams.getTeamLogs().teamCreateLogDescription, user.getUuid()));
             });
             return false;
         }
@@ -70,6 +73,7 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                     .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
             ));
             getCooldownProvider().applyCooldown(player);
+            iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_CREATE, iridiumTeams.getTeamLogs().teamCreateLogDescription, user.getUuid()));
         });
         return false;
     }

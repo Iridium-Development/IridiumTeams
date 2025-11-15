@@ -2,11 +2,13 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Setting;
 import com.iridium.iridiumteams.api.SettingUpdateEvent;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.database.TeamSetting;
 import com.iridium.iridiumteams.gui.SettingsGUI;
 import lombok.NoArgsConstructor;
@@ -53,6 +55,7 @@ public class SettingsCommand<T extends Team, U extends IridiumUser<T>> extends C
                 }
 
                 teamSetting.setValue(value.get());
+                iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_SETTINGS, iridiumTeams.getTeamLogs().teamSettingsDescription.replace("%setting%", setting.getKey()).replace("%value%", value.get()), user.getUuid()));
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().settingSet
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                         .replace("%setting%", setting.getValue().getDisplayName())

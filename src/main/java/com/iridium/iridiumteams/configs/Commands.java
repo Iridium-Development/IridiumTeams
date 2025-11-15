@@ -55,6 +55,7 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
     public ShopCommand<T, U> shopCommand;
     public BlockValueCommand<T, U> blockValueCommand;
     public LevelCommand<T, U> levelCommand;
+    public LogsCommand<T, U> logsCommand;
 
     public Commands() {
         this("iridiumteams", "Teams", "team");
@@ -108,5 +109,6 @@ public class Commands<T extends Team, U extends IridiumUser<T>> {
         shopCommand = new ShopCommand<>(Collections.singletonList("shop"), "Open the Shop", "%prefix% &7/" + commandBase + " shop", "", 0);
         blockValueCommand = new BlockValueCommand<>(Collections.singletonList("blockvalues"), "View block values","%prefix% &7/" + commandBase + "blockvalues <blocks/spawners> (player)", "", 0);
         levelCommand = new LevelCommand<>(Collections.singletonList("level"), "Check your " + team + " level", "%prefix% &7/" + commandBase + " level", "", 0);
+        logsCommand = new LogsCommand<>(Collections.singletonList("logs"), "Check your " + team + " logs", "%prefix% &7/" + commandBase + " logs", "", 0);
     }
 }

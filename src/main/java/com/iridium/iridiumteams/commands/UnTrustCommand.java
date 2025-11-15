@@ -2,8 +2,10 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import com.iridium.iridiumteams.database.TeamTrust;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
@@ -35,6 +37,7 @@ public class UnTrustCommand<T extends Team, U extends IridiumUser<T>> extends Co
         }
 
         iridiumTeams.getTeamManager().deleteTeamTrust(teamTrust.get());
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_UNTRUST, iridiumTeams.getTeamLogs().teamUnTrustDescription, user.getUuid(), offlinePlayer.getUuid()));
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamTrustRevoked
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", offlinePlayer.getName())

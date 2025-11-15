@@ -2,10 +2,12 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -69,6 +71,10 @@ public class DemoteCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 }
             }
         }
+
+        String rankName = iridiumTeams.getUserRanks().get(nextRank).name;
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_DEMOTE, iridiumTeams.getTeamLogs().teamDemotionLogDescription.replace("%rank%", rankName), targetUser.getUuid(), user.getUuid()));
+
         return true;
     }
 

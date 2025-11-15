@@ -2,9 +2,11 @@ package com.iridium.iridiumteams.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.LogType;
 import com.iridium.iridiumteams.PermissionType;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
+import com.iridium.iridiumteams.database.TeamLog;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -54,6 +56,8 @@ public class InviteCommand<T extends Team, U extends IridiumUser<T>> extends Com
         }
 
         iridiumTeams.getTeamManager().createTeamInvite(team, offlinePlayerUser, user);
+        iridiumTeams.getTeamManager().saveTeamLog(new TeamLog(team, LogType.TEAM_INVITE, iridiumTeams.getTeamLogs().teamInviteLogDescription, user.getUuid(), offlinePlayerUser.getUuid()));
+
         player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamInviteSent
                 .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 .replace("%player%", offlinePlayerUser.getName())
