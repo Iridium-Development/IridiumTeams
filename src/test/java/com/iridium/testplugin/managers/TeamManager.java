@@ -249,8 +249,13 @@ public class TeamManager extends com.iridium.iridiumteams.managers.TeamManager<T
     }
 
     @Override
-    public CompletableFuture<List<TeamLog>> getTeamLogs(TestTeam team, int limit, String action, UUID user) {
+    public CompletableFuture<List<TeamLog>> getTeamLogs(TestTeam team, int limit, int page, String action, UUID user) {
         return CompletableFuture.completedFuture(new ArrayList<>());
+    }
+
+    @Override
+    public CompletableFuture<Integer> getTeamLogsMaxPage(TestTeam team, int pageSize, String action, UUID user) {
+        return CompletableFuture.completedFuture(1);
     }
 
     @Override

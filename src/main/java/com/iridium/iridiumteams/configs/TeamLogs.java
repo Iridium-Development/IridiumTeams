@@ -3,6 +3,31 @@ package com.iridium.iridiumteams.configs;
 // Note that when saving this, %user% and %otherUser% will be automatically looked up so the Usernames are always the latest (In case of name changes)
 // %user% should always be the person doing the action (the one who issued the command)
 public class TeamLogs {
+
+    public TeamLogs() {
+        this("&c", "Team");
+    }
+
+    public TeamLogs(String color, String team) {
+        teamLogHeader = "&8[" + color + "&l" + team + " Logs&8]";
+        teamLogFiller = "&8&m ";
+        teamLogMessage = color + "%date%&r: &7%description%";
+        teamLogFooter = " &7Page %page% of %max_page% ";
+        teamLogPreviousPage = color + "<<";
+        teamLogNextPage = color + ">>";
+        teamLogNextPageHover = "&7Click to go to the next page.";
+        teamLogPreviousPageHover = "&7Click to go to the previous page.";
+    }
+
+    public String teamLogHeader;
+    public String teamLogFiller;
+    public String teamLogMessage;
+    public String teamLogFooter;
+    public String teamLogPreviousPage;
+    public String teamLogNextPage;
+    public String teamLogNextPageHover;
+    public String teamLogPreviousPageHover;
+
     public String teamCreateLogDescription = "%user% has created your island";
     public String teamInviteLogDescription = "%user% invited %otherUser% to join your island";
     public String teamUnInviteLogDescription = "%user% un-invited %otherUser% to join your island";
