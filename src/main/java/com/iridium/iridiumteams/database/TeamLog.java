@@ -21,7 +21,7 @@ public class TeamLog {
     @DatabaseField(columnName = "team_id", canBeNull = false)
     private int teamID;
 
-    @DatabaseField(columnName = "time", canBeNull = false)
+    @DatabaseField(columnName = "time", canBeNull = false, index = true)
     private LocalDateTime time;
 
     @DatabaseField(columnName = "user")
