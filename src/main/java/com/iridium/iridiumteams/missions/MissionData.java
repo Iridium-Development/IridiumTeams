@@ -54,4 +54,5 @@ public class MissionData {
         private String mission;
         private int level;
     }
+
 }
