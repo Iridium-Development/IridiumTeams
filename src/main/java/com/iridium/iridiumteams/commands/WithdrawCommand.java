@@ -37,6 +37,8 @@ public class WithdrawCommand<T extends Team, U extends IridiumUser<T>> extends C
             return false;
         }
 
+        if(!bankItem.get().canTransact) return false;
+
         try {
             TeamBank teamBank = iridiumTeams.getTeamManager().getTeamBank(team, bankItem.get().getName());
             BankResponse bankResponse = bankItem.get().withdraw(player, Double.parseDouble(args[1]), teamBank, iridiumTeams);

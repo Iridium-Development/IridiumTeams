@@ -11,12 +11,18 @@ import org.bukkit.entity.Player;
 public class ExperienceBankItem extends BankItem {
 
     public ExperienceBankItem(double defaultAmount, Item item) {
-        super("experience", item, defaultAmount, true);
+        super("experience", item, defaultAmount, true, true);
+    }
+
+    public ExperienceBankItem(double defaultAmount, Item item, boolean canTransact) {
+        super("experience", item, defaultAmount, true, canTransact);
     }
 
     @Override
     public BankResponse withdraw(Player player, Number amount, TeamBank teamBank, IridiumTeams<?, ?> iridiumTeams) {
+        if(!this.canTransact) return new BankResponse((int) teamBank.getNumber(), false);
         int experience = Math.min(amount.intValue(), (int) teamBank.getNumber());
+
         if (experience > 0) {
             PlayerUtils.setTotalExperience(player, PlayerUtils.getTotalExperience(player) + experience);
             teamBank.setNumber(teamBank.getNumber() - experience);
@@ -27,7 +33,9 @@ public class ExperienceBankItem extends BankItem {
 
     @Override
     public BankResponse deposit(Player player, Number amount, TeamBank teamBank, IridiumTeams<?, ?> iridiumTeams) {
+        if(!this.canTransact) return new BankResponse(PlayerUtils.getTotalExperience(player), false);
         int experience = Math.min(amount.intValue(), PlayerUtils.getTotalExperience(player));
+
         if (experience > 0) {
             PlayerUtils.setTotalExperience(player, PlayerUtils.getTotalExperience(player) - experience);
             teamBank.setNumber(teamBank.getNumber() + experience);

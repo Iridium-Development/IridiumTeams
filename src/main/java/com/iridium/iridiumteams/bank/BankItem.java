@@ -17,6 +17,7 @@ public abstract class BankItem {
     private Item item;
     private double defaultAmount;
     private boolean enabled;
+    public boolean canTransact = true;
 
     public abstract BankResponse withdraw(Player player, Number amount, TeamBank teamBank, IridiumTeams<?, ?> teams);
 

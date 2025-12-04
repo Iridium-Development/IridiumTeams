@@ -37,6 +37,8 @@ public class DepositCommand<T extends Team, U extends IridiumUser<T>> extends Co
             return false;
         }
 
+        if(!bankItem.get().canTransact) return false;
+
         try {
             TeamBank teamBank = iridiumTeams.getTeamManager().getTeamBank(team, bankItem.get().getName());
             BankResponse bankResponse = bankItem.get().deposit(player, Double.parseDouble(args[1]), teamBank, iridiumTeams);
