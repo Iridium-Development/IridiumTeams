@@ -38,18 +38,18 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
         return RoseStackerAPI.getInstance().isSpawnerStacked(block);
     }
 
-    private StackedBlock getStackedBlock(Block block) {
-        return RoseStackerAPI.getInstance().getStackedBlock(block);
+    private Optional<StackedBlock> getStackedBlock(Block block) {
+        return Optional.ofNullable(RoseStackerAPI.getInstance().getStackedBlock(block));
     }
 
-    private StackedSpawner getStackedSpawner(Block block) {
-        return RoseStackerAPI.getInstance().getStackedSpawner(block);
+    private Optional<StackedSpawner> getStackedSpawner(Block block) {
+        return Optional.ofNullable(RoseStackerAPI.getInstance().getStackedSpawner(block));
     }
 
     private List<StackedBlock> getStackedBlocks(List<Block> blocks) {
         List<StackedBlock> stackedBlocks = new ArrayList<>(Collections.emptyList());
         for(Block block : blocks) {
-            stackedBlocks.add(getStackedBlock(block));
+            getStackedBlock(block).ifPresent(stackedBlocks::add);
         }
         return stackedBlocks;
     }
@@ -57,24 +57,25 @@ public class RoseStackerSupport<T extends Team, U extends IridiumUser<T>> implem
     private List<StackedSpawner> getStackedSpawners(List<CreatureSpawner> spawners) {
         List<StackedSpawner> stackedSpawners = new ArrayList<>(Collections.emptyList());
         for(CreatureSpawner spawner : spawners) {
-            stackedSpawners.add(getStackedSpawner(spawner.getBlock()));
+            getStackedSpawner(spawner.getBlock()).ifPresent(stackedSpawners::add);
         }
         return stackedSpawners;
     }
 
     @Override
     public int getStackAmount(Block block) {
-        return getStackedBlock(block).getStackSize();
+        return getStackedBlock(block).map(StackedBlock::getStackSize).orElse(0);
     }
 
     @Override
     public int getStackAmount(CreatureSpawner spawner) {
-        return getStackedSpawner(spawner.getBlock()).getStackSize();
+        return getStackedSpawner(spawner.getBlock()).map(StackedSpawner::getStackSize).orElse(0);
     }
 
     @Override
     public int getSpawnAmount(CreatureSpawner spawner) {
-        return getStackAmount(spawner) * RoseStackerAPI.getInstance().getStackedSpawner(spawner.getBlock()).getSpawner().getSpawnCount();
+        Optional<StackedSpawner> stackedSpawner = getStackedSpawner(spawner.getBlock());
+        return stackedSpawner.map(StackedSpawner::getStackSize).orElse(0) * stackedSpawner.map(s -> s.getSpawner().getSpawnCount()).orElse(0);
     }
 
     @Override
