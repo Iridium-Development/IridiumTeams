@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.configs;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
+import com.cryptomorin.xseries.reflection.XReflection;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
@@ -210,7 +211,7 @@ public class Missions {
                                         color + "&l* &7$1000",
                                         "",
                                         color + "&l * &7Time Remaining: " + color + "%timeremaining_hours% hours %timeremaining_minutes% minutes and %timeremaining_seconds% seconds"
-                                )), Arrays.asList("SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XMaterial.supports(17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
+                                )), Arrays.asList("SMELT:" + (XReflection.supports(1, 17) ? XMaterial.RAW_IRON.name() : XMaterial.IRON_ORE.name()) + ":30", "SMELT:" + (XReflection.supports(1, 17) ? XMaterial.RAW_GOLD.name() : XMaterial.GOLD_ORE.name()) + ":15"), 1, new Reward(new Item(XMaterial.DIAMOND, 1, color + "&lBlacksmith Reward",
                                 Arrays.asList(
                                         color + "&l Rewards",
                                         color + "&l* &75 Island Crystals",
