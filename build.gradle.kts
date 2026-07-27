@@ -35,7 +35,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.46")
     compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
-    compileOnly("me.clip:placeholderapi:2.12.2")
+    compileOnly("me.clip:placeholderapi:2.12.3")
     compileOnly("dev.rosewood:rosestacker:1.5.41")
     compileOnly("com.bgsoftware:WildStackerAPI:2026.1")
     compileOnly("com.moyskleytech:ObsidianStackerAPI:1.0.0")
