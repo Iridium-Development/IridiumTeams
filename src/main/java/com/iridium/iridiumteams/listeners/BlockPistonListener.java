@@ -31,13 +31,23 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
-        int currentTeam = team.map(T::getId).orElse(0);
-        for (Block block : event.getBlocks()) {
-            int[] offset = offsets.get(event.getDirection());
-            Optional<T> newTeam = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]), team);
-            if (newTeam.map(T::getId).orElse(0) != currentTeam) {
+        if (team.isPresent()) {
+            int teamId = team.get().getId();
+
+            Block targetBlock = event.getBlock().getRelative(event.getDirection());
+            Optional<T> targetTeam = iridiumTeams.getTeamManager().getTeamViaLocation(targetBlock.getLocation(), team);
+            if (!targetTeam.isPresent() || targetTeam.get().getId() != teamId) {
                 event.setCancelled(true);
                 return;
+            }
+
+            int[] offset = offsets.get(event.getDirection());
+            for (Block block : event.getBlocks()) {
+                Optional<T> newTeam = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]), team);
+                if (!newTeam.isPresent() || newTeam.get().getId() != teamId) {
+                    event.setCancelled(true);
+                    return;
+                }
             }
         }
     }
