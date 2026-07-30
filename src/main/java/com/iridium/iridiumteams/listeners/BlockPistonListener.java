@@ -33,7 +33,6 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
         if (team.isPresent()) {
             int teamId = team.get().getId();
-            int[] offset = offsets.get(event.getDirection());
 
             Block targetBlock = event.getBlock().getRelative(event.getDirection());
             Optional<T> targetTeam = iridiumTeams.getTeamManager().getTeamViaLocation(targetBlock.getLocation(), team);
@@ -42,6 +41,7 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
                 return;
             }
 
+            int[] offset = offsets.get(event.getDirection());
             for (Block block : event.getBlocks()) {
                 Optional<T> newTeam = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]), team);
                 if (!newTeam.isPresent() || newTeam.get().getId() != teamId) {
