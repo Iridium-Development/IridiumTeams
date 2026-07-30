@@ -31,21 +31,23 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
-        int currentTeam = team.map(T::getId).orElse(0);
-        int[] offset = offsets.get(event.getDirection());
+        if (team.isPresent()) {
+            int teamId = team.get().getId();
+            int[] offset = offsets.get(event.getDirection());
 
-        Block targetBlock = event.getBlock().getRelative(event.getDirection());
-        Optional<T> headTeam = iridiumTeams.getTeamManager().getTeamViaLocation(targetBlock.getLocation(), team);
-        if (headTeam.map(T::getId).orElse(0) != currentTeam) {
-            event.setCancelled(true);
-            return;
-        }
-
-        for (Block block : event.getBlocks()) {
-            Optional<T> newTeam = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]), team);
-            if (newTeam.map(T::getId).orElse(0) != currentTeam) {
+            Block targetBlock = event.getBlock().getRelative(event.getDirection());
+            Optional<T> targetTeam = iridiumTeams.getTeamManager().getTeamViaLocation(targetBlock.getLocation(), team);
+            if (!targetTeam.isPresent() || targetTeam.get().getId() != teamId) {
                 event.setCancelled(true);
                 return;
+            }
+
+            for (Block block : event.getBlocks()) {
+                Optional<T> newTeam = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]), team);
+                if (!newTeam.isPresent() || newTeam.get().getId() != teamId) {
+                    event.setCancelled(true);
+                    return;
+                }
             }
         }
     }
