@@ -32,8 +32,16 @@ public class BlockPistonListener<T extends Team, U extends IridiumUser<T>> imple
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getBlock().getLocation());
         int currentTeam = team.map(T::getId).orElse(0);
+        int[] offset = offsets.get(event.getDirection());
+
+        Block targetBlock = event.getBlock().getRelative(event.getDirection());
+        Optional<T> headTeam = iridiumTeams.getTeamManager().getTeamViaLocation(targetBlock.getLocation(), team);
+        if (headTeam.map(T::getId).orElse(0) != currentTeam) {
+            event.setCancelled(true);
+            return;
+        }
+
         for (Block block : event.getBlocks()) {
-            int[] offset = offsets.get(event.getDirection());
             Optional<T> newTeam = iridiumTeams.getTeamManager().getTeamViaLocation(block.getLocation().add(offset[0], offset[1], offset[2]), team);
             if (newTeam.map(T::getId).orElse(0) != currentTeam) {
                 event.setCancelled(true);
