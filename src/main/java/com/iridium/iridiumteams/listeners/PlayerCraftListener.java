@@ -18,7 +18,9 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -53,51 +55,49 @@ public class PlayerCraftListener<T extends Team, U extends IridiumUser<T>> imple
             }
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onCrafterCraft(CrafterCraftEvent event) {
         Location loc = event.getBlock().getLocation();
 
         Optional<T> teamOpt = iridiumTeams.getTeamManager().getTeamViaLocation(loc);
-        if (teamOpt.isEmpty()) {
+        if (teamOpt.isEmpty()) return;
+
+        ItemStack result = event.getResult();
+        if (result == null || result.getType().isAir()) return;
+
+        if (isBankItem(event.getRecipe())) {
+            event.setCancelled(true);
             return;
         }
 
         T team = teamOpt.get();
-
-        ItemStack result = event.getResult();
-        if (result == null || result.getType().isAir()) {
-            return;
-        }
-
-        Recipe recipe = event.getRecipe();
-        if (recipe != null) {
-            if (recipe instanceof ShapedRecipe) {
-                for (ItemStack item : ((ShapedRecipe) recipe).getIngredientMap().values()) {
-                    if (item != null && iridiumTeams.getTeamManager().isBankItem(item)) {
-                        event.setCancelled(true);
-                        return;
-                    }
-                }
-            } else if (recipe instanceof ShapelessRecipe) {
-                for (ItemStack item : ((ShapelessRecipe) recipe).getIngredientList()) {
-                    if (item != null && iridiumTeams.getTeamManager().isBankItem(item)) {
-                        event.setCancelled(true);
-                        return;
-                    }
-                }
-            }
-        }
-
         XMaterial material = XMaterial.matchXMaterial(result.getType());
-        int amount = result.getAmount();
 
         iridiumTeams.getMissionManager().handleMissionUpdate(
                 team,
                 loc.getWorld(),
                 "CRAFT",
                 material.name(),
-                amount
+                result.getAmount()
         );
+    }
+
+    private boolean isBankItem(Recipe recipe) {
+        List<ItemStack> ingredients;
+        if (recipe instanceof ShapedRecipe shaped) {
+            ingredients = new ArrayList<>(shaped.getIngredientMap().values());
+        } else if (recipe instanceof ShapelessRecipe shapeless) {
+            ingredients = shapeless.getIngredientList();
+        } else {
+            return false;
+        }
+
+        for (ItemStack item : ingredients) {
+            if (item != null && iridiumTeams.getTeamManager().isBankItem(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
