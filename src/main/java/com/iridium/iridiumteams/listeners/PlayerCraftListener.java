@@ -84,11 +84,13 @@ public class PlayerCraftListener<T extends Team, U extends IridiumUser<T>> imple
     }
 
     private boolean isBankItem(Recipe recipe) {
+        if (recipe == null) return false;
+
         List<ItemStack> ingredients;
-        if (recipe instanceof ShapedRecipe shaped) {
-            ingredients = new ArrayList<>(shaped.getIngredientMap().values());
-        } else if (recipe instanceof ShapelessRecipe shapeless) {
-            ingredients = shapeless.getIngredientList();
+        if (recipe instanceof ShapedRecipe) {
+            ingredients = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
+        } else if (recipe instanceof ShapelessRecipe) {
+            ingredients = ((ShapelessRecipe) recipe).getIngredientList();
         } else {
             return false;
         }
